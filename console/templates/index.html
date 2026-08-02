@@ -86,6 +86,7 @@
       <label><input type="checkbox" name="engines" value="sudarshana" {% if 'sudarshana' in form.engines %}checked{% endif %} /> sudarshana</label>
       <label><input type="checkbox" name="engines" value="bhrigu_bindu" {% if 'bhrigu_bindu' in form.engines %}checked{% endif %} /> bhrigu bindu</label>
       <label><input type="checkbox" name="engines" value="nakshatra_chakra" {% if 'nakshatra_chakra' in form.engines %}checked{% endif %} /> nakshatra chakras</label>
+      <label><input type="checkbox" name="engines" value="classification" {% if 'classification' in form.engines %}checked{% endif %} /> classification</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -329,6 +330,18 @@
     Kota slots: {{ report.summary.kota_chakra_slot_count }} |
     SBC rim: {{ report.summary.sarvatobhadra_rim_count }} |
     Vedha: {{ report.summary.sarvatobhadra_vedha_status }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.classification_engine %}
+  <h3>Classification</h3>
+  <p>
+    Engine: {{ report.summary.classification_engine }} |
+    Gandanta hits: {{ report.summary.gandanta_hit_count }} |
+    Chandra Kriya: {{ report.summary.chandra_kriya }} (#{{ report.summary.chandra_kriya_index }}) |
+    Chandra Vela #: {{ report.summary.chandra_vela_index }} |
+    Moon Baladi: {{ report.summary.moon_baladi_avastha }} |
+    Lagna Gandanta: {{ report.summary.lagna_gandanta }}
   </p>
   {% endif %}
 

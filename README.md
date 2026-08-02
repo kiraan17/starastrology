@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P18c — Nakshatra chakras scaffold done**
+**P19a — Classification Gandanta/Kriya done**
 
-Tara / Kota / Sarvatobhadra rim placement in engine `NakshatraChakras` `0.1.0-scaffold` (Vedha deferred).
+Gandanta flags, Chandra Kriya/Vela, and Baladi Avastha in engine `Classification` `0.1.0-gandanta-kriya`.
 
 
 ## Principles (short)

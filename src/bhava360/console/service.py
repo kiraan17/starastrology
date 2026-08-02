@@ -6,6 +6,7 @@ from typing import Any
 from bhava360.chart.builder import ChartConstructor
 from bhava360.engines.ashtakavarga import run_ashtakavarga_engine
 from bhava360.engines.chakra import run_nakshatra_chakra_engine, run_sudarshana_engine
+from bhava360.engines.classification import run_classification_engine
 from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
@@ -110,6 +111,7 @@ def run_verification(
             "sudarshana",
             "bhrigu_bindu",
             "nakshatra_chakra",
+            "classification",
         )
     )
     if needs_chart:
@@ -207,6 +209,14 @@ def run_verification(
             report["sections"]["nakshatra_chakra"] = run_nakshatra_chakra_engine(chart=chart)
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "nakshatra_chakra", "error": str(exc)})
+
+    if "classification" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for classification")
+            report["sections"]["classification"] = run_classification_engine(chart=chart)
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "classification", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -398,4 +408,17 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
             None,
         )
         summary["tara_chakra_moon_tara"] = (moon_tara or {}).get("tara")
+
+    clas = report["sections"].get("classification")
+    if clas:
+        summary["classification_engine"] = clas.get("engine")
+        summary["gandanta_hit_count"] = len(clas.get("gandanta_hits") or [])
+        moon = clas.get("moon") or {}
+        summary["chandra_kriya"] = (moon.get("chandra_kriya") or {}).get("name")
+        summary["chandra_kriya_index"] = (moon.get("chandra_kriya") or {}).get("index")
+        summary["chandra_vela_index"] = (moon.get("chandra_vela") or {}).get("index")
+        summary["moon_baladi_avastha"] = (moon.get("baladi_avastha") or {}).get("avastha")
+        summary["lagna_gandanta"] = ((clas.get("lagna") or {}).get("gandanta") or {}).get(
+            "active"
+        )
     return summary
