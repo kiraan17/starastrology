@@ -46,7 +46,7 @@
 | TEC-026 | Argala and Virodha Argala | Strength | calculation | normal | yes | partial | Not Researched | |
 | TEC-027 | Natural karakas | Classification | classification | normal | yes | partial | Not Researched | |
 | TEC-028 | Chara Karakas (7/8 config) | Jaimini | classification | normal | yes | partial | Not Researched | Variant config |
-| TEC-029 | Vimshottari dasha full depth | Timing | timing | normal | yes | yes | Not Researched | Maha→Prana |
+| TEC-029 | Vimshottari dasha full depth | Timing | timing | normal | yes | yes | Auto-Tested | P09a Maha→Prana capable; mean year 365.2425d |
 | TEC-030 | Conditional dasha eligibility pack | Timing | timing | normal | yes | partial | Not Researched | |
 | TEC-031 | Yogini dasha | Timing | timing | normal | yes | partial | Not Researched | |
 | TEC-032 | Kalachakra dasha | Timing | timing | normal | yes | no | Not Researched | |

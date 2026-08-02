@@ -7,22 +7,22 @@ Ordered for the backend-first programme.
 | ID | Task | Status |
 |---|---|---|
 | GATE-05 | Phase 0–5 approval package | Approved |
-| P07a | Planet longitudes + SPIKE-01 golden | Done |
-| P07b | Houses, Asc/MC, sunrise/sunset | Done |
-| P08a | Chart construction: Vargas, dignity, Rasi vs Bhava Chalit | **Done** |
+| P07a/b | Kernel longitudes, houses, day window | Done |
+| P08a | Chart construction Vargas/dignity/Bhava Chalit | Done |
+| P09a | Vimshottari dasha platform (Maha→Prana capable) | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
 | P08b | Graha/rashi aspects + relationship graph |
+| P09b | Yogini / conditional dasha modules (framework reuse) |
+| P10 | Parashara engine thin slice (selected yogas + evidence) |
 | P07c | IANA timezone/DST history |
-| P09 | Dasha platform (Vimshottari first) |
-| P03b | Expert-fill classical source editions (esp. D30/varga variants) |
 | ADR-002-PUBLIC | SE license evidence before public API |
 
 ## Explicitly not started
 
-- School engines (Parashara yogas, KP verdicts, Nadi, Jaimini…)
+- Full school engines beyond scaffold
 - Customer frontend
 - Public API activation

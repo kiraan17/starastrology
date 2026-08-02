@@ -18,7 +18,7 @@ CHENNAI = SubjectInput(
 
 def test_chart_constructor_builds_vargas_dignity_and_house_maps():
     chart = ChartConstructor().build(CHENNAI).to_dict()
-    assert chart["config"]["calc_library_version"] == "bhava360-kernel-0.3.0"
+    assert chart["config"]["calc_library_version"] == "bhava360-kernel-0.4.0"
     assert "whole_sign" in chart["angles"]
     assert "bhava_chalit" in chart["angles"]
     assert len(chart["planets"]) == 9
@@ -30,6 +30,9 @@ def test_chart_constructor_builds_vargas_dignity_and_house_maps():
     assert "rasi_house" in sun["houses"]
     assert "bhava_chalit_house" in sun["houses"]
     assert chart["day_window"] is not None
+    assert chart["dashas"] is not None
+    assert chart["dashas"]["system"] == "vimshottari"
+    assert chart["dashas"]["balance"]["lord"] == "Moon"
 
 
 def test_chart_constructor_can_include_gated_d150():

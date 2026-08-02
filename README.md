@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P08 — Chart construction (P08a done)**
+**P09 — Timing platform (P09a Vimshottari done)**
 
-Vargas D1–D60 (+ gated D150), dignity, Rasi vs Bhava Chalit mapping via `ChartConstructor`. Next: aspects/relationship graph or Vimshottari dasha platform.
+Vimshottari balance + nested periods integrated into `ChartConstructor` (`bhava360-kernel-0.4.0`). Next: aspects graph or Parashara thin slice.
 
 ## Principles (short)
 

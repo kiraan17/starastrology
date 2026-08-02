@@ -11,6 +11,7 @@ from bhava360.chart.vargas import DEFAULT_VARGAS, VargaId, compute_vargas
 from bhava360.kernel.models import ChartConfig, HouseSystem, PlanetName, SubjectInput
 from bhava360.kernel.provider import SwissEphemerisProvider
 from bhava360.kernel.timeutil import resolve_subject_time
+from bhava360.timing.vimshottari import DashaLevel, build_vimshottari_tree
 
 
 @dataclass(slots=True)
@@ -26,6 +27,7 @@ class ConstructedChart:
     planets: list[dict[str, Any]]
     house_mappings: list[dict[str, Any]]
     day_window: dict[str, Any] | None
+    dashas: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -40,6 +42,7 @@ class ConstructedChart:
             "planets": self.planets,
             "house_mappings": self.house_mappings,
             "day_window": self.day_window,
+            "dashas": self.dashas,
         }
 
 
@@ -48,7 +51,7 @@ class ChartConstructor:
 
     def __init__(self, config: ChartConfig | None = None) -> None:
         self.config = config or ChartConfig()
-        self.config.calc_library_version = "bhava360-kernel-0.3.0"
+        self.config.calc_library_version = "bhava360-kernel-0.4.0"
         self.provider = SwissEphemerisProvider(self.config)
 
     def build(
@@ -59,6 +62,9 @@ class ChartConstructor:
         include_d150: bool = False,
         force_d150: bool = False,
         bhava_system: HouseSystem = HouseSystem.PLACIDUS,
+        include_vimshottari: bool = True,
+        dasha_depth: DashaLevel = DashaLevel.ANTAR,
+        dasha_years_ahead: float = 120.0,
     ) -> ConstructedChart:
         resolved = resolve_subject_time(subject)
         positions = self.provider.all_planet_positions(subject)
@@ -98,6 +104,16 @@ class ChartConstructor:
         if subject.latitude is not None and subject.longitude is not None:
             day_window = self.provider.day_window(subject).to_dict()
 
+        moon = next(p for p in positions if p.planet == PlanetName.MOON)
+        dashas = None
+        if include_vimshottari:
+            dashas = build_vimshottari_tree(
+                resolved.utc_datetime,
+                moon.longitude_sidereal_deg,
+                depth=dasha_depth,
+                years_ahead=dasha_years_ahead,
+            )
+
         return ConstructedChart(
             chart_id=str(uuid4()),
             created_at_utc=datetime.now(timezone.utc).isoformat(),
@@ -115,6 +131,9 @@ class ChartConstructor:
                 "bhava_chalit_system": bhava_system.value,
                 "vargas": [v.value for v in (vargas or DEFAULT_VARGAS)],
                 "include_d150": include_d150,
+                "include_vimshottari": include_vimshottari,
+                "dasha_depth": dasha_depth.value,
+                "dasha_years_ahead": dasha_years_ahead,
             },
             resolved_time=resolved.to_dict(),
             library=self.provider.library_stamp(),
@@ -126,4 +145,5 @@ class ChartConstructor:
             planets=planet_rows,
             house_mappings=[m.to_dict() for m in mappings],
             day_window=day_window,
+            dashas=dashas,
         )
