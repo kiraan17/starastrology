@@ -71,4 +71,6 @@ Phase 0–5 package is **Approved** (2026-08-02). Calculation kernel coding is a
 
 Public API/customer activation remains blocked until ADR-002 Path L1 or L2 evidence is filed.
 
+Enforcement: `bhava360.licensing.assert_public_activation_allowed` and console `/health` expose the gate. Evidence checklists live under `docs/decisions/adr-002-evidence/`.
+
 School engines remain out of scope until their sources are Approved and rule specs pass review.

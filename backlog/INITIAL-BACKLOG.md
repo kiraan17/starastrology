@@ -13,13 +13,14 @@ Ordered for the backend-first programme.
 | P15 | Jaimini engine thin slice (karakas/arudha/karakamsa/argala) | **Done** |
 | P12b | Ashtakavarga Shodhana / Sodhya Pinda | **Done** |
 | P07c | IANA timezone/DST history | **Done** |
+| ADR-002-PUBLIC | SE license public-activation gate + evidence package | **Done** (still blocked pending real L1/L2 filing) |
 
 ## Next
 
 | ID | Task |
 |---|---|
 | P13 | Nakshatra Nadi (blocked on approved corpus) |
-| ADR-002-PUBLIC | SE license evidence before public API |
+| ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 
 ## Explicitly not started
 

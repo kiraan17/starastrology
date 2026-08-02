@@ -27,7 +27,7 @@
 | TEC-007 | House cusps and house-system pack | Kernel | calculation | normal | yes | partial | Auto-Tested | whole_sign + placidus in P07b; Sripati deferred |
 | TEC-008 | Ascendant, MC and related angles | Kernel | calculation | normal | yes | partial | Auto-Tested | P07b |
 | TEC-009 | Sunrise, sunset, local day boundary | Kernel | calculation | normal | yes | partial | Auto-Tested | P07b disc-center; local civil date |
-| TEC-010 | Ephemeris run stamp (lib/files/mode/version) | Kernel | calculation | normal | no | no | Not Researched | Required every snapshot |
+| TEC-010 | Ephemeris run stamp (lib/files/mode/version) | Kernel | calculation | normal | no | no | Auto-Tested | Snapshot/library stamp present; public activation gated by ADR-002 |
 | TEC-011 | Rasi (D1) chart construction | Chart | calculation | normal | yes | yes | Auto-Tested | P08a |
 | TEC-012 | Bhava Chalit mapping | Chart | calculation | normal | yes | partial | Auto-Tested | Rasi vs Placidus cuspal compare |
 | TEC-013 | Nakshatra, pada, star lord | Chart | calculation | normal | yes | yes | Not Researched | |

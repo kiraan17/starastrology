@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P07c — IANA timezone / DST done**
+**ADR-002-PUBLIC — license gate enforced**
 
-Kernel accepts IANA ids (`zoneinfo`/`tzdata`) with DST gap/overlap policies. Chart stamp `bhava360-kernel-0.6.0`. Console has timezone id + ambiguity policy fields.
+Public API activation is code-blocked (`LICENSE_GATE_BLOCKED`) until Path L1/L2 evidence is filed and `adr002_public_status.json` is flipped under review. Internal verification console remains authorised for private/dev.
 
 ## Principles (short)
 

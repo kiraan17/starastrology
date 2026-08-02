@@ -121,8 +121,17 @@ async def export_json() -> JSONResponse:
 
 
 @app.get("/health")
-async def health() -> dict[str, str]:
-    return {"status": "ok", "service": "bhava360-verification-console"}
+async def health() -> dict[str, object]:
+    from bhava360.api import public_api_readiness
+
+    readiness = public_api_readiness()
+    return {
+        "status": "ok",
+        "service": "bhava360-verification-console",
+        "mode": "internal_verification_only",
+        "public_api_ready": readiness["ready"],
+        "license_gate": readiness["license_gate"],
+    }
 
 
 @app.post("/api/verify")

@@ -16,3 +16,5 @@ Sign off these before calculation-kernel coding (P07+).
 **Gate decision:** Phase 0–5 package approved. **P07 calculation kernel coding is authorised** for private/dev use.
 
 Public API/customer activation remains blocked until ADR-002 Path L1 or L2 evidence is filed.
+
+Machine gate + checklists: `docs/decisions/adr-002-evidence/` and `src/bhava360/licensing/adr002_public_status.json`.

@@ -21,7 +21,10 @@ client = TestClient(app)
 def test_health():
     res = client.get("/health")
     assert res.status_code == 200
-    assert res.json()["status"] == "ok"
+    body = res.json()
+    assert body["status"] == "ok"
+    assert body["public_api_ready"] is False
+    assert body["license_gate"]["public_activation"] == "blocked"
 
 
 def test_index_renders():

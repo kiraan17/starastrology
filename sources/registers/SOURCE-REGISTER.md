@@ -6,7 +6,7 @@
 | source_id | title | author_or_body | class | tradition_tags | approval_status | linked_techniques | notes |
 |---|---|---|---|---|---|---|---|
 | SRC-001 | Swiss Ephemeris Programmer Documentation | Astrodienst | ephemeris_algorithm | Kernel | Approved | TEC-001..TEC-010 | Calculation authority for astronomy provider target |
-| SRC-002 | Swiss Ephemeris General and Licensing Information | Astrodienst | ephemeris_algorithm | Kernel | Approved | TEC-010, ADR-002 | License gate reference |
+| SRC-002 | Swiss Ephemeris General and Licensing Information | Astrodienst | ephemeris_algorithm | Kernel | Approved | TEC-010, ADR-002 | License gate reference; public activation still requires L1/L2 evidence package |
 | SRC-003 | VedAstro open calculation codebase / API | VedAstro | comparator_software | Kernel,Chart,Timing | Approved (comparator only) | SPIKE-01, TEC-003..015,029 | MIT code may inform tests; not a classical rule source |
 | SRC-004 | Brihat Parashara Hora Shastra | Parashara tradition | classical_text | Parashara | Candidate | TEC-036..040 | Exact edition/translator TBD by reviewer |
 | SRC-005 | B.V. Raman published works (selected) | B.V. Raman | modern_author | Parashara,Strength,Timing | Candidate | TEC-023..025,029 | Useful modern exposition; variant decisions required |

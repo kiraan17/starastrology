@@ -1,0 +1,10 @@
+{
+  "adr": "ADR-002",
+  "public_activation": "blocked",
+  "chosen_path": null,
+  "evidence_ids": [],
+  "approved_by": [],
+  "approved_at": null,
+  "notes": "Private/dev authorised. Public API/customer activation blocked until Path L1 or L2 evidence is filed and this status is flipped via reviewed change.",
+  "schema_version": 1
+}
