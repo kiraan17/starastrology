@@ -20,7 +20,7 @@ Phase 0 scaffolding has been created in this repository. **Calculation coding mu
 
 | ID | Gap | Impact |
 |---|---|---|
-| G1 | **Section 8 — 96-item technique inventory missing** from the paste | Phase 1 / P02 cannot complete |
+| G1 | **Section 8 — 96-item technique inventory missing** from the paste | Phase 1 blocked initially; **mitigated** by provisional TEC-001..096 in `registry/TECHNIQUE-REGISTRY.md` awaiting owner confirm |
 | G2 | Section 2 narrative body missing | Low — recoverable from Phase 6 plan |
 | G3 | Section 4 architecture detail missing | Medium — required before Phase 3 close |
 | G4 | Section 5 register list incomplete | Low — reconstructed from phases |
