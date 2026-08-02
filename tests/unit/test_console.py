@@ -537,11 +537,11 @@ def test_api_verify_shadbala():
     assert body["summary"]["shadbala_strongest"]
     assert body["summary"]["shadbala_strongest_virupa"] > 0
     assert "TEC-023" in body["sections"]["shadbala"]["technique_ids"]
-    assert body["sections"]["shadbala"]["engine_version"] == "0.6.0-drik-classical"
+    assert body["sections"]["shadbala"]["engine_version"] == "0.7.0-sphuta-drik"
     sun = next(p for p in body["sections"]["shadbala"]["shadbala"]["planets"] if p["planet"] == "Sun")
     assert "kala_partial" in sun["components_virupa"]
     assert "drik" in sun["components_virupa"]
-    assert sun["components_virupa"]["drik"]["basis"] == "classical_graha_drishti_table_candidate"
+    assert sun["components_virupa"]["drik"]["basis"] == "sphuta_drishti_candidate"
     assert "saptavargaja" in sun["components_virupa"]["sthana_partial"]
     assert "drekkana" in sun["components_virupa"]["sthana_partial"]
     assert "ayana" in sun["components_virupa"]["kala_partial"]

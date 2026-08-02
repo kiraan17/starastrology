@@ -1,4 +1,4 @@
-"""Unit tests for Shadbala (P27b/P28a/P29b / TEC-023)."""
+"""Unit tests for Shadbala (P27b–P31b / TEC-023)."""
 
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ from bhava360.engines.shadbala.components import (
     ojayugma_rasi_bala,
     paksha_bala,
     saptavargaja_points,
+    sphuta_drishti,
     tribhaga_bala,
     uchcha_bala,
 )
@@ -122,23 +123,28 @@ def test_chesta_motion_bands():
     assert chara["value"] == 45.0
 
 
-def test_natonnata_and_paksha():
-    assert natonnata_bala(planet="Sun", is_day=True) == 60.0
-    assert natonnata_bala(planet="Sun", is_day=False) == 0.0
-    assert natonnata_bala(planet="Mercury", is_day=False) == 60.0
-    assert paksha_bala(planet="Jupiter", sun_lon=0.0, moon_lon=180.0) == 60.0
-    assert paksha_bala(planet="Saturn", sun_lon=0.0, moon_lon=180.0) == 0.0
+def test_sphuta_drishti_angles():
+    # Opposition → general 60 (Candidate 150–180 fix)
+    assert sphuta_drishti(aspector="Sun", from_longitude=10.0, to_longitude=190.0) == 60.0
+    # Mid 165° → 2*(165-150)=30
+    assert sphuta_drishti(aspector="Sun", from_longitude=0.0, to_longitude=165.0) == 30.0
+    # Jupiter exact trine → special 60
+    assert sphuta_drishti(aspector="Jupiter", from_longitude=0.0, to_longitude=120.0) == 60.0
+    # Saturn exact 3rd → special 60
+    assert sphuta_drishti(aspector="Saturn", from_longitude=0.0, to_longitude=60.0) == 60.0
+    # Within 30° → 0
+    assert sphuta_drishti(aspector="Venus", from_longitude=0.0, to_longitude=20.0) == 0.0
 
 
-def test_drik_classical_benefic_malefic():
-    # Jupiter in Aries aspects Leo (5th) where Sun sits → Jupiter special 5th = 60 × 1.25
+def test_drik_classical_fallback_and_sphuta():
+    # Without longitudes → whole-sign classical table fallback
     out = drik_bala(
         planet="Sun",
         planet_signs={"Sun": "Leo", "Jupiter": "Aries", "Mars": "Cancer"},
         sun_lon=120.0,
         moon_lon=200.0,
     )
-    assert out["basis"] == "classical_graha_drishti_table_candidate"
+    assert out["basis"] == "classical_graha_drishti_table_fallback"
     assert any(h["from"] == "Jupiter" for h in out["benefic_hits"])
     jup = next(h for h in out["benefic_hits"] if h["from"] == "Jupiter")
     assert jup["base_virupa"] == 60.0
@@ -150,14 +156,28 @@ def test_drik_classical_benefic_malefic():
         planet="Moon",
         planet_signs={"Moon": "Cancer", "Mars": "Aries", "Venus": "Capricorn"},
         sun_lon=0.0,
-        moon_lon=90.0,  # bright half → Moon would be benefic as aspector; here Moon is target
+        moon_lon=90.0,
     )
     assert any(h["from"] == "Mars" for h in out2["malefic_hits"])
     mars = next(h for h in out2["malefic_hits"] if h["from"] == "Mars")
     assert mars["base_virupa"] == 60.0
     assert mars["weight"] == 45.0
-    # Venus 7th from Capricorn onto Cancer → 60 × 1.25
     assert any(h["from"] == "Venus" for h in out2["benefic_hits"])
+
+    # With longitudes → Sphuta; Jupiter 0° → Sun 120° trine = 60 × 1.25
+    longs = {"Sun": 120.0, "Jupiter": 0.0}
+    out3 = drik_bala(
+        planet="Sun",
+        planet_signs={"Sun": "Leo", "Jupiter": "Aries"},
+        sun_lon=120.0,
+        moon_lon=200.0,
+        planet_longitudes=longs,
+    )
+    assert out3["basis"] == "sphuta_drishti_candidate"
+    jup_s = next(h for h in out3["benefic_hits"] if h["from"] == "Jupiter")
+    assert jup_s["base_virupa"] == 60.0
+    assert jup_s["aspect_angle_deg"] == 120.0
+    assert jup_s["weight"] == 75.0
 
 
 def test_shadbala_engine_live():
@@ -169,13 +189,14 @@ def test_shadbala_engine_live():
     )
     out = run_shadbala_engine(subject)
     assert out["engine"] == "Shadbala"
-    assert out["engine_version"] == "0.6.0-drik-classical"
+    assert out["engine_version"] == "0.7.0-sphuta-drik"
     assert "TEC-023" in out["technique_ids"]
     pack = out["shadbala"]
-    assert pack["variant"] == "shadbala_drik_classical_candidate_v1"
+    assert pack["variant"] == "shadbala_sphuta_drik_candidate_v1"
     assert pack["summary"]["planet_count"] == 7
+    assert "drik_sphuta_continuous" not in pack["summary"]["deferred_component_families"]
     sun = next(p for p in pack["planets"] if p["planet"] == "Sun")
-    assert sun["components_virupa"]["drik"]["basis"] == "classical_graha_drishti_table_candidate"
+    assert sun["components_virupa"]["drik"]["basis"] == "sphuta_drishti_candidate"
     chesta = sun["components_virupa"]["chesta"]
     assert chesta["basis"] == "ayana_as_chesta"
     assert sun["full_minimum_comparison"] == "deferred_until_complete_shadbala"

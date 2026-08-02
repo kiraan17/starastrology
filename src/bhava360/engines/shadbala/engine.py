@@ -1,4 +1,4 @@
-"""Shadbala engine (P27b–P31a / TEC-023)."""
+"""Shadbala engine (P27b–P31b / TEC-023)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from bhava360.engines.shadbala.components import SHADBALA_VARIANT, compute_shadb
 from bhava360.kernel.models import ChartConfig, SubjectInput
 
 ENGINE_NAME = "Shadbala"
-ENGINE_VERSION = "0.6.0-drik-classical"
+ENGINE_VERSION = "0.7.0-sphuta-drik"
 TECHNIQUE_IDS = ("TEC-023",)
 STATUS = "Candidate"
 
@@ -21,9 +21,9 @@ def run_shadbala_engine(
     chart: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    Partial Shadbala: fuller Sthana/Kala/Chesta + classical Graha-Drishti Drik.
+    Partial Shadbala: fuller Sthana/Kala/Chesta + Sphuta (degree) Drik.
 
-    Sphuta continuous Drishti and a few remaining refinements still deferred.
+    Seeghra-kendra Chesta and Abda/Masa Hora-at-sankranti still deferred.
     """
     cfg = config or ChartConfig()
     built = chart
@@ -48,7 +48,6 @@ def run_shadbala_engine(
         },
         "shadbala": pack,
         "deferred": [
-            "Sphuta (degree-continuous) Drishti table",
             "Chesta Seeghra-kendra alternate (BPHS mean/true formula)",
             "Abda/Masa Hora-lord-at-sankranti (weekday approx used)",
             "Saptavargaja Adhi-mitra / Adhi-satru (temporal friendship)",
@@ -57,7 +56,7 @@ def run_shadbala_engine(
         "provenance": {
             "status": STATUS,
             "stamp": SHADBALA_VARIANT,
-            "sources": ["TEC-023", "BPHS/Saravali Drig Bala overview (Candidate)"],
+            "sources": ["TEC-023", "BPHS/Saravali Sphuta Drig Bala overview (Candidate)"],
             "notes": [
                 "Partial component pack only.",
                 "Do not treat partial_total as complete Shadbala.",

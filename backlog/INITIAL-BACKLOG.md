@@ -48,6 +48,7 @@ Ordered for the backend-first programme.
 | P30a | Shadbala Kala remainder Tribhaga/Abda/Masa/Ayana/Yuddha (TEC-023) | **Done** |
 | P30b | Shadbala Chesta Saravali motion + luminaries (TEC-023) | **Done** |
 | P31a | Shadbala classical Graha-Drishti Drik table (TEC-023) | **Done** |
+| P31b | Shadbala Sphuta continuous Drik (TEC-023) | **Done** |
 
 ## Next
 
@@ -56,7 +57,7 @@ Ordered for the backend-first programme.
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
 | P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
-| P31b | Sphuta Drik *or* Abda/Masa Hora-at-sankranti *or* Seeghra-kendra Chesta *or* Kalachakra when sourced |
+| P32a | Abda/Masa Hora-at-sankranti *or* Seeghra-kendra Chesta *or* Kalachakra when sourced |
 
 ## Explicitly not started
 

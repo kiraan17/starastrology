@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P31a — Shadbala classical Drik done**
+**P31b — Shadbala Sphuta Drik done**
 
-Engine `Shadbala` `0.6.0-drik-classical` (TEC-023): Graha-Drishti strength table + 1.25/0.75 benefic/malefic factors.
+Engine `Shadbala` `0.7.0-sphuta-drik` (TEC-023): Saravali continuous degree-Drishti + 1.25/0.75; classical table fallback.
 
 
 ## Principles (short)

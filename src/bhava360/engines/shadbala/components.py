@@ -19,7 +19,7 @@ from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_drik_classical_candidate_v1"
+SHADBALA_VARIANT = "shadbala_sphuta_drik_candidate_v1"
 
 CLASSICAL_PLANETS: tuple[str, ...] = (
     "Sun",
@@ -608,13 +608,12 @@ def chesta_bala(
         "speed_ratio_vs_mean": round(ratio, 6),
     }
 
-def _base_aspect_virupa(*, aspector: str, matched_house: int) -> float:
-    """
-    Classical Graha-Drishti strength table (Saravali / BPHS overview).
+def _clamp_sphuta(value: float) -> float:
+    return max(0.0, min(60.0, value))
 
-    7th = 60; 4th/8th = 45 (Mars special 60); 5th/9th = 30 (Jupiter 60);
-    3rd/10th = 15 (Saturn 60).
-    """
+
+def _base_aspect_virupa(*, aspector: str, matched_house: int) -> float:
+    """Whole-sign classical table (fallback when longitudes missing)."""
     if matched_house == 7:
         return 60.0
     if matched_house in {4, 8}:
@@ -624,6 +623,67 @@ def _base_aspect_virupa(*, aspector: str, matched_house: int) -> float:
     if matched_house in {3, 10}:
         return 60.0 if aspector == "Saturn" else 15.0
     return 0.0
+
+
+def sphuta_drishti(*, aspector: str, from_longitude: float, to_longitude: float) -> float:
+    """
+    Sphuta (degree) Drishti virupa 0–60 (Saravali Candidate).
+
+    Angle ``a`` = forward zodiacal distance from aspector to aspected.
+    General 150–180 uses ``2*(a-150)`` so opposition = 60 (table typo fix;
+    stamped Candidate). Planet-specific columns override when present.
+    """
+    a = (normalize_longitude(to_longitude) - normalize_longitude(from_longitude)) % 360.0
+
+    def general() -> float:
+        if a < 30.0 or a >= 330.0:
+            return 0.0
+        if a < 60.0:
+            return (a - 30.0) / 2.0
+        if a < 90.0:
+            return a - 45.0
+        if a < 120.0:
+            return 30.0 + (120.0 - a) / 2.0
+        if a < 150.0:
+            return 150.0 - a
+        if a < 180.0:
+            # Saravali table prints 2*(150-a); that yields 0 at 180 — corrected.
+            return 2.0 * (a - 150.0)
+        if a < 300.0:
+            return (300.0 - a) / 2.0
+        return 0.0
+
+    special: float | None = None
+    if aspector == "Mars":
+        if 90.0 <= a < 120.0:
+            special = 45.0 + (a - 90.0) / 2.0
+        elif 120.0 <= a < 150.0:
+            special = 2.0 * (150.0 - a)
+        elif 180.0 <= a < 210.0:
+            special = 60.0
+        elif 210.0 <= a < 240.0:
+            special = 270.0 - a
+    elif aspector == "Jupiter":
+        if 90.0 <= a < 120.0:
+            special = 45.0 + (a - 90.0) / 2.0
+        elif 120.0 <= a < 150.0:
+            special = 2.0 * (150.0 - a)
+        elif 210.0 <= a < 240.0:
+            special = 45.0 + (a - 210.0) / 2.0
+        elif 240.0 <= a < 270.0:
+            special = 15.0 + 2.0 * (270.0 - a) / 3.0
+    elif aspector == "Saturn":
+        if 30.0 <= a < 60.0:
+            special = (a - 30.0) * 2.0
+        elif 60.0 <= a < 90.0:
+            special = 45.0 + (90.0 - a) / 2.0
+        elif 240.0 <= a < 270.0:
+            special = a - 210.0
+        elif 270.0 <= a < 330.0:
+            special = 2.0 * (300.0 - a)
+
+    raw = general() if special is None else special
+    return _clamp_sphuta(raw)
 
 
 def _drik_is_benefic(
@@ -639,11 +699,9 @@ def _drik_is_benefic(
     if aspector in {"Sun", "Mars", "Saturn"}:
         return False
     if aspector == "Moon":
-        # Bright half → benefic.
         elong = lunar_elongation_deg(sun_lon, moon_lon)
         return elong <= 180.0
     if aspector == "Mercury":
-        # Malefic if in same sign as a natural malefic (nodes deferred).
         m_sign = planet_signs.get("Mercury")
         if not m_sign:
             return True
@@ -660,13 +718,14 @@ def drik_bala(
     planet_signs: dict[str, str],
     sun_lon: float = 0.0,
     moon_lon: float = 0.0,
+    planet_longitudes: dict[str, float] | None = None,
 ) -> dict[str, Any]:
     """
-    Classical Drig Bala (Candidate).
+    Drig Bala via Sphuta Drishti (Candidate).
 
-    Whole-sign Graha aspects with classical strength table, then
-    benefic ×1.25 (add) / malefic ×0.75 (subtract). Not clamped.
-    Sphuta (degree-based) continuous table deferred.
+    Degree-based Sphuta virupa for each aspector, then benefic ×1.25 (add) /
+    malefic ×0.75 (subtract). Falls back to whole-sign classical table if
+    longitudes are missing.
     """
     target_sign = planet_signs.get(planet)
     if not target_sign:
@@ -675,59 +734,76 @@ def drik_bala(
             "benefic_hits": [],
             "malefic_hits": [],
             "raw": 0.0,
-            "basis": "classical_graha_drishti_table_candidate",
+            "basis": "sphuta_drishti_candidate",
         }
 
+    use_sphuta = bool(planet_longitudes) and planet in (planet_longitudes or {})
     benefic_hits: list[dict[str, Any]] = []
     malefic_hits: list[dict[str, Any]] = []
     raw = 0.0
+
     for other, from_sign in planet_signs.items():
         if other == planet or other not in CLASSICAL_PLANETS:
             continue
-        houses = GRAHA_ASPECT_HOUSES.get(_planet_enum(other))
-        if not houses:
-            continue
-        rel = relative_house(from_sign, target_sign)
-        if rel not in houses:
-            continue
-        base = _base_aspect_virupa(aspector=other, matched_house=rel)
+
+        if use_sphuta and other in planet_longitudes:  # type: ignore[operator]
+            base = sphuta_drishti(
+                aspector=other,
+                from_longitude=float(planet_longitudes[other]),  # type: ignore[index]
+                to_longitude=float(planet_longitudes[planet]),  # type: ignore[index]
+            )
+            angle = (
+                normalize_longitude(float(planet_longitudes[planet]))  # type: ignore[index]
+                - normalize_longitude(float(planet_longitudes[other]))  # type: ignore[index]
+            ) % 360.0
+            matched_house = None
+        else:
+            houses = GRAHA_ASPECT_HOUSES.get(_planet_enum(other))
+            if not houses:
+                continue
+            rel = relative_house(from_sign, target_sign)
+            if rel not in houses:
+                continue
+            base = _base_aspect_virupa(aspector=other, matched_house=rel)
+            angle = None
+            matched_house = rel
+
         if base <= 0:
             continue
         benefic = _drik_is_benefic(
             other, sun_lon=sun_lon, moon_lon=moon_lon, planet_signs=planet_signs
         )
+        hit: dict[str, Any] = {
+            "from": other,
+            "base_virupa": round(base, 6),
+            "factor": 1.25 if benefic else 0.75,
+        }
+        if matched_house is not None:
+            hit["matched_house"] = matched_house
+        if angle is not None:
+            hit["aspect_angle_deg"] = round(angle, 6)
         if benefic:
             weight = base * 1.25
             raw += weight
-            benefic_hits.append(
-                {
-                    "from": other,
-                    "matched_house": rel,
-                    "base_virupa": base,
-                    "factor": 1.25,
-                    "weight": round(weight, 6),
-                }
-            )
+            hit["weight"] = round(weight, 6)
+            benefic_hits.append(hit)
         else:
             weight = base * 0.75
             raw -= weight
-            malefic_hits.append(
-                {
-                    "from": other,
-                    "matched_house": rel,
-                    "base_virupa": base,
-                    "factor": 0.75,
-                    "weight": round(weight, 6),
-                }
-            )
+            hit["weight"] = round(weight, 6)
+            malefic_hits.append(hit)
+
     return {
         "value": round(raw, 6),
         "raw": round(raw, 6),
         "benefic_hits": benefic_hits,
         "malefic_hits": malefic_hits,
-        "basis": "classical_graha_drishti_table_candidate",
-        "deferred": ["sphuta_drishti_continuous"],
+        "basis": "sphuta_drishti_candidate" if use_sphuta else "classical_graha_drishti_table_fallback",
+        "notes": [
+            "Sphuta general 150–180 uses 2*(a-150) so opposition=60 (Candidate fix).",
+        ],
     }
+
 
 def compute_planet_shadbala_partial(
     *,
@@ -749,6 +825,7 @@ def compute_planet_shadbala_partial(
     tropical_longitude_deg: float | None = None,
     speed_longitude: float | None = None,
     sign_degree: float | None = None,
+    planet_longitudes: dict[str, float] | None = None,
 ) -> dict[str, Any]:
     nais = naisargika_bala(planet)
     dig = dig_bala(planet=planet, rasi_house=rasi_house)
@@ -803,6 +880,7 @@ def compute_planet_shadbala_partial(
         planet_signs=planet_signs,
         sun_lon=sun_lon,
         moon_lon=moon_lon,
+        planet_longitudes=planet_longitudes,
     )
 
     components = {
@@ -859,13 +937,12 @@ def compute_planet_shadbala_partial(
             "kala.ayana",
             "kala.yuddha",
             "chesta.saravali_motion",
-            "drik.classical_graha_table",
+            "drik.sphuta",
         ],
         "deferred_components": [
             "saptavargaja.adhi_mitra_satru",
             "kala.abda_masa_hora_at_sankranti",
             "chesta.seeghra_kendra",
-            "drik.sphuta_continuous",
         ],
     }
 
@@ -981,8 +1058,14 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
     """Compute partial Shadbala for classical seven planets from a chart dict."""
     ctx = _chart_context(chart)
     planets = ctx["planets"]
-    rows: list[dict[str, Any]] = []
     longitudes: dict[str, float] = {}
+    for name in CLASSICAL_PLANETS:
+        p = planets.get(name)
+        if not p or p.get("longitude_sidereal_deg") is None:
+            continue
+        longitudes[name] = float(p["longitude_sidereal_deg"])
+
+    rows: list[dict[str, Any]] = []
     for name in CLASSICAL_PLANETS:
         p = planets.get(name)
         if not p:
@@ -991,7 +1074,6 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
         if house < 1:
             continue
         lon = float(p["longitude_sidereal_deg"])
-        longitudes[name] = lon
         trop = p.get("longitude_tropical_deg")
         rows.append(
             compute_planet_shadbala_partial(
@@ -1017,6 +1099,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                     else None
                 ),
                 sign_degree=float(p["sign_degree"]) if p.get("sign_degree") is not None else None,
+                planet_longitudes=longitudes,
             )
         )
 
@@ -1051,7 +1134,6 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "deferred_component_families": [
                 "kala_abda_masa_hora_at_sankranti",
                 "chesta_seeghra_kendra",
-                "drik_sphuta_continuous",
                 "saptavargaja_adhi_mitra",
             ],
         },
@@ -1061,8 +1143,8 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
             "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa/Vara/Hora + Ayana + Yuddha.",
             "Chesta: Sun=Ayana, Moon=Paksha, others Saravali 8-fold speed bands.",
-            "Drik: classical Graha-Drishti table + 1.25/0.75 benefic/malefic factors.",
-            "Sphuta continuous Drishti deferred.",
+            "Drik: Sphuta continuous degree-Drishti + 1.25/0.75; "
+            "whole-sign graha-table fallback if longitudes absent.",
         ],
     }
 
@@ -1092,6 +1174,7 @@ __all__ = [
     "ojayugma_rasi_bala",
     "paksha_bala",
     "saptavargaja_points",
+    "sphuta_drishti",
     "tribhaga_bala",
     "uchcha_bala",
     "vara_bala",
