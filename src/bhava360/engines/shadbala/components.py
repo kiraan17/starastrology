@@ -6,12 +6,19 @@ from datetime import datetime
 from typing import Any
 
 from bhava360.chart.aspects import GRAHA_ASPECT_HOUSES, relative_house
-from bhava360.chart.dignity import DEBILITATION_SIGN, EXALTATION_DEGREE
+from bhava360.chart.dignity import (
+    DEBILITATION_SIGN,
+    EXALTATION_DEGREE,
+    MOOLATRIKONA_RANGE,
+    OWN_SIGNS,
+    sign_lord,
+)
+from bhava360.chart.vargas import VargaId, varga_sign
 from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_kala_chesta_drik_candidate_v1"
+SHADBALA_VARIANT = "shadbala_saptavargaja_candidate_v1"
 
 CLASSICAL_PLANETS: tuple[str, ...] = (
     "Sun",
@@ -63,6 +70,38 @@ NATURAL_BENEFICS = frozenset({"Jupiter", "Venus", "Mercury", "Moon"})
 NATURAL_MALEFICS = frozenset({"Sun", "Mars", "Saturn"})
 CHESTA_MOTION_PLANETS = frozenset({"Mars", "Mercury", "Jupiter", "Venus", "Saturn"})
 
+# Saptavarga set for Saptavargaja Bala (Saravali / BPHS overview).
+SAPTAVARGA_IDS: tuple[str, ...] = ("D1", "D2", "D3", "D7", "D9", "D12", "D30")
+
+# Permanent natural friendship (Candidate; temporal / Adhi-mitra deferred).
+_PERM_FRIENDS: dict[str, frozenset[str]] = {
+    "Sun": frozenset({"Moon", "Mars", "Jupiter"}),
+    "Moon": frozenset({"Sun", "Mercury"}),
+    "Mars": frozenset({"Sun", "Moon", "Jupiter"}),
+    "Mercury": frozenset({"Sun", "Venus"}),
+    "Jupiter": frozenset({"Sun", "Moon", "Mars"}),
+    "Venus": frozenset({"Mercury", "Saturn"}),
+    "Saturn": frozenset({"Mercury", "Venus"}),
+}
+_PERM_NEUTRALS: dict[str, frozenset[str]] = {
+    "Sun": frozenset({"Mercury"}),
+    "Moon": frozenset({"Mars", "Jupiter", "Venus", "Saturn"}),
+    "Mars": frozenset({"Venus", "Saturn"}),
+    "Mercury": frozenset({"Mars", "Jupiter", "Saturn"}),
+    "Jupiter": frozenset({"Saturn"}),
+    "Venus": frozenset({"Mars", "Jupiter"}),
+    "Saturn": frozenset({"Jupiter"}),
+}
+
+# BPHS / Saravali Saptavargaja points (permanent levels only).
+_SAPTA_POINTS = {
+    "moolatrikona": 45.0,
+    "own": 30.0,
+    "friend": 15.0,
+    "neutral": 10.0,
+    "enemy": 4.0,
+}
+
 
 def _planet_enum(name: str) -> PlanetName:
     return PlanetName(name)
@@ -104,15 +143,132 @@ def kendradi_bala(*, rasi_house: int) -> float:
 
 
 def ojayugma_rasi_bala(*, planet: str, sign: str) -> float:
+    """Odd/even rasi strength (Saravali): male+neutral odd; female even."""
     odd = (SIGNS.index(sign) % 2) == 0
-    if planet in NEUTRAL_OJAYUGMA:
-        return 15.0
-    if planet in MALE_PLANETS:
+    if planet in MALE_PLANETS or planet in NEUTRAL_OJAYUGMA:
         return 15.0 if odd else 0.0
     if planet in FEMALE_PLANETS:
         return 15.0 if not odd else 0.0
     return 0.0
 
+
+def ojayugma_navamsa_bala(*, planet: str, navamsa_sign: str) -> float:
+    """Odd/even navamsa strength — same parity rule as rasi (Saravali)."""
+    return ojayugma_rasi_bala(planet=planet, sign=navamsa_sign)
+
+
+def drekkana_bala(*, planet: str, longitude_sidereal_deg: float) -> float:
+    """
+    Drekkana Bala (Saravali Candidate).
+
+    Male → 1st 10°; female → 2nd 10°; neutral → 3rd 10°. Else 0.
+    """
+    deg = normalize_longitude(longitude_sidereal_deg) % 30.0
+    if planet in MALE_PLANETS:
+        return 15.0 if deg < 10.0 else 0.0
+    if planet in FEMALE_PLANETS:
+        return 15.0 if 10.0 <= deg < 20.0 else 0.0
+    if planet in NEUTRAL_OJAYUGMA:
+        return 15.0 if deg >= 20.0 else 0.0
+    return 0.0
+
+
+def _perm_relation(planet: str, other: str) -> str:
+    if planet == other:
+        return "own"
+    if other in _PERM_FRIENDS.get(planet, ()):
+        return "friend"
+    if other in _PERM_NEUTRALS.get(planet, ()):
+        return "neutral"
+    return "enemy"
+
+
+def _in_moolatrikona_d1(planet: str, sign: str, sign_degree: float) -> bool:
+    pe = PlanetName(planet)
+    spec = MOOLATRIKONA_RANGE.get(pe)
+    if not spec:
+        return False
+    m_sign, start, end = spec
+    return sign == m_sign and start <= sign_degree < end
+
+
+def saptavargaja_points(
+    *,
+    planet: str,
+    varga: str,
+    sign: str,
+    sign_degree: float = 0.0,
+) -> dict[str, Any]:
+    """
+    One-varga Saptavargaja contribution (Candidate).
+
+    Moolatrikona 45 only in D1 with degree window; other vargas use own=30
+    for own/moolatrikona signs. Extreme friend/enemy deferred (permanent only).
+    Exaltation/debilitation ignored (Saravali).
+    """
+    pe = PlanetName(planet)
+    lord = sign_lord(sign)
+    lord_name = lord.value if lord else None
+
+    if varga == "D1" and _in_moolatrikona_d1(planet, sign, sign_degree):
+        return {
+            "points": _SAPTA_POINTS["moolatrikona"],
+            "basis": "moolatrikona",
+            "sign_lord": lord_name,
+        }
+    if sign in OWN_SIGNS.get(pe, set()) or lord_name == planet:
+        return {
+            "points": _SAPTA_POINTS["own"],
+            "basis": "own",
+            "sign_lord": lord_name,
+        }
+    if lord_name is None:
+        return {"points": 0.0, "basis": "unknown_sign", "sign_lord": None}
+
+    rel = _perm_relation(planet, lord_name)
+    return {
+        "points": _SAPTA_POINTS[rel],
+        "basis": rel,
+        "sign_lord": lord_name,
+    }
+
+
+def compute_saptavargaja_bala(
+    *,
+    planet: str,
+    longitude_sidereal_deg: float,
+    varga_signs: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Sum Saptavargaja across D1/D2/D3/D7/D9/D12/D30."""
+    rows: list[dict[str, Any]] = []
+    total = 0.0
+    lon = normalize_longitude(longitude_sidereal_deg)
+    for vid in SAPTAVARGA_IDS:
+        if varga_signs and vid in varga_signs and varga_signs[vid].get("sign"):
+            sign = str(varga_signs[vid]["sign"])
+            sign_deg = float(varga_signs[vid].get("sign_degree") or 0.0)
+        else:
+            place = varga_sign(lon, VargaId(vid))
+            sign, sign_deg = place.sign, place.sign_degree
+        part = saptavargaja_points(
+            planet=planet, varga=vid, sign=sign, sign_degree=sign_deg
+        )
+        total += float(part["points"])
+        rows.append(
+            {
+                "varga": vid,
+                "sign": sign,
+                "points": part["points"],
+                "basis": part["basis"],
+                "sign_lord": part["sign_lord"],
+            }
+        )
+    return {
+        "value": round(total, 6),
+        "parts": rows,
+        "basis": "saptavargaja_permanent_friendship_candidate",
+        "deferred": ["adhi_mitra", "adhi_satru", "temporal_friendship"],
+    }
 
 def natonnata_bala(*, planet: str, is_day: bool) -> float:
     """Day/night strength (Candidate): Mercury always 60."""
@@ -266,13 +422,31 @@ def compute_planet_shadbala_partial(
     hora_lord: str | None,
     is_retrograde: bool,
     planet_signs: dict[str, str],
+    varga_signs: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     nais = naisargika_bala(planet)
     dig = dig_bala(planet=planet, rasi_house=rasi_house)
     uchcha = uchcha_bala(planet=planet, longitude_sidereal_deg=longitude_sidereal_deg)
     kend = kendradi_bala(rasi_house=rasi_house)
     oja = ojayugma_rasi_bala(planet=planet, sign=sign)
-    sthana_partial = uchcha + kend + oja
+
+    # Navamsa sign for Ojayugma amsa
+    if varga_signs and "D9" in varga_signs and varga_signs["D9"].get("sign"):
+        d9_sign = str(varga_signs["D9"]["sign"])
+    else:
+        d9_sign = varga_sign(longitude_sidereal_deg, VargaId.D9).sign
+    oja_n = ojayugma_navamsa_bala(planet=planet, navamsa_sign=d9_sign)
+
+    sapta = compute_saptavargaja_bala(
+        planet=planet,
+        longitude_sidereal_deg=longitude_sidereal_deg,
+        varga_signs=varga_signs,
+    )
+    drek = drekkana_bala(planet=planet, longitude_sidereal_deg=longitude_sidereal_deg)
+
+    sthana_partial = (
+        uchcha + kend + oja + oja_n + float(sapta["value"]) + drek
+    )
 
     kala = compute_kala_bala(
         planet=planet,
@@ -292,8 +466,11 @@ def compute_planet_shadbala_partial(
             "uchcha": round(uchcha, 6),
             "kendradi": round(kend, 6),
             "ojayugma_rasi": round(oja, 6),
+            "ojayugma_navamsa": round(oja_n, 6),
+            "saptavargaja": sapta,
+            "drekkana": round(drek, 6),
             "subtotal": round(sthana_partial, 6),
-            "deferred_subs": ["saptavargaja", "ojayugma_navamsa", "drekkana"],
+            "deferred_subs": [],
         },
         "kala_partial": kala,
         "chesta": chesta,
@@ -323,6 +500,9 @@ def compute_planet_shadbala_partial(
             "sthana.uchcha",
             "sthana.kendradi",
             "sthana.ojayugma_rasi",
+            "sthana.ojayugma_navamsa",
+            "sthana.saptavargaja",
+            "sthana.drekkana",
             "kala.natonnata",
             "kala.paksha",
             "kala.vara",
@@ -331,9 +511,7 @@ def compute_planet_shadbala_partial(
             "drik.thin",
         ],
         "deferred_components": [
-            "sthana.saptavargaja",
-            "sthana.drekkana",
-            "sthana.ojayugma_navamsa",
+            "saptavargaja.adhi_mitra_satru",
             "kala.tribhaga",
             "kala.abda",
             "kala.masa",
@@ -451,6 +629,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 hora_lord=ctx["hora_lord"],
                 is_retrograde=bool(p.get("is_retrograde")),
                 planet_signs=ctx["planet_signs"],
+                varga_signs=p.get("vargas") or {},
             )
         )
 
@@ -479,15 +658,17 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 "drik",
             ],
             "deferred_component_families": [
-                "sthana_remainder",
                 "kala_remainder",
                 "chesta_seeghra_ayana",
                 "drik_classical_tables",
+                "saptavargaja_adhi_mitra",
             ],
         },
         "notes": [
             "Candidate partial scaffold — not a complete BPHS Shadbala pack.",
             "Partial totals must not be compared to full-pack minima for verdicts.",
+            "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
+            "Saptavargaja uses permanent friendship only (Adhi-mitra/satru deferred).",
             "Kala thin: Natonnata + Paksha + Vara + Hora.",
             "Chesta thin: retrograde flag for Mars–Saturn; luminaries deferred.",
             "Drik thin: whole-sign graha aspect net (±60 clamp).",
@@ -497,19 +678,24 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
 
 __all__ = [
     "CLASSICAL_PLANETS",
+    "SAPTAVARGA_IDS",
     "SHADBALA_VARIANT",
     "chesta_bala",
     "compute_kala_bala",
     "compute_planet_shadbala_partial",
+    "compute_saptavargaja_bala",
     "compute_shadbala_pack",
     "dig_bala",
+    "drekkana_bala",
     "drik_bala",
     "hora_bala",
     "kendradi_bala",
     "naisargika_bala",
     "natonnata_bala",
+    "ojayugma_navamsa_bala",
     "ojayugma_rasi_bala",
     "paksha_bala",
+    "saptavargaja_points",
     "uchcha_bala",
     "vara_bala",
 ]

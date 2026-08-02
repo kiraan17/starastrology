@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P29a — Vimshopaka Shodashavarga scaffold done**
+**P29b — Shadbala Saptavargaja/Drekkana continuation done**
 
-Engine `Vimshopaka` `0.1.0-shodashavarga` (TEC-025): weighted dignity across 16 vargas (incl. new D4). Kalachakra deferred pending sourced sequences.
+Engine `Shadbala` `0.3.0-saptavargaja` (TEC-023): Sthana now includes Saptavargaja, Drekkana, and Ojayugma navamsa.
 
 
 ## Principles (short)

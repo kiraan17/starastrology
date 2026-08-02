@@ -40,7 +40,7 @@
 | TEC-020 | Dignity, ownership, dispositor graph | Chart | classification | normal | yes | yes | Auto-Tested | P08b dispositor chains + graph edges |
 | TEC-021 | Natural/temporal/functional benefic-malefic | Classification | classification | normal | yes | partial | Not Researched | Threshold config |
 | TEC-022 | Exaltation, debilitation, own, moolatrikona, cancellation | Classification | classification | normal | yes | yes | Auto-Tested | Cancellation rules TBD |
-| TEC-023 | Shadbala (component pack) | Strength | calculation | normal | yes | yes | Auto-Tested | P28a +Kala thin +Chesta thin +Drik thin; seeghra/ayana/full tables deferred |
+| TEC-023 | Shadbala (component pack) | Strength | calculation | normal | yes | yes | Auto-Tested | P29b +Saptavargaja+Drekkana+Ojayugma-navamsa; Adhi-mitra/Kala remainder/Chesta seeghra deferred |
 | TEC-024 | Bhava Bala | Strength | calculation | normal | yes | partial | Auto-Tested | P28b Candidate: Bhavadhipati+Dig+Drishti thin; Sag/Cap Dig + polarity deferred |
 | TEC-025 | Vimshopaka Bala | Strength | calculation | normal | yes | partial | Auto-Tested | P29a Shodashavarga + permanent friendship; temporal / alt schemes deferred |
 | TEC-026 | Argala and Virodha Argala | Strength | calculation | normal | yes | partial | Not Researched | |
