@@ -19,6 +19,7 @@ from bhava360.engines.shadbala.components import (
     paksha_bala,
     sankranti_hora_lord,
     saptavargaja_points,
+    seeghra_kendra_chesta,
     sphuta_drishti,
     tribhaga_bala,
     uchcha_bala,
@@ -104,24 +105,42 @@ def test_chesta_motion_bands():
     assert chesta_bala(planet="Sun", is_retrograde=False, ayana_value=42.5)["value"] == 42.5
     assert chesta_bala(planet="Sun", is_retrograde=False, ayana_value=42.5)["basis"] == "ayana_as_chesta"
     assert chesta_bala(planet="Moon", is_retrograde=False, paksha_value=33.0)["value"] == 33.0
-    # Retrograde → Vakra 60
+    # Without JD → Saravali 8-fold fallback
     assert chesta_bala(planet="Mars", is_retrograde=True, speed_longitude=-0.2)["value"] == 60.0
     assert chesta_bala(planet="Mars", is_retrograde=True, speed_longitude=-0.2)["motion"] == "vakra"
-    # Anuvakra near 0° while retrograde
     assert (
         chesta_bala(
             planet="Mars", is_retrograde=True, speed_longitude=-0.2, sign_degree=0.5
         )["motion"]
         == "anuvakra"
     )
-    # Sama ~ mean speed
     sama = chesta_bala(planet="Mars", is_retrograde=False, speed_longitude=0.55)
     assert sama["motion"] == "sama"
     assert sama["value"] == 7.5
-    # Chara fast
     chara = chesta_bala(planet="Mars", is_retrograde=False, speed_longitude=1.0)
     assert chara["motion"] == "chara"
     assert chara["value"] == 45.0
+
+
+def test_seeghra_kendra_chesta_formula():
+    # CK 66.69 → Bala 22.23 (Raman-style arithmetic)
+    out = seeghra_kendra_chesta(
+        seeghrochcha_deg=100.0,
+        mean_longitude_deg=0.0,
+        true_longitude_deg=66.62,
+    )
+    assert out["seeghra_kendra_deg"] == 66.69
+    assert out["value"] == 22.23
+    assert out["basis"] == "seeghra_kendra_bphs_candidate"
+    # Raw >180 folds
+    folded = seeghra_kendra_chesta(
+        seeghrochcha_deg=0.0,
+        mean_longitude_deg=10.0,
+        true_longitude_deg=20.0,
+    )
+    assert folded["seeghra_kendra_raw_deg"] == 345.0
+    assert folded["seeghra_kendra_deg"] == 15.0
+    assert folded["value"] == 5.0
 
 
 def test_sphuta_drishti_angles():
@@ -231,12 +250,12 @@ def test_shadbala_engine_live():
     )
     out = run_shadbala_engine(subject)
     assert out["engine"] == "Shadbala"
-    assert out["engine_version"] == "0.8.0-abda-masa-hora"
+    assert out["engine_version"] == "0.9.0-seeghra-chesta"
     assert "TEC-023" in out["technique_ids"]
     pack = out["shadbala"]
-    assert pack["variant"] == "shadbala_abda_masa_hora_candidate_v1"
+    assert pack["variant"] == "shadbala_seeghra_chesta_candidate_v1"
     assert pack["summary"]["planet_count"] == 7
-    assert "kala_abda_masa_hora_at_sankranti" not in pack["summary"]["deferred_component_families"]
+    assert "chesta_seeghra_kendra" not in pack["summary"]["deferred_component_families"]
     assert pack["context"]["abda_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
     assert pack["context"]["masa_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
     assert pack["context"]["abda_lord"]
@@ -245,4 +264,7 @@ def test_shadbala_engine_live():
     assert sun["components_virupa"]["drik"]["basis"] == "sphuta_drishti_candidate"
     chesta = sun["components_virupa"]["chesta"]
     assert chesta["basis"] == "ayana_as_chesta"
+    mars = next(p for p in pack["planets"] if p["planet"] == "Mars")
+    assert mars["components_virupa"]["chesta"]["basis"] == "seeghra_kendra_bphs_candidate"
+    assert 0.0 <= mars["components_virupa"]["chesta"]["value"] <= 60.0
     assert sun["full_minimum_comparison"] == "deferred_until_complete_shadbala"

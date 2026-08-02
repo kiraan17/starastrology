@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P32a — Shadbala Abda/Masa Hora-at-sankranti done**
+**P32b — Shadbala Seeghra-kendra Chesta done**
 
-Engine `Shadbala` `0.8.0-abda-masa-hora` (TEC-023): year/month lords from planetary Hora at mean-Sun sankranti.
+Engine `Shadbala` `0.9.0-seeghra-chesta` (TEC-023): BPHS Seeghra Chesta for Mars–Saturn; Saravali fallback.
 
 
 ## Principles (short)

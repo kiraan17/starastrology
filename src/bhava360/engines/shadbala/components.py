@@ -19,10 +19,33 @@ from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_abda_masa_hora_candidate_v1"
+SHADBALA_VARIANT = "shadbala_seeghra_chesta_candidate_v1"
 
 # Mean sidereal solar motion (°/day) for sankranti instant estimate (Candidate).
 MEAN_SOLAR_SIDEREAL_DEG_PER_DAY = 0.98564733
+
+# Superior planets: Seeghrochcha = mean Sun (BPHS / Raman Candidate).
+SEEGHRA_SUPERIOR = frozenset({"Mars", "Jupiter", "Saturn"})
+# Inferior: mean = mean Sun; Seeghrochcha ≈ heliocentric mean (table proxy).
+SEEGHRA_INFERIOR = frozenset({"Mercury", "Venus"})
+SEEGHRA_PLANETS = SEEGHRA_SUPERIOR | SEEGHRA_INFERIOR
+
+_PLANET_TO_SWE_CHESTA: dict[str, int] | None = None
+
+
+def _swe_planet_id(planet: str) -> int:
+    global _PLANET_TO_SWE_CHESTA
+    if _PLANET_TO_SWE_CHESTA is None:
+        import swisseph as swe
+
+        _PLANET_TO_SWE_CHESTA = {
+            "Mars": swe.MARS,
+            "Mercury": swe.MERCURY,
+            "Jupiter": swe.JUPITER,
+            "Venus": swe.VENUS,
+            "Saturn": swe.SATURN,
+        }
+    return _PLANET_TO_SWE_CHESTA[planet]
 
 CLASSICAL_PLANETS: tuple[str, ...] = (
     "Sun",
@@ -588,45 +611,111 @@ def apply_yuddha_bala(
     return rows
 
 
-def chesta_bala(
+def _fold_chesta_kendra(angle_deg: float) -> float:
+    """Reduce Chesta/Seeghra kendra to 0–180°."""
+    a = normalize_longitude(angle_deg)
+    return a if a <= 180.0 else 360.0 - a
+
+
+def seeghra_kendra_chesta(
+    *,
+    seeghrochcha_deg: float,
+    mean_longitude_deg: float,
+    true_longitude_deg: float,
+) -> dict[str, Any]:
+    """
+    BPHS Chesta from Seeghra kendra (Candidate).
+
+    CK = Seeghrochcha − (Mean + True)/2 ; if >180 use 360−CK; Bala = CK/3.
+    """
+    mean = normalize_longitude(mean_longitude_deg)
+    true = normalize_longitude(true_longitude_deg)
+    seeg = normalize_longitude(seeghrochcha_deg)
+    avg = ((mean + true) / 2.0) % 360.0
+    ck_raw = (seeg - avg) % 360.0
+    ck = _fold_chesta_kendra(ck_raw)
+    val = ck / 3.0
+    return {
+        "value": round(val, 6),
+        "seeghra_kendra_deg": round(ck, 6),
+        "seeghra_kendra_raw_deg": round(ck_raw, 6),
+        "average_longitude_deg": round(avg, 6),
+        "mean_longitude_deg": round(mean, 6),
+        "true_longitude_deg": round(true, 6),
+        "seeghrochcha_deg": round(seeg, 6),
+        "basis": "seeghra_kendra_bphs_candidate",
+    }
+
+
+def resolve_seeghra_inputs(
+    *,
+    planet: str,
+    true_longitude_sidereal_deg: float,
+    julian_day_ut: float,
+    ayanamsa_deg: float,
+    ephemeris_mode: str = "moshier",
+) -> dict[str, Any] | None:
+    """
+    Resolve mean longitude + Seeghrochcha for Seeghra Chesta (Candidate).
+
+    - Mars/Jupiter/Saturn: mean = SE osculating LM (sidereal);
+      Seeghrochcha = mean Sun (Earth LM + 180°).
+    - Mercury/Venus: mean = mean Sun; Seeghrochcha = heliocentric mean LM
+      (Candidate proxy; classical product tables deferred).
+    """
+    if planet not in SEEGHRA_PLANETS:
+        return None
+    try:
+        import swisseph as swe
+
+        if ephemeris_mode == "swisseph_files":
+            flag = swe.FLG_SWIEPH
+        else:
+            flag = swe.FLG_MOSEPH
+        jd_et = float(julian_day_ut) + float(swe.deltat(julian_day_ut)) / 86400.0
+        aya = float(ayanamsa_deg)
+
+        def trop_lm_to_sid(lm: float) -> float:
+            return normalize_longitude(float(lm) - aya)
+
+        earth = swe.get_orbital_elements(jd_et, swe.EARTH, flag)
+        mean_sun = trop_lm_to_sid((float(earth[9]) + 180.0) % 360.0)
+        true = normalize_longitude(true_longitude_sidereal_deg)
+
+        if planet in SEEGHRA_INFERIOR:
+            # Classical: mean of Mercury/Venus = mean Sun.
+            # Seeghrochcha: heliocentric mean LM as table proxy (Candidate).
+            body = swe.get_orbital_elements(jd_et, _swe_planet_id(planet), flag)
+            seeg = trop_lm_to_sid(float(body[9]) % 360.0)
+            return {
+                "mean_longitude_deg": mean_sun,
+                "seeghrochcha_deg": seeg,
+                "true_longitude_deg": true,
+                "mean_sun_deg": mean_sun,
+                "notes": ["inferior_seeghrochcha_heliocentric_mean_proxy"],
+            }
+
+        body = swe.get_orbital_elements(jd_et, _swe_planet_id(planet), flag)
+        mean = trop_lm_to_sid(float(body[9]) % 360.0)
+        return {
+            "mean_longitude_deg": mean,
+            "seeghrochcha_deg": mean_sun,
+            "true_longitude_deg": true,
+            "mean_sun_deg": mean_sun,
+            "notes": ["superior_seeghrochcha_mean_sun"],
+        }
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def chesta_saravali_motion(
     *,
     planet: str,
     is_retrograde: bool,
     speed_longitude: float | None = None,
     sign_degree: float | None = None,
-    ayana_value: float | None = None,
-    paksha_value: float | None = None,
 ) -> dict[str, Any]:
-    """
-    Motional strength (Saravali / BPHS Candidate).
-
-    - Sun: identical to Ayana Bala
-    - Moon: identical to Paksha Bala
-    - Mars–Saturn: 8-fold motion bands from daily speed vs mean
-      (Vakra/Anuvakra/Vikala/Mandatara/Manda/Sama/Chara/Atichara)
-
-    Seeghra-kendra alternate method deferred.
-    """
-    if planet == "Sun":
-        val = float(ayana_value) if ayana_value is not None else 0.0
-        return {
-            "value": round(val, 6),
-            "basis": "ayana_as_chesta",
-            "motion": "luminary",
-            "is_retrograde": False,
-            "speed_longitude": None,
-            "speed_ratio_vs_mean": None,
-        }
-    if planet == "Moon":
-        val = float(paksha_value) if paksha_value is not None else 0.0
-        return {
-            "value": round(val, 6),
-            "basis": "paksha_as_chesta",
-            "motion": "luminary",
-            "is_retrograde": False,
-            "speed_longitude": None,
-            "speed_ratio_vs_mean": None,
-        }
+    """Saravali 8-fold speed-band Chesta (fallback / prior P30b)."""
     if planet not in CHESTA_MOTION_PLANETS:
         return {
             "value": 0.0,
@@ -639,7 +728,6 @@ def chesta_bala(
 
     mean = MEAN_DAILY_MOTION_DEG[planet]
     if speed_longitude is None:
-        # Fallback when speed missing: retrograde→Vakra else Sama.
         if is_retrograde:
             return {
                 "value": 60.0,
@@ -660,7 +748,6 @@ def chesta_bala(
 
     speed = float(speed_longitude)
     if speed < 0.0:
-        # Anuvakra: retrograde and near 0° of sign (entering previous).
         if sign_degree is not None and float(sign_degree) < 1.0:
             return {
                 "value": 30.0,
@@ -689,7 +776,6 @@ def chesta_bala(
     elif ratio < 1.50:
         motion, val = "sama", 7.5
     else:
-        # Atichara: fast and near end of sign (entering next).
         if sign_degree is not None and float(sign_degree) >= 29.0:
             motion, val = "atichara", 30.0
         else:
@@ -703,6 +789,88 @@ def chesta_bala(
         "speed_longitude": round(speed, 6),
         "speed_ratio_vs_mean": round(ratio, 6),
     }
+
+
+def chesta_bala(
+    *,
+    planet: str,
+    is_retrograde: bool,
+    speed_longitude: float | None = None,
+    sign_degree: float | None = None,
+    ayana_value: float | None = None,
+    paksha_value: float | None = None,
+    true_longitude_sidereal_deg: float | None = None,
+    julian_day_ut: float | None = None,
+    ayanamsa_deg: float | None = None,
+    ephemeris_mode: str = "moshier",
+    seeghra_inputs: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """
+    Motional strength (BPHS Seeghra + Saravali fallback).
+
+    - Sun: identical to Ayana Bala
+    - Moon: identical to Paksha Bala
+    - Mars–Saturn: Seeghra-kendra Chesta when JD/means available;
+      else Saravali 8-fold speed bands
+    """
+    if planet == "Sun":
+        val = float(ayana_value) if ayana_value is not None else 0.0
+        return {
+            "value": round(val, 6),
+            "basis": "ayana_as_chesta",
+            "motion": "luminary",
+            "is_retrograde": False,
+            "speed_longitude": None,
+            "speed_ratio_vs_mean": None,
+        }
+    if planet == "Moon":
+        val = float(paksha_value) if paksha_value is not None else 0.0
+        return {
+            "value": round(val, 6),
+            "basis": "paksha_as_chesta",
+            "motion": "luminary",
+            "is_retrograde": False,
+            "speed_longitude": None,
+            "speed_ratio_vs_mean": None,
+        }
+
+    inputs = seeghra_inputs
+    if inputs is None and (
+        true_longitude_sidereal_deg is not None
+        and julian_day_ut is not None
+        and ayanamsa_deg is not None
+        and planet in SEEGHRA_PLANETS
+    ):
+        inputs = resolve_seeghra_inputs(
+            planet=planet,
+            true_longitude_sidereal_deg=float(true_longitude_sidereal_deg),
+            julian_day_ut=float(julian_day_ut),
+            ayanamsa_deg=float(ayanamsa_deg),
+            ephemeris_mode=ephemeris_mode,
+        )
+
+    if inputs is not None:
+        out = seeghra_kendra_chesta(
+            seeghrochcha_deg=float(inputs["seeghrochcha_deg"]),
+            mean_longitude_deg=float(inputs["mean_longitude_deg"]),
+            true_longitude_deg=float(inputs["true_longitude_deg"]),
+        )
+        out["motion"] = "seeghra_kendra"
+        out["is_retrograde"] = bool(is_retrograde)
+        out["speed_longitude"] = (
+            round(float(speed_longitude), 6) if speed_longitude is not None else None
+        )
+        out["speed_ratio_vs_mean"] = None
+        out["seeghra_notes"] = list(inputs.get("notes") or [])
+        return out
+
+    return chesta_saravali_motion(
+        planet=planet,
+        is_retrograde=is_retrograde,
+        speed_longitude=speed_longitude,
+        sign_degree=sign_degree,
+    )
+
 
 def _clamp_sphuta(value: float) -> float:
     return max(0.0, min(60.0, value))
@@ -922,6 +1090,9 @@ def compute_planet_shadbala_partial(
     speed_longitude: float | None = None,
     sign_degree: float | None = None,
     planet_longitudes: dict[str, float] | None = None,
+    julian_day_ut: float | None = None,
+    ayanamsa_deg: float | None = None,
+    ephemeris_mode: str = "moshier",
 ) -> dict[str, Any]:
     nais = naisargika_bala(planet)
     dig = dig_bala(planet=planet, rasi_house=rasi_house)
@@ -970,6 +1141,10 @@ def compute_planet_shadbala_partial(
         sign_degree=sign_degree,
         ayana_value=float(kala["ayana"]) if planet == "Sun" else None,
         paksha_value=float(kala["paksha"]) if planet == "Moon" else None,
+        true_longitude_sidereal_deg=longitude_sidereal_deg,
+        julian_day_ut=julian_day_ut,
+        ayanamsa_deg=ayanamsa_deg,
+        ephemeris_mode=ephemeris_mode,
     )
     drik = drik_bala(
         planet=planet,
@@ -1032,13 +1207,14 @@ def compute_planet_shadbala_partial(
             "kala.hora",
             "kala.ayana",
             "kala.yuddha",
-            "chesta.saravali_motion",
+            "chesta.seeghra_kendra",
+            "chesta.saravali_motion_fallback",
             "drik.sphuta",
         ],
         "deferred_components": [
             "saptavargaja.adhi_mitra_satru",
-            "chesta.seeghra_kendra",
             "kala.sankranti_ephemeris_sunrise",
+            "chesta.inferior_seeghrochcha_product_tables",
         ],
     }
 
@@ -1148,6 +1324,10 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
         for name, p in planets.items()
         if name in CLASSICAL_PLANETS and p.get("sign")
     }
+    jd = resolved.get("julian_day_ut")
+    aya = chart.get("ayanamsa_degrees")
+    lib = chart.get("library") or chart.get("config") or {}
+    ephe_mode = str(lib.get("ephemeris_mode") or "moshier")
     return {
         "planets": planets,
         "sun_lon": sun_lon,
@@ -1161,6 +1341,9 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
         "masa_meta": masa_meta,
         "tribhaga_portion": tribhaga_portion,
         "planet_signs": planet_signs,
+        "julian_day_ut": float(jd) if jd is not None else None,
+        "ayanamsa_deg": float(aya) if aya is not None else None,
+        "ephemeris_mode": ephe_mode,
     }
 
 
@@ -1210,6 +1393,9 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 ),
                 sign_degree=float(p["sign_degree"]) if p.get("sign_degree") is not None else None,
                 planet_longitudes=longitudes,
+                julian_day_ut=ctx.get("julian_day_ut"),
+                ayanamsa_deg=ctx.get("ayanamsa_deg"),
+                ephemeris_mode=str(ctx.get("ephemeris_mode") or "moshier"),
             )
         )
 
@@ -1244,9 +1430,9 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 "drik",
             ],
             "deferred_component_families": [
-                "chesta_seeghra_kendra",
                 "saptavargaja_adhi_mitra",
                 "kala_sankranti_ephemeris_sunrise",
+                "chesta_inferior_seeghrochcha_product_tables",
             ],
         },
         "notes": [
@@ -1255,7 +1441,8 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
             "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa (Hora-at-sankranti) "
             "+ Vara/Hora + Ayana + Yuddha.",
-            "Chesta: Sun=Ayana, Moon=Paksha, others Saravali 8-fold speed bands.",
+            "Chesta: Sun=Ayana, Moon=Paksha; Mars–Saturn Seeghra-kendra (BPHS); "
+            "Saravali 8-fold fallback if means unavailable.",
             "Drik: Sphuta continuous degree-Drishti + 1.25/0.75; "
             "whole-sign graha-table fallback if longitudes absent.",
         ],
@@ -1272,6 +1459,7 @@ __all__ = [
     "apply_yuddha_bala",
     "ayana_bala",
     "chesta_bala",
+    "chesta_saravali_motion",
     "compute_kala_bala",
     "compute_planet_shadbala_partial",
     "compute_saptavargaja_bala",
@@ -1287,8 +1475,10 @@ __all__ = [
     "ojayugma_navamsa_bala",
     "ojayugma_rasi_bala",
     "paksha_bala",
+    "resolve_seeghra_inputs",
     "sankranti_hora_lord",
     "saptavargaja_points",
+    "seeghra_kendra_chesta",
     "sphuta_drishti",
     "tribhaga_bala",
     "uchcha_bala",

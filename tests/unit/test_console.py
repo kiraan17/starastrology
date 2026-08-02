@@ -537,7 +537,7 @@ def test_api_verify_shadbala():
     assert body["summary"]["shadbala_strongest"]
     assert body["summary"]["shadbala_strongest_virupa"] > 0
     assert "TEC-023" in body["sections"]["shadbala"]["technique_ids"]
-    assert body["sections"]["shadbala"]["engine_version"] == "0.8.0-abda-masa-hora"
+    assert body["sections"]["shadbala"]["engine_version"] == "0.9.0-seeghra-chesta"
     sun = next(p for p in body["sections"]["shadbala"]["shadbala"]["planets"] if p["planet"] == "Sun")
     assert "kala_partial" in sun["components_virupa"]
     assert "drik" in sun["components_virupa"]
@@ -545,6 +545,8 @@ def test_api_verify_shadbala():
     ctx = body["sections"]["shadbala"]["shadbala"]["context"]
     assert ctx["abda_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
     assert ctx["masa_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
+    mars = next(p for p in body["sections"]["shadbala"]["shadbala"]["planets"] if p["planet"] == "Mars")
+    assert mars["components_virupa"]["chesta"]["basis"] == "seeghra_kendra_bphs_candidate"
     assert "saptavargaja" in sun["components_virupa"]["sthana_partial"]
     assert "drekkana" in sun["components_virupa"]["sthana_partial"]
     assert "ayana" in sun["components_virupa"]["kala_partial"]
