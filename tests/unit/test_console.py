@@ -537,3 +537,26 @@ def test_api_verify_orchestration():
     assert body["summary"]["orchestration_conflict_count"] >= 1
     assert body["summary"]["orchestration_candidate_count"] >= 1
     assert body["sections"]["orchestration"]["safety"]["blended_verdicts"] is False
+
+
+def test_api_verify_yogini():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["yogini"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["yogini_engine"] == "YoginiDasha"
+    assert body["summary"]["yogini_name"]
+    assert body["summary"]["yogini_lord"]
+    assert body["summary"]["yogini_maha_count"] >= 1
+    assert body["summary"]["yogini_antar_count"] >= 8
+    assert body["summary"]["yogini_balance_years"] > 0

@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P24a — Freeze-candidate + public API readiness docs done**
+**P25a — Yogini dasha thin slice done**
 
-Candidate packaging in `release/freeze-candidate-manifest-v0.1.json` (not Frozen; public API still blocked).
+Maha/Antar Yogini timing in engine `YoginiDasha` `0.1.0-maha-antar`.
 
 
 ## Principles (short)

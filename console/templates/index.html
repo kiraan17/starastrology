@@ -94,6 +94,7 @@
       <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
       <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
       <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
+      <label><input type="checkbox" name="engines" value="yogini" {% if 'yogini' in form.engines %}checked{% endif %} /> yogini dasha</label>
       <label><input type="checkbox" name="engines" value="orchestration" {% if 'orchestration' in form.engines %}checked{% endif %} /> orchestration</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
@@ -483,6 +484,19 @@
     D9 flips: {{ report.summary.rectification_d9_flips }} |
     D60 flips: {{ report.summary.rectification_d60_flips }} |
     Winner: {{ report.summary.rectification_winner_selected }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.yogini_engine %}
+  <h3>Yogini Dasha</h3>
+  <p>
+    Engine: {{ report.summary.yogini_engine }} |
+    Yogini: {{ report.summary.yogini_name }} |
+    Lord: {{ report.summary.yogini_lord }} |
+    Balance years: {{ report.summary.yogini_balance_years }} |
+    Nakshatra: {{ report.summary.yogini_nakshatra }} |
+    Maha: {{ report.summary.yogini_maha_count }} |
+    Antar: {{ report.summary.yogini_antar_count }}
   </p>
   {% endif %}
 

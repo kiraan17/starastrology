@@ -48,7 +48,7 @@
 | TEC-028 | Chara Karakas (7/8 config) | Jaimini | classification | normal | yes | yes | Auto-Tested | P15 VARIANT-001 seven|eight; never Gemini |
 | TEC-029 | Vimshottari dasha full depth | Timing | timing | normal | yes | yes | Auto-Tested | P09a Maha→Prana capable; mean year 365.2425d |
 | TEC-030 | Conditional dasha eligibility pack | Timing | timing | normal | yes | partial | Not Researched | |
-| TEC-031 | Yogini dasha | Timing | timing | normal | yes | partial | Not Researched | |
+| TEC-031 | Yogini dasha | Timing | timing | normal | yes | partial | Auto-Tested | P25a Maha/Antar; (nak+3) mod 8 Candidate start; deeper levels deferred |
 | TEC-032 | Kalachakra dasha | Timing | timing | normal | yes | no | Not Researched | |
 | TEC-033 | Jaimini rashi dasha pack | Jaimini | timing | normal | yes | partial | Not Researched | Chara/Sthira/Navamsa… |
 | TEC-034 | Annual dasha variants (Mudda/Patyayini/etc) | Annual | timing | normal | yes | partial | Not Researched | |

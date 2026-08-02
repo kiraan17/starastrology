@@ -23,6 +23,7 @@ from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 from bhava360.timing.muhurta_event_engine import run_muhurta_event_engine
 from bhava360.timing.panchanga_engine import run_panchanga_engine
+from bhava360.timing.yogini_engine import run_yogini_dasha_engine
 
 
 def parse_subject(
@@ -135,6 +136,7 @@ def run_verification(
             "prashna",
             "systems_approach",
             "lal_kitab",
+            "yogini",
         )
     )
     if needs_chart:
@@ -322,6 +324,16 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "rectification", "error": str(exc)})
+
+    if "yogini" in selected:
+        try:
+            report["sections"]["yogini"] = run_yogini_dasha_engine(
+                subject,
+                config=config,
+                chart=chart,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "yogini", "error": str(exc)})
 
     # Orchestration consumes other sections — always last.
     if "orchestration" in selected:
@@ -635,6 +647,18 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         baseline = ((scan.get("baseline") or {}).get("fingerprint")) or {}
         summary["rectification_baseline_lagna"] = baseline.get("lagna_sign")
         summary["rectification_baseline_kunda"] = baseline.get("kunda_sign")
+
+    yog = report["sections"].get("yogini")
+    if yog:
+        summary["yogini_engine"] = yog.get("engine")
+        tree = yog.get("yogini") or {}
+        bal = tree.get("balance") or {}
+        summary["yogini_name"] = bal.get("yogini")
+        summary["yogini_lord"] = bal.get("lord")
+        summary["yogini_balance_years"] = bal.get("balance_years")
+        summary["yogini_nakshatra"] = bal.get("nakshatra")
+        summary["yogini_maha_count"] = len((tree.get("levels") or {}).get("maha") or [])
+        summary["yogini_antar_count"] = len((tree.get("levels") or {}).get("antar") or [])
 
     orch = report["sections"].get("orchestration")
     if orch:

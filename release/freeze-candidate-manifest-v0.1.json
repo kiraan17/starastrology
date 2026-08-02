@@ -183,6 +183,15 @@
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
       "notes": "blended_verdicts=false"
+    },
+    {
+      "engine": "YoginiDasha",
+      "module": "bhava360.timing.yogini_engine",
+      "engine_version": "0.1.0-maha-antar",
+      "technique_ids": ["TEC-031"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate (nak+3) mod 8 start"
     }
   ],
   "kernel": {
