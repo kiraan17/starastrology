@@ -15,7 +15,7 @@ from bhava360.timing.panchanga_engine import run_panchanga_engine
 from bhava360.timing.panchapakshi import PANCHAPAKSHI_VARIANT, evaluate_panchapakshi
 
 ENGINE_NAME = "Panchapakshi"
-ENGINE_VERSION = "0.1.0-yama-bright"
+ENGINE_VERSION = "0.2.0-both-paksha"
 TECHNIQUE_IDS = ("TEC-075",)
 STATUS = "Candidate"
 
@@ -61,9 +61,9 @@ def run_panchapakshi_engine(
     panchanga: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    Birth bird + equal yama clock; Shukla activity mirrors when applicable.
+    Birth bird + equal yama clock + major activities for Shukla and Krishna.
 
-    Krishna-paksha activity lookup remains Source Needed / deferred.
+    Majors derived from PyJHora V4.8.7 CSV (Candidate). Sub-yamas deferred.
     """
     cfg = config or ChartConfig()
     built = chart
@@ -131,10 +131,10 @@ def run_panchapakshi_engine(
         "provenance": {
             "status": STATUS,
             "stamp": PANCHAPAKSHI_VARIANT,
-            "sources": ["TEC-075", "VedAstro Part 2/5 (Candidate)"],
+            "sources": ["TEC-075", "PyJHora V4.8.7 pancha_pakshi_db.csv (AGPL Candidate)"],
             "notes": [
-                "Birth bird from Moon nakshatra + paksha.",
-                "Shukla mirror activities Auto-Tested thin; Krishna deferred.",
+                "Birth bird from Moon nakshatra + paksha (PyJHora table).",
+                "Major activities for both pakshas; sub-yamas deferred.",
             ],
         },
         "safety": {

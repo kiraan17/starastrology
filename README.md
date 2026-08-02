@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P26b — Panchapakshi thin slice done**
+**P27a — Panchapakshi both-paksha majors done**
 
-Birth bird + yama clock + Shukla mirrors in engine `Panchapakshi` `0.1.0-yama-bright` (TEC-075; Krishna deferred).
+Engine `Panchapakshi` `0.2.0-both-paksha` (TEC-075): PyJHora-derived majors for Shukla and Krishna.
 
 
 ## Principles (short)

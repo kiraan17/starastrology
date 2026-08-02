@@ -1,15 +1,19 @@
-"""Panchapakshi (five-bird) cycles — Candidate thin slice (TEC-075)."""
+"""Panchapakshi (five-bird) cycles — Candidate (TEC-075).
+
+Major-activity mirrors derived from PyJHora V4.8.7 `pancha_pakshi_db.csv`
+(AGPL-3.0; Candidate provenance). Sub-yamas / padu / bharana deferred.
+"""
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from typing import Any
 
 from bhava360.kernel.derived import NAKSHATRA_SPAN, normalize_longitude
 from bhava360.kernel.models import NAKSHATRAS_VEDASTRO
 from bhava360.timing.panchanga import VARA_NAMES
 
-PANCHAPAKSHI_VARIANT = "panchapakshi_bright_half_candidate_v1"
+PANCHAPAKSHI_VARIANT = "panchapakshi_pyjhora_major_candidate_v1"
 
 BIRDS: tuple[str, ...] = ("Vulture", "Owl", "Crow", "Cock", "Peacock")
 ACTIVITIES: tuple[str, ...] = ("Ruling", "Eating", "Walking", "Sleeping", "Dying")
@@ -22,7 +26,7 @@ ACTIVITY_RANK: dict[str, int] = {
     "Dying": 1,
 }
 
-BIRD_ELEMENT_BRIGHT: dict[str, str] = {
+BIRD_ELEMENT: dict[str, str] = {
     "Vulture": "Fire",
     "Owl": "Air",
     "Crow": "Earth",
@@ -30,144 +34,94 @@ BIRD_ELEMENT_BRIGHT: dict[str, str] = {
     "Peacock": "Ether",
 }
 
-# Nakshatra index 0..26 → bird for Shukla / Krishna (VedAstro Part 2 / Pulippani).
-_BRIGHT_BY_NAK: tuple[str, ...] = (
-    "Vulture",
-    "Vulture",
-    "Vulture",
-    "Vulture",
-    "Vulture",
-    "Owl",
-    "Owl",
-    "Owl",
-    "Owl",
-    "Owl",
-    "Crow",
-    "Crow",
-    "Crow",
-    "Crow",
-    "Crow",
-    "Cock",
-    "Cock",
-    "Cock",
-    "Cock",
-    "Cock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
+# PyJHora `pancha_pakshi_stars_birds_paksha` — (shukla_bird, krishna_bird) 0-based.
+# Groups: 5, 6, 5, 5, 6.
+_BIRTH_BIRD_BY_NAK: tuple[tuple[str, str], ...] = (
+    *(("Vulture", "Peacock") for _ in range(5)),
+    *(("Owl", "Cock") for _ in range(6)),
+    *(("Crow", "Crow") for _ in range(5)),
+    *(("Cock", "Owl") for _ in range(5)),
+    *(("Peacock", "Vulture") for _ in range(6)),
 )
-_DARK_BY_NAK: tuple[str, ...] = (
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Peacock",
-    "Cock",
-    "Cock",
-    "Cock",
-    "Cock",
-    "Cock",
-    "Crow",
-    "Crow",
-    "Crow",
-    "Crow",
-    "Crow",
-    "Owl",
-    "Owl",
-    "Owl",
-    "Owl",
-    "Owl",
-    "Vulture",
-    "Vulture",
-    "Vulture",
-    "Vulture",
-    "Vulture",
-)
+assert len(_BIRTH_BIRD_BY_NAK) == 27
 
-# Bright-half weekday groups (Sunday=0). VedAstro Part 5.
-_BRIGHT_GROUP_BY_WD: tuple[str, ...] = (
-    "A",  # Sun
-    "B",  # Mon
-    "A",  # Tue
-    "B",  # Wed
-    "C",  # Thu
-    "D",  # Fri
-    "B",  # Sat
-)
-
-# Bright-half mirror: group → day|night → bird → 5 activities (Yama 1..5 / 6..10).
-_BRIGHT_MIRROR: dict[str, dict[str, dict[str, tuple[str, ...]]]] = {
-    "A": {
-        "day": {
-            "Vulture": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Owl": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-            "Crow": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-            "Cock": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-            "Peacock": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-        },
-        "night": {
-            "Vulture": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-            "Owl": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-            "Crow": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Cock": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-            "Peacock": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-        },
-    },
-    "B": {
-        "day": {
-            "Vulture": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-            "Owl": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Crow": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-            "Cock": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-            "Peacock": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-        },
-        "night": {
-            "Vulture": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-            "Owl": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-            "Crow": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-            "Cock": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Peacock": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-        },
-    },
-    "C": {
-        "day": {
-            "Vulture": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-            "Owl": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-            "Crow": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Cock": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-            "Peacock": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-        },
-        "night": {
-            "Vulture": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-            "Owl": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Crow": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-            "Cock": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-            "Peacock": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-        },
-    },
-    "D": {
-        "day": {
-            "Vulture": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-            "Owl": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-            "Crow": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-            "Cock": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Peacock": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-        },
-        "night": {
-            "Vulture": ("Eating", "Walking", "Ruling", "Sleeping", "Dying"),
-            "Owl": ("Walking", "Sleeping", "Dying", "Ruling", "Eating"),
-            "Crow": ("Sleeping", "Eating", "Walking", "Dying", "Ruling"),
-            "Cock": ("Dying", "Ruling", "Sleeping", "Eating", "Walking"),
-            "Peacock": ("Ruling", "Dying", "Eating", "Walking", "Sleeping"),
-        },
-    },
+# Major activities (10 = day 1..5 + night 6..10) keyed by (paksha_idx, weekday_sun0, bird_idx).
+# paksha: 0=Shukla, 1=Krishna. Derived from PyJHora pancha_pakshi_db.csv majors.
+_MAJOR_ACTIVITIES: dict[tuple[int, int, int], tuple[str, ...]] = {
+    # Shukla
+    (0, 0, 0): ("Eating", "Walking", "Ruling", "Sleeping", "Dying", "Dying", "Walking", "Sleeping", "Eating", "Ruling"),
+    (0, 0, 1): ("Walking", "Ruling", "Sleeping", "Dying", "Eating", "Ruling", "Dying", "Walking", "Sleeping", "Eating"),
+    (0, 0, 2): ("Ruling", "Sleeping", "Dying", "Eating", "Walking", "Eating", "Ruling", "Dying", "Walking", "Sleeping"),
+    (0, 0, 3): ("Sleeping", "Dying", "Eating", "Walking", "Ruling", "Sleeping", "Eating", "Ruling", "Dying", "Walking"),
+    (0, 0, 4): ("Dying", "Eating", "Walking", "Ruling", "Sleeping", "Walking", "Sleeping", "Eating", "Ruling", "Dying"),
+    (0, 1, 0): ("Dying", "Eating", "Walking", "Ruling", "Sleeping", "Walking", "Sleeping", "Eating", "Ruling", "Dying"),
+    (0, 1, 1): ("Eating", "Walking", "Ruling", "Sleeping", "Dying", "Dying", "Walking", "Sleeping", "Eating", "Ruling"),
+    (0, 1, 2): ("Walking", "Ruling", "Sleeping", "Dying", "Eating", "Ruling", "Dying", "Walking", "Sleeping", "Eating"),
+    (0, 1, 3): ("Ruling", "Sleeping", "Dying", "Eating", "Walking", "Eating", "Ruling", "Dying", "Walking", "Sleeping"),
+    (0, 1, 4): ("Sleeping", "Dying", "Eating", "Walking", "Ruling", "Sleeping", "Eating", "Ruling", "Dying", "Walking"),
+    (0, 2, 0): ("Eating", "Walking", "Ruling", "Sleeping", "Dying", "Dying", "Walking", "Sleeping", "Eating", "Ruling"),
+    (0, 2, 1): ("Walking", "Ruling", "Sleeping", "Dying", "Eating", "Ruling", "Dying", "Walking", "Sleeping", "Eating"),
+    (0, 2, 2): ("Ruling", "Sleeping", "Dying", "Eating", "Walking", "Eating", "Ruling", "Dying", "Walking", "Sleeping"),
+    (0, 2, 3): ("Sleeping", "Dying", "Eating", "Walking", "Ruling", "Sleeping", "Eating", "Ruling", "Dying", "Walking"),
+    (0, 2, 4): ("Dying", "Eating", "Walking", "Ruling", "Sleeping", "Walking", "Sleeping", "Eating", "Ruling", "Dying"),
+    (0, 3, 0): ("Dying", "Eating", "Walking", "Ruling", "Sleeping", "Walking", "Sleeping", "Eating", "Ruling", "Dying"),
+    (0, 3, 1): ("Eating", "Walking", "Ruling", "Sleeping", "Dying", "Dying", "Walking", "Sleeping", "Eating", "Ruling"),
+    (0, 3, 2): ("Walking", "Ruling", "Sleeping", "Dying", "Eating", "Ruling", "Dying", "Walking", "Sleeping", "Eating"),
+    (0, 3, 3): ("Ruling", "Sleeping", "Dying", "Eating", "Walking", "Eating", "Ruling", "Dying", "Walking", "Sleeping"),
+    (0, 3, 4): ("Sleeping", "Dying", "Eating", "Walking", "Ruling", "Sleeping", "Eating", "Ruling", "Dying", "Walking"),
+    (0, 4, 0): ("Sleeping", "Dying", "Eating", "Walking", "Ruling", "Sleeping", "Eating", "Ruling", "Dying", "Walking"),
+    (0, 4, 1): ("Dying", "Eating", "Walking", "Ruling", "Sleeping", "Walking", "Sleeping", "Eating", "Ruling", "Dying"),
+    (0, 4, 2): ("Eating", "Walking", "Ruling", "Sleeping", "Dying", "Dying", "Walking", "Sleeping", "Eating", "Ruling"),
+    (0, 4, 3): ("Walking", "Ruling", "Sleeping", "Dying", "Eating", "Ruling", "Dying", "Walking", "Sleeping", "Eating"),
+    (0, 4, 4): ("Ruling", "Sleeping", "Dying", "Eating", "Walking", "Eating", "Ruling", "Dying", "Walking", "Sleeping"),
+    (0, 5, 0): ("Ruling", "Sleeping", "Dying", "Eating", "Walking", "Eating", "Ruling", "Dying", "Walking", "Sleeping"),
+    (0, 5, 1): ("Sleeping", "Dying", "Eating", "Walking", "Ruling", "Sleeping", "Eating", "Ruling", "Dying", "Walking"),
+    (0, 5, 2): ("Dying", "Eating", "Walking", "Ruling", "Sleeping", "Walking", "Sleeping", "Eating", "Ruling", "Dying"),
+    (0, 5, 3): ("Eating", "Walking", "Ruling", "Sleeping", "Dying", "Dying", "Walking", "Sleeping", "Eating", "Ruling"),
+    (0, 5, 4): ("Walking", "Ruling", "Sleeping", "Dying", "Eating", "Ruling", "Dying", "Walking", "Sleeping", "Eating"),
+    (0, 6, 0): ("Walking", "Ruling", "Sleeping", "Dying", "Eating", "Ruling", "Dying", "Walking", "Sleeping", "Eating"),
+    (0, 6, 1): ("Ruling", "Sleeping", "Dying", "Eating", "Walking", "Eating", "Ruling", "Dying", "Walking", "Sleeping"),
+    (0, 6, 2): ("Sleeping", "Dying", "Eating", "Walking", "Ruling", "Sleeping", "Eating", "Ruling", "Dying", "Walking"),
+    (0, 6, 3): ("Dying", "Eating", "Walking", "Ruling", "Sleeping", "Walking", "Sleeping", "Eating", "Ruling", "Dying"),
+    (0, 6, 4): ("Eating", "Walking", "Ruling", "Sleeping", "Dying", "Dying", "Walking", "Sleeping", "Eating", "Ruling"),
+    # Krishna
+    (1, 0, 0): ("Walking", "Eating", "Dying", "Sleeping", "Ruling", "Eating", "Sleeping", "Walking", "Dying", "Ruling"),
+    (1, 0, 1): ("Dying", "Sleeping", "Ruling", "Walking", "Eating", "Ruling", "Eating", "Sleeping", "Walking", "Dying"),
+    (1, 0, 2): ("Ruling", "Walking", "Eating", "Dying", "Sleeping", "Dying", "Ruling", "Eating", "Sleeping", "Walking"),
+    (1, 0, 3): ("Eating", "Dying", "Sleeping", "Ruling", "Walking", "Walking", "Dying", "Ruling", "Eating", "Sleeping"),
+    (1, 0, 4): ("Sleeping", "Ruling", "Walking", "Eating", "Dying", "Sleeping", "Walking", "Dying", "Ruling", "Eating"),
+    (1, 1, 0): ("Sleeping", "Ruling", "Walking", "Eating", "Dying", "Dying", "Ruling", "Eating", "Sleeping", "Walking"),
+    (1, 1, 1): ("Walking", "Eating", "Dying", "Sleeping", "Ruling", "Walking", "Dying", "Ruling", "Eating", "Sleeping"),
+    (1, 1, 2): ("Dying", "Sleeping", "Ruling", "Walking", "Eating", "Sleeping", "Walking", "Dying", "Ruling", "Eating"),
+    (1, 1, 3): ("Ruling", "Walking", "Eating", "Dying", "Sleeping", "Eating", "Sleeping", "Walking", "Dying", "Ruling"),
+    (1, 1, 4): ("Eating", "Dying", "Sleeping", "Ruling", "Walking", "Ruling", "Eating", "Sleeping", "Walking", "Dying"),
+    (1, 2, 0): ("Walking", "Eating", "Dying", "Sleeping", "Ruling", "Eating", "Sleeping", "Walking", "Dying", "Ruling"),
+    (1, 2, 1): ("Dying", "Sleeping", "Ruling", "Walking", "Eating", "Ruling", "Eating", "Sleeping", "Walking", "Dying"),
+    (1, 2, 2): ("Ruling", "Walking", "Eating", "Dying", "Sleeping", "Dying", "Ruling", "Eating", "Sleeping", "Walking"),
+    (1, 2, 3): ("Eating", "Dying", "Sleeping", "Ruling", "Walking", "Walking", "Dying", "Ruling", "Eating", "Sleeping"),
+    (1, 2, 4): ("Sleeping", "Ruling", "Walking", "Eating", "Dying", "Sleeping", "Walking", "Dying", "Ruling", "Eating"),
+    (1, 3, 0): ("Dying", "Sleeping", "Ruling", "Walking", "Eating", "Sleeping", "Walking", "Dying", "Ruling", "Eating"),
+    (1, 3, 1): ("Ruling", "Walking", "Eating", "Dying", "Sleeping", "Eating", "Sleeping", "Walking", "Dying", "Ruling"),
+    (1, 3, 2): ("Eating", "Dying", "Sleeping", "Ruling", "Walking", "Ruling", "Eating", "Sleeping", "Walking", "Dying"),
+    (1, 3, 3): ("Sleeping", "Ruling", "Walking", "Eating", "Dying", "Dying", "Ruling", "Eating", "Sleeping", "Walking"),
+    (1, 3, 4): ("Walking", "Eating", "Dying", "Sleeping", "Ruling", "Walking", "Dying", "Ruling", "Eating", "Sleeping"),
+    (1, 4, 0): ("Ruling", "Walking", "Eating", "Dying", "Sleeping", "Walking", "Dying", "Ruling", "Eating", "Sleeping"),
+    (1, 4, 1): ("Eating", "Dying", "Sleeping", "Ruling", "Walking", "Sleeping", "Walking", "Dying", "Ruling", "Eating"),
+    (1, 4, 2): ("Sleeping", "Ruling", "Walking", "Eating", "Dying", "Eating", "Sleeping", "Walking", "Dying", "Ruling"),
+    (1, 4, 3): ("Walking", "Eating", "Dying", "Sleeping", "Ruling", "Ruling", "Eating", "Sleeping", "Walking", "Dying"),
+    (1, 4, 4): ("Dying", "Sleeping", "Ruling", "Walking", "Eating", "Dying", "Ruling", "Eating", "Sleeping", "Walking"),
+    (1, 5, 0): ("Eating", "Dying", "Sleeping", "Ruling", "Walking", "Ruling", "Eating", "Sleeping", "Walking", "Dying"),
+    (1, 5, 1): ("Sleeping", "Ruling", "Walking", "Eating", "Dying", "Dying", "Ruling", "Eating", "Sleeping", "Walking"),
+    (1, 5, 2): ("Walking", "Eating", "Dying", "Sleeping", "Ruling", "Walking", "Dying", "Ruling", "Eating", "Sleeping"),
+    (1, 5, 3): ("Dying", "Sleeping", "Ruling", "Walking", "Eating", "Sleeping", "Walking", "Dying", "Ruling", "Eating"),
+    (1, 5, 4): ("Ruling", "Walking", "Eating", "Dying", "Sleeping", "Eating", "Sleeping", "Walking", "Dying", "Ruling"),
+    (1, 6, 0): ("Sleeping", "Ruling", "Walking", "Eating", "Dying", "Dying", "Ruling", "Eating", "Sleeping", "Walking"),
+    (1, 6, 1): ("Walking", "Eating", "Dying", "Sleeping", "Ruling", "Walking", "Dying", "Ruling", "Eating", "Sleeping"),
+    (1, 6, 2): ("Dying", "Sleeping", "Ruling", "Walking", "Eating", "Sleeping", "Walking", "Dying", "Ruling", "Eating"),
+    (1, 6, 3): ("Ruling", "Walking", "Eating", "Dying", "Sleeping", "Eating", "Sleeping", "Walking", "Dying", "Ruling"),
+    (1, 6, 4): ("Eating", "Dying", "Sleeping", "Ruling", "Walking", "Ruling", "Eating", "Sleeping", "Walking", "Dying"),
 }
+assert len(_MAJOR_ACTIVITIES) == 70
 
 
 def _as_utc(dt: datetime) -> datetime:
@@ -181,27 +135,34 @@ def _iso(dt: datetime) -> str:
 
 
 def sunday_index(local_dt: datetime) -> int:
-    # Use the civil date in the datetime's own zone when aware.
     local = local_dt
     if local.tzinfo is not None:
         local = local.replace(tzinfo=None)
     return (local.weekday() + 1) % 7
 
 
-def birth_bird_from_nakshatra(*, nakshatra_index: int, paksha: str) -> dict[str, Any]:
-    """Permanent birth bird from Moon nakshatra (1..27) + birth paksha."""
-    idx0 = (int(nakshatra_index) - 1) % 27
+def paksha_index(paksha: str) -> int:
     pak = paksha.strip().title()
-    if pak not in {"Shukla", "Krishna"}:
-        raise ValueError(f"unsupported paksha: {paksha}")
-    bird = _BRIGHT_BY_NAK[idx0] if pak == "Shukla" else _DARK_BY_NAK[idx0]
+    if pak == "Shukla":
+        return 0
+    if pak == "Krishna":
+        return 1
+    raise ValueError(f"unsupported paksha: {paksha}")
+
+
+def birth_bird_from_nakshatra(*, nakshatra_index: int, paksha: str) -> dict[str, Any]:
+    """Permanent birth bird from Moon nakshatra (1..27) + birth paksha (PyJHora)."""
+    idx0 = (int(nakshatra_index) - 1) % 27
+    pk = paksha_index(paksha)
+    bird = _BIRTH_BIRD_BY_NAK[idx0][pk]
     return {
         "bird": bird,
-        "element": BIRD_ELEMENT_BRIGHT[bird],
+        "bird_index": BIRDS.index(bird) + 1,
+        "element": BIRD_ELEMENT[bird],
         "nakshatra_index": idx0 + 1,
         "nakshatra": NAKSHATRAS_VEDASTRO[idx0],
-        "paksha": pak,
-        "basis": "moon_nakshatra_and_paksha",
+        "paksha": "Shukla" if pk == 0 else "Krishna",
+        "basis": "pyjhora_pancha_pakshi_stars_birds_paksha",
     }
 
 
@@ -262,10 +223,6 @@ def build_yama_clock(
     }
 
 
-def bright_half_group(weekday_sunday_index: int) -> str:
-    return _BRIGHT_GROUP_BY_WD[weekday_sunday_index % 7]
-
-
 def activity_class(activity: str) -> str:
     if activity in {"Ruling", "Eating"}:
         return "favorable"
@@ -274,9 +231,11 @@ def activity_class(activity: str) -> str:
     return "mixed"
 
 
-def lookup_bright_activity(*, bird: str, group: str, phase: str, yama_in_phase: int) -> str:
-    seq = _BRIGHT_MIRROR[group][phase][bird]
-    return seq[yama_in_phase]
+def lookup_major_activity(*, paksha: str, weekday_sunday_index: int, bird: str, yama_index: int) -> str:
+    pk = paksha_index(paksha)
+    bi = BIRDS.index(bird)
+    seq = _MAJOR_ACTIVITIES[(pk, weekday_sunday_index % 7, bi)]
+    return seq[yama_index - 1]
 
 
 def evaluate_panchapakshi(
@@ -288,12 +247,7 @@ def evaluate_panchapakshi(
     next_sunrise: datetime,
     when_utc: datetime,
 ) -> dict[str, Any]:
-    """
-    Birth bird + yama clock + activity at instant.
-
-    Bright (Shukla) half uses VedAstro Part 5 mirror tables (Candidate).
-    Dark (Krishna) half activity lookup is deferred (Source Needed — Part 6 tables inconsistent).
-    """
+    """Birth bird + yama clock + major activity schedule for both pakshas."""
     bird_info = birth_bird_from_moon_longitude(
         moon_lon_sidereal=moon_lon_sidereal, paksha=paksha
     )
@@ -303,75 +257,47 @@ def evaluate_panchapakshi(
         next_sunrise=next_sunrise,
         when_utc=when_utc,
     )
-    pak = paksha.strip().title()
+    pak = bird_info["paksha"]
     wd = clock["weekday_sunday_index"]
-    group = bright_half_group(wd) if pak == "Shukla" else None
+    bird = bird_info["bird"]
     active = clock["active"]
-    current: dict[str, Any] | None = None
-    schedule: list[dict[str, Any]] = []
-    deferred: list[str] = []
 
-    if pak == "Shukla" and active is not None and group is not None:
-        phase = str(active["phase"])
-        yama_idx = int(active["yama_index"])
-        yama_in_phase = (yama_idx - 1) % 5
-        act = lookup_bright_activity(
-            bird=bird_info["bird"],
-            group=group,
-            phase=phase,
-            yama_in_phase=yama_in_phase,
+    schedule: list[dict[str, Any]] = []
+    for row in clock["yamas"]:
+        yi = int(row["yama_index"])
+        act = lookup_major_activity(
+            paksha=pak, weekday_sunday_index=wd, bird=bird, yama_index=yi
+        )
+        schedule.append(
+            {
+                **row,
+                "activity": act,
+                "activity_class": activity_class(act),
+                "rank": ACTIVITY_RANK[act],
+            }
+        )
+
+    current = None
+    if active is not None:
+        yi = int(active["yama_index"])
+        act = lookup_major_activity(
+            paksha=pak, weekday_sunday_index=wd, bird=bird, yama_index=yi
         )
         current = {
-            "yama_index": yama_idx,
-            "phase": phase,
+            "yama_index": yi,
+            "phase": active["phase"],
             "activity": act,
             "activity_class": activity_class(act),
             "rank": ACTIVITY_RANK[act],
-            "group": group,
             "start_utc": active["start_utc"],
             "end_utc": active["end_utc"],
         }
-        for row in clock["yamas"]:
-            p = str(row["phase"])
-            yi = int(row["yama_index"])
-            a = lookup_bright_activity(
-                bird=bird_info["bird"],
-                group=group,
-                phase=p,
-                yama_in_phase=(yi - 1) % 5,
-            )
-            schedule.append(
-                {
-                    **row,
-                    "activity": a,
-                    "activity_class": activity_class(a),
-                    "rank": ACTIVITY_RANK[a],
-                }
-            )
-    else:
-        deferred.append(
-            "Krishna-paksha (dark half) mirror activity tables: Source Needed "
-            "(VedAstro Part 6 transcription has non-permutation rows)."
-        )
-        if active is not None:
-            current = {
-                "yama_index": active["yama_index"],
-                "phase": active["phase"],
-                "activity": None,
-                "activity_class": None,
-                "rank": None,
-                "group": None,
-                "start_utc": active["start_utc"],
-                "end_utc": active["end_utc"],
-                "status": "deferred_dark_half_activity",
-            }
 
     return {
         "variant": PANCHAPAKSHI_VARIANT,
         "birth_bird": bird_info,
         "paksha": pak,
         "weekday": clock["weekday"],
-        "bright_half_group": group,
         "yama_clock": {
             "active": clock["active"],
             "yama_count": len(clock["yamas"]),
@@ -379,7 +305,7 @@ def evaluate_panchapakshi(
         "current": current,
         "schedule": schedule,
         "summary": {
-            "bird": bird_info["bird"],
+            "bird": bird,
             "element": bird_info["element"],
             "paksha": pak,
             "weekday": clock["weekday"],
@@ -387,19 +313,19 @@ def evaluate_panchapakshi(
             "activity": (current or {}).get("activity"),
             "activity_class": (current or {}).get("activity_class"),
             "schedule_count": len(schedule),
-            "dark_half_activity_deferred": pak == "Krishna",
+            "dark_half_activity_deferred": False,
         },
-        "deferred": deferred
-        + [
-            "Sub-yama (upa-pakshi) nested activities",
+        "deferred": [
+            "Sub-yama (upa-pakshi) nested activities and duration weights",
             "Padu/Bharana companion birds",
             "Competitive bird-vs-bird verdicts",
+            "Separate natal-bird + query-time schedule split",
         ],
         "notes": [
-            "Candidate thin slice stamped from VedAstro Part 2 (bird) + Part 5 (Shukla mirrors).",
+            "Candidate majors derived from PyJHora V4.8.7 pancha_pakshi_db.csv.",
+            "Birth bird uses PyJHora pancha_pakshi_stars_birds_paksha (5/6/5/5/6).",
             "Yamas are equal fifths of local day and night (sunrise/sunset based).",
             "Bird is derived from the evaluated Moon nakshatra+paksha (same instant).",
-            "Separate natal-bird + query-time schedule deferred.",
         ],
     }
 
@@ -412,4 +338,5 @@ __all__ = [
     "birth_bird_from_nakshatra",
     "build_yama_clock",
     "evaluate_panchapakshi",
+    "lookup_major_activity",
 ]

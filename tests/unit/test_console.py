@@ -461,7 +461,11 @@ def test_api_verify_panchapakshi():
     }
     assert body["summary"]["panchapakshi_paksha"] in {"Shukla", "Krishna"}
     assert body["summary"]["panchapakshi_yama"]
+    assert body["summary"]["panchapakshi_activity"]
+    assert body["summary"]["panchapakshi_schedule_count"] == 10
+    assert body["summary"]["panchapakshi_dark_deferred"] is False
     assert "TEC-075" in body["sections"]["panchapakshi"]["technique_ids"]
+    assert body["sections"]["panchapakshi"]["engine_version"] == "0.2.0-both-paksha"
 
 
 def test_api_verify_numerology():

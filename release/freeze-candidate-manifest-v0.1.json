@@ -214,11 +214,11 @@
     {
       "engine": "Panchapakshi",
       "module": "bhava360.timing.panchapakshi_engine",
-      "engine_version": "0.1.0-yama-bright",
+      "engine_version": "0.2.0-both-paksha",
       "technique_ids": ["TEC-075"],
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
-      "notes": "Candidate bird+yama+Shukla; Krishna deferred Source Needed"
+      "notes": "Candidate PyJHora majors both pakshas; sub-yama deferred"
     }
   ],
   "kernel": {
