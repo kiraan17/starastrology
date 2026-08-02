@@ -37,6 +37,8 @@ DEFAULT_FORM = {
     "house_system": "whole_sign",
     "engines": ["chart", "parashara", "ashtakavarga"],
     "jaimini_chara_scheme": "seven",
+    "target_year": "2024",
+    "annual_location_rule": "birth_place",
 }
 
 
@@ -65,6 +67,8 @@ async def verify(
     house_system: str = Form("whole_sign"),
     engines: list[str] = Form(default=[]),
     jaimini_chara_scheme: str = Form("seven"),
+    target_year: str = Form(""),
+    annual_location_rule: str = Form("birth_place"),
 ) -> HTMLResponse:
     global _LAST_REPORT
     form = {
@@ -81,8 +85,11 @@ async def verify(
         "house_system": house_system,
         "engines": engines or ["chart"],
         "jaimini_chara_scheme": jaimini_chara_scheme,
+        "target_year": target_year,
+        "annual_location_rule": annual_location_rule,
     }
     uncertainty_val = float(uncertainty) if uncertainty.strip() else None
+    target_year_val = int(target_year) if str(target_year).strip() else None
     subject = parse_subject(
         date_str=date,
         time_str=time,
@@ -100,6 +107,8 @@ async def verify(
         house_system=house_system,
         engines=form["engines"],
         jaimini_chara_scheme=jaimini_chara_scheme,
+        target_year=target_year_val,
+        annual_location_rule=annual_location_rule,
     )
     _LAST_REPORT = report
     return templates.TemplateResponse(
@@ -153,12 +162,16 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
         timezone_id=payload.get("timezone_id"),
         dst_ambiguity_policy=payload.get("dst_ambiguity_policy", "earlier"),
     )
+    ty = payload.get("target_year")
+    target_year_val = int(ty) if ty not in (None, "") else None
     report = run_verification(
         subject,
         ayanamsa=payload.get("ayanamsa", "lahiri"),
         house_system=payload.get("house_system", "whole_sign"),
         engines=payload.get("engines"),
         jaimini_chara_scheme=payload.get("jaimini_chara_scheme", "seven"),
+        target_year=target_year_val,
+        annual_location_rule=payload.get("annual_location_rule", "birth_place"),
     )
     _LAST_REPORT = report
     return JSONResponse(report)

@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P16c — Tara/Chandra Bala done**
+**P17a — Tajika annual scaffold done**
 
-Tara from Moon nakshatra and Chandra Bala from Moon/Lagna in panchanga engine `0.3.0-bala`.
+Sidereal solar return + Muntha + year-lord candidate in Tajika engine `0.1.0-solar-return` (`annual.location_rule` stamped).
 
 
 ## Principles (short)

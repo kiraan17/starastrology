@@ -9,6 +9,7 @@ from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
 from bhava360.engines.parashara import run_parashara_engine
+from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 from bhava360.timing.panchanga_engine import run_panchanga_engine
 
@@ -64,6 +65,8 @@ def run_verification(
     house_system: str = "whole_sign",
     engines: list[str] | None = None,
     jaimini_chara_scheme: str = "seven",
+    target_year: int | None = None,
+    annual_location_rule: str = "birth_place",
 ) -> dict[str, Any]:
     """Run selected verification engines and return a structured report."""
     selected = engines or ["chart", "parashara", "ashtakavarga"]
@@ -84,6 +87,8 @@ def run_verification(
             "house_system": house_system,
             "engines": selected,
             "jaimini_chara_scheme": jaimini_chara_scheme,
+            "target_year": target_year,
+            "annual_location_rule": annual_location_rule,
         },
         "sections": {},
         "errors": [],
@@ -92,7 +97,7 @@ def run_verification(
     chart = None
     needs_chart = any(
         e in selected
-        for e in ("chart", "parashara", "ashtakavarga", "jaimini", "nadi", "panchanga")
+        for e in ("chart", "parashara", "ashtakavarga", "jaimini", "nadi", "panchanga", "tajika")
     )
     if needs_chart:
         try:
@@ -153,6 +158,18 @@ def run_verification(
             report["sections"]["kp"] = run_kp_engine(subject)
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "kp", "error": str(exc)})
+
+    if "tajika" in selected:
+        try:
+            report["sections"]["tajika"] = run_tajika_annual_engine(
+                subject,
+                config=config,
+                chart=chart,
+                target_year=target_year,
+                location_rule=annual_location_rule,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "tajika", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -284,4 +301,19 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["bala_moon_from_lagna"] = (
             (bala.get("chandra_bala") or {}).get("moon_from_lagna") or {}
         ).get("bala")
+
+    tajika = report["sections"].get("tajika")
+    if tajika:
+        summary["tajika_engine"] = tajika.get("engine")
+        summary["tajika_target_year"] = tajika.get("target_year")
+        summary["tajika_muntha_sign"] = (tajika.get("muntha") or {}).get("sign")
+        summary["tajika_year_lord_candidate"] = (tajika.get("muntha") or {}).get(
+            "year_lord_candidate"
+        )
+        summary["tajika_location_rule"] = (tajika.get("annual_location") or {}).get(
+            "location_rule"
+        )
+        summary["tajika_sun_error_deg"] = (tajika.get("solar_return") or {}).get(
+            "sun_longitude_error_deg"
+        )
     return summary

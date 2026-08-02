@@ -187,3 +187,28 @@ def test_api_verify_panchanga():
     assert body["summary"]["panchanga_tithi"]
     assert body["summary"]["muhurta_hora_lord"]
     assert body["summary"]["bala_moon_tara"] == "Janma"
+
+
+def test_api_verify_tajika_annual():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["tajika"],
+            "target_year": 2020,
+            "annual_location_rule": "birth_place",
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["tajika_engine"] == "TajikaAnnual"
+    assert body["summary"]["tajika_target_year"] == 2020
+    assert body["summary"]["tajika_muntha_sign"]
+    assert body["summary"]["tajika_location_rule"] == "birth_place"
+    assert body["summary"]["tajika_sun_error_deg"] < 0.01

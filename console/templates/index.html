@@ -82,11 +82,22 @@
       <label><input type="checkbox" name="engines" value="jaimini" {% if 'jaimini' in form.engines %}checked{% endif %} /> jaimini</label>
       <label><input type="checkbox" name="engines" value="nadi" {% if 'nadi' in form.engines %}checked{% endif %} /> nadi</label>
       <label><input type="checkbox" name="engines" value="panchanga" {% if 'panchanga' in form.engines %}checked{% endif %} /> panchanga</label>
+      <label><input type="checkbox" name="engines" value="tajika" {% if 'tajika' in form.engines %}checked{% endif %} /> tajika/annual</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
         <option value="seven" {% if form.jaimini_chara_scheme == 'seven' %}selected{% endif %}>seven</option>
         <option value="eight" {% if form.jaimini_chara_scheme == 'eight' %}selected{% endif %}>eight</option>
+      </select>
+    </label>
+    <label>Annual target year (Tajika)
+      <input name="target_year" value="{{ form.target_year }}" placeholder="2024" />
+    </label>
+    <label>Annual location rule (VARIANT-002)
+      <select name="annual_location_rule">
+        <option value="birth_place" {% if form.annual_location_rule == 'birth_place' %}selected{% endif %}>birth_place</option>
+        <option value="residence" {% if form.annual_location_rule == 'residence' %}selected{% endif %}>residence</option>
+        <option value="event_location" {% if form.annual_location_rule == 'event_location' %}selected{% endif %}>event_location</option>
       </select>
     </label>
     <button type="submit">Run verification</button>
@@ -260,6 +271,18 @@
     Moon Chandra Bala from Lagna: {{ report.summary.bala_moon_from_lagna }}
   </p>
   {% endif %}
+  {% endif %}
+
+  {% if report.summary.tajika_engine %}
+  <h3>Tajika / Annual</h3>
+  <p>
+    Engine: {{ report.summary.tajika_engine }} |
+    Target year: {{ report.summary.tajika_target_year }} |
+    Muntha: {{ report.summary.tajika_muntha_sign }} |
+    Year-lord candidate: {{ report.summary.tajika_year_lord_candidate }} |
+    Location rule: {{ report.summary.tajika_location_rule }} |
+    Sun error °: {{ report.summary.tajika_sun_error_deg }}
+  </p>
   {% endif %}
 
   <h3>Raw report JSON</h3>

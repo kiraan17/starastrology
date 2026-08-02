@@ -19,12 +19,13 @@ Ordered for the backend-first programme.
 | P16a | Panchanga core (TEC-070) | **Done** |
 | P16b | Rahu Kala / Hora / Chaughadiya (TEC-071,073) | **Done** |
 | P16c | Tara/Chandra Bala (TEC-072) | **Done** |
+| P17a | Annual/Tajika scaffold (TEC-077 thin) | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P17a | Annual/Tajika scaffold (TEC-077+) |
+| P17b | Tajika Sahams / aspects thin slice (TEC-078) *or* Tithi Pravesh (TEC-079) |
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 

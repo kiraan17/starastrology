@@ -35,7 +35,7 @@ Notes:
 - **Technique IDs:** TEC-077, TEC-079
 - **Question:** Cast annual return for birth place, current residence, or event location?
 - **Options:** birth_place / residence / event_location
-- **Decision:** deferred — store chosen rule on every annual snapshot
+- **Decision:** deferred — store chosen rule on every annual snapshot (P17a stamps `annual.location_rule`; default `birth_place` for verification)
 - **Engine config key:** `annual.location_rule`
 
 ### VARIANT-003 — Node type for natal charts
