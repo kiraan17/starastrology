@@ -223,11 +223,11 @@
     {
       "engine": "Shadbala",
       "module": "bhava360.engines.shadbala",
-      "engine_version": "0.9.0-seeghra-chesta",
+      "engine_version": "0.10.0-adhi-mitra",
       "technique_ids": ["TEC-023"],
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
-      "notes": "Candidate Sthana+Kala+Seeghra Chesta+Sphuta Drik; Merc/Venus tables deferred"
+      "notes": "Candidate full thin Shadbala pack + Panchadha; sankranti sunrise / Merc-Venus tables deferred"
     },
     {
       "engine": "BhavaBala",

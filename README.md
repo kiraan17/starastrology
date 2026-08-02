@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P32b — Shadbala Seeghra-kendra Chesta done**
+**P33a — Shadbala Saptavargaja Adhi-mitra done**
 
-Engine `Shadbala` `0.9.0-seeghra-chesta` (TEC-023): BPHS Seeghra Chesta for Mars–Saturn; Saravali fallback.
+Engine `Shadbala` `0.10.0-adhi-mitra` (TEC-023): Panchadha compound friendship (Adhi-mitra 20 / Adhi-satru 2).
 
 
 ## Principles (short)

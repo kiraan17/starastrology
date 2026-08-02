@@ -19,7 +19,7 @@ from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_seeghra_chesta_candidate_v1"
+SHADBALA_VARIANT = "shadbala_adhi_mitra_candidate_v1"
 
 # Mean sidereal solar motion (°/day) for sankranti instant estimate (Candidate).
 MEAN_SOLAR_SIDEREAL_DEG_PER_DAY = 0.98564733
@@ -29,6 +29,9 @@ SEEGHRA_SUPERIOR = frozenset({"Mars", "Jupiter", "Saturn"})
 # Inferior: mean = mean Sun; Seeghrochcha ≈ heliocentric mean (table proxy).
 SEEGHRA_INFERIOR = frozenset({"Mercury", "Venus"})
 SEEGHRA_PLANETS = SEEGHRA_SUPERIOR | SEEGHRA_INFERIOR
+
+# Temporary friends: 2nd/3rd/4th/10th/11th/12th from the planet (BPHS).
+_TEMP_FRIEND_HOUSES = frozenset({2, 3, 4, 10, 11, 12})
 
 _PLANET_TO_SWE_CHESTA: dict[str, int] | None = None
 
@@ -109,7 +112,7 @@ MEAN_DAILY_MOTION_DEG: dict[str, float] = {
 # Saptavarga set for Saptavargaja Bala (Saravali / BPHS overview).
 SAPTAVARGA_IDS: tuple[str, ...] = ("D1", "D2", "D3", "D7", "D9", "D12", "D30")
 
-# Permanent natural friendship (Candidate; temporal / Adhi-mitra deferred).
+# Permanent natural friendship (combined with temporary → Panchadha).
 _PERM_FRIENDS: dict[str, frozenset[str]] = {
     "Sun": frozenset({"Moon", "Mars", "Jupiter"}),
     "Moon": frozenset({"Sun", "Mercury"}),
@@ -129,13 +132,15 @@ _PERM_NEUTRALS: dict[str, frozenset[str]] = {
     "Saturn": frozenset({"Jupiter"}),
 }
 
-# BPHS / Saravali Saptavargaja points (permanent levels only).
+# BPHS Saptavargaja points (Santhanam / five-fold compound).
 _SAPTA_POINTS = {
     "moolatrikona": 45.0,
     "own": 30.0,
+    "adhi_mitra": 20.0,
     "friend": 15.0,
     "neutral": 10.0,
     "enemy": 4.0,
+    "adhi_satru": 2.0,
 }
 
 
@@ -219,6 +224,62 @@ def _perm_relation(planet: str, other: str) -> str:
     return "enemy"
 
 
+def _temp_relation(*, from_sign: str, to_sign: str) -> str:
+    """Tatkalika: friend if other is in 2/3/4/10/11/12 from planet."""
+    rel = relative_house(from_sign, to_sign)
+    return "friend" if rel in _TEMP_FRIEND_HOUSES else "enemy"
+
+
+def compound_relation(
+    planet: str,
+    other: str,
+    *,
+    planet_signs: dict[str, str] | None = None,
+) -> dict[str, str]:
+    """
+    Panchadha (five-fold) compound friendship (BPHS Candidate).
+
+    Combines permanent natural relation with D1 temporary house relation.
+    Without ``planet_signs``, returns permanent relation only.
+    """
+    if planet == other:
+        return {
+            "compound": "own",
+            "permanent": "own",
+            "temporary": "own",
+        }
+    perm = _perm_relation(planet, other)
+    if not planet_signs or planet not in planet_signs or other not in planet_signs:
+        return {
+            "compound": perm,
+            "permanent": perm,
+            "temporary": "unknown",
+        }
+    temp = _temp_relation(
+        from_sign=planet_signs[planet],
+        to_sign=planet_signs[other],
+    )
+    if perm == "friend" and temp == "friend":
+        compound = "adhi_mitra"
+    elif perm == "enemy" and temp == "enemy":
+        compound = "adhi_satru"
+    elif perm == "friend" and temp == "enemy":
+        compound = "neutral"
+    elif perm == "enemy" and temp == "friend":
+        compound = "neutral"
+    elif perm == "neutral" and temp == "friend":
+        compound = "friend"
+    elif perm == "neutral" and temp == "enemy":
+        compound = "enemy"
+    else:
+        compound = perm
+    return {
+        "compound": compound,
+        "permanent": perm,
+        "temporary": temp,
+    }
+
+
 def _in_moolatrikona_d1(planet: str, sign: str, sign_degree: float) -> bool:
     pe = PlanetName(planet)
     spec = MOOLATRIKONA_RANGE.get(pe)
@@ -234,12 +295,14 @@ def saptavargaja_points(
     varga: str,
     sign: str,
     sign_degree: float = 0.0,
+    planet_signs: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     """
     One-varga Saptavargaja contribution (Candidate).
 
     Moolatrikona 45 only in D1 with degree window; other vargas use own=30
-    for own/moolatrikona signs. Extreme friend/enemy deferred (permanent only).
+    for own/moolatrikona signs. Friendship uses Panchadha compound when
+    D1 ``planet_signs`` are supplied (Adhi-mitra 20 / Adhi-satru 2).
     Exaltation/debilitation ignored (Saravali).
     """
     pe = PlanetName(planet)
@@ -251,21 +314,34 @@ def saptavargaja_points(
             "points": _SAPTA_POINTS["moolatrikona"],
             "basis": "moolatrikona",
             "sign_lord": lord_name,
+            "permanent": "own",
+            "temporary": "own",
         }
     if sign in OWN_SIGNS.get(pe, set()) or lord_name == planet:
         return {
             "points": _SAPTA_POINTS["own"],
             "basis": "own",
             "sign_lord": lord_name,
+            "permanent": "own",
+            "temporary": "own",
         }
     if lord_name is None:
-        return {"points": 0.0, "basis": "unknown_sign", "sign_lord": None}
+        return {
+            "points": 0.0,
+            "basis": "unknown_sign",
+            "sign_lord": None,
+            "permanent": None,
+            "temporary": None,
+        }
 
-    rel = _perm_relation(planet, lord_name)
+    rel = compound_relation(planet, lord_name, planet_signs=planet_signs)
+    basis = rel["compound"]
     return {
-        "points": _SAPTA_POINTS[rel],
-        "basis": rel,
+        "points": _SAPTA_POINTS[basis],
+        "basis": basis,
         "sign_lord": lord_name,
+        "permanent": rel["permanent"],
+        "temporary": rel["temporary"],
     }
 
 
@@ -274,8 +350,9 @@ def compute_saptavargaja_bala(
     planet: str,
     longitude_sidereal_deg: float,
     varga_signs: dict[str, dict[str, Any]] | None = None,
+    planet_signs: dict[str, str] | None = None,
 ) -> dict[str, Any]:
-    """Sum Saptavargaja across D1/D2/D3/D7/D9/D12/D30."""
+    """Sum Saptavargaja across D1/D2/D3/D7/D9/D12/D30 (Panchadha)."""
     rows: list[dict[str, Any]] = []
     total = 0.0
     lon = normalize_longitude(longitude_sidereal_deg)
@@ -287,7 +364,11 @@ def compute_saptavargaja_bala(
             place = varga_sign(lon, VargaId(vid))
             sign, sign_deg = place.sign, place.sign_degree
         part = saptavargaja_points(
-            planet=planet, varga=vid, sign=sign, sign_degree=sign_deg
+            planet=planet,
+            varga=vid,
+            sign=sign,
+            sign_degree=sign_deg,
+            planet_signs=planet_signs,
         )
         total += float(part["points"])
         rows.append(
@@ -297,13 +378,20 @@ def compute_saptavargaja_bala(
                 "points": part["points"],
                 "basis": part["basis"],
                 "sign_lord": part["sign_lord"],
+                "permanent": part.get("permanent"),
+                "temporary": part.get("temporary"),
             }
         )
+    used_compound = bool(planet_signs)
     return {
         "value": round(total, 6),
         "parts": rows,
-        "basis": "saptavargaja_permanent_friendship_candidate",
-        "deferred": ["adhi_mitra", "adhi_satru", "temporal_friendship"],
+        "basis": (
+            "saptavargaja_panchadha_candidate"
+            if used_compound
+            else "saptavargaja_permanent_friendship_fallback"
+        ),
+        "deferred": [] if used_compound else ["adhi_mitra", "adhi_satru", "temporal_friendship"],
     }
 
 def natonnata_bala(*, planet: str, is_day: bool) -> float:
@@ -1111,6 +1199,7 @@ def compute_planet_shadbala_partial(
         planet=planet,
         longitude_sidereal_deg=longitude_sidereal_deg,
         varga_signs=varga_signs,
+        planet_signs=planet_signs,
     )
     drek = drekkana_bala(planet=planet, longitude_sidereal_deg=longitude_sidereal_deg)
 
@@ -1212,7 +1301,6 @@ def compute_planet_shadbala_partial(
             "drik.sphuta",
         ],
         "deferred_components": [
-            "saptavargaja.adhi_mitra_satru",
             "kala.sankranti_ephemeris_sunrise",
             "chesta.inferior_seeghrochcha_product_tables",
         ],
@@ -1430,7 +1518,6 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 "drik",
             ],
             "deferred_component_families": [
-                "saptavargaja_adhi_mitra",
                 "kala_sankranti_ephemeris_sunrise",
                 "chesta_inferior_seeghrochcha_product_tables",
             ],
@@ -1438,7 +1525,8 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
         "notes": [
             "Candidate partial scaffold — not a complete BPHS Shadbala pack.",
             "Partial totals must not be compared to full-pack minima for verdicts.",
-            "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
+            "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja "
+            "(Panchadha Adhi-mitra/Adhi-satru) + Drekkana.",
             "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa (Hora-at-sankranti) "
             "+ Vara/Hora + Ayana + Yuddha.",
             "Chesta: Sun=Ayana, Moon=Paksha; Mars–Saturn Seeghra-kendra (BPHS); "
@@ -1460,6 +1548,7 @@ __all__ = [
     "ayana_bala",
     "chesta_bala",
     "chesta_saravali_motion",
+    "compound_relation",
     "compute_kala_bala",
     "compute_planet_shadbala_partial",
     "compute_saptavargaja_bala",

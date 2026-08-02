@@ -1,10 +1,10 @@
-# Shadbala partial pack (P27b–P32b)
+# Shadbala partial pack (P27b–P33a)
 
 **Module:** `bhava360.engines.shadbala`  
-**Engine:** `Shadbala` `0.9.0-seeghra-chesta`  
+**Engine:** `Shadbala` `0.10.0-adhi-mitra`  
 **Status:** Candidate  
 **Technique:** TEC-023  
-**Stamp:** `shadbala_seeghra_chesta_candidate_v1`
+**Stamp:** `shadbala_adhi_mitra_candidate_v1`
 
 ## In scope (Virupa)
 
@@ -12,38 +12,44 @@
 |--------|----------|
 | Naisargika | Fixed 60×(7..1)/7 |
 | Dig | Whole-sign dig-house distance |
-| Sthana | Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana |
+| Sthana | Uchcha + Kendradi + Ojayugma + Saptavargaja (Panchadha) + Drekkana |
 | Kala | Natonnata + Paksha + Tribhaga + Abda/Masa (Hora-at-sankranti) + Vara/Hora + Ayana + Yuddha |
-| Chesta | Sun=Ayana; Moon=Paksha; Mars–Saturn Seeghra-kendra (BPHS); Saravali fallback |
+| Chesta | Sun=Ayana; Moon=Paksha; Mars–Saturn Seeghra-kendra; Saravali fallback |
 | Drik | Sphuta continuous degree-Drishti + 1.25/0.75; classical table fallback |
 
-### Chesta (Seeghra kendra)
+### Saptavargaja (Panchadha)
 
-BPHS: `CK = Seeghrochcha − (Mean + True)/2`; if CK>180 use `360−CK`; Bala = CK/3 (0–60).
+Compound friendship = permanent × temporary (D1 houses 2/3/4/10/11/12 = temp friend).
 
-| Planet | Mean | Seeghrochcha |
-|--------|------|--------------|
-| Mars, Jupiter, Saturn | SE osculating mean LM (sidereal) | Mean Sun (Earth LM + 180°) |
-| Mercury, Venus | Mean Sun | Heliocentric mean LM (Candidate table proxy) |
-| Sun / Moon | — | Ayana / Paksha (unchanged) |
+| Basis | Virupa (BPHS Santhanam) |
+|-------|-------------------------|
+| Moolatrikona (D1 only) | 45 |
+| Own | 30 |
+| Adhi-mitra | 20 |
+| Friend | 15 |
+| Neutral | 10 |
+| Enemy | 4 |
+| Adhi-satru | 2 |
 
-Saravali 8-fold speed bands remain as fallback when JD/means unavailable.
+| Permanent | Temporary | Compound |
+|-----------|-----------|----------|
+| friend | friend | adhi_mitra |
+| enemy | enemy | adhi_satru |
+| friend | enemy | neutral |
+| enemy | friend | neutral |
+| neutral | friend | friend |
+| neutral | enemy | enemy |
 
-### Abda / Masa (Hora at sankranti)
+### Chesta / Abda-Masa / Drik
 
-- Sankranti instant ≈ birth − Δλ / mean sidereal solar motion
-- Abda/Masa = planetary Hora lord at Mesha / current-rasi ingress
-
-### Drik (Sphuta)
-
-- Continuous degree-Drishti + 1.25/0.75; classical table fallback if longitudes missing
+Unchanged from P32b / P32a / P31b (see prior release notes).
 
 ## Out of scope
 
 - Mercury/Venus classical Seeghrochcha product tables
 - Exact ephemeris sunrise for the sankranti day
-- Saptavargaja temporal / Adhi-mitra / Adhi-satru
 - Full-pack minimum threshold verdicts
+- Alternate Raman half-virupa table (22.5 / 7.5 / 3.75 / 1.875)
 
 ## Safety
 

@@ -51,6 +51,7 @@ Ordered for the backend-first programme.
 | P31b | Shadbala Sphuta continuous Drik (TEC-023) | **Done** |
 | P32a | Shadbala Abda/Masa Hora-at-sankranti (TEC-023) | **Done** |
 | P32b | Shadbala Seeghra-kendra Chesta (TEC-023) | **Done** |
+| P33a | Shadbala Saptavargaja Adhi-mitra/Adhi-satru (TEC-023) | **Done** |
 
 ## Next
 
@@ -59,7 +60,7 @@ Ordered for the backend-first programme.
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
 | P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
-| P33a | Kalachakra when sourced *or* Saptavargaja Adhi-mitra *or* sankranti ephemeris sunrise |
+| P33b | Sankranti ephemeris sunrise *or* Kalachakra when sourced *or* full-pack minima scaffolding |
 
 ## Explicitly not started
 

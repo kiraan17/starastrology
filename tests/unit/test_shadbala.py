@@ -8,6 +8,7 @@ from bhava360.engines.shadbala import run_shadbala_engine
 from bhava360.engines.shadbala.components import (
     ayana_bala,
     chesta_bala,
+    compound_relation,
     dig_bala,
     drekkana_bala,
     drik_bala,
@@ -73,10 +74,43 @@ def test_saptavargaja_own_and_friend():
     assert own["points"] == 30.0
     d9 = saptavargaja_points(planet="Sun", varga="D9", sign="Leo", sign_degree=5.0)
     assert d9["points"] == 30.0
+    # Without planet_signs → permanent friend only
     friend = saptavargaja_points(planet="Sun", varga="D2", sign="Cancer")
     assert friend["points"] == 15.0
+    assert friend["basis"] == "friend"
     enemy = saptavargaja_points(planet="Sun", varga="D2", sign="Libra")
     assert enemy["points"] == 4.0
+    assert enemy["basis"] == "enemy"
+
+
+def test_compound_adhi_mitra_satru():
+    # Sun in Aries, Moon in Taurus (2nd) → temp friend; Sun↔Moon permanent friends → Adhi-mitra
+    signs = {"Sun": "Aries", "Moon": "Taurus", "Venus": "Libra"}
+    rel = compound_relation("Sun", "Moon", planet_signs=signs)
+    assert rel["permanent"] == "friend"
+    assert rel["temporary"] == "friend"
+    assert rel["compound"] == "adhi_mitra"
+    pts = saptavargaja_points(
+        planet="Sun", varga="D2", sign="Cancer", planet_signs=signs
+    )
+    assert pts["basis"] == "adhi_mitra"
+    assert pts["points"] == 20.0
+
+    # Sun in Aries, Venus in Libra (7th) → temp enemy; Sun↔Venus permanent enemies → Adhi-satru
+    rel2 = compound_relation("Sun", "Venus", planet_signs=signs)
+    assert rel2["permanent"] == "enemy"
+    assert rel2["temporary"] == "enemy"
+    assert rel2["compound"] == "adhi_satru"
+    pts2 = saptavargaja_points(
+        planet="Sun", varga="D9", sign="Libra", planet_signs=signs
+    )
+    assert pts2["basis"] == "adhi_satru"
+    assert pts2["points"] == 2.0
+
+    # Permanent friend + temp enemy → neutral
+    signs3 = {"Sun": "Aries", "Moon": "Libra"}
+    rel3 = compound_relation("Sun", "Moon", planet_signs=signs3)
+    assert rel3["compound"] == "neutral"
 
 
 def test_tribhaga_and_ayana():
@@ -250,18 +284,20 @@ def test_shadbala_engine_live():
     )
     out = run_shadbala_engine(subject)
     assert out["engine"] == "Shadbala"
-    assert out["engine_version"] == "0.9.0-seeghra-chesta"
+    assert out["engine_version"] == "0.10.0-adhi-mitra"
     assert "TEC-023" in out["technique_ids"]
     pack = out["shadbala"]
-    assert pack["variant"] == "shadbala_seeghra_chesta_candidate_v1"
+    assert pack["variant"] == "shadbala_adhi_mitra_candidate_v1"
     assert pack["summary"]["planet_count"] == 7
-    assert "chesta_seeghra_kendra" not in pack["summary"]["deferred_component_families"]
+    assert "saptavargaja_adhi_mitra" not in pack["summary"]["deferred_component_families"]
     assert pack["context"]["abda_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
     assert pack["context"]["masa_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
     assert pack["context"]["abda_lord"]
     assert pack["context"]["masa_lord"]
     sun = next(p for p in pack["planets"] if p["planet"] == "Sun")
     assert sun["components_virupa"]["drik"]["basis"] == "sphuta_drishti_candidate"
+    sapta = sun["components_virupa"]["sthana_partial"]["saptavargaja"]
+    assert sapta["basis"] == "saptavargaja_panchadha_candidate"
     chesta = sun["components_virupa"]["chesta"]
     assert chesta["basis"] == "ayana_as_chesta"
     mars = next(p for p in pack["planets"] if p["planet"] == "Mars")
