@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P10 — Parashara thin slice (P10a done)**
+**P11 — KP thin slice (P11a done)**
 
-Provisional Gajakesari + Budha-Aditya with evidence and Vimshottari activation flags. Next: aspects graph or KP thin slice.
+KP ayanamsa + Placidus isolation, star/sub/sub-sub lord chains, cuspal significator sketch. Next: aspects graph or Ashtakavarga.
 
 ## Principles (short)
 

@@ -31,7 +31,7 @@
 | TEC-011 | Rasi (D1) chart construction | Chart | calculation | normal | yes | yes | Auto-Tested | P08a |
 | TEC-012 | Bhava Chalit mapping | Chart | calculation | normal | yes | partial | Auto-Tested | Rasi vs Placidus cuspal compare |
 | TEC-013 | Nakshatra, pada, star lord | Chart | calculation | normal | yes | yes | Not Researched | |
-| TEC-014 | KP sublord and sub-sub lord | KP | calculation | normal | yes | partial | Not Researched | Needs KP ayanamsa |
+| TEC-014 | KP sublord and sub-sub lord | KP | calculation | normal | yes | partial | Auto-Tested | P11a star/sub/sub-sub chains |
 | TEC-015 | Divisional charts D1–D60 pack | Chart | calculation | normal | yes | yes | Auto-Tested | D30 approx noted; Source Needed for classical trimsamsa |
 | TEC-016 | Nadiamsa D150 with birth-time accuracy gate | Nadi | calculation | restricted | yes | no | Auto-Tested | Gate implemented |
 | TEC-017 | Combustion, retro, planetary war states | Chart | classification | normal | yes | partial | Implemented | Combustion candidate + retro from kernel; war TBD |
@@ -59,8 +59,8 @@
 | TEC-039 | Bhavat Bhavam | Parashara | interpretation | normal | yes | no | Not Researched | |
 | TEC-040 | Varga confirmation rules | Parashara | interpretation | normal | yes | no | Not Researched | |
 | TEC-041 | Dasha/transit activation model | Orchestration | orchestration | normal | yes | no | Implemented | P10a maha/antar activation stub |
-| TEC-042 | KP configuration (New Ayanamsa + Placidus) | KP | calculation | normal | yes | partial | Not Researched | Do not reuse Lahiri chart |
-| TEC-043 | KP significator hierarchy | KP | interpretation | normal | yes | partial | Not Researched | |
+| TEC-042 | KP configuration (New Ayanamsa + Placidus) | KP | calculation | normal | yes | partial | Auto-Tested | P11a RULE-KP-001 enforced |
+| TEC-043 | KP significator hierarchy | KP | interpretation | normal | yes | partial | Implemented | P11a sketch only (occupants/owner/star/sub) |
 | TEC-044 | Cuspal sublord verdict engine | KP | interpretation | normal | yes | partial | Not Researched | |
 | TEC-045 | Ruling Planets | KP | timing | normal | yes | partial | Not Researched | |
 | TEC-046 | KP Horary 1–249 | KP | interpretation | normal | yes | partial | Not Researched | |

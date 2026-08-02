@@ -8,17 +8,18 @@ Ordered for the backend-first programme.
 |---|---|---|
 | GATE-05 | Phase 0–5 approval package | Approved |
 | P07a/b | Kernel longitudes, houses, day window | Done |
-| P08a | Chart construction Vargas/dignity/Bhava Chalit | Done |
+| P08a | Chart construction | Done |
 | P09a | Vimshottari dasha platform | Done |
-| P10a | Parashara thin-slice yogas + evidence + activation | **Done** |
+| P10a | Parashara thin-slice yogas + evidence | Done |
+| P11a | KP thin-slice config + lord chains + cuspal significator sketch | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
 | P08b | Graha/rashi aspects + relationship graph |
-| P10b | Expand Parashara yoga pack after source approvals |
-| P11 | KP engine thin slice (config isolation already drafted) |
+| P11b | KP significator verdicts / Ruling Planets / Horary |
+| P12 | Ashtakavarga module |
 | P07c | IANA timezone/DST history |
 | ADR-002-PUBLIC | SE license evidence before public API |
 
@@ -26,4 +27,4 @@ Ordered for the backend-first programme.
 
 - Customer frontend
 - Public API activation
-- Full 96-technique interpretive coverage
+- Full multi-school orchestration product UI
