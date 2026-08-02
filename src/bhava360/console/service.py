@@ -215,6 +215,13 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         sun_sh = (av.get("bhinnashtakavarga_shodhana") or {}).get("Sun") or {}
         if sun_sh.get("sodhya_pinda"):
             summary["sun_sodhya_pinda"] = sun_sh["sodhya_pinda"].get("sodhya_pinda")
+        pr = av.get("prastara") or {}
+        if pr:
+            sun_p = (pr.get("by_planet") or {}).get("Sun") or {}
+            summary["prastara_sun_ok"] = sun_p.get("reconstruction_ok")
+            sun_score = (av.get("natal_sign_scores") or {}).get("Sun") or {}
+            if "kakshya_lord_bindu" in sun_score:
+                summary["sun_kakshya_lord_bindu"] = sun_score["kakshya_lord_bindu"]
 
     kp = report["sections"].get("kp")
     if kp:

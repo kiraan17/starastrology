@@ -67,7 +67,7 @@
 | TEC-047 | KP domain house-combination pack | KP | interpretation | normal | yes | no | Not Researched | Config versioned |
 | TEC-048 | Bhinnashtakavarga | Ashtakavarga | calculation | normal | yes | yes | Auto-Tested | P12a contributor audit trail |
 | TEC-049 | Sarvashtakavarga | Ashtakavarga | calculation | normal | yes | yes | Auto-Tested | P12a sum of seven BAVs (=337) |
-| TEC-050 | Prastara Ashtakavarga | Ashtakavarga | calculation | normal | yes | partial | Not Researched | |
+| TEC-050 | Prastara Ashtakavarga | Ashtakavarga | calculation | normal | yes | yes | Auto-Tested | P12c 8×12 grids; reconstructs BAV totals |
 | TEC-051 | Trikona and Ekadhipatya Shodhana | Ashtakavarga | calculation | normal | yes | yes | Auto-Tested | P12b raman_candidate_v1; SAV Mandala included |
 | TEC-052 | Sodhya Pinda | Ashtakavarga | calculation | normal | yes | yes | Auto-Tested | P12b Rasi+Graha gunakara; longevity conversion deferred |
 | TEC-053 | Kakshya scoring and transit contribution | Ashtakavarga | timing | normal | yes | no | Implemented | P12a kakshya labels + natal sign scores; full transit scorer TBD |

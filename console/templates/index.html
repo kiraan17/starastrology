@@ -196,6 +196,12 @@
     {% if report.summary.sav_sodhya_pinda is defined %}
     | SAV Sodhya Pinda: {{ report.summary.sav_sodhya_pinda }}
     {% endif %}
+    {% if report.summary.prastara_sun_ok is defined %}
+    | Prastara Sun OK: {{ report.summary.prastara_sun_ok }}
+    {% endif %}
+    {% if report.summary.sun_kakshya_lord_bindu is defined %}
+    | Sun kakshya bindu: {{ report.summary.sun_kakshya_lord_bindu }}
+    {% endif %}
   </p>
   {% endif %}
 

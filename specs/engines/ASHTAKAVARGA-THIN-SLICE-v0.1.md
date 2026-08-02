@@ -1,7 +1,8 @@
-# Ashtakavarga Thin Slice (P12a + P12b)
+# Ashtakavarga (P12a + P12b + P12c)
 
 **Module:** `bhava360.engines.ashtakavarga`  
-**Techniques:** TEC-048, TEC-049, TEC-051, TEC-052, TEC-053 (partial)
+**Techniques:** TEC-048, TEC-049, TEC-050, TEC-051, TEC-052, TEC-053 (partial)  
+**Engine version:** `0.3.0-prastara`
 
 ## In scope
 
@@ -13,28 +14,23 @@
 - Natal sign scores (SAV/BAV of occupied sign + kakshya)
 
 ### P12b
-- **Trikona Shodhana** (I Reduction) with Raman-style rules a–d
-- **Ekadhipatya Shodhana** (II Reduction) driven by natal occupation of dual-lordship pairs
-- **Mandala Shodhana** for SAV only (expunge multiples of 12; leave 12 on exact multiples)
-- **Sodhya Pinda** = Rasi Pinda + Graha Pinda (gunakara tables stamped)
-- Full before/after audit steps on every reduction
+- Trikona / Ekadhipatya Shodhana (+ SAV Mandala)
+- Sodhya Pinda (Rasi + Graha gunakara)
+
+### P12c
+- **Prastara Ashtakavarga**: 8×12 binary grids per BAV in kakshya-lord order
+- Column sums reconstruct BAV sign bindus
+- Natal `kakshya_lord_bindu` flag from Prastara cell at occupied degree
 
 ## Out of scope
 
-- Prastara Ashtakavarga
-- Full kakshya transit scorer / daily prediction claims
-- Longevity/ayurdaya year conversion from Sodhya Pinda
-- Rekha Sarvashtakavarga reductions (deferred)
+- Full day-by-day transit kakshya scorer / prediction claims
+- Longevity/ayurdaya conversion from Sodhya Pinda
+- Rekha Sarvashtakavarga reductions
 
 ## Variants
 
-| Key | Value | Notes |
-|---|---|---|
-| `table_variant` | `standard_candidate_v1` | Raw BAV house tables |
-| `shodhana_variant` | `raman_candidate_v1` | B.V. Raman computational sequence; Candidate |
-
-Occupation for Ekadhipatya counts the seven BAV planets only (Rahu/Ketu excluded) in this Candidate rule.
-
-## Source note
-
-Bindu house tables and shodhana edge rules are Candidate pending Approved classical edition citation. VedAstro documentation may be used as comparator only.
+| Key | Value |
+|---|---|
+| `table_variant` | `standard_candidate_v1` |
+| `shodhana_variant` / `prastara_variant` | `raman_candidate_v1` |

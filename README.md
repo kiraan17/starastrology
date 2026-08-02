@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P13 — Nakshatra Nadi scaffold (corpus-gated)**
+**P12c — Prastara Ashtakavarga done**
 
-Planet-in-star facts available; interpretive chains raise `CORPUS_GATE_BLOCKED` until SRC-009 is Approved. No Nadi rules were invented.
+8×12 contributor grids per BAV with reconstruction checks and natal kakshya-lord bindu flags (`0.3.0-prastara`).
 
 
 ## Principles (short)

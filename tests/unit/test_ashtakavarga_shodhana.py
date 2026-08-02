@@ -310,7 +310,7 @@ def test_engine_includes_shodhana_and_sodhya():
         location_label="Chennai",
     )
     out = run_ashtakavarga_engine(subject)
-    assert out["engine_version"] == "0.2.0-shodhana"
+    assert out["engine_version"] == "0.3.0-prastara"
     assert out["sarvashtakavarga"]["total_bindus"] == 337
     assert "shodhana" in out["sarvashtakavarga"]
     assert "mandala" in out["sarvashtakavarga"]["shodhana"]

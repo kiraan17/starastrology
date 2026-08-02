@@ -71,8 +71,10 @@ def test_run_ashtakavarga_engine_live_chart():
     )
     out = run_ashtakavarga_engine(subject)
     assert out["engine"] == "Ashtakavarga"
+    assert out["engine_version"] == "0.3.0-prastara"
     assert out["sarvashtakavarga"]["total_bindus"] == 337
     assert "Sun" in out["bhinnashtakavarga"]
     assert out["bhinnashtakavarga"]["Sun"]["reconstruction_ok"] is True
     assert "Sun" in out["natal_sign_scores"]
     assert "kakshya" in out["natal_sign_scores"]["Sun"]
+    assert "prastara" in out
