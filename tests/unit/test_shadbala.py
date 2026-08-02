@@ -17,6 +17,7 @@ from bhava360.engines.shadbala.components import (
     ojayugma_navamsa_bala,
     ojayugma_rasi_bala,
     paksha_bala,
+    sankranti_hora_lord,
     saptavargaja_points,
     sphuta_drishti,
     tribhaga_bala,
@@ -180,6 +181,47 @@ def test_drik_classical_fallback_and_sphuta():
     assert jup_s["weight"] == 75.0
 
 
+def test_sankranti_hora_lord_mean_sun():
+    birth = datetime(1990, 8, 15, 12, 0)
+    rise = datetime(1990, 8, 15, 6, 0)
+    sett = datetime(1990, 8, 15, 18, 0)
+    # Sun at 0° → sankranti ≈ birth; midday → day hora after sunrise
+    meta = sankranti_hora_lord(
+        birth_local=birth,
+        sun_sidereal_lon=0.0,
+        target_lon=0.0,
+        sunrise_local=rise,
+        sunset_local=sett,
+    )
+    assert meta["basis"] == "sankranti_hora_mean_sun_candidate"
+    assert meta["lord"] in {
+        "Sun",
+        "Moon",
+        "Mars",
+        "Mercury",
+        "Jupiter",
+        "Venus",
+        "Saturn",
+    }
+    assert meta["hora_period"] == "day"
+    # Without day window → weekday fallback
+    fb = sankranti_hora_lord(
+        birth_local=birth,
+        sun_sidereal_lon=10.0,
+        target_lon=0.0,
+    )
+    assert fb["basis"] == "sankranti_weekday_fallback"
+    assert fb["lord"] in {
+        "Sun",
+        "Moon",
+        "Mars",
+        "Mercury",
+        "Jupiter",
+        "Venus",
+        "Saturn",
+    }
+
+
 def test_shadbala_engine_live():
     subject = SubjectInput(
         local_datetime=datetime(1990, 8, 15, 12, 0),
@@ -189,12 +231,16 @@ def test_shadbala_engine_live():
     )
     out = run_shadbala_engine(subject)
     assert out["engine"] == "Shadbala"
-    assert out["engine_version"] == "0.7.0-sphuta-drik"
+    assert out["engine_version"] == "0.8.0-abda-masa-hora"
     assert "TEC-023" in out["technique_ids"]
     pack = out["shadbala"]
-    assert pack["variant"] == "shadbala_sphuta_drik_candidate_v1"
+    assert pack["variant"] == "shadbala_abda_masa_hora_candidate_v1"
     assert pack["summary"]["planet_count"] == 7
-    assert "drik_sphuta_continuous" not in pack["summary"]["deferred_component_families"]
+    assert "kala_abda_masa_hora_at_sankranti" not in pack["summary"]["deferred_component_families"]
+    assert pack["context"]["abda_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
+    assert pack["context"]["masa_meta"]["basis"] == "sankranti_hora_mean_sun_candidate"
+    assert pack["context"]["abda_lord"]
+    assert pack["context"]["masa_lord"]
     sun = next(p for p in pack["planets"] if p["planet"] == "Sun")
     assert sun["components_virupa"]["drik"]["basis"] == "sphuta_drishti_candidate"
     chesta = sun["components_virupa"]["chesta"]

@@ -19,7 +19,10 @@ from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_sphuta_drik_candidate_v1"
+SHADBALA_VARIANT = "shadbala_abda_masa_hora_candidate_v1"
+
+# Mean sidereal solar motion (°/day) for sankranti instant estimate (Candidate).
+MEAN_SOLAR_SIDEREAL_DEG_PER_DAY = 0.98564733
 
 CLASSICAL_PLANETS: tuple[str, ...] = (
     "Sun",
@@ -322,14 +325,14 @@ def hora_bala(*, planet: str, hora_lord: str | None) -> float:
 
 
 def abda_bala(*, planet: str, abda_lord: str | None) -> float:
-    """Year-lord strength: 15 virupa (Candidate sankranti-weekday approx)."""
+    """Year-lord strength: 15 virupa (Hora lord at Mesha sankranti)."""
     if abda_lord and planet == abda_lord:
         return 15.0
     return 0.0
 
 
 def masa_bala(*, planet: str, masa_lord: str | None) -> float:
-    """Month-lord strength: 30 virupa (Candidate sankranti-weekday approx)."""
+    """Month-lord strength: 30 virupa (Hora lord at current-rasi sankranti)."""
     if masa_lord and planet == masa_lord:
         return 30.0
     return 0.0
@@ -371,23 +374,116 @@ def ayana_bala(*, planet: str, tropical_longitude_deg: float) -> float:
     return 30.0
 
 
+def _estimate_sankranti_local(
+    *,
+    birth_local: datetime,
+    sun_sidereal_lon: float,
+    target_lon: float,
+) -> datetime:
+    """Estimate sankranti civil instant via mean sidereal solar motion."""
+    delta = (
+        normalize_longitude(sun_sidereal_lon) - normalize_longitude(target_lon)
+    ) % 360.0
+    days = delta / MEAN_SOLAR_SIDEREAL_DEG_PER_DAY
+    return birth_local.replace(tzinfo=None) - timedelta(days=float(days))
+
+
+def _shift_clock(*, template: datetime, onto: datetime) -> datetime:
+    """Copy template time-of-day onto ``onto``'s civil date (naive)."""
+    t = template.replace(tzinfo=None)
+    o = onto.replace(tzinfo=None)
+    return o.replace(
+        hour=t.hour,
+        minute=t.minute,
+        second=t.second,
+        microsecond=t.microsecond,
+    )
+
+
 def _sankranti_weekday_lord(
     *,
     birth_local: datetime,
     sun_sidereal_lon: float,
     target_lon: float,
 ) -> str:
-    """
-    Approximate weekday lord of a sidereal Sun sankranti.
-
-    Classical rule uses Hora lord at sankranti instant; Candidate uses the
-    weekday lord of the civil day ~``(sun - target) % 360`` days earlier.
-    """
+    """Weekday (Vara) lord fallback for a sankranti estimate."""
     from bhava360.timing.muhurta import sunday_index
 
-    days = (normalize_longitude(sun_sidereal_lon) - normalize_longitude(target_lon)) % 360.0
-    sank = birth_local.replace(tzinfo=None) - timedelta(days=float(days))
+    sank = _estimate_sankranti_local(
+        birth_local=birth_local,
+        sun_sidereal_lon=sun_sidereal_lon,
+        target_lon=target_lon,
+    )
     return VARA_LORDS[sunday_index(sank)]
+
+
+def sankranti_hora_lord(
+    *,
+    birth_local: datetime,
+    sun_sidereal_lon: float,
+    target_lon: float,
+    sunrise_local: datetime | None = None,
+    sunset_local: datetime | None = None,
+) -> dict[str, Any]:
+    """
+    Planetary Hora lord at estimated sidereal Sun sankranti (Candidate).
+
+    Instant ≈ birth − Δλ / mean solar motion. Birth-day sunrise/sunset clocks
+    are shifted onto the sankranti civil date (exact ephemeris sunrise deferred).
+    Falls back to Vara lord when the day window is missing.
+    """
+    from datetime import timezone
+
+    from bhava360.timing.muhurta import active_window, compute_horas, sunday_index
+
+    sank = _estimate_sankranti_local(
+        birth_local=birth_local,
+        sun_sidereal_lon=sun_sidereal_lon,
+        target_lon=target_lon,
+    )
+    if sunrise_local is None or sunset_local is None:
+        lord = VARA_LORDS[sunday_index(sank)]
+        return {
+            "lord": lord,
+            "basis": "sankranti_weekday_fallback",
+            "sankranti_local": sank.isoformat(sep=" "),
+        }
+
+    rise = _shift_clock(template=sunrise_local, onto=sank)
+    sett = _shift_clock(template=sunset_local, onto=sank)
+    if sett <= rise:
+        sett = sett + timedelta(days=1)
+    next_rise = rise + timedelta(days=1)
+    if sank < rise:
+        rise = rise - timedelta(days=1)
+        sett = sett - timedelta(days=1)
+        next_rise = next_rise - timedelta(days=1)
+
+    wd = sunday_index(rise)
+    horas = compute_horas(
+        sunrise=rise,
+        sunset=sett,
+        next_sunrise=next_rise,
+        weekday_sunday_index=wd,
+    )
+    # Match existing birth-hora Candidate pattern: naive local clocks as UTC.
+    when = sank.replace(tzinfo=timezone.utc)
+    active = active_window(when, horas["horas"])
+    if active and active.get("lord"):
+        return {
+            "lord": str(active["lord"]),
+            "basis": "sankranti_hora_mean_sun_candidate",
+            "sankranti_local": sank.isoformat(sep=" "),
+            "hora_index": active.get("index"),
+            "hora_period": active.get("period"),
+            "vara_lord_of_day": VARA_LORDS[wd],
+        }
+    return {
+        "lord": VARA_LORDS[wd],
+        "basis": "sankranti_weekday_fallback",
+        "sankranti_local": sank.isoformat(sep=" "),
+        "vara_lord_of_day": VARA_LORDS[wd],
+    }
 
 
 def compute_kala_bala(
@@ -430,7 +526,7 @@ def compute_kala_bala(
         "yuddha": 0.0,
         "pre_yuddha_subtotal": round(pre_yuddha, 6),
         "subtotal": round(subtotal, 6),
-        "deferred_subs": ["abda_masa_hora_at_sankranti"],
+        "deferred_subs": [],
     }
 
 
@@ -941,8 +1037,8 @@ def compute_planet_shadbala_partial(
         ],
         "deferred_components": [
             "saptavargaja.adhi_mitra_satru",
-            "kala.abda_masa_hora_at_sankranti",
             "chesta.seeghra_kendra",
+            "kala.sankranti_ephemeris_sunrise",
         ],
     }
 
@@ -965,6 +1061,8 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
     hora_lord = None
     abda_lord = None
     masa_lord = None
+    abda_meta: dict[str, Any] | None = None
+    masa_meta: dict[str, Any] | None = None
     tribhaga_portion: int | None = None
     sunrise_local = day_window.get("sunrise_local")
     sunset_local = day_window.get("sunset_local")
@@ -1017,13 +1115,23 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
             if span > 0:
                 tribhaga_portion = min(int((elapsed / span) * 3.0), 2)
 
-            abda_lord = _sankranti_weekday_lord(
-                birth_local=local_n, sun_sidereal_lon=sun_lon, target_lon=0.0
+            abda_meta = sankranti_hora_lord(
+                birth_local=local_n,
+                sun_sidereal_lon=sun_lon,
+                target_lon=0.0,
+                sunrise_local=rise_n,
+                sunset_local=sett_n,
             )
+            abda_lord = abda_meta.get("lord")
             masa_target = math.floor(normalize_longitude(sun_lon) / 30.0) * 30.0
-            masa_lord = _sankranti_weekday_lord(
-                birth_local=local_n, sun_sidereal_lon=sun_lon, target_lon=masa_target
+            masa_meta = sankranti_hora_lord(
+                birth_local=local_n,
+                sun_sidereal_lon=sun_lon,
+                target_lon=masa_target,
+                sunrise_local=rise_n,
+                sunset_local=sett_n,
             )
+            masa_lord = masa_meta.get("lord")
         except Exception:  # noqa: BLE001
             hora_lord = None
             if sunrise_local:
@@ -1049,6 +1157,8 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
         "hora_lord": hora_lord,
         "abda_lord": abda_lord,
         "masa_lord": masa_lord,
+        "abda_meta": abda_meta,
+        "masa_meta": masa_meta,
         "tribhaga_portion": tribhaga_portion,
         "planet_signs": planet_signs,
     }
@@ -1115,6 +1225,8 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "hora_lord": ctx["hora_lord"],
             "abda_lord": ctx.get("abda_lord"),
             "masa_lord": ctx.get("masa_lord"),
+            "abda_meta": ctx.get("abda_meta"),
+            "masa_meta": ctx.get("masa_meta"),
             "tribhaga_portion": ctx.get("tribhaga_portion"),
         },
         "planets": rows,
@@ -1132,16 +1244,17 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 "drik",
             ],
             "deferred_component_families": [
-                "kala_abda_masa_hora_at_sankranti",
                 "chesta_seeghra_kendra",
                 "saptavargaja_adhi_mitra",
+                "kala_sankranti_ephemeris_sunrise",
             ],
         },
         "notes": [
             "Candidate partial scaffold — not a complete BPHS Shadbala pack.",
             "Partial totals must not be compared to full-pack minima for verdicts.",
             "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
-            "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa/Vara/Hora + Ayana + Yuddha.",
+            "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa (Hora-at-sankranti) "
+            "+ Vara/Hora + Ayana + Yuddha.",
             "Chesta: Sun=Ayana, Moon=Paksha, others Saravali 8-fold speed bands.",
             "Drik: Sphuta continuous degree-Drishti + 1.25/0.75; "
             "whole-sign graha-table fallback if longitudes absent.",
@@ -1152,6 +1265,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
 __all__ = [
     "CLASSICAL_PLANETS",
     "MEAN_DAILY_MOTION_DEG",
+    "MEAN_SOLAR_SIDEREAL_DEG_PER_DAY",
     "SAPTAVARGA_IDS",
     "SHADBALA_VARIANT",
     "abda_bala",
@@ -1173,6 +1287,7 @@ __all__ = [
     "ojayugma_navamsa_bala",
     "ojayugma_rasi_bala",
     "paksha_bala",
+    "sankranti_hora_lord",
     "saptavargaja_points",
     "sphuta_drishti",
     "tribhaga_bala",

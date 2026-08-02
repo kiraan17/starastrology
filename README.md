@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P31b — Shadbala Sphuta Drik done**
+**P32a — Shadbala Abda/Masa Hora-at-sankranti done**
 
-Engine `Shadbala` `0.7.0-sphuta-drik` (TEC-023): Saravali continuous degree-Drishti + 1.25/0.75; classical table fallback.
+Engine `Shadbala` `0.8.0-abda-masa-hora` (TEC-023): year/month lords from planetary Hora at mean-Sun sankranti.
 
 
 ## Principles (short)

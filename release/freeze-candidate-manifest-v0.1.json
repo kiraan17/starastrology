@@ -223,11 +223,11 @@
     {
       "engine": "Shadbala",
       "module": "bhava360.engines.shadbala",
-      "engine_version": "0.7.0-sphuta-drik",
+      "engine_version": "0.8.0-abda-masa-hora",
       "technique_ids": ["TEC-023"],
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
-      "notes": "Candidate Sthana+Kala+Chesta+Sphuta Drik; Seeghra/Hora-at-sankranti deferred"
+      "notes": "Candidate Sthana+Kala(Hora-sankranti)+Chesta+Sphuta Drik; Seeghra deferred"
     },
     {
       "engine": "BhavaBala",
