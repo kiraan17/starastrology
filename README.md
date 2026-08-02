@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P07 — Calculation kernel (P07a+P07b done)**
+**P08 — Chart construction (P08a done)**
 
-Planet longitudes, whole-sign + Placidus houses, Asc/MC, sunrise/sunset. Next: Vargas/chart construction or IANA timezones.
+Vargas D1–D60 (+ gated D150), dignity, Rasi vs Bhava Chalit mapping via `ChartConstructor`. Next: aspects/relationship graph or Vimshottari dasha platform.
 
 ## Principles (short)
 

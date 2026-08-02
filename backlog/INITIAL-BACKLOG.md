@@ -6,25 +6,23 @@ Ordered for the backend-first programme.
 
 | ID | Task | Status |
 |---|---|---|
-| GATE-05 | Phase 0–5 approval package | **Approved** 2026-08-02 |
-| P00–P06 | Control plane, registry provisional, ADRs, sources, data model, rule standard | Done |
-| SPIKE-01 | VedAstro golden fixtures | Done |
-| P07a | Calculation kernel scaffold + planet longitudes + SPIKE-01 golden tests | Done |
-| P07b | Houses (whole-sign + Placidus), Asc/MC, sunrise/sunset | **Done** |
+| GATE-05 | Phase 0–5 approval package | Approved |
+| P07a | Planet longitudes + SPIKE-01 golden | Done |
+| P07b | Houses, Asc/MC, sunrise/sunset | Done |
+| P08a | Chart construction: Vargas, dignity, Rasi vs Bhava Chalit | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P07c | IANA timezone/DST history (strengthen TEC-001) |
-| P07d | Optional Swiss Ephemeris file mode wiring + ephe pack docs |
-| P08 | Chart construction pack (Vargas, dignity graph, Rasi vs Bhava Chalit) |
-| P03b | Expert-fill classical source editions |
-| ADR-002-PUBLIC | File L1/L2 license evidence before public API |
+| P08b | Graha/rashi aspects + relationship graph |
+| P07c | IANA timezone/DST history |
+| P09 | Dasha platform (Vimshottari first) |
+| P03b | Expert-fill classical source editions (esp. D30/varga variants) |
+| ADR-002-PUBLIC | SE license evidence before public API |
 
 ## Explicitly not started
 
-- School engines (Parashara/KP/Jaimini/Nadi…)
+- School engines (Parashara yogas, KP verdicts, Nadi, Jaimini…)
 - Customer frontend
-- Production DB migrations
 - Public API activation
