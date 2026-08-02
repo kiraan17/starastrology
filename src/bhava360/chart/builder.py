@@ -54,7 +54,7 @@ class ChartConstructor:
 
     def __init__(self, config: ChartConfig | None = None) -> None:
         self.config = config or ChartConfig()
-        self.config.calc_library_version = "bhava360-kernel-0.5.0"
+        self.config.calc_library_version = "bhava360-kernel-0.6.0"
         self.provider = SwissEphemerisProvider(self.config)
 
     def build(
@@ -130,6 +130,8 @@ class ChartConstructor:
                 "input_kind": subject.input_kind,
                 "local_datetime": subject.local_datetime.isoformat(sep=" "),
                 "timezone_offset_minutes": subject.timezone_offset_minutes,
+                "timezone_id": subject.timezone_id,
+                "dst_ambiguity_policy": subject.dst_ambiguity_policy,
                 "latitude": subject.latitude,
                 "longitude": subject.longitude,
                 "location_label": subject.location_label,

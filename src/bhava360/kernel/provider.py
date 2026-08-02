@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import timedelta, timezone
+from datetime import timezone
 from typing import Iterable
 
 import swisseph as swe
@@ -31,6 +31,7 @@ from bhava360.kernel.timeutil import (
     julian_day_to_utc,
     require_coordinates,
     resolve_subject_time,
+    subject_tzinfo,
 )
 
 PLANET_TO_SWE = {
@@ -239,11 +240,11 @@ class SwissEphemerisProvider:
     def day_window(self, subject: SubjectInput) -> DayWindow:
         """Sunrise/sunset for the local civil date of the subject (disc center)."""
         lat, lon = require_coordinates(subject)
-        resolved = resolve_subject_time(subject)
+        resolve_subject_time(subject)  # validate + DST gate before local day search
         # Search from previous UTC noon-ish relative to local date start.
         local_date = subject.local_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
-        offset = timezone(timedelta(minutes=subject.timezone_offset_minutes))
-        local_midnight = local_date.replace(tzinfo=offset)
+        tz = subject_tzinfo(subject)
+        local_midnight = local_date.replace(tzinfo=tz)
         utc_midnight = local_midnight.astimezone(timezone.utc)
         hour = utc_midnight.hour + utc_midnight.minute / 60.0
         jd0 = swe.julday(utc_midnight.year, utc_midnight.month, utc_midnight.day, hour)
@@ -295,8 +296,8 @@ class SwissEphemerisProvider:
             )
         rise_utc = julian_day_to_utc(rise_jd)
         set_utc = julian_day_to_utc(set_jd)
-        rise_local = rise_utc.astimezone(offset)
-        set_local = set_utc.astimezone(offset)
+        rise_local = rise_utc.astimezone(tz)
+        set_local = set_utc.astimezone(tz)
         return DayWindow(
             sunrise_jd_ut=rise_jd,
             sunset_jd_ut=set_jd,

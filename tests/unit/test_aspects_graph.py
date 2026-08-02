@@ -90,7 +90,7 @@ def test_chart_constructor_includes_relationships():
         longitude=80.2707,
     )
     chart = ChartConstructor().build(subject, include_vimshottari=False).to_dict()
-    assert chart["config"]["calc_library_version"] == "bhava360-kernel-0.5.0"
+    assert chart["config"]["calc_library_version"] == "bhava360-kernel-0.6.0"
     assert chart["relationships"] is not None
     assert "edges" in chart["relationships"]
     assert "graha_aspects" in chart["relationships"]

@@ -27,6 +27,8 @@ DEFAULT_FORM = {
     "date": "1990-08-15",
     "time": "12:00",
     "offset": "+05:30",
+    "timezone_id": "Asia/Kolkata",
+    "dst_ambiguity_policy": "earlier",
     "latitude": "13.0827",
     "longitude": "80.2707",
     "location_label": "Chennai",
@@ -52,7 +54,9 @@ async def verify(
     request: Request,
     date: str = Form(...),
     time: str = Form(...),
-    offset: str = Form(...),
+    offset: str = Form("+00:00"),
+    timezone_id: str = Form(""),
+    dst_ambiguity_policy: str = Form("earlier"),
     latitude: float = Form(...),
     longitude: float = Form(...),
     location_label: str = Form(""),
@@ -67,6 +71,8 @@ async def verify(
         "date": date,
         "time": time,
         "offset": offset,
+        "timezone_id": timezone_id,
+        "dst_ambiguity_policy": dst_ambiguity_policy,
         "latitude": str(latitude),
         "longitude": str(longitude),
         "location_label": location_label,
@@ -85,6 +91,8 @@ async def verify(
         longitude=longitude,
         location_label=location_label,
         uncertainty_minutes=uncertainty_val,
+        timezone_id=timezone_id,
+        dst_ambiguity_policy=dst_ambiguity_policy,
     )
     report = run_verification(
         subject,
@@ -133,6 +141,8 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
             if payload.get("uncertainty_minutes") not in (None, "")
             else None
         ),
+        timezone_id=payload.get("timezone_id"),
+        dst_ambiguity_policy=payload.get("dst_ambiguity_policy", "earlier"),
     )
     report = run_verification(
         subject,

@@ -18,7 +18,7 @@ CHENNAI = SubjectInput(
 
 def test_chart_constructor_builds_vargas_dignity_and_house_maps():
     chart = ChartConstructor().build(CHENNAI).to_dict()
-    assert chart["config"]["calc_library_version"] == "bhava360-kernel-0.5.0"
+    assert chart["config"]["calc_library_version"] == "bhava360-kernel-0.6.0"
     assert "whole_sign" in chart["angles"]
     assert "bhava_chalit" in chart["angles"]
     assert len(chart["planets"]) == 9

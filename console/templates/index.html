@@ -37,7 +37,17 @@
       <input name="time" value="{{ form.time }}" required />
     </label>
     <label>UTC offset (+HH:MM / -HH:MM)
-      <input name="offset" value="{{ form.offset }}" required />
+      <input name="offset" value="{{ form.offset }}" />
+    </label>
+    <label>IANA timezone (preferred; ignores offset when set)
+      <input name="timezone_id" value="{{ form.timezone_id }}" placeholder="Asia/Kolkata" />
+    </label>
+    <label>DST ambiguity policy
+      <select name="dst_ambiguity_policy">
+        <option value="earlier" {% if form.dst_ambiguity_policy == 'earlier' %}selected{% endif %}>earlier</option>
+        <option value="later" {% if form.dst_ambiguity_policy == 'later' %}selected{% endif %}>later</option>
+        <option value="raise" {% if form.dst_ambiguity_policy == 'raise' %}selected{% endif %}>raise</option>
+      </select>
     </label>
     <label>Latitude
       <input name="latitude" value="{{ form.latitude }}" required />
@@ -109,6 +119,17 @@
     {{ report.summary.ascendant.sign }}
     {{ '%.4f'|format(report.summary.ascendant.longitude) }}°
     / {{ report.summary.ascendant.nakshatra }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.timezone_source %}
+  <h3>Timezone</h3>
+  <p>
+    Source: {{ report.summary.timezone_source }}
+    {% if report.summary.timezone_id %}| IANA: {{ report.summary.timezone_id }}{% endif %}
+    | Offset min: {{ report.summary.resolved_offset_minutes }}
+    | DST: {{ report.summary.is_dst }}
+    | Ambiguous: {{ report.summary.ambiguous_local_time }}
   </p>
   {% endif %}
 

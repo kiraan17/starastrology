@@ -104,6 +104,27 @@ def test_api_verify_jaimini():
     assert "Gemini" not in body["sections"]["jaimini"]["engine"]
 
 
+def test_api_verify_iana_timezone():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["chart"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["timezone_source"] == "iana"
+    assert body["summary"]["timezone_id"] == "Asia/Kolkata"
+    assert body["summary"]["resolved_offset_minutes"] == 330
+
+
 def test_run_verification_service_direct():
     subject = parse_subject(
         date_str="1990-08-15",

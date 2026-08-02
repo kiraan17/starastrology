@@ -20,20 +20,27 @@ def parse_subject(
     longitude: float,
     location_label: str,
     uncertainty_minutes: float | None,
+    timezone_id: str | None = None,
+    dst_ambiguity_policy: str = "earlier",
 ) -> SubjectInput:
     local = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
-    sign = 1
-    off = offset_str.strip()
-    if off.startswith("-"):
-        sign = -1
-        off = off[1:]
-    elif off.startswith("+"):
-        off = off[1:]
-    hh, mm = off.split(":")
-    offset_minutes = sign * (int(hh) * 60 + int(mm))
+    tz_id = (timezone_id or "").strip() or None
+    offset_minutes: int | None = None
+    if tz_id is None:
+        sign = 1
+        off = offset_str.strip()
+        if off.startswith("-"):
+            sign = -1
+            off = off[1:]
+        elif off.startswith("+"):
+            off = off[1:]
+        hh, mm = off.split(":")
+        offset_minutes = sign * (int(hh) * 60 + int(mm))
     return SubjectInput(
         local_datetime=local,
         timezone_offset_minutes=offset_minutes,
+        timezone_id=tz_id,
+        dst_ambiguity_policy=dst_ambiguity_policy,
         latitude=latitude,
         longitude=longitude,
         location_label=location_label or None,
@@ -65,6 +72,8 @@ def run_verification(
         "input": {
             "local_datetime": subject.local_datetime.isoformat(sep=" "),
             "timezone_offset_minutes": subject.timezone_offset_minutes,
+            "timezone_id": subject.timezone_id,
+            "dst_ambiguity_policy": subject.dst_ambiguity_policy,
             "latitude": subject.latitude,
             "longitude": subject.longitude,
             "location_label": subject.location_label,
@@ -162,6 +171,12 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
             "sign": asc.get("sign"),
             "nakshatra": asc.get("nakshatra_label"),
         }
+        rt = chart.get("resolved_time") or {}
+        summary["timezone_source"] = rt.get("timezone_source")
+        summary["timezone_id"] = rt.get("timezone_id")
+        summary["resolved_offset_minutes"] = rt.get("timezone_offset_minutes")
+        summary["is_dst"] = rt.get("is_dst")
+        summary["ambiguous_local_time"] = rt.get("ambiguous_local_time")
 
     para = report["sections"].get("parashara")
     if para:

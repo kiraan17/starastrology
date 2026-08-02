@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P12b — Ashtakavarga Shodhana / Sodhya Pinda done**
+**P07c — IANA timezone / DST done**
 
-Trikona + Ekadhipatya (+ SAV Mandala) reductions and Sodhya Pinda in `bhava360.engines.ashtakavarga` (`0.2.0-shodhana`). Console shows reduced SAV total and Sodhya Pinda.
+Kernel accepts IANA ids (`zoneinfo`/`tzdata`) with DST gap/overlap policies. Chart stamp `bhava360-kernel-0.6.0`. Console has timezone id + ambiguity policy fields.
 
 ## Principles (short)
 

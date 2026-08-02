@@ -18,7 +18,7 @@
 
 | technique_id | name | parent_engine | kind | safety_level | expert_approval_required | vedastro_overlap | status | notes |
 |---|---|---|---|---|---|---|---|---|
-| TEC-001 | Local datetime, timezone, DST, Julian day | Kernel | calculation | normal | yes | partial | Not Researched | Foundation |
+| TEC-001 | Local datetime, timezone, DST, Julian day | Kernel | calculation | normal | yes | yes | Auto-Tested | P07c IANA+DST via zoneinfo/tzdata; fixed offset retained |
 | TEC-002 | Geolocation and coordinate validation | Kernel | calculation | normal | no | yes | Not Researched | |
 | TEC-003 | Planetary longitudes, speed, retrograde | Kernel | calculation | normal | yes | yes | Auto-Tested | P07a Moshier/Lahiri; SPIKE-01 golden |
 | TEC-004 | Lunar position and phases support data | Kernel | calculation | normal | yes | yes | Not Researched | |

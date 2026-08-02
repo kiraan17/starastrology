@@ -90,7 +90,10 @@ NAKSHATRAS_VEDASTRO = (
 @dataclass(slots=True)
 class SubjectInput:
     local_datetime: datetime
-    timezone_offset_minutes: int
+    timezone_offset_minutes: int | None = None
+    timezone_id: str | None = None
+    # DST fold policy when civil time is ambiguous: earlier|later|raise
+    dst_ambiguity_policy: str = "earlier"
     latitude: float | None = None
     longitude: float | None = None
     location_label: str | None = None
@@ -103,13 +106,26 @@ class SubjectInput:
         if self.local_datetime.tzinfo is not None:
             raise KernelError(
                 KernelErrorCode.INVALID_DATETIME,
-                "local_datetime must be naive civil time; pass timezone_offset_minutes separately",
+                "local_datetime must be naive civil time; pass timezone_id or timezone_offset_minutes separately",
             )
-        if not -14 * 60 <= self.timezone_offset_minutes <= 14 * 60:
+        has_offset = self.timezone_offset_minutes is not None
+        has_iana = bool(self.timezone_id and self.timezone_id.strip())
+        if not has_offset and not has_iana:
+            raise KernelError(
+                KernelErrorCode.INVALID_TIMEZONE,
+                "provide timezone_id (IANA) or timezone_offset_minutes",
+            )
+        if has_offset and not -14 * 60 <= int(self.timezone_offset_minutes) <= 14 * 60:
             raise KernelError(
                 KernelErrorCode.INVALID_TIMEZONE,
                 "timezone_offset_minutes out of range",
                 {"timezone_offset_minutes": self.timezone_offset_minutes},
+            )
+        if self.dst_ambiguity_policy not in {"earlier", "later", "raise"}:
+            raise KernelError(
+                KernelErrorCode.UNSUPPORTED_CONFIG,
+                "dst_ambiguity_policy must be earlier|later|raise",
+                {"dst_ambiguity_policy": self.dst_ambiguity_policy},
             )
         if self.latitude is not None and not -90 <= self.latitude <= 90:
             raise KernelError(
@@ -227,6 +243,12 @@ class ResolvedTime:
     utc_datetime: datetime
     timezone_offset_minutes: int
     julian_day_ut: float
+    timezone_id: str | None = None
+    timezone_source: str = "fixed_offset"  # fixed_offset | iana
+    is_dst: bool | None = None
+    ambiguous_local_time: bool = False
+    dst_fold: int | None = None
+    tzdb_key: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -234,4 +256,10 @@ class ResolvedTime:
             "utc_datetime": self.utc_datetime.isoformat(),
             "timezone_offset_minutes": self.timezone_offset_minutes,
             "julian_day_ut": self.julian_day_ut,
+            "timezone_id": self.timezone_id,
+            "timezone_source": self.timezone_source,
+            "is_dst": self.is_dst,
+            "ambiguous_local_time": self.ambiguous_local_time,
+            "dst_fold": self.dst_fold,
+            "tzdb_key": self.tzdb_key,
         }

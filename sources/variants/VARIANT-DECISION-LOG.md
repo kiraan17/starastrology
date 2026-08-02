@@ -54,3 +54,14 @@ Notes:
 - **Decision:** supported option A as Candidate (`raman_candidate_v1`) until Approved classical edition citation
 - **Engine config key:** `ashtakavarga.shodhana.variant`
 - **Notes:** VedAstro commentary used as comparator only; Rahu/Ketu excluded from occupation set in this Candidate rule
+
+### VARIANT-005 — DST ambiguous civil time
+
+- **Technique IDs:** TEC-001
+- **Question:** When local civil time falls in a DST overlap, which occurrence?
+- **Option A:** earlier (fold=0)
+- **Option B:** later (fold=1)
+- **Option C:** raise / require explicit operator choice
+- **Decision:** supported — all three via `dst_ambiguity_policy`; verification default `earlier`
+- **Engine config key:** `kernel.dst_ambiguity_policy`
+- **Notes:** Gap times always raise. Resolved stamp records ambiguity + fold.
