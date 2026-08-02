@@ -387,3 +387,24 @@ def test_api_verify_compatibility():
     assert body["summary"]["ashtakoota_max"] == 36
     assert body["summary"]["ashtakoota_boy_nakshatra"]
     assert body["summary"]["ashtakoota_girl_nakshatra"]
+
+
+def test_api_verify_muhurta_events():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["muhurta_events"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["muhurta_events_engine"] == "MuhurtaEvents"
+    assert body["summary"]["muhurta_events_count"] == 5
+    assert isinstance(body["summary"]["muhurta_events_good"], list)
+    assert isinstance(body["summary"]["muhurta_events_avoid"], list)

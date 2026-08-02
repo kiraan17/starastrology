@@ -93,7 +93,7 @@
 | TEC-073 | Hora and Chaughadiya | Panchanga | timing | normal | yes | yes | Auto-Tested | P16b 24 horas + 16 chaughadiya |
 | TEC-074 | Panchaka and Bhadra | Panchanga | timing | normal | yes | partial | Not Researched | |
 | TEC-075 | Panchapakshi day/night cycles | Panchanga | timing | normal | yes | yes | Not Researched | VedAstro has module |
-| TEC-076 | Activity good/mixed/avoid windows | Panchanga | timing | normal | yes | no | Not Researched | No major life claims |
+| TEC-076 | Activity good/mixed/avoid windows | Panchanga | timing | normal | yes | yes | Auto-Tested | P20b Candidate pack; no major life claims |
 | TEC-077 | Tajika Varshaphal / Muntha / year lord / Sahams | Tajika | calculation | normal | yes | partial | Auto-Tested | P17a solar return + Muntha; Sahams/Varshesh deferred; location_rule stamped |
 | TEC-078 | Tajika aspects and yogas | Tajika | interpretation | normal | yes | partial | Auto-Tested | P17c Sahams(5)+degree aspects+Ithasala candidate; full yoga suite deferred |
 | TEC-079 | Tithi Pravesh | Annual | timing | normal | yes | yes | Auto-Tested | P17b elongation return nearest solar return (±20d) |
@@ -110,7 +110,7 @@
 | TEC-090 | Lal Kitab teva/aspect/debt/remedy module | LalKitab | interpretation | restricted | yes | no | Not Researched | Keep contradictions visible |
 | TEC-091 | Systems Approach configuration | SystemsApproach | interpretation | normal | yes | no | Not Researched | |
 | TEC-092 | Numerology (mantra-shastra style) | Numerology | calculation | normal | yes | yes | Not Researched | VedAstro overlap |
-| TEC-093 | Muhurta event rule packs | Muhurta | timing | normal | yes | yes | Not Researched | |
+| TEC-093 | Muhurta event rule packs | Muhurta | timing | normal | yes | yes | Auto-Tested | P20b thin activities over P16a–c facts |
 | TEC-094 | Compatibility / Kuta systems | Compatibility | interpretation | normal | yes | yes | Auto-Tested | P20a Ashtakoota 36-point Candidate; exceptions deferred |
 | TEC-095 | Birth-time rectification toolkit | Rectification | orchestration | restricted | yes | partial | Not Researched | |
 | TEC-096 | Evidence, scoring and conflict orchestration | Orchestration | orchestration | normal | yes | no | Not Researched | Product weights |

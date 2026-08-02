@@ -28,12 +28,13 @@ Ordered for the backend-first programme.
 | P19a | Classification Gandanta/Kriya/Avastha (TEC-084..085) | **Done** |
 | P19b | Prashna scaffold (TEC-086 / TEC-088 manual) | **Done** |
 | P20a | Ashtakoota compatibility thin slice (TEC-094) | **Done** |
+| P20b | Muhurta event rule packs (TEC-093 / TEC-076) | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P20b | Muhurta event rule packs (TEC-093) |
+| P21a | Numerology thin slice (TEC-092) *or* Systems Approach scaffold (TEC-091) |
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 

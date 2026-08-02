@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P20a — Ashtakoota compatibility done**
+**P20b — Muhurta event packs done**
 
-North-Indian 36-point Ashtakoota from two Moons in engine `Compatibility` `0.1.0-ashtakoota`.
+Activity good/mixed/avoid classification in engine `MuhurtaEvents` `0.1.0-event-pack`.
 
 
 ## Principles (short)

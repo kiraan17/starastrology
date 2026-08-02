@@ -82,6 +82,7 @@
       <label><input type="checkbox" name="engines" value="jaimini" {% if 'jaimini' in form.engines %}checked{% endif %} /> jaimini</label>
       <label><input type="checkbox" name="engines" value="nadi" {% if 'nadi' in form.engines %}checked{% endif %} /> nadi</label>
       <label><input type="checkbox" name="engines" value="panchanga" {% if 'panchanga' in form.engines %}checked{% endif %} /> panchanga</label>
+      <label><input type="checkbox" name="engines" value="muhurta_events" {% if 'muhurta_events' in form.engines %}checked{% endif %} /> muhurta events</label>
       <label><input type="checkbox" name="engines" value="tajika" {% if 'tajika' in form.engines %}checked{% endif %} /> tajika/annual</label>
       <label><input type="checkbox" name="engines" value="sudarshana" {% if 'sudarshana' in form.engines %}checked{% endif %} /> sudarshana</label>
       <label><input type="checkbox" name="engines" value="bhrigu_bindu" {% if 'bhrigu_bindu' in form.engines %}checked{% endif %} /> bhrigu bindu</label>
@@ -304,6 +305,17 @@
     Moon Chandra Bala from Lagna: {{ report.summary.bala_moon_from_lagna }}
   </p>
   {% endif %}
+  {% endif %}
+
+  {% if report.summary.muhurta_events_engine %}
+  <h3>Muhurta Events</h3>
+  <p>
+    Engine: {{ report.summary.muhurta_events_engine }} |
+    Good: {{ report.summary.muhurta_events_good | join(', ') }} |
+    Mixed: {{ report.summary.muhurta_events_mixed | join(', ') }} |
+    Avoid: {{ report.summary.muhurta_events_avoid | join(', ') }} |
+    Count: {{ report.summary.muhurta_events_count }}
+  </p>
   {% endif %}
 
   {% if report.summary.tajika_engine %}

@@ -16,6 +16,7 @@ from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
+from bhava360.timing.muhurta_event_engine import run_muhurta_event_engine
 from bhava360.timing.panchanga_engine import run_panchanga_engine
 
 
@@ -115,6 +116,7 @@ def run_verification(
             "jaimini",
             "nadi",
             "panchanga",
+            "muhurta_events",
             "tajika",
             "sudarshana",
             "bhrigu_bindu",
@@ -175,6 +177,18 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "panchanga", "error": str(exc)})
+
+    if "muhurta_events" in selected:
+        try:
+            pan = report["sections"].get("panchanga")
+            report["sections"]["muhurta_events"] = run_muhurta_event_engine(
+                subject,
+                config=config,
+                chart=chart,
+                panchanga=pan,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "muhurta_events", "error": str(exc)})
 
     if "kp" in selected:
         try:
@@ -381,6 +395,15 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["bala_moon_from_lagna"] = (
             (bala.get("chandra_bala") or {}).get("moon_from_lagna") or {}
         ).get("bala")
+
+    mev = report["sections"].get("muhurta_events")
+    if mev:
+        summary["muhurta_events_engine"] = mev.get("engine")
+        pack = mev.get("event_pack") or {}
+        summary["muhurta_events_good"] = (pack.get("summary") or {}).get("good")
+        summary["muhurta_events_mixed"] = (pack.get("summary") or {}).get("mixed")
+        summary["muhurta_events_avoid"] = (pack.get("summary") or {}).get("avoid")
+        summary["muhurta_events_count"] = len(pack.get("results") or [])
 
     tajika = report["sections"].get("tajika")
     if tajika:
