@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P20b — Muhurta event packs done**
+**P21a — Numerology thin slice done**
 
-Activity good/mixed/avoid classification in engine `MuhurtaEvents` `0.1.0-event-pack`.
+Birth/destiny (+ optional Chaldean name) numbers in engine `Numerology` `0.1.0-mantra-shastra`.
 
 
 ## Principles (short)

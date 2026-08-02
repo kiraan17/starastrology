@@ -11,6 +11,7 @@ from bhava360.engines.compatibility import run_compatibility_engine
 from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
+from bhava360.engines.numerology import run_numerology_engine
 from bhava360.engines.parashara import run_parashara_engine
 from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
@@ -76,6 +77,7 @@ def run_verification(
     ashtamangala_counts: str | list | dict | None = None,
     question_text: str | None = None,
     partner_subject: SubjectInput | None = None,
+    numerology_name: str | None = None,
 ) -> dict[str, Any]:
     """Run selected verification engines and return a structured report."""
     selected = engines or ["chart", "parashara", "ashtakavarga"]
@@ -101,6 +103,7 @@ def run_verification(
             "ashtamangala_counts_provided": bool(ashtamangala_counts),
             "question_text": question_text,
             "partner_provided": partner_subject is not None,
+            "numerology_name_provided": bool(numerology_name and str(numerology_name).strip()),
         },
         "sections": {},
         "errors": [],
@@ -264,6 +267,15 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "compatibility", "error": str(exc)})
+
+    if "numerology" in selected:
+        try:
+            report["sections"]["numerology"] = run_numerology_engine(
+                subject,
+                name=numerology_name,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "numerology", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -501,4 +513,20 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["ashtakoota_percentage"] = ak.get("percentage")
         summary["ashtakoota_boy_nakshatra"] = (ak.get("boy") or {}).get("nakshatra_label")
         summary["ashtakoota_girl_nakshatra"] = (ak.get("girl") or {}).get("nakshatra_label")
+
+    num = report["sections"].get("numerology")
+    if num:
+        summary["numerology_engine"] = num.get("engine")
+        profile = num.get("profile") or {}
+        bn = profile.get("birth_number") or {}
+        dn = profile.get("destiny_number") or {}
+        nn = profile.get("name_number") or {}
+        summary["numerology_birth"] = bn.get("value")
+        summary["numerology_destiny"] = dn.get("value")
+        summary["numerology_birth_planet"] = bn.get("ruling_planet")
+        summary["numerology_destiny_planet"] = dn.get("ruling_planet")
+        summary["numerology_birth_destiny_aligned"] = profile.get("birth_destiny_aligned")
+        summary["numerology_name"] = nn.get("value")
+        summary["numerology_name_planet"] = nn.get("ruling_planet")
+        summary["numerology_name_provided"] = (num.get("config") or {}).get("name_provided")
     return summary

@@ -109,7 +109,7 @@
 | TEC-089 | Krishna Mishra / Shatpanchashika | Prashna | interpretation | normal | yes | no | Not Researched | |
 | TEC-090 | Lal Kitab teva/aspect/debt/remedy module | LalKitab | interpretation | restricted | yes | no | Not Researched | Keep contradictions visible |
 | TEC-091 | Systems Approach configuration | SystemsApproach | interpretation | normal | yes | no | Not Researched | |
-| TEC-092 | Numerology (mantra-shastra style) | Numerology | calculation | normal | yes | yes | Not Researched | VedAstro overlap |
+| TEC-092 | Numerology (mantra-shastra style) | Numerology | calculation | normal | yes | yes | Auto-Tested | P21a birth/destiny + optional Chaldean name; life-aspects deferred |
 | TEC-093 | Muhurta event rule packs | Muhurta | timing | normal | yes | yes | Auto-Tested | P20b thin activities over P16a–c facts |
 | TEC-094 | Compatibility / Kuta systems | Compatibility | interpretation | normal | yes | yes | Auto-Tested | P20a Ashtakoota 36-point Candidate; exceptions deferred |
 | TEC-095 | Birth-time rectification toolkit | Rectification | orchestration | restricted | yes | partial | Not Researched | |

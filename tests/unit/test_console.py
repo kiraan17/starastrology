@@ -408,3 +408,28 @@ def test_api_verify_muhurta_events():
     assert body["summary"]["muhurta_events_count"] == 5
     assert isinstance(body["summary"]["muhurta_events_good"], list)
     assert isinstance(body["summary"]["muhurta_events_avoid"], list)
+
+
+def test_api_verify_numerology():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["numerology"],
+            "numerology_name": "Rama",
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["numerology_engine"] == "Numerology"
+    assert body["summary"]["numerology_birth"] == 6
+    assert body["summary"]["numerology_destiny"] == 6
+    assert body["summary"]["numerology_birth_destiny_aligned"] is True
+    assert body["summary"]["numerology_name"] == 8
+    assert body["summary"]["numerology_name_provided"] is True
+    assert body["summary"]["numerology_birth_planet"] == "Venus"

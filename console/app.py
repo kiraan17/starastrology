@@ -48,6 +48,7 @@ DEFAULT_FORM = {
     "partner_latitude": "12.9716",
     "partner_longitude": "77.5946",
     "partner_location_label": "Bengaluru",
+    "numerology_name": "",
 }
 
 
@@ -87,6 +88,7 @@ async def verify(
     partner_latitude: str = Form(""),
     partner_longitude: str = Form(""),
     partner_location_label: str = Form(""),
+    numerology_name: str = Form(""),
 ) -> HTMLResponse:
     global _LAST_REPORT
     form = {
@@ -114,6 +116,7 @@ async def verify(
         "partner_latitude": partner_latitude,
         "partner_longitude": partner_longitude,
         "partner_location_label": partner_location_label,
+        "numerology_name": numerology_name,
     }
     uncertainty_val = float(uncertainty) if uncertainty.strip() else None
     target_year_val = int(target_year) if str(target_year).strip() else None
@@ -152,6 +155,7 @@ async def verify(
         ashtamangala_counts=ashtamangala_counts or None,
         question_text=question_text or None,
         partner_subject=partner_subject,
+        numerology_name=numerology_name or None,
     )
     _LAST_REPORT = report
     return templates.TemplateResponse(
@@ -231,6 +235,7 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
         ashtamangala_counts=payload.get("ashtamangala_counts"),
         question_text=payload.get("question_text"),
         partner_subject=partner_subject,
+        numerology_name=payload.get("numerology_name"),
     )
     _LAST_REPORT = report
     return JSONResponse(report)

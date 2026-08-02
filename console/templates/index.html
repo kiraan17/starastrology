@@ -90,6 +90,7 @@
       <label><input type="checkbox" name="engines" value="classification" {% if 'classification' in form.engines %}checked{% endif %} /> classification</label>
       <label><input type="checkbox" name="engines" value="prashna" {% if 'prashna' in form.engines %}checked{% endif %} /> prashna</label>
       <label><input type="checkbox" name="engines" value="compatibility" {% if 'compatibility' in form.engines %}checked{% endif %} /> compatibility</label>
+      <label><input type="checkbox" name="engines" value="numerology" {% if 'numerology' in form.engines %}checked{% endif %} /> numerology</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -133,6 +134,9 @@
     </label>
     <label>Partner location label
       <input name="partner_location_label" value="{{ form.partner_location_label }}" />
+    </label>
+    <label>Numerology name (optional; never fabricated)
+      <input name="numerology_name" value="{{ form.numerology_name }}" placeholder="Latin letters only" />
     </label>
     <button type="submit">Run verification</button>
   </form>
@@ -407,6 +411,19 @@
     ({{ report.summary.ashtakoota_percentage }}%) |
     Boy Moon: {{ report.summary.ashtakoota_boy_nakshatra }} |
     Girl Moon: {{ report.summary.ashtakoota_girl_nakshatra }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.numerology_engine %}
+  <h3>Numerology</h3>
+  <p>
+    Engine: {{ report.summary.numerology_engine }} |
+    Birth: {{ report.summary.numerology_birth }} ({{ report.summary.numerology_birth_planet }}) |
+    Destiny: {{ report.summary.numerology_destiny }} ({{ report.summary.numerology_destiny_planet }}) |
+    Aligned: {{ report.summary.numerology_birth_destiny_aligned }}
+    {% if report.summary.numerology_name_provided %}
+    | Name: {{ report.summary.numerology_name }} ({{ report.summary.numerology_name_planet }})
+    {% endif %}
   </p>
   {% endif %}
 
