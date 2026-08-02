@@ -94,6 +94,7 @@
       <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
       <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
       <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
+      <label><input type="checkbox" name="engines" value="orchestration" {% if 'orchestration' in form.engines %}checked{% endif %} /> orchestration</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -482,6 +483,20 @@
     D9 flips: {{ report.summary.rectification_d9_flips }} |
     D60 flips: {{ report.summary.rectification_d60_flips }} |
     Winner: {{ report.summary.rectification_winner_selected }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.orchestration_engine %}
+  <h3>Orchestration</h3>
+  <p>
+    Engine: {{ report.summary.orchestration_engine }} |
+    Evidence: {{ report.summary.orchestration_evidence_count }} |
+    Schools: {{ report.summary.orchestration_school_count }} |
+    Conflicts: {{ report.summary.orchestration_conflict_count }} |
+    Candidates: {{ report.summary.orchestration_candidate_count }} |
+    Blended: {{ report.summary.orchestration_blended }} |
+    Restricted: {{ report.summary.orchestration_restricted_count }} |
+    Blocked: {{ report.summary.orchestration_blocked_count }}
   </p>
   {% endif %}
 

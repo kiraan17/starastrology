@@ -13,6 +13,7 @@ from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.lal_kitab import run_lal_kitab_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
 from bhava360.engines.numerology import run_numerology_engine
+from bhava360.engines.orchestration import run_orchestration_engine
 from bhava360.engines.parashara import run_parashara_engine
 from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
@@ -322,6 +323,15 @@ def run_verification(
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "rectification", "error": str(exc)})
 
+    # Orchestration consumes other sections — always last.
+    if "orchestration" in selected:
+        try:
+            report["sections"]["orchestration"] = run_orchestration_engine(
+                report["sections"],
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "orchestration", "error": str(exc)})
+
     report["summary"] = _summarize(report)
     return report
 
@@ -625,4 +635,18 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         baseline = ((scan.get("baseline") or {}).get("fingerprint")) or {}
         summary["rectification_baseline_lagna"] = baseline.get("lagna_sign")
         summary["rectification_baseline_kunda"] = baseline.get("kunda_sign")
+
+    orch = report["sections"].get("orchestration")
+    if orch:
+        summary["orchestration_engine"] = orch.get("engine")
+        bundle = orch.get("orchestration") or {}
+        sm = bundle.get("summary") or {}
+        summary["orchestration_evidence_count"] = sm.get("evidence_count")
+        summary["orchestration_school_count"] = sm.get("school_count")
+        summary["orchestration_conflict_count"] = sm.get("conflict_count")
+        summary["orchestration_candidate_count"] = sm.get("candidate_count")
+        summary["orchestration_blended"] = sm.get("blended")
+        safety = bundle.get("safety") or {}
+        summary["orchestration_restricted_count"] = safety.get("restricted_count")
+        summary["orchestration_blocked_count"] = safety.get("blocked_count")
     return summary

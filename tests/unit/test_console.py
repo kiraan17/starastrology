@@ -510,3 +510,27 @@ def test_api_verify_rectification():
     assert body["summary"]["rectification_sample_count"] >= 3
     assert body["summary"]["rectification_baseline_lagna"]
     assert body["summary"]["rectification_baseline_kunda"]
+
+
+def test_api_verify_orchestration():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["parashara", "lal_kitab", "orchestration"],
+            "target_year": 2024,
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["orchestration_engine"] == "Orchestration"
+    assert body["summary"]["orchestration_blended"] is False
+    assert body["summary"]["orchestration_evidence_count"] >= 2
+    assert body["summary"]["orchestration_conflict_count"] >= 1
+    assert body["summary"]["orchestration_candidate_count"] >= 1
+    assert body["sections"]["orchestration"]["safety"]["blended_verdicts"] is False

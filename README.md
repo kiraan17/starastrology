@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P22b — Rectification toolkit scaffold done**
+**P23a — Evidence/conflict orchestration done**
 
-Birth-time sensitivity scan in engine `Rectification` `0.1.0-scan-scaffold` (restricted; no winner selection).
+Multi-engine evidence collect/weight/conflict scaffold in engine `Orchestration` `0.1.0-evidence-scaffold` (schools never blended).
 
 
 ## Principles (short)
