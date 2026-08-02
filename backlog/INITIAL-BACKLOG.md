@@ -26,12 +26,13 @@ Ordered for the backend-first programme.
 | P18b | Bhrigu Bindu thin slice (TEC-081) | **Done** |
 | P18c | Nakshatra chakras scaffold (TEC-082..083) | **Done** |
 | P19a | Classification Gandanta/Kriya/Avastha (TEC-084..085) | **Done** |
+| P19b | Prashna scaffold (TEC-086 / TEC-088 manual) | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P19b | Prashna scaffold (TEC-086) — calc sphutas; manual inputs stay manual |
+| P20a | Compatibility / Kuta thin slice (TEC-094) *or* Muhurta event packs (TEC-093) |
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 

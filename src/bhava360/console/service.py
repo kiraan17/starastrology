@@ -11,6 +11,7 @@ from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
 from bhava360.engines.parashara import run_parashara_engine
+from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
@@ -70,6 +71,8 @@ def run_verification(
     jaimini_chara_scheme: str = "seven",
     target_year: int | None = None,
     annual_location_rule: str = "birth_place",
+    ashtamangala_counts: str | list | dict | None = None,
+    question_text: str | None = None,
 ) -> dict[str, Any]:
     """Run selected verification engines and return a structured report."""
     selected = engines or ["chart", "parashara", "ashtakavarga"]
@@ -92,6 +95,8 @@ def run_verification(
             "jaimini_chara_scheme": jaimini_chara_scheme,
             "target_year": target_year,
             "annual_location_rule": annual_location_rule,
+            "ashtamangala_counts_provided": bool(ashtamangala_counts),
+            "question_text": question_text,
         },
         "sections": {},
         "errors": [],
@@ -112,6 +117,7 @@ def run_verification(
             "bhrigu_bindu",
             "nakshatra_chakra",
             "classification",
+            "prashna",
         )
     )
     if needs_chart:
@@ -217,6 +223,18 @@ def run_verification(
             report["sections"]["classification"] = run_classification_engine(chart=chart)
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "classification", "error": str(exc)})
+
+    if "prashna" in selected:
+        try:
+            report["sections"]["prashna"] = run_prashna_engine(
+                subject,
+                config=config,
+                chart=chart,
+                ashtamangala_counts=ashtamangala_counts,
+                question_text=question_text,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "prashna", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -421,4 +439,18 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["lagna_gandanta"] = ((clas.get("lagna") or {}).get("gandanta") or {}).get(
             "active"
         )
+
+    prashna = report["sections"].get("prashna")
+    if prashna:
+        summary["prashna_engine"] = prashna.get("engine")
+        summary["prashna_lagna_sign"] = (prashna.get("prashna_lagna") or {}).get("sign")
+        tri = (prashna.get("sphutas") or {}).get("trisphuta") or {}
+        summary["prashna_trisphuta_sign"] = tri.get("sign")
+        chat = (prashna.get("sphutas") or {}).get("chatusphuta") or {}
+        summary["prashna_chatusphuta_sign"] = chat.get("sign")
+        ash = (prashna.get("manual_inputs") or {}).get("ashtamangala") or {}
+        summary["ashtamangala_status"] = ash.get("status")
+        summary["ashtamangala_provided"] = ash.get("provided")
+        arudha = prashna.get("arudha_lagna") or {}
+        summary["prashna_arudha_sign"] = arudha.get("arudha_sign")
     return summary

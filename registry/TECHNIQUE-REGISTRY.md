@@ -103,9 +103,9 @@
 | TEC-083 | Tara Chakra and Kota Chakra | Chakra | calculation | normal | yes | yes | Auto-Tested | P18c Tara 9-spoke + Kota 8-dir Candidate layout |
 | TEC-084 | Chandra Kriya, Avastha, Vela | Classification | classification | normal | yes | yes | Auto-Tested | P19a 60 Kriya + Baladi + 36 Vela index; names Candidate |
 | TEC-085 | Gandanta and related conditions | Classification | classification | normal | yes | yes | Auto-Tested | P19a nakshatra-pada + rasi 3°20′ junction flags |
-| TEC-086 | Prashna Marga calculations and sphutas | Prashna | interpretation | normal | yes | partial | Not Researched | |
+| TEC-086 | Prashna Marga calculations and sphutas | Prashna | interpretation | normal | yes | partial | Auto-Tested | P19b Trisphuta/Gulika/Chatusphuta + Arudha; verdicts deferred |
 | TEC-087 | Tamil Prashna / Aroodha Lagna Prashna | Prashna | interpretation | normal | yes | no | Not Researched | |
-| TEC-088 | Ashtamangala Prashna | Prashna | manual_input | normal | yes | no | Not Researched | Manual shell counts |
+| TEC-088 | Ashtamangala Prashna | Prashna | manual_input | normal | yes | yes | Auto-Tested | P19b manual passthrough only — never fabricated |
 | TEC-089 | Krishna Mishra / Shatpanchashika | Prashna | interpretation | normal | yes | no | Not Researched | |
 | TEC-090 | Lal Kitab teva/aspect/debt/remedy module | LalKitab | interpretation | restricted | yes | no | Not Researched | Keep contradictions visible |
 | TEC-091 | Systems Approach configuration | SystemsApproach | interpretation | normal | yes | no | Not Researched | |

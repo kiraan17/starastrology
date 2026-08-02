@@ -309,3 +309,54 @@ def test_api_verify_classification():
     assert body["summary"]["chandra_vela_index"] >= 1
     assert body["summary"]["moon_baladi_avastha"]
     assert body["summary"]["gandanta_hit_count"] >= 0
+
+
+def test_api_verify_prashna_manual_passthrough():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["prashna"],
+            "question_text": "Test question",
+            "ashtamangala_counts": "2,4,6,8",
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["prashna_engine"] == "Prashna"
+    assert body["summary"]["prashna_lagna_sign"]
+    assert body["summary"]["prashna_trisphuta_sign"]
+    assert body["summary"]["prashna_chatusphuta_sign"]
+    assert body["summary"]["ashtamangala_provided"] is True
+    assert body["summary"]["ashtamangala_status"] == "manual_input_recorded"
+    assert body["sections"]["prashna"]["manual_inputs"]["ashtamangala"]["counts"] == [
+        2,
+        4,
+        6,
+        8,
+    ]
+
+
+def test_api_verify_prashna_without_manual_awaits_input():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "offset": "+05:30",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["prashna"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["ashtamangala_provided"] is False
+    assert body["summary"]["ashtamangala_status"] == "awaiting_manual_input"

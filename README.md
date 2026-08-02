@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P19a — Classification Gandanta/Kriya done**
+**P19b — Prashna scaffold done**
 
-Gandanta flags, Chandra Kriya/Vela, and Baladi Avastha in engine `Classification` `0.1.0-gandanta-kriya`.
+Trisphuta/Gulika/Chatusphuta + Arudha; Ashtamangala counts manual-only in engine `Prashna` `0.1.0-sphuta-scaffold`.
 
 
 ## Principles (short)

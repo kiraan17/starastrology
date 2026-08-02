@@ -39,6 +39,8 @@ DEFAULT_FORM = {
     "jaimini_chara_scheme": "seven",
     "target_year": "2024",
     "annual_location_rule": "birth_place",
+    "question_text": "",
+    "ashtamangala_counts": "",
 }
 
 
@@ -69,6 +71,8 @@ async def verify(
     jaimini_chara_scheme: str = Form("seven"),
     target_year: str = Form(""),
     annual_location_rule: str = Form("birth_place"),
+    question_text: str = Form(""),
+    ashtamangala_counts: str = Form(""),
 ) -> HTMLResponse:
     global _LAST_REPORT
     form = {
@@ -87,6 +91,8 @@ async def verify(
         "jaimini_chara_scheme": jaimini_chara_scheme,
         "target_year": target_year,
         "annual_location_rule": annual_location_rule,
+        "question_text": question_text,
+        "ashtamangala_counts": ashtamangala_counts,
     }
     uncertainty_val = float(uncertainty) if uncertainty.strip() else None
     target_year_val = int(target_year) if str(target_year).strip() else None
@@ -109,6 +115,8 @@ async def verify(
         jaimini_chara_scheme=jaimini_chara_scheme,
         target_year=target_year_val,
         annual_location_rule=annual_location_rule,
+        ashtamangala_counts=ashtamangala_counts or None,
+        question_text=question_text or None,
     )
     _LAST_REPORT = report
     return templates.TemplateResponse(
@@ -172,6 +180,8 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
         jaimini_chara_scheme=payload.get("jaimini_chara_scheme", "seven"),
         target_year=target_year_val,
         annual_location_rule=payload.get("annual_location_rule", "birth_place"),
+        ashtamangala_counts=payload.get("ashtamangala_counts"),
+        question_text=payload.get("question_text"),
     )
     _LAST_REPORT = report
     return JSONResponse(report)

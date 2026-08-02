@@ -87,6 +87,7 @@
       <label><input type="checkbox" name="engines" value="bhrigu_bindu" {% if 'bhrigu_bindu' in form.engines %}checked{% endif %} /> bhrigu bindu</label>
       <label><input type="checkbox" name="engines" value="nakshatra_chakra" {% if 'nakshatra_chakra' in form.engines %}checked{% endif %} /> nakshatra chakras</label>
       <label><input type="checkbox" name="engines" value="classification" {% if 'classification' in form.engines %}checked{% endif %} /> classification</label>
+      <label><input type="checkbox" name="engines" value="prashna" {% if 'prashna' in form.engines %}checked{% endif %} /> prashna</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -103,6 +104,12 @@
         <option value="residence" {% if form.annual_location_rule == 'residence' %}selected{% endif %}>residence</option>
         <option value="event_location" {% if form.annual_location_rule == 'event_location' %}selected{% endif %}>event_location</option>
       </select>
+    </label>
+    <label>Prashna question (optional)
+      <input name="question_text" value="{{ form.question_text }}" />
+    </label>
+    <label>Ashtamangala counts (manual only; comma-separated)
+      <input name="ashtamangala_counts" value="{{ form.ashtamangala_counts }}" placeholder="e.g. 3,5,2,7" />
     </label>
     <button type="submit">Run verification</button>
   </form>
@@ -342,6 +349,19 @@
     Chandra Vela #: {{ report.summary.chandra_vela_index }} |
     Moon Baladi: {{ report.summary.moon_baladi_avastha }} |
     Lagna Gandanta: {{ report.summary.lagna_gandanta }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.prashna_engine %}
+  <h3>Prashna</h3>
+  <p>
+    Engine: {{ report.summary.prashna_engine }} |
+    Lagna: {{ report.summary.prashna_lagna_sign }} |
+    Trisphuta: {{ report.summary.prashna_trisphuta_sign }} |
+    Chatusphuta: {{ report.summary.prashna_chatusphuta_sign }} |
+    Arudha: {{ report.summary.prashna_arudha_sign }} |
+    Ashtamangala: {{ report.summary.ashtamangala_status }}
+    (provided={{ report.summary.ashtamangala_provided }})
   </p>
   {% endif %}
 
