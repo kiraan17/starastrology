@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P27a — Panchapakshi both-paksha majors done**
+**P27b — Shadbala partial scaffold done**
 
-Engine `Panchapakshi` `0.2.0-both-paksha` (TEC-075): PyJHora-derived majors for Shukla and Krishna.
+Engine `Shadbala` `0.1.0-partial-scaffold` (TEC-023): Naisargika + Dig + Uchcha + Kendradi + Ojayugma(rasi).
 
 
 ## Principles (short)

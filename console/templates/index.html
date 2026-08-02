@@ -94,6 +94,7 @@
       <label><input type="checkbox" name="engines" value="compatibility" {% if 'compatibility' in form.engines %}checked{% endif %} /> compatibility</label>
       <label><input type="checkbox" name="engines" value="numerology" {% if 'numerology' in form.engines %}checked{% endif %} /> numerology</label>
       <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
+      <label><input type="checkbox" name="engines" value="shadbala" {% if 'shadbala' in form.engines %}checked{% endif %} /> shadbala</label>
       <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
       <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
       <label><input type="checkbox" name="engines" value="yogini" {% if 'yogini' in form.engines %}checked{% endif %} /> yogini dasha</label>
@@ -500,6 +501,17 @@
     Weak flags: {{ report.summary.systems_approach_weak_count }} |
     FM close pairs: {{ report.summary.systems_approach_fm_close_pairs }} |
     Malefics: {{ report.summary.systems_approach_functional_malefics | join(', ') }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.shadbala_engine %}
+  <h3>Shadbala (partial)</h3>
+  <p>
+    Engine: {{ report.summary.shadbala_engine }} |
+    Planets: {{ report.summary.shadbala_planet_count }} |
+    Strongest partial: {{ report.summary.shadbala_strongest }}
+    ({{ report.summary.shadbala_strongest_virupa }} virupa) |
+    Weakest partial: {{ report.summary.shadbala_weakest }}
   </p>
   {% endif %}
 

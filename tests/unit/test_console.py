@@ -517,6 +517,28 @@ def test_api_verify_systems_approach():
     assert "Ketu" in body["summary"]["systems_approach_functional_malefics"]
 
 
+def test_api_verify_shadbala():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["shadbala"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["shadbala_engine"] == "Shadbala"
+    assert body["summary"]["shadbala_planet_count"] == 7
+    assert body["summary"]["shadbala_strongest"]
+    assert body["summary"]["shadbala_strongest_virupa"] > 0
+    assert "TEC-023" in body["sections"]["shadbala"]["technique_ids"]
+
+
 def test_api_verify_lal_kitab():
     res = client.post(
         "/api/verify",

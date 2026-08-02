@@ -219,6 +219,15 @@
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
       "notes": "Candidate PyJHora majors both pakshas; sub-yama deferred"
+    },
+    {
+      "engine": "Shadbala",
+      "module": "bhava360.engines.shadbala",
+      "engine_version": "0.1.0-partial-scaffold",
+      "technique_ids": ["TEC-023"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate partial; no full-pack threshold verdicts"
     }
   ],
   "kernel": {

@@ -18,6 +18,7 @@ from bhava360.engines.parashara import run_parashara_engine
 from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
 from bhava360.engines.rectification import run_rectification_engine
+from bhava360.engines.shadbala import run_shadbala_engine
 from bhava360.engines.systems_approach import run_systems_approach_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.engines.transit import run_transit_engine
@@ -143,6 +144,7 @@ def run_verification(
             "prashna",
             "systems_approach",
             "lal_kitab",
+            "shadbala",
             "yogini",
             "transit",
         )
@@ -329,6 +331,14 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "systems_approach", "error": str(exc)})
+
+    if "shadbala" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Shadbala")
+            report["sections"]["shadbala"] = run_shadbala_engine(chart=chart)
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "shadbala", "error": str(exc)})
 
     if "lal_kitab" in selected:
         try:
@@ -681,6 +691,16 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["systems_approach_fm_close_pairs"] = sm.get("fm_close_pair_count")
         natures = profile.get("functional_natures") or {}
         summary["systems_approach_functional_malefics"] = natures.get("functional_malefics")
+
+    sb = report["sections"].get("shadbala")
+    if sb:
+        summary["shadbala_engine"] = sb.get("engine")
+        pack = sb.get("shadbala") or {}
+        sm = pack.get("summary") or {}
+        summary["shadbala_planet_count"] = sm.get("planet_count")
+        summary["shadbala_strongest"] = sm.get("strongest_partial")
+        summary["shadbala_strongest_virupa"] = sm.get("strongest_partial_virupa")
+        summary["shadbala_weakest"] = sm.get("weakest_partial")
 
     lk = report["sections"].get("lal_kitab")
     if lk:
