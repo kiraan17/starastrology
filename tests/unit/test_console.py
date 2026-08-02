@@ -433,3 +433,27 @@ def test_api_verify_numerology():
     assert body["summary"]["numerology_name"] == 8
     assert body["summary"]["numerology_name_provided"] is True
     assert body["summary"]["numerology_birth_planet"] == "Venus"
+
+
+def test_api_verify_systems_approach():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["systems_approach"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["systems_approach_engine"] == "SystemsApproach"
+    assert body["summary"]["systems_approach_lagna"]
+    assert body["summary"]["systems_approach_fm_count"] >= 2
+    assert body["summary"]["systems_approach_fb_count"] >= 1
+    assert isinstance(body["summary"]["systems_approach_functional_malefics"], list)
+    assert "Rahu" in body["summary"]["systems_approach_functional_malefics"]
+    assert "Ketu" in body["summary"]["systems_approach_functional_malefics"]

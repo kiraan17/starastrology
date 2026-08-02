@@ -91,6 +91,7 @@
       <label><input type="checkbox" name="engines" value="prashna" {% if 'prashna' in form.engines %}checked{% endif %} /> prashna</label>
       <label><input type="checkbox" name="engines" value="compatibility" {% if 'compatibility' in form.engines %}checked{% endif %} /> compatibility</label>
       <label><input type="checkbox" name="engines" value="numerology" {% if 'numerology' in form.engines %}checked{% endif %} /> numerology</label>
+      <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -424,6 +425,19 @@
     {% if report.summary.numerology_name_provided %}
     | Name: {{ report.summary.numerology_name }} ({{ report.summary.numerology_name_planet }})
     {% endif %}
+  </p>
+  {% endif %}
+
+  {% if report.summary.systems_approach_engine %}
+  <h3>Systems Approach</h3>
+  <p>
+    Engine: {{ report.summary.systems_approach_engine }} |
+    Lagna: {{ report.summary.systems_approach_lagna }} |
+    FM: {{ report.summary.systems_approach_fm_count }} |
+    FB: {{ report.summary.systems_approach_fb_count }} |
+    Weak flags: {{ report.summary.systems_approach_weak_count }} |
+    FM close pairs: {{ report.summary.systems_approach_fm_close_pairs }} |
+    Malefics: {{ report.summary.systems_approach_functional_malefics | join(', ') }}
   </p>
   {% endif %}
 

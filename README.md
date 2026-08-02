@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P21a — Numerology thin slice done**
+**P21b — Systems Approach scaffold done**
 
-Birth/destiny (+ optional Chaldean name) numbers in engine `Numerology` `0.1.0-mantra-shastra`.
+Functional natures + structural SA config in engine `SystemsApproach` `0.1.0-config-scaffold`.
 
 
 ## Principles (short)

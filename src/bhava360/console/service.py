@@ -15,6 +15,7 @@ from bhava360.engines.numerology import run_numerology_engine
 from bhava360.engines.parashara import run_parashara_engine
 from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
+from bhava360.engines.systems_approach import run_systems_approach_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 from bhava360.timing.muhurta_event_engine import run_muhurta_event_engine
@@ -126,6 +127,7 @@ def run_verification(
             "nakshatra_chakra",
             "classification",
             "prashna",
+            "systems_approach",
         )
     )
     if needs_chart:
@@ -276,6 +278,16 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "numerology", "error": str(exc)})
+
+    if "systems_approach" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Systems Approach")
+            report["sections"]["systems_approach"] = run_systems_approach_engine(
+                chart=chart,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "systems_approach", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -529,4 +541,17 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["numerology_name"] = nn.get("value")
         summary["numerology_name_planet"] = nn.get("ruling_planet")
         summary["numerology_name_provided"] = (num.get("config") or {}).get("name_provided")
+
+    sa = report["sections"].get("systems_approach")
+    if sa:
+        summary["systems_approach_engine"] = sa.get("engine")
+        profile = sa.get("profile") or {}
+        summary["systems_approach_lagna"] = profile.get("lagna_sign")
+        sm = profile.get("summary") or {}
+        summary["systems_approach_fm_count"] = sm.get("functional_malefic_count")
+        summary["systems_approach_fb_count"] = sm.get("functional_benefic_count")
+        summary["systems_approach_weak_count"] = sm.get("weak_candidate_count")
+        summary["systems_approach_fm_close_pairs"] = sm.get("fm_close_pair_count")
+        natures = profile.get("functional_natures") or {}
+        summary["systems_approach_functional_malefics"] = natures.get("functional_malefics")
     return summary
