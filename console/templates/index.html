@@ -96,6 +96,7 @@
       <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
       <label><input type="checkbox" name="engines" value="shadbala" {% if 'shadbala' in form.engines %}checked{% endif %} /> shadbala</label>
       <label><input type="checkbox" name="engines" value="bhava_bala" {% if 'bhava_bala' in form.engines %}checked{% endif %} /> bhava bala</label>
+      <label><input type="checkbox" name="engines" value="vimshopaka" {% if 'vimshopaka' in form.engines %}checked{% endif %} /> vimshopaka</label>
       <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
       <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
       <label><input type="checkbox" name="engines" value="yogini" {% if 'yogini' in form.engines %}checked{% endif %} /> yogini dasha</label>
@@ -525,6 +526,17 @@
     Strongest house: {{ report.summary.bhava_bala_strongest_house }}
     ({{ report.summary.bhava_bala_strongest_virupa }} virupa) |
     Weakest house: {{ report.summary.bhava_bala_weakest_house }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.vimshopaka_engine %}
+  <h3>Vimshopaka (Shodashavarga)</h3>
+  <p>
+    Engine: {{ report.summary.vimshopaka_engine }} |
+    Planets: {{ report.summary.vimshopaka_planet_count }} |
+    Strongest: {{ report.summary.vimshopaka_strongest }}
+    ({{ report.summary.vimshopaka_strongest_score }}) |
+    Weakest: {{ report.summary.vimshopaka_weakest }}
   </p>
   {% endif %}
 

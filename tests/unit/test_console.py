@@ -567,6 +567,29 @@ def test_api_verify_bhava_bala():
     assert body["sections"]["bhava_bala"]["engine_version"] == "0.1.0-partial-scaffold"
 
 
+def test_api_verify_vimshopaka():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["vimshopaka"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["vimshopaka_engine"] == "Vimshopaka"
+    assert body["summary"]["vimshopaka_planet_count"] == 7
+    assert body["summary"]["vimshopaka_strongest"]
+    assert body["summary"]["vimshopaka_strongest_score"] > 0
+    assert "TEC-025" in body["sections"]["vimshopaka"]["technique_ids"]
+    assert body["sections"]["vimshopaka"]["engine_version"] == "0.1.0-shodashavarga"
+
+
 def test_api_verify_lal_kitab():
     res = client.post(
         "/api/verify",

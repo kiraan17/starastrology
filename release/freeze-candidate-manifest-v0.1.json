@@ -237,6 +237,15 @@
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
       "notes": "Candidate Bhavadhipati+Dig+Drishti thin; depends on partial Shadbala"
+    },
+    {
+      "engine": "Vimshopaka",
+      "module": "bhava360.engines.vimshopaka",
+      "engine_version": "0.1.0-shodashavarga",
+      "technique_ids": ["TEC-025"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate Shodashavarga; permanent friendship only"
     }
   ],
   "kernel": {

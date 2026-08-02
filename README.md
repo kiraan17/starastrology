@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P28b — Bhava Bala partial scaffold done**
+**P29a — Vimshopaka Shodashavarga scaffold done**
 
-Engine `BhavaBala` `0.1.0-partial-scaffold` (TEC-024): Bhavadhipati from partial Shadbala + Dig (Lagna class) + Drishti (aspect sum).
+Engine `Vimshopaka` `0.1.0-shodashavarga` (TEC-025): weighted dignity across 16 vargas (incl. new D4). Kalachakra deferred pending sourced sequences.
 
 
 ## Principles (short)

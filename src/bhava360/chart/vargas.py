@@ -12,6 +12,7 @@ class VargaId(str, Enum):
     D1 = "D1"
     D2 = "D2"
     D3 = "D3"
+    D4 = "D4"
     D7 = "D7"
     D9 = "D9"
     D10 = "D10"
@@ -32,6 +33,7 @@ DEFAULT_VARGAS: tuple[VargaId, ...] = (
     VargaId.D1,
     VargaId.D2,
     VargaId.D3,
+    VargaId.D4,
     VargaId.D7,
     VargaId.D9,
     VargaId.D10,
@@ -116,6 +118,13 @@ def varga_sign(longitude_sidereal_deg: float, varga: VargaId) -> VargaPlacement:
         offset = (0, 4, 8)[part]
         frac = (d % 10.0) * 3.0
         return _placement_from_sign_index(varga, s + offset, frac)
+
+    if varga == VargaId.D4:
+        # Chaturthamsa: 7°30' parts counted from the same sign (Parashara).
+        part_size = 7.5
+        part = min(int(d // part_size), 3)
+        frac = (d - part * part_size) / part_size * 30.0
+        return _placement_from_sign_index(varga, s + part, frac)
 
     if varga == VargaId.D7:
         part_size = 30.0 / 7.0

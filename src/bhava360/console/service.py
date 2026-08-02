@@ -21,6 +21,7 @@ from bhava360.engines.rectification import run_rectification_engine
 from bhava360.engines.bhava_bala import run_bhava_bala_engine
 from bhava360.engines.shadbala import run_shadbala_engine
 from bhava360.engines.systems_approach import run_systems_approach_engine
+from bhava360.engines.vimshopaka import run_vimshopaka_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.engines.transit import run_transit_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
@@ -147,6 +148,7 @@ def run_verification(
             "lal_kitab",
             "shadbala",
             "bhava_bala",
+            "vimshopaka",
             "yogini",
             "transit",
         )
@@ -349,6 +351,14 @@ def run_verification(
             report["sections"]["bhava_bala"] = run_bhava_bala_engine(chart=chart)
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "bhava_bala", "error": str(exc)})
+
+    if "vimshopaka" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Vimshopaka")
+            report["sections"]["vimshopaka"] = run_vimshopaka_engine(chart=chart)
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "vimshopaka", "error": str(exc)})
 
     if "lal_kitab" in selected:
         try:
@@ -722,6 +732,16 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["bhava_bala_strongest_house"] = sm.get("strongest_house")
         summary["bhava_bala_strongest_virupa"] = sm.get("strongest_partial_virupa")
         summary["bhava_bala_weakest_house"] = sm.get("weakest_house")
+
+    vp = report["sections"].get("vimshopaka")
+    if vp:
+        summary["vimshopaka_engine"] = vp.get("engine")
+        pack = vp.get("vimshopaka") or {}
+        sm = pack.get("summary") or {}
+        summary["vimshopaka_planet_count"] = sm.get("planet_count")
+        summary["vimshopaka_strongest"] = sm.get("strongest")
+        summary["vimshopaka_strongest_score"] = sm.get("strongest_vimshopaka")
+        summary["vimshopaka_weakest"] = sm.get("weakest")
 
     lk = report["sections"].get("lal_kitab")
     if lk:
