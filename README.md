@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P11 — KP thin slice (P11a done)**
+**P12 — Ashtakavarga thin slice (P12a done)**
 
-KP ayanamsa + Placidus isolation, star/sub/sub-sub lord chains, cuspal significator sketch. Next: aspects graph or Ashtakavarga.
+BAV/SAV with reconstructable bindu contributors (total 337) and kakshya labels. Next: aspects graph, Nadi corpus work, or internal verification console.
 
 ## Principles (short)
 
