@@ -52,7 +52,7 @@
 | TEC-032 | Kalachakra dasha | Timing | timing | normal | yes | no | Not Researched | |
 | TEC-033 | Jaimini rashi dasha pack | Jaimini | timing | normal | yes | partial | Not Researched | Chara/Sthira/Navamsa… |
 | TEC-034 | Annual dasha variants (Mudda/Patyayini/etc) | Annual | timing | normal | yes | partial | Not Researched | |
-| TEC-035 | Transit engine vs natal reference | Timing | timing | normal | yes | partial | Not Researched | |
+| TEC-035 | Transit engine vs natal reference | Timing | timing | normal | yes | partial | Auto-Tested | P25b natal overlay; houses/conjunctions/WS aspects; gochara deferred |
 | TEC-036 | Parashara functional analysis core | Parashara | interpretation | normal | yes | partial | Not Researched | |
 | TEC-037 | Parashara yoga detection pack | Parashara | interpretation | normal | yes | partial | Implemented | P10a thin slice (2 provisional yogas); Source Needed for full catalogue |
 | TEC-038 | Parashara dosha and exception pack | Parashara | interpretation | normal | yes | partial | Not Researched | |

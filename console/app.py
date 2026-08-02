@@ -51,6 +51,13 @@ DEFAULT_FORM = {
     "numerology_name": "",
     "rectification_events": "",
     "rectification_step_minutes": "5",
+    "transit_date": "2024-08-15",
+    "transit_time": "12:00",
+    "transit_offset": "+05:30",
+    "transit_timezone_id": "Asia/Kolkata",
+    "transit_latitude": "",
+    "transit_longitude": "",
+    "transit_location_label": "",
 }
 
 
@@ -93,6 +100,13 @@ async def verify(
     numerology_name: str = Form(""),
     rectification_events: str = Form(""),
     rectification_step_minutes: str = Form("5"),
+    transit_date: str = Form(""),
+    transit_time: str = Form(""),
+    transit_offset: str = Form("+05:30"),
+    transit_timezone_id: str = Form(""),
+    transit_latitude: str = Form(""),
+    transit_longitude: str = Form(""),
+    transit_location_label: str = Form(""),
 ) -> HTMLResponse:
     global _LAST_REPORT
     form = {
@@ -123,6 +137,13 @@ async def verify(
         "numerology_name": numerology_name,
         "rectification_events": rectification_events,
         "rectification_step_minutes": rectification_step_minutes,
+        "transit_date": transit_date,
+        "transit_time": transit_time,
+        "transit_offset": transit_offset,
+        "transit_timezone_id": transit_timezone_id,
+        "transit_latitude": transit_latitude,
+        "transit_longitude": transit_longitude,
+        "transit_location_label": transit_location_label,
     }
     uncertainty_val = float(uncertainty) if uncertainty.strip() else None
     target_year_val = int(target_year) if str(target_year).strip() else None
@@ -150,6 +171,19 @@ async def verify(
             timezone_id=partner_timezone_id or timezone_id,
             dst_ambiguity_policy=dst_ambiguity_policy,
         )
+    transit_subject = None
+    if "transit" in form["engines"] and transit_date.strip() and transit_time.strip():
+        transit_subject = parse_subject(
+            date_str=transit_date,
+            time_str=transit_time,
+            offset_str=transit_offset or offset,
+            latitude=float(transit_latitude or latitude),
+            longitude=float(transit_longitude or longitude),
+            location_label=transit_location_label,
+            uncertainty_minutes=None,
+            timezone_id=transit_timezone_id or timezone_id,
+            dst_ambiguity_policy=dst_ambiguity_policy,
+        )
     report = run_verification(
         subject,
         ayanamsa=ayanamsa,
@@ -168,6 +202,7 @@ async def verify(
             if str(rectification_step_minutes).strip()
             else None
         ),
+        transit_subject=transit_subject,
     )
     _LAST_REPORT = report
     return templates.TemplateResponse(
@@ -238,6 +273,20 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
             timezone_id=payload.get("partner_timezone_id", payload.get("timezone_id")),
             dst_ambiguity_policy=payload.get("dst_ambiguity_policy", "earlier"),
         )
+    transit_subject = None
+    engines = payload.get("engines") or []
+    if "transit" in engines and payload.get("transit_date"):
+        transit_subject = parse_subject(
+            date_str=payload["transit_date"],
+            time_str=payload.get("transit_time", "12:00"),
+            offset_str=payload.get("transit_offset", payload.get("offset", "+00:00")),
+            latitude=float(payload.get("transit_latitude", payload["latitude"])),
+            longitude=float(payload.get("transit_longitude", payload["longitude"])),
+            location_label=payload.get("transit_location_label", ""),
+            uncertainty_minutes=None,
+            timezone_id=payload.get("transit_timezone_id", payload.get("timezone_id")),
+            dst_ambiguity_policy=payload.get("dst_ambiguity_policy", "earlier"),
+        )
     report = run_verification(
         subject,
         ayanamsa=payload.get("ayanamsa", "lahiri"),
@@ -252,6 +301,7 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
         numerology_name=payload.get("numerology_name"),
         rectification_events=payload.get("rectification_events"),
         rectification_step_minutes=payload.get("rectification_step_minutes"),
+        transit_subject=transit_subject,
     )
     _LAST_REPORT = report
     return JSONResponse(report)

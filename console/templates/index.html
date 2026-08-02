@@ -95,6 +95,7 @@
       <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
       <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
       <label><input type="checkbox" name="engines" value="yogini" {% if 'yogini' in form.engines %}checked{% endif %} /> yogini dasha</label>
+      <label><input type="checkbox" name="engines" value="transit" {% if 'transit' in form.engines %}checked{% endif %} /> transit vs natal</label>
       <label><input type="checkbox" name="engines" value="orchestration" {% if 'orchestration' in form.engines %}checked{% endif %} /> orchestration</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
@@ -148,6 +149,27 @@
     </label>
     <label>Rectification step minutes
       <input name="rectification_step_minutes" value="{{ form.rectification_step_minutes }}" />
+    </label>
+    <label>Transit date (vs natal)
+      <input name="transit_date" value="{{ form.transit_date }}" />
+    </label>
+    <label>Transit time
+      <input name="transit_time" value="{{ form.transit_time }}" />
+    </label>
+    <label>Transit UTC offset
+      <input name="transit_offset" value="{{ form.transit_offset }}" />
+    </label>
+    <label>Transit IANA timezone
+      <input name="transit_timezone_id" value="{{ form.transit_timezone_id }}" />
+    </label>
+    <label>Transit latitude (blank = natal)
+      <input name="transit_latitude" value="{{ form.transit_latitude }}" />
+    </label>
+    <label>Transit longitude (blank = natal)
+      <input name="transit_longitude" value="{{ form.transit_longitude }}" />
+    </label>
+    <label>Transit location label
+      <input name="transit_location_label" value="{{ form.transit_location_label }}" />
     </label>
     <button type="submit">Run verification</button>
   </form>
@@ -497,6 +519,19 @@
     Nakshatra: {{ report.summary.yogini_nakshatra }} |
     Maha: {{ report.summary.yogini_maha_count }} |
     Antar: {{ report.summary.yogini_antar_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.transit_engine %}
+  <h3>Transit vs Natal</h3>
+  <p>
+    Engine: {{ report.summary.transit_engine }} |
+    Placements: {{ report.summary.transit_placement_count }} |
+    Conjunctions: {{ report.summary.transit_conjunction_count }} |
+    Aspects: {{ report.summary.transit_aspect_count }} |
+    Same sign as natal: {{ report.summary.transit_same_sign_count }} |
+    Natal Lagna: {{ report.summary.transit_natal_lagna }} |
+    Transit DT: {{ report.summary.transit_local_datetime }}
   </p>
   {% endif %}
 

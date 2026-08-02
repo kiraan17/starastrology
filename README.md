@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P25a — Yogini dasha thin slice done**
+**P25b — Transit natal overlay thin slice done**
 
-Maha/Antar Yogini timing in engine `YoginiDasha` `0.1.0-maha-antar`.
+Transit-vs-natal overlay in engine `Transit` `0.1.0-natal-overlay` (TEC-035).
 
 
 ## Principles (short)

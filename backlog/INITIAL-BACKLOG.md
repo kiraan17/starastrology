@@ -36,6 +36,7 @@ Ordered for the backend-first programme.
 | P23a | Evidence/conflict orchestration scaffold (TEC-096) | **Done** |
 | P24a | Freeze-candidate packaging + public-API readiness docs | **Done** |
 | P25a | Yogini dasha thin slice (TEC-031) | **Done** |
+| P25b | Transit engine vs natal (TEC-035) | **Done** |
 
 ## Next
 
@@ -44,7 +45,7 @@ Ordered for the backend-first programme.
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
 | P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
-| P25b | Transit engine vs natal (TEC-035) *or* Panchaka/Bhadra (TEC-074) |
+| P26a | Panchaka/Bhadra (TEC-074) |
 
 ## Explicitly not started
 

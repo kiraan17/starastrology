@@ -20,6 +20,7 @@ from bhava360.engines.progression import run_bhrigu_bindu_engine
 from bhava360.engines.rectification import run_rectification_engine
 from bhava360.engines.systems_approach import run_systems_approach_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
+from bhava360.engines.transit import run_transit_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 from bhava360.timing.muhurta_event_engine import run_muhurta_event_engine
 from bhava360.timing.panchanga_engine import run_panchanga_engine
@@ -85,6 +86,7 @@ def run_verification(
     numerology_name: str | None = None,
     rectification_events: str | list | None = None,
     rectification_step_minutes: float | None = None,
+    transit_subject: SubjectInput | None = None,
 ) -> dict[str, Any]:
     """Run selected verification engines and return a structured report."""
     selected = engines or ["chart", "parashara", "ashtakavarga"]
@@ -112,6 +114,7 @@ def run_verification(
             "partner_provided": partner_subject is not None,
             "numerology_name_provided": bool(numerology_name and str(numerology_name).strip()),
             "rectification_events_provided": bool(rectification_events),
+            "transit_provided": transit_subject is not None,
         },
         "sections": {},
         "errors": [],
@@ -137,6 +140,7 @@ def run_verification(
             "systems_approach",
             "lal_kitab",
             "yogini",
+            "transit",
         )
     )
     if needs_chart:
@@ -334,6 +338,20 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "yogini", "error": str(exc)})
+
+    if "transit" in selected:
+        try:
+            if transit_subject is None:
+                raise RuntimeError("transit subject required (transit_date/time)")
+            if chart is None:
+                raise RuntimeError("natal chart required for transit overlay")
+            report["sections"]["transit"] = run_transit_engine(
+                natal_chart=chart,
+                transit_subject=transit_subject,
+                config=config,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "transit", "error": str(exc)})
 
     # Orchestration consumes other sections — always last.
     if "orchestration" in selected:
@@ -659,6 +677,18 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["yogini_nakshatra"] = bal.get("nakshatra")
         summary["yogini_maha_count"] = len((tree.get("levels") or {}).get("maha") or [])
         summary["yogini_antar_count"] = len((tree.get("levels") or {}).get("antar") or [])
+
+    tr = report["sections"].get("transit")
+    if tr:
+        summary["transit_engine"] = tr.get("engine")
+        overlay = tr.get("overlay") or {}
+        sm = overlay.get("summary") or {}
+        summary["transit_placement_count"] = sm.get("placement_count")
+        summary["transit_conjunction_count"] = sm.get("conjunction_count")
+        summary["transit_aspect_count"] = sm.get("aspect_count")
+        summary["transit_same_sign_count"] = sm.get("planets_same_sign_as_natal")
+        summary["transit_natal_lagna"] = (tr.get("natal_ref") or {}).get("lagna_sign")
+        summary["transit_local_datetime"] = (tr.get("transit_ref") or {}).get("local_datetime")
 
     orch = report["sections"].get("orchestration")
     if orch:

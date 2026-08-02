@@ -192,6 +192,15 @@
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
       "notes": "Candidate (nak+3) mod 8 start"
+    },
+    {
+      "engine": "Transit",
+      "module": "bhava360.engines.transit",
+      "engine_version": "0.1.0-natal-overlay",
+      "technique_ids": ["TEC-035"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate overlay; no gochara verdicts"
     }
   ],
   "kernel": {

@@ -560,3 +560,31 @@ def test_api_verify_yogini():
     assert body["summary"]["yogini_maha_count"] >= 1
     assert body["summary"]["yogini_antar_count"] >= 8
     assert body["summary"]["yogini_balance_years"] > 0
+
+
+def test_api_verify_transit():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["transit"],
+            "transit_date": "2024-08-15",
+            "transit_time": "12:00",
+            "transit_timezone_id": "Asia/Kolkata",
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["transit_engine"] == "Transit"
+    assert body["summary"]["transit_placement_count"] == 9
+    assert body["summary"]["transit_conjunction_count"] >= 0
+    assert body["summary"]["transit_aspect_count"] >= 0
+    assert body["summary"]["transit_natal_lagna"]
+    assert body["summary"]["transit_local_datetime"]
+    assert body["input"]["transit_provided"] is True
+    assert "TEC-035" in body["sections"]["transit"]["technique_ids"]
