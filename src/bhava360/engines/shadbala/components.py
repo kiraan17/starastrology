@@ -19,7 +19,7 @@ from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_kala_remainder_candidate_v1"
+SHADBALA_VARIANT = "shadbala_chesta_motion_candidate_v1"
 
 CLASSICAL_PLANETS: tuple[str, ...] = (
     "Sun",
@@ -70,6 +70,15 @@ NIGHT_STRONG = frozenset({"Moon", "Mars", "Saturn"})
 NATURAL_BENEFICS = frozenset({"Jupiter", "Venus", "Mercury", "Moon"})
 NATURAL_MALEFICS = frozenset({"Sun", "Mars", "Saturn"})
 CHESTA_MOTION_PLANETS = frozenset({"Mars", "Mercury", "Jupiter", "Venus", "Saturn"})
+
+# Mean sidereal daily motion (°/day) for Saravali Chesta speed bands (Candidate).
+MEAN_DAILY_MOTION_DEG: dict[str, float] = {
+    "Mars": 0.524,
+    "Mercury": 1.383,
+    "Jupiter": 0.0831,
+    "Venus": 1.200,
+    "Saturn": 0.0335,
+}
 
 # Saptavarga set for Saptavargaja Bala (Saravali / BPHS overview).
 SAPTAVARGA_IDS: tuple[str, ...] = ("D1", "D2", "D3", "D7", "D9", "D12", "D30")
@@ -483,28 +492,121 @@ def apply_yuddha_bala(
     return rows
 
 
-def chesta_bala(*, planet: str, is_retrograde: bool) -> dict[str, Any]:
+def chesta_bala(
+    *,
+    planet: str,
+    is_retrograde: bool,
+    speed_longitude: float | None = None,
+    sign_degree: float | None = None,
+    ayana_value: float | None = None,
+    paksha_value: float | None = None,
+) -> dict[str, Any]:
     """
-    Motional strength thin slice (Candidate).
+    Motional strength (Saravali / BPHS Candidate).
 
-    Mars–Saturn: 60 if retrograde else 15 (seeghra kendra deferred).
-    Sun/Moon: Ayana-based Chesta deferred → 0 placeholder.
+    - Sun: identical to Ayana Bala
+    - Moon: identical to Paksha Bala
+    - Mars–Saturn: 8-fold motion bands from daily speed vs mean
+      (Vakra/Anuvakra/Vikala/Mandatara/Manda/Sama/Chara/Atichara)
+
+    Seeghra-kendra alternate method deferred.
     """
-    if planet in {"Sun", "Moon"}:
-        return {
-            "value": 0.0,
-            "basis": "ayana_chesta_deferred",
-            "is_retrograde": False,
-        }
-    if planet in CHESTA_MOTION_PLANETS:
-        val = 60.0 if is_retrograde else 15.0
+    if planet == "Sun":
+        val = float(ayana_value) if ayana_value is not None else 0.0
         return {
             "value": round(val, 6),
-            "basis": "retrograde_flag_candidate",
-            "is_retrograde": bool(is_retrograde),
+            "basis": "ayana_as_chesta",
+            "motion": "luminary",
+            "is_retrograde": False,
+            "speed_longitude": None,
+            "speed_ratio_vs_mean": None,
         }
-    return {"value": 0.0, "basis": "unsupported", "is_retrograde": bool(is_retrograde)}
+    if planet == "Moon":
+        val = float(paksha_value) if paksha_value is not None else 0.0
+        return {
+            "value": round(val, 6),
+            "basis": "paksha_as_chesta",
+            "motion": "luminary",
+            "is_retrograde": False,
+            "speed_longitude": None,
+            "speed_ratio_vs_mean": None,
+        }
+    if planet not in CHESTA_MOTION_PLANETS:
+        return {
+            "value": 0.0,
+            "basis": "unsupported",
+            "motion": "unsupported",
+            "is_retrograde": bool(is_retrograde),
+            "speed_longitude": speed_longitude,
+            "speed_ratio_vs_mean": None,
+        }
 
+    mean = MEAN_DAILY_MOTION_DEG[planet]
+    if speed_longitude is None:
+        # Fallback when speed missing: retrograde→Vakra else Sama.
+        if is_retrograde:
+            return {
+                "value": 60.0,
+                "basis": "vakra_retrograde_flag_fallback",
+                "motion": "vakra",
+                "is_retrograde": True,
+                "speed_longitude": None,
+                "speed_ratio_vs_mean": None,
+            }
+        return {
+            "value": 7.5,
+            "basis": "sama_missing_speed_fallback",
+            "motion": "sama",
+            "is_retrograde": False,
+            "speed_longitude": None,
+            "speed_ratio_vs_mean": None,
+        }
+
+    speed = float(speed_longitude)
+    if speed < 0.0:
+        # Anuvakra: retrograde and near 0° of sign (entering previous).
+        if sign_degree is not None and float(sign_degree) < 1.0:
+            return {
+                "value": 30.0,
+                "basis": "anuvakra",
+                "motion": "anuvakra",
+                "is_retrograde": True,
+                "speed_longitude": round(speed, 6),
+                "speed_ratio_vs_mean": round(speed / mean, 6),
+            }
+        return {
+            "value": 60.0,
+            "basis": "vakra",
+            "motion": "vakra",
+            "is_retrograde": True,
+            "speed_longitude": round(speed, 6),
+            "speed_ratio_vs_mean": round(speed / mean, 6),
+        }
+
+    ratio = abs(speed) / mean if mean > 0 else 1.0
+    if ratio < 0.10:
+        motion, val = "vikala", 15.0
+    elif ratio < 0.50:
+        motion, val = "mandatara", 15.0
+    elif ratio < 1.00:
+        motion, val = "manda", 30.0
+    elif ratio < 1.50:
+        motion, val = "sama", 7.5
+    else:
+        # Atichara: fast and near end of sign (entering next).
+        if sign_degree is not None and float(sign_degree) >= 29.0:
+            motion, val = "atichara", 30.0
+        else:
+            motion, val = "chara", 45.0
+
+    return {
+        "value": round(val, 6),
+        "basis": motion,
+        "motion": motion,
+        "is_retrograde": False,
+        "speed_longitude": round(speed, 6),
+        "speed_ratio_vs_mean": round(ratio, 6),
+    }
 
 def _aspect_weight(matched_house: int) -> float:
     # 7th full; special aspects slightly weaker (Candidate).
@@ -575,6 +677,8 @@ def compute_planet_shadbala_partial(
     masa_lord: str | None = None,
     tribhaga_portion: int | None = None,
     tropical_longitude_deg: float | None = None,
+    speed_longitude: float | None = None,
+    sign_degree: float | None = None,
 ) -> dict[str, Any]:
     nais = naisargika_bala(planet)
     dig = dig_bala(planet=planet, rasi_house=rasi_house)
@@ -616,7 +720,14 @@ def compute_planet_shadbala_partial(
         tribhaga_portion=tribhaga_portion,
         tropical_longitude_deg=trop,
     )
-    chesta = chesta_bala(planet=planet, is_retrograde=is_retrograde)
+    chesta = chesta_bala(
+        planet=planet,
+        is_retrograde=is_retrograde,
+        speed_longitude=speed_longitude,
+        sign_degree=sign_degree,
+        ayana_value=float(kala["ayana"]) if planet == "Sun" else None,
+        paksha_value=float(kala["paksha"]) if planet == "Moon" else None,
+    )
     drik = drik_bala(planet=planet, planet_signs=planet_signs)
 
     components = {
@@ -672,14 +783,13 @@ def compute_planet_shadbala_partial(
             "kala.hora",
             "kala.ayana",
             "kala.yuddha",
-            "chesta.thin",
+            "chesta.saravali_motion",
             "drik.thin",
         ],
         "deferred_components": [
             "saptavargaja.adhi_mitra_satru",
             "kala.abda_masa_hora_at_sankranti",
             "chesta.seeghra_kendra",
-            "chesta.ayana_for_luminaries",
             "drik.classical_drishti_strength_tables",
         ],
     }
@@ -826,6 +936,12 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 masa_lord=ctx.get("masa_lord"),
                 tribhaga_portion=ctx.get("tribhaga_portion"),
                 tropical_longitude_deg=float(trop) if trop is not None else None,
+                speed_longitude=(
+                    float(p["speed_longitude"])
+                    if p.get("speed_longitude") is not None
+                    else None
+                ),
+                sign_degree=float(p["sign_degree"]) if p.get("sign_degree") is not None else None,
             )
         )
 
@@ -859,7 +975,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             ],
             "deferred_component_families": [
                 "kala_abda_masa_hora_at_sankranti",
-                "chesta_seeghra_ayana",
+                "chesta_seeghra_kendra",
                 "drik_classical_tables",
                 "saptavargaja_adhi_mitra",
             ],
@@ -869,8 +985,8 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "Partial totals must not be compared to full-pack minima for verdicts.",
             "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
             "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa/Vara/Hora + Ayana + Yuddha.",
-            "Abda/Masa use sankranti-weekday approximation (Hora-at-sankranti deferred).",
-            "Chesta thin: retrograde flag for Mars–Saturn; luminaries deferred.",
+            "Chesta: Sun=Ayana, Moon=Paksha, others Saravali 8-fold speed bands.",
+            "Seeghra-kendra Chesta alternate deferred.",
             "Drik thin: whole-sign graha aspect net (±60 clamp).",
         ],
     }
@@ -878,6 +994,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
 
 __all__ = [
     "CLASSICAL_PLANETS",
+    "MEAN_DAILY_MOTION_DEG",
     "SAPTAVARGA_IDS",
     "SHADBALA_VARIANT",
     "abda_bala",

@@ -46,6 +46,7 @@ Ordered for the backend-first programme.
 | P29a | Vimshopaka Shodashavarga scaffold (TEC-025) | **Done** |
 | P29b | Shadbala Saptavargaja/Drekkana/Ojayugma-navamsa (TEC-023) | **Done** |
 | P30a | Shadbala Kala remainder Tribhaga/Abda/Masa/Ayana/Yuddha (TEC-023) | **Done** |
+| P30b | Shadbala Chesta Saravali motion + luminaries (TEC-023) | **Done** |
 
 ## Next
 
@@ -54,7 +55,7 @@ Ordered for the backend-first programme.
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
 | P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
-| P30b | Chesta seeghra/ayana *or* Abda/Masa Hora-at-sankranti refinement *or* Kalachakra when sourced |
+| P31a | Classical Drik tables *or* Abda/Masa Hora-at-sankranti *or* Seeghra-kendra Chesta *or* Kalachakra when sourced |
 
 ## Explicitly not started
 

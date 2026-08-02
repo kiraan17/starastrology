@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P30a — Shadbala Kala remainder done**
+**P30b — Shadbala Chesta motion done**
 
-Engine `Shadbala` `0.4.0-kala-remainder` (TEC-023): Tribhaga + Abda/Masa + Ayana + Yuddha added to Kala.
+Engine `Shadbala` `0.5.0-chesta-motion` (TEC-023): Sun=Ayana, Moon=Paksha, others Saravali 8-fold speed bands.
 
 
 ## Principles (short)

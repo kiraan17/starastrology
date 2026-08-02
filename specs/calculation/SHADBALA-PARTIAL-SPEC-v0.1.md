@@ -1,10 +1,10 @@
-# Shadbala partial pack (P27b / P28a / P29b / P30a)
+# Shadbala partial pack (P27b–P30b)
 
 **Module:** `bhava360.engines.shadbala`  
-**Engine:** `Shadbala` `0.4.0-kala-remainder`  
+**Engine:** `Shadbala` `0.5.0-chesta-motion`  
 **Status:** Candidate  
 **Technique:** TEC-023  
-**Stamp:** `shadbala_kala_remainder_candidate_v1`
+**Stamp:** `shadbala_chesta_motion_candidate_v1`
 
 ## In scope (Virupa)
 
@@ -13,22 +13,28 @@
 | Naisargika | Fixed 60×(7..1)/7 |
 | Dig | Whole-sign dig-house distance |
 | Sthana | Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana |
-| Kala | Natonnata + Paksha + Tribhaga + Abda(15) + Masa(30) + Vara(45) + Hora(60) + Ayana + Yuddha |
-| Chesta thin | Retrograde→60 else 15 for Mars–Saturn; Sun/Moon Ayana deferred (0) |
+| Kala | Natonnata + Paksha + Tribhaga + Abda/Masa/Vara/Hora + Ayana + Yuddha |
+| Chesta | Sun=Ayana; Moon=Paksha; Mars–Saturn Saravali 8-fold speed bands |
 | Drik thin | Whole-sign graha aspect net, ±60 clamp |
 
-### Kala notes (Candidate)
+### Chesta motion bands (Saravali)
 
-- **Tribhaga:** day Mercury/Sun/Saturn; night Moon/Venus/Mars; Jupiter always 60
-- **Abda/Masa:** sankranti-weekday approximation (classical Hora-at-sankranti deferred)
-- **Ayana:** length-based `30×(1±|sin(tropical_lon)|)` (Saravali)
-- **Yuddha:** Mars–Saturn within 1°; redistribute pre-Ayana Kala difference
+| Motion | Virupa | Rule |
+|--------|--------|------|
+| Vakra | 60 | speed &lt; 0 |
+| Anuvakra | 30 | retrograde + sign_degree &lt; 1° |
+| Vikala | 15 | speed &lt; 10% of mean |
+| Mandatara | 15 | 10–50% of mean |
+| Manda | 30 | 50–100% of mean |
+| Sama | 7.5 | 100–150% of mean |
+| Chara | 45 | &gt; 150% of mean |
+| Atichara | 30 | Chara + sign_degree ≥ 29° |
 
 ## Out of scope
 
-- Abda/Masa Hora lord at exact sankranti instant
+- Seeghra-kendra Chesta (BPHS mean/true formula)
+- Abda/Masa Hora lord at exact sankranti
 - Saptavargaja temporal / Adhi-mitra / Adhi-satru
-- Chesta seeghra kendra + luminous Ayana Chesta
 - Classical Drik strength tables
 - Full-pack minimum threshold verdicts
 

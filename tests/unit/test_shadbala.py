@@ -97,10 +97,37 @@ def test_natonnata_and_paksha():
     assert paksha_bala(planet="Saturn", sun_lon=0.0, moon_lon=180.0) == 0.0
 
 
-def test_chesta_retrograde():
-    assert chesta_bala(planet="Mars", is_retrograde=True)["value"] == 60.0
-    assert chesta_bala(planet="Mars", is_retrograde=False)["value"] == 15.0
-    assert chesta_bala(planet="Sun", is_retrograde=False)["basis"] == "ayana_chesta_deferred"
+def test_chesta_motion_bands():
+    # Sun uses Ayana; Moon uses Paksha
+    assert chesta_bala(planet="Sun", is_retrograde=False, ayana_value=42.5)["value"] == 42.5
+    assert chesta_bala(planet="Sun", is_retrograde=False, ayana_value=42.5)["basis"] == "ayana_as_chesta"
+    assert chesta_bala(planet="Moon", is_retrograde=False, paksha_value=33.0)["value"] == 33.0
+    # Retrograde → Vakra 60
+    assert chesta_bala(planet="Mars", is_retrograde=True, speed_longitude=-0.2)["value"] == 60.0
+    assert chesta_bala(planet="Mars", is_retrograde=True, speed_longitude=-0.2)["motion"] == "vakra"
+    # Anuvakra near 0° while retrograde
+    assert (
+        chesta_bala(
+            planet="Mars", is_retrograde=True, speed_longitude=-0.2, sign_degree=0.5
+        )["motion"]
+        == "anuvakra"
+    )
+    # Sama ~ mean speed
+    sama = chesta_bala(planet="Mars", is_retrograde=False, speed_longitude=0.55)
+    assert sama["motion"] == "sama"
+    assert sama["value"] == 7.5
+    # Chara fast
+    chara = chesta_bala(planet="Mars", is_retrograde=False, speed_longitude=1.0)
+    assert chara["motion"] == "chara"
+    assert chara["value"] == 45.0
+
+
+def test_natonnata_and_paksha():
+    assert natonnata_bala(planet="Sun", is_day=True) == 60.0
+    assert natonnata_bala(planet="Sun", is_day=False) == 0.0
+    assert natonnata_bala(planet="Mercury", is_day=False) == 60.0
+    assert paksha_bala(planet="Jupiter", sun_lon=0.0, moon_lon=180.0) == 60.0
+    assert paksha_bala(planet="Saturn", sun_lon=0.0, moon_lon=180.0) == 0.0
 
 
 def test_drik_benefic_aspect():
@@ -121,20 +148,27 @@ def test_shadbala_engine_live():
     )
     out = run_shadbala_engine(subject)
     assert out["engine"] == "Shadbala"
-    assert out["engine_version"] == "0.4.0-kala-remainder"
+    assert out["engine_version"] == "0.5.0-chesta-motion"
     assert "TEC-023" in out["technique_ids"]
     pack = out["shadbala"]
-    assert pack["variant"] == "shadbala_kala_remainder_candidate_v1"
+    assert pack["variant"] == "shadbala_chesta_motion_candidate_v1"
     assert pack["summary"]["planet_count"] == 7
-    assert pack["context"]["abda_lord"]
-    assert pack["context"]["masa_lord"]
-    assert pack["context"]["tribhaga_portion"] is not None
     sun = next(p for p in pack["planets"] if p["planet"] == "Sun")
     kala = sun["components_virupa"]["kala_partial"]
-    assert "tribhaga" in kala
-    assert "ayana" in kala
-    assert "abda" in kala
-    assert "masa" in kala
-    assert "yuddha" in kala
-    assert kala["ayana"] > 0
+    chesta = sun["components_virupa"]["chesta"]
+    assert chesta["basis"] == "ayana_as_chesta"
+    assert chesta["value"] == kala["ayana"]
+    moon = next(p for p in pack["planets"] if p["planet"] == "Moon")
+    assert moon["components_virupa"]["chesta"]["basis"] == "paksha_as_chesta"
+    mars = next(p for p in pack["planets"] if p["planet"] == "Mars")
+    assert mars["components_virupa"]["chesta"]["motion"] in {
+        "vakra",
+        "anuvakra",
+        "vikala",
+        "mandatara",
+        "manda",
+        "sama",
+        "chara",
+        "atichara",
+    }
     assert sun["full_minimum_comparison"] == "deferred_until_complete_shadbala"

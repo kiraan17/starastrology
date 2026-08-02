@@ -223,11 +223,11 @@
     {
       "engine": "Shadbala",
       "module": "bhava360.engines.shadbala",
-      "engine_version": "0.4.0-kala-remainder",
+      "engine_version": "0.5.0-chesta-motion",
       "technique_ids": ["TEC-023"],
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
-      "notes": "Candidate Sthana+fuller Kala; Chesta seeghra + Hora-at-sankranti deferred"
+      "notes": "Candidate Sthana+Kala+Chesta Saravali; Seeghra-kendra + classical Drik deferred"
     },
     {
       "engine": "BhavaBala",
