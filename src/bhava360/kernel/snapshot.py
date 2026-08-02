@@ -20,6 +20,8 @@ class CalculationSnapshot:
     library: dict[str, str]
     ayanamsa_degrees: float
     planets: list[dict[str, Any]]
+    houses: dict[str, Any] | None = None
+    day_window: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -31,6 +33,8 @@ class CalculationSnapshot:
             "library": self.library,
             "ayanamsa_degrees": self.ayanamsa_degrees,
             "planets": self.planets,
+            "houses": self.houses,
+            "day_window": self.day_window,
         }
 
 
@@ -38,12 +42,29 @@ def build_planet_snapshot(
     subject: SubjectInput,
     config: ChartConfig | None = None,
     planets: list[PlanetName] | None = None,
+    *,
+    include_houses: bool = True,
+    include_day_window: bool = True,
 ) -> CalculationSnapshot:
-    """Build an immutable calculation snapshot for planetary longitudes."""
+    """Build an immutable calculation snapshot for planetary longitudes (+ optional houses/day)."""
     cfg = config or ChartConfig()
     provider = SwissEphemerisProvider(cfg)
     resolved = resolve_subject_time(subject)
     positions = provider.all_planet_positions(subject, planets)
+
+    houses = None
+    day_window = None
+    has_coords = subject.latitude is not None and subject.longitude is not None
+    if include_houses and has_coords:
+        houses = provider.houses(subject).to_dict()
+        # Attach whole-sign and configured system planet house numbers for convenience.
+        planet_houses = {
+            p.planet.value: provider.planet_house(subject, p.planet) for p in positions
+        }
+        houses["planet_houses"] = planet_houses
+    if include_day_window and has_coords:
+        day_window = provider.day_window(subject).to_dict()
+
     return CalculationSnapshot(
         snapshot_id=str(uuid4()),
         created_at_utc=datetime.now(timezone.utc).isoformat(),
@@ -61,4 +82,6 @@ def build_planet_snapshot(
         library=provider.library_stamp(),
         ayanamsa_degrees=provider.ayanamsa_degrees(resolved.julian_day_ut),
         planets=[p.to_dict() for p in positions],
+        houses=houses,
+        day_window=day_window,
     )

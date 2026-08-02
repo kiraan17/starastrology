@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P07 — Calculation kernel (in progress)**
+**P07 — Calculation kernel (P07a+P07b done)**
 
-Phase 0–5 approved. Planet longitude kernel + VedAstro SPIKE-01 golden tests are green. Houses/Asc and school engines come next.
+Planet longitudes, whole-sign + Placidus houses, Asc/MC, sunrise/sunset. Next: Vargas/chart construction or IANA timezones.
 
 ## Principles (short)
 

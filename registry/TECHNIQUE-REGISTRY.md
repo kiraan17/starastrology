@@ -24,9 +24,9 @@
 | TEC-004 | Lunar position and phases support data | Kernel | calculation | normal | yes | yes | Not Researched | |
 | TEC-005 | Rahu/Ketu node modes | Kernel | calculation | normal | yes | yes | Not Researched | mean/true config |
 | TEC-006 | Sidereal conversion and ayanamsa set | Kernel | calculation | normal | yes | yes | Not Researched | Lahiri/KP/etc |
-| TEC-007 | House cusps and house-system pack | Kernel | calculation | normal | yes | partial | Not Researched | Whole-sign, Placidus, Sripati… |
-| TEC-008 | Ascendant, MC and related angles | Kernel | calculation | normal | yes | partial | Not Researched | |
-| TEC-009 | Sunrise, sunset, local day boundary | Kernel | calculation | normal | yes | partial | Not Researched | |
+| TEC-007 | House cusps and house-system pack | Kernel | calculation | normal | yes | partial | Auto-Tested | whole_sign + placidus in P07b; Sripati deferred |
+| TEC-008 | Ascendant, MC and related angles | Kernel | calculation | normal | yes | partial | Auto-Tested | P07b |
+| TEC-009 | Sunrise, sunset, local day boundary | Kernel | calculation | normal | yes | partial | Auto-Tested | P07b disc-center; local civil date |
 | TEC-010 | Ephemeris run stamp (lib/files/mode/version) | Kernel | calculation | normal | no | no | Not Researched | Required every snapshot |
 | TEC-011 | Rasi (D1) chart construction | Chart | calculation | normal | yes | yes | Not Researched | |
 | TEC-012 | Bhava Chalit mapping | Chart | calculation | normal | yes | partial | Not Researched | |

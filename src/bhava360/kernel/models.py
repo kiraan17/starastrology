@@ -132,7 +132,7 @@ class ChartConfig:
     node_type: NodeType = NodeType.MEAN
     ephemeris_mode: EphemerisMode = EphemerisMode.MOSHIER
     ephemeris_path: str | None = None
-    calc_library_version: str = "bhava360-kernel-0.1.0"
+    calc_library_version: str = "bhava360-kernel-0.2.0"
     variant_config: dict[str, Any] = field(default_factory=dict)
 
     def stamp(self) -> dict[str, Any]:
@@ -165,6 +165,60 @@ class PlanetPosition:
         data = asdict(self)
         data["planet"] = self.planet.value
         return data
+
+
+@dataclass(slots=True)
+class AnglePoint:
+    name: str
+    longitude_sidereal_deg: float
+    sign: str
+    sign_degree: float
+    nakshatra: str
+    pada: int
+    nakshatra_label: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(slots=True)
+class HouseCusp:
+    house: int
+    longitude_sidereal_deg: float
+    sign: str
+    sign_degree: float
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(slots=True)
+class HouseSystemResult:
+    system: HouseSystem
+    ascendant: AnglePoint
+    midheaven: AnglePoint
+    cusps: list[HouseCusp]
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "system": self.system.value,
+            "ascendant": self.ascendant.to_dict(),
+            "midheaven": self.midheaven.to_dict(),
+            "cusps": [c.to_dict() for c in self.cusps],
+        }
+
+
+@dataclass(slots=True)
+class DayWindow:
+    sunrise_jd_ut: float
+    sunset_jd_ut: float
+    sunrise_utc: str
+    sunset_utc: str
+    sunrise_local: str
+    sunset_local: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
 
 
 @dataclass(slots=True)

@@ -1,43 +1,46 @@
-# Calculation Kernel Specification (P07 v0.1)
+# Calculation Kernel Specification (P07 v0.2)
 
-**Status:** Implemented scaffold  
-**Techniques:** TEC-001 (partial), TEC-003, TEC-005 (mean/true config), TEC-006 (Lahiri/KP modes), TEC-010, TEC-013 (nakshatra/pada labels)  
+**Status:** Implemented  
+**Techniques:** TEC-001 (partial), TEC-003, TEC-005, TEC-006, TEC-007 (partial), TEC-008, TEC-009, TEC-010, TEC-013  
 **Provider:** `SwissEphemerisProvider` via `pyswisseph`  
-**Default mode:** Moshier + Lahiri + mean node
+**Default mode:** Moshier + Lahiri + mean node + whole_sign houses
 
-## In scope (this release)
+## In scope
 
+### v0.1
 - Fixed-offset local → UTC → Julian Day UT
 - Sidereal planetary longitudes for Sun–Saturn, Rahu, Ketu
 - Speed / retrograde flag
-- Sign + VedAstro-spelling nakshatra/pada labels for comparator tests
+- Sign + VedAstro-spelling nakshatra/pada labels
 - Immutable snapshot stamp with config + library versions
 - Structured kernel errors
 
-## Out of scope (next kernel tasks)
+### v0.2 (P07b)
+- Ascendant and Midheaven (sidereal)
+- House cusps:
+  - **whole_sign** — Vedic whole-sign from Asc sign (computed locally; not SE `W`)
+  - **placidus** — Swiss Ephemeris Placidus (for KP path)
+- Planet-to-house index for either system
+- Sunrise / sunset (disc center) for subject local civil date
+- Location required for houses/day windows (`INVALID_LOCATION` if missing)
+- Snapshot optionally includes `houses` + `day_window` when coordinates present
+
+## Out of scope (next)
 
 - IANA timezone / DST history database
-- House cusps / Asc / MC
-- Vargas
-- KP sublord chains
+- Sripati / Bhava Chalit cusp variants
+- Vargas / KP sublords
 - School engines
 
-## Tolerances (vs VedAstro SPIKE-01)
+## Tolerances
 
 | Quantity | Tolerance |
 |---|---|
-| Sidereal longitude | ≤ 0.01° absolute difference |
-| Sign name | exact |
-| Nakshatra label (`Name - pada`) | exact against SPIKE-01 spellings |
+| Sidereal planet longitude vs VedAstro SPIKE-01 | ≤ 0.01° |
+| Sign / nakshatra label vs SPIKE-01 | exact |
+| Placidus cusp1 vs Asc, cusp10 vs MC | ≤ 1e-6° internal consistency |
 
-## Error catalogue
+## Notes
 
-| code | when |
-|---|---|
-| INVALID_DATETIME | bad local datetime / token |
-| INVALID_TIMEZONE | offset out of range |
-| INVALID_LOCATION | lat/lon out of range |
-| UNSUPPORTED_PLANET | unknown planet |
-| UNSUPPORTED_CONFIG | bad ephemeris/ayanamsa/node config |
-| EPHEMERIS_UNAVAILABLE | reserved for missing SE files |
-| CALCULATION_FAILED | SE backend failure |
+- SE house system code `W` is **not** used for Vedic whole-sign; Bhava360 computes whole-sign cusps from Asc longitude explicitly.
+- Sunrise/sunset are location-dependent; same UT date at different longitudes must differ.
