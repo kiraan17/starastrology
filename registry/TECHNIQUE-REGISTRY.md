@@ -87,7 +87,7 @@
 | TEC-067 | Arudha Lagna A1–A12 | Jaimini | calculation | normal | yes | yes | Auto-Tested | P15 whole-sign + exception |
 | TEC-068 | Jaimini argala | Jaimini | calculation | normal | yes | partial | Auto-Tested | P15 sign sketch from AL; intervention TBD |
 | TEC-069 | Jaimini event interpretation pack | Jaimini | interpretation | normal | yes | no | Not Researched | Never label Gemini |
-| TEC-070 | Panchanga core (Tithi/Vara/Nakshatra/Yoga/Karana) | Panchanga | timing | normal | yes | yes | Not Researched | |
+| TEC-070 | Panchanga core (Tithi/Vara/Nakshatra/Yoga/Karana) | Panchanga | timing | normal | yes | yes | Auto-Tested | P16a; sunrise-based Vara; Yoga sidereal Candidate |
 | TEC-071 | Rahu Kala, Yamaganda, Gulika, Abhijit | Panchanga | timing | normal | yes | partial | Not Researched | |
 | TEC-072 | Tara Bala and Chandra Bala | Panchanga | timing | normal | yes | partial | Not Researched | |
 | TEC-073 | Hora and Chaughadiya | Panchanga | timing | normal | yes | partial | Not Researched | |

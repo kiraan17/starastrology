@@ -81,6 +81,7 @@
       <label><input type="checkbox" name="engines" value="kp" {% if 'kp' in form.engines %}checked{% endif %} /> kp</label>
       <label><input type="checkbox" name="engines" value="jaimini" {% if 'jaimini' in form.engines %}checked{% endif %} /> jaimini</label>
       <label><input type="checkbox" name="engines" value="nadi" {% if 'nadi' in form.engines %}checked{% endif %} /> nadi</label>
+      <label><input type="checkbox" name="engines" value="panchanga" {% if 'panchanga' in form.engines %}checked{% endif %} /> panchanga</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -234,6 +235,17 @@
     Corpus: {{ report.summary.nadi_corpus_status }} |
     Planet-in-star rows: {{ report.summary.nadi_planet_in_star_count }} |
     Chains blocked: {{ report.summary.nadi_chains_blocked }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.panchanga_tithi %}
+  <h3>Panchanga</h3>
+  <p>
+    Tithi: {{ report.summary.panchanga_tithi }} |
+    Vara: {{ report.summary.panchanga_vara }} |
+    Nakshatra: {{ report.summary.panchanga_nakshatra }} |
+    Yoga: {{ report.summary.panchanga_yoga }} |
+    Karana: {{ report.summary.panchanga_karana }}
   </p>
   {% endif %}
 

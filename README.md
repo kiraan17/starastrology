@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P12c — Prastara Ashtakavarga done**
+**P16a — Panchanga core done**
 
-8×12 contributor grids per BAV with reconstruction checks and natal kakshya-lord bindu flags (`0.3.0-prastara`).
+Tithi/Vara/Nakshatra/Yoga/Karana via `run_panchanga_engine`; Vara from sunrise; console checkbox.
 
 
 ## Principles (short)

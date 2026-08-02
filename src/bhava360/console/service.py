@@ -10,6 +10,7 @@ from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
 from bhava360.engines.parashara import run_parashara_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
+from bhava360.timing.panchanga_engine import run_panchanga_engine
 
 
 def parse_subject(
@@ -90,7 +91,8 @@ def run_verification(
 
     chart = None
     needs_chart = any(
-        e in selected for e in ("chart", "parashara", "ashtakavarga", "jaimini", "nadi")
+        e in selected
+        for e in ("chart", "parashara", "ashtakavarga", "jaimini", "nadi", "panchanga")
     )
     if needs_chart:
         try:
@@ -136,6 +138,14 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "nadi", "error": str(exc)})
+
+    if "panchanga" in selected:
+        try:
+            report["sections"]["panchanga"] = run_panchanga_engine(
+                subject, config=config, chart=chart
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "panchanga", "error": str(exc)})
 
     if "kp" in selected:
         try:
@@ -253,4 +263,14 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["nadi_corpus_status"] = (nadi.get("corpus_gate") or {}).get("corpus_status")
         summary["nadi_planet_in_star_count"] = len(nadi.get("planet_in_star") or [])
         summary["nadi_chains_blocked"] = nadi.get("chain_error") is not None
+
+    pan = report["sections"].get("panchanga")
+    if pan:
+        p = pan.get("panchanga") or {}
+        summary["panchanga_engine"] = pan.get("engine")
+        summary["panchanga_tithi"] = (p.get("tithi") or {}).get("label")
+        summary["panchanga_vara"] = (p.get("vara") or {}).get("name")
+        summary["panchanga_nakshatra"] = (p.get("nakshatra") or {}).get("label")
+        summary["panchanga_yoga"] = (p.get("yoga") or {}).get("name")
+        summary["panchanga_karana"] = (p.get("karana") or {}).get("name")
     return summary

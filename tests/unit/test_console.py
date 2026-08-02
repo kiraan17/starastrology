@@ -164,3 +164,24 @@ def test_run_verification_service_direct():
     report = run_verification(subject, engines=["chart"])
     assert "chart" in report["sections"]
     assert report["summary"]["ascendant"]["sign"]
+
+
+def test_api_verify_panchanga():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["panchanga"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["panchanga_engine"] == "Panchanga"
+    assert body["summary"]["panchanga_vara"] == "Wednesday"
+    assert body["summary"]["panchanga_tithi"]
