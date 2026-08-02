@@ -93,6 +93,7 @@
       <label><input type="checkbox" name="engines" value="numerology" {% if 'numerology' in form.engines %}checked{% endif %} /> numerology</label>
       <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
       <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
+      <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -139,6 +140,12 @@
     </label>
     <label>Numerology name (optional; never fabricated)
       <input name="numerology_name" value="{{ form.numerology_name }}" placeholder="Latin letters only" />
+    </label>
+    <label>Rectification events (manual; unscored) label|YYYY-MM-DD,…
+      <input name="rectification_events" value="{{ form.rectification_events }}" placeholder="Marriage|2015-06-01" />
+    </label>
+    <label>Rectification step minutes
+      <input name="rectification_step_minutes" value="{{ form.rectification_step_minutes }}" />
     </label>
     <button type="submit">Run verification</button>
   </form>
@@ -457,6 +464,24 @@
     (age {{ report.summary.lal_kitab_varshphal_age }})
     {% endif %} |
     Remedies: {{ report.summary.lal_kitab_remedies_emitted }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.rectification_engine %}
+  <h3>Rectification (restricted)</h3>
+  <p>
+    Engine: {{ report.summary.rectification_engine }} |
+    Safety: {{ report.summary.rectification_safety_level }} |
+    Window: ±{{ report.summary.rectification_window_minutes }}m /
+    step {{ report.summary.rectification_step_minutes }}m |
+    Samples: {{ report.summary.rectification_sample_count }} |
+    Transitions: {{ report.summary.rectification_transition_count }} |
+    Baseline lagna: {{ report.summary.rectification_baseline_lagna }} |
+    Kunda: {{ report.summary.rectification_baseline_kunda }} |
+    Lagna flips: {{ report.summary.rectification_lagna_flips }} |
+    D9 flips: {{ report.summary.rectification_d9_flips }} |
+    D60 flips: {{ report.summary.rectification_d60_flips }} |
+    Winner: {{ report.summary.rectification_winner_selected }}
   </p>
   {% endif %}
 

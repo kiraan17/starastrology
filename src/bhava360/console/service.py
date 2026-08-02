@@ -16,6 +16,7 @@ from bhava360.engines.numerology import run_numerology_engine
 from bhava360.engines.parashara import run_parashara_engine
 from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
+from bhava360.engines.rectification import run_rectification_engine
 from bhava360.engines.systems_approach import run_systems_approach_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
@@ -80,6 +81,8 @@ def run_verification(
     question_text: str | None = None,
     partner_subject: SubjectInput | None = None,
     numerology_name: str | None = None,
+    rectification_events: str | list | None = None,
+    rectification_step_minutes: float | None = None,
 ) -> dict[str, Any]:
     """Run selected verification engines and return a structured report."""
     selected = engines or ["chart", "parashara", "ashtakavarga"]
@@ -106,6 +109,7 @@ def run_verification(
             "question_text": question_text,
             "partner_provided": partner_subject is not None,
             "numerology_name_provided": bool(numerology_name and str(numerology_name).strip()),
+            "rectification_events_provided": bool(rectification_events),
         },
         "sections": {},
         "errors": [],
@@ -301,6 +305,22 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "lal_kitab", "error": str(exc)})
+
+    if "rectification" in selected:
+        try:
+            step = (
+                float(rectification_step_minutes)
+                if rectification_step_minutes not in (None, "")
+                else 5.0
+            )
+            report["sections"]["rectification"] = run_rectification_engine(
+                subject,
+                config=config,
+                step_minutes=step,
+                events=rectification_events,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "rectification", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -585,4 +605,24 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["lal_kitab_remedies_emitted"] = (lk.get("safety") or {}).get(
             "remedies_emitted"
         )
+
+    rect = report["sections"].get("rectification")
+    if rect:
+        summary["rectification_engine"] = rect.get("engine")
+        summary["rectification_safety_level"] = rect.get("safety_level")
+        scan = rect.get("scan") or {}
+        sm = scan.get("summary") or {}
+        summary["rectification_sample_count"] = sm.get("sample_count")
+        summary["rectification_transition_count"] = sm.get("transition_count")
+        summary["rectification_window_minutes"] = sm.get("window_minutes")
+        summary["rectification_step_minutes"] = sm.get("step_minutes")
+        summary["rectification_lagna_flips"] = sm.get("lagna_sign_flips")
+        summary["rectification_d9_flips"] = sm.get("d9_lagna_flips")
+        summary["rectification_d60_flips"] = sm.get("d60_lagna_flips")
+        summary["rectification_kunda_flips"] = sm.get("kunda_flips")
+        summary["rectification_winner_selected"] = sm.get("winner_selected")
+        summary["rectification_events_provided"] = sm.get("events_provided")
+        baseline = ((scan.get("baseline") or {}).get("fingerprint")) or {}
+        summary["rectification_baseline_lagna"] = baseline.get("lagna_sign")
+        summary["rectification_baseline_kunda"] = baseline.get("kunda_sign")
     return summary

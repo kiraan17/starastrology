@@ -482,3 +482,31 @@ def test_api_verify_lal_kitab():
     assert body["summary"]["lal_kitab_varshphal_age"] == 34
     assert body["summary"]["lal_kitab_aspect_edges"] >= 9
     assert isinstance(body["summary"]["lal_kitab_house_diff_count"], int)
+
+
+def test_api_verify_rectification():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "uncertainty_minutes": 10,
+            "engines": ["rectification"],
+            "rectification_step_minutes": 5,
+            "rectification_events": "Marriage|2015-06-01",
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["rectification_engine"] == "Rectification"
+    assert body["summary"]["rectification_safety_level"] == "restricted"
+    assert body["summary"]["rectification_winner_selected"] is False
+    assert body["summary"]["rectification_events_provided"] is True
+    assert body["summary"]["rectification_window_minutes"] == 10
+    assert body["summary"]["rectification_sample_count"] >= 3
+    assert body["summary"]["rectification_baseline_lagna"]
+    assert body["summary"]["rectification_baseline_kunda"]

@@ -49,6 +49,8 @@ DEFAULT_FORM = {
     "partner_longitude": "77.5946",
     "partner_location_label": "Bengaluru",
     "numerology_name": "",
+    "rectification_events": "",
+    "rectification_step_minutes": "5",
 }
 
 
@@ -89,6 +91,8 @@ async def verify(
     partner_longitude: str = Form(""),
     partner_location_label: str = Form(""),
     numerology_name: str = Form(""),
+    rectification_events: str = Form(""),
+    rectification_step_minutes: str = Form("5"),
 ) -> HTMLResponse:
     global _LAST_REPORT
     form = {
@@ -117,6 +121,8 @@ async def verify(
         "partner_longitude": partner_longitude,
         "partner_location_label": partner_location_label,
         "numerology_name": numerology_name,
+        "rectification_events": rectification_events,
+        "rectification_step_minutes": rectification_step_minutes,
     }
     uncertainty_val = float(uncertainty) if uncertainty.strip() else None
     target_year_val = int(target_year) if str(target_year).strip() else None
@@ -156,6 +162,12 @@ async def verify(
         question_text=question_text or None,
         partner_subject=partner_subject,
         numerology_name=numerology_name or None,
+        rectification_events=rectification_events or None,
+        rectification_step_minutes=(
+            float(rectification_step_minutes)
+            if str(rectification_step_minutes).strip()
+            else None
+        ),
     )
     _LAST_REPORT = report
     return templates.TemplateResponse(
@@ -236,6 +248,8 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
         question_text=payload.get("question_text"),
         partner_subject=partner_subject,
         numerology_name=payload.get("numerology_name"),
+        rectification_events=payload.get("rectification_events"),
+        rectification_step_minutes=payload.get("rectification_step_minutes"),
     )
     _LAST_REPORT = report
     return JSONResponse(report)

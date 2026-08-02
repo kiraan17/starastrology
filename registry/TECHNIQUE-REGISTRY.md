@@ -112,7 +112,7 @@
 | TEC-092 | Numerology (mantra-shastra style) | Numerology | calculation | normal | yes | yes | Auto-Tested | P21a birth/destiny + optional Chaldean name; life-aspects deferred |
 | TEC-093 | Muhurta event rule packs | Muhurta | timing | normal | yes | yes | Auto-Tested | P20b thin activities over P16a–c facts |
 | TEC-094 | Compatibility / Kuta systems | Compatibility | interpretation | normal | yes | yes | Auto-Tested | P20a Ashtakoota 36-point Candidate; exceptions deferred |
-| TEC-095 | Birth-time rectification toolkit | Rectification | orchestration | restricted | yes | partial | Not Researched | |
+| TEC-095 | Birth-time rectification toolkit | Rectification | orchestration | restricted | yes | partial | Auto-Tested | P22b ±window fingerprint scan + transitions; no winner / event scoring |
 | TEC-096 | Evidence, scoring and conflict orchestration | Orchestration | orchestration | normal | yes | no | Not Researched | Product weights |
 
 ## Deferred specialist rows (not in the provisional 96; track separately)
