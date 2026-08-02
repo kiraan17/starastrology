@@ -51,6 +51,8 @@ def test_api_verify_chart_and_parashara():
     assert "parashara" in body["sections"]
     assert body["summary"]["error_count"] == 0
     assert body["summary"]["sav_total_bindus"] == 337
+    assert body["summary"]["sav_sodhya_pinda"] is not None
+    assert body["summary"]["sav_reduced_total"] is not None
 
     export = client.get("/export.json")
     assert export.status_code == 200

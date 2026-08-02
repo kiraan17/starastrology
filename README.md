@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P15 — Jaimini thin slice done**
+**P12b — Ashtakavarga Shodhana / Sodhya Pinda done**
 
-Chara Karakas (7/8), Arudha A1–A12, Karakamsa/Swamsa, Argala sketch in `bhava360.engines.jaimini`. Console checkbox + scheme select. Engine labeled **Jaimini** only (never Gemini).
+Trikona + Ekadhipatya (+ SAV Mandala) reductions and Sodhya Pinda in `bhava360.engines.ashtakavarga` (`0.2.0-shodhana`). Console shows reduced SAV total and Sodhya Pinda.
 
 ## Principles (short)
 

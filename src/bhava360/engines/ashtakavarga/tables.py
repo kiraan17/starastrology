@@ -196,7 +196,6 @@ def compute_sarva_ashtakavarga(
         "notes": [
             "SAV is sum of seven BAVs (Sun–Saturn).",
             "Bindu contributors are retained per BAV for audit/reconstruction.",
-            "Shodhana / Sodhya Pinda / Prastara not in this thin slice.",
         ],
         "table_variant": "standard_candidate_v1",
     }

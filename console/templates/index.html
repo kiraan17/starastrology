@@ -166,7 +166,15 @@
 
   {% if report.summary.sav_total_bindus is defined and report.summary.sav_total_bindus is not none %}
   <h3>Ashtakavarga</h3>
-  <p>SAV total bindus: {{ report.summary.sav_total_bindus }}</p>
+  <p>
+    SAV total bindus: {{ report.summary.sav_total_bindus }}
+    {% if report.summary.sav_reduced_total is defined %}
+    | SAV reduced total: {{ report.summary.sav_reduced_total }}
+    {% endif %}
+    {% if report.summary.sav_sodhya_pinda is defined %}
+    | SAV Sodhya Pinda: {{ report.summary.sav_sodhya_pinda }}
+    {% endif %}
+  </p>
   {% endif %}
 
   {% if report.summary.kp_sun_lords %}

@@ -44,3 +44,13 @@ Notes:
 - **Question:** Mean Node vs True Node default?
 - **Decision:** deferred — both supported in config; product default TBD
 - **Engine config key:** `kernel.node_type`
+
+### VARIANT-004 — Ashtakavarga Shodhana edge rules
+
+- **Technique IDs:** TEC-051, TEC-052
+- **Question:** Which Trikona/Ekadhipatya edge rules and gunakara tables?
+- **Option A:** B.V. Raman computational sequence (zero exemptions, equalise-to-smaller, Mandala leave-12)
+- **Option B:** Alternate regional editions / software defaults
+- **Decision:** supported option A as Candidate (`raman_candidate_v1`) until Approved classical edition citation
+- **Engine config key:** `ashtakavarga.shodhana.variant`
+- **Notes:** VedAstro commentary used as comparator only; Rahu/Ketu excluded from occupation set in this Candidate rule

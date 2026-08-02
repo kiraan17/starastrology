@@ -180,6 +180,14 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
     av = report["sections"].get("ashtakavarga")
     if av:
         summary["sav_total_bindus"] = av.get("sarvashtakavarga", {}).get("total_bindus")
+        sh = av.get("sarvashtakavarga", {}).get("shodhana") or {}
+        if sh:
+            summary["sav_reduced_total"] = sh.get("reduced_total")
+            summary["sav_sodhya_pinda"] = (sh.get("sodhya_pinda") or {}).get("sodhya_pinda")
+            summary["ashtakavarga_shodhana_variant"] = sh.get("variant")
+        sun_sh = (av.get("bhinnashtakavarga_shodhana") or {}).get("Sun") or {}
+        if sun_sh.get("sodhya_pinda"):
+            summary["sun_sodhya_pinda"] = sun_sh["sodhya_pinda"].get("sodhya_pinda")
 
     kp = report["sections"].get("kp")
     if kp:
