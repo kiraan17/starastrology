@@ -89,7 +89,7 @@
 | TEC-069 | Jaimini event interpretation pack | Jaimini | interpretation | normal | yes | no | Not Researched | Never label Gemini |
 | TEC-070 | Panchanga core (Tithi/Vara/Nakshatra/Yoga/Karana) | Panchanga | timing | normal | yes | yes | Auto-Tested | P16a; sunrise-based Vara; Yoga sidereal Candidate |
 | TEC-071 | Rahu Kala, Yamaganda, Gulika, Abhijit | Panchanga | timing | normal | yes | yes | Auto-Tested | P16b day eighths + Abhijit; night Gulika deferred |
-| TEC-072 | Tara Bala and Chandra Bala | Panchanga | timing | normal | yes | partial | Not Researched | |
+| TEC-072 | Tara Bala and Chandra Bala | Panchanga | timing | normal | yes | yes | Auto-Tested | P16c from Moon/Lagna; Janma/Vipat/Pratyak/Naidhana not freely auspicious |
 | TEC-073 | Hora and Chaughadiya | Panchanga | timing | normal | yes | yes | Auto-Tested | P16b 24 horas + 16 chaughadiya |
 | TEC-074 | Panchaka and Bhadra | Panchanga | timing | normal | yes | partial | Not Researched | |
 | TEC-075 | Panchapakshi day/night cycles | Panchanga | timing | normal | yes | yes | Not Researched | VedAstro has module |

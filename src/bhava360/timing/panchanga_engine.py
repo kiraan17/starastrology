@@ -1,8 +1,8 @@
-"""Panchanga engine (P16a + P16b)."""
+"""Panchanga engine (P16a + P16b + P16c)."""
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Any
 
 import swisseph as swe
@@ -12,12 +12,13 @@ from bhava360.kernel.errors import KernelError, KernelErrorCode
 from bhava360.kernel.models import ChartConfig, PlanetName, SubjectInput
 from bhava360.kernel.provider import SwissEphemerisProvider
 from bhava360.kernel.timeutil import julian_day_to_utc, resolve_subject_time, subject_tzinfo
+from bhava360.timing.bala import compute_tara_chandra_pack
 from bhava360.timing.muhurta import compute_muhurta_pack
 from bhava360.timing.panchanga import compute_panchanga_core
 
 ENGINE_NAME = "Panchanga"
-ENGINE_VERSION = "0.2.0-muhurta"
-TECHNIQUE_IDS = ("TEC-070", "TEC-071", "TEC-073")
+ENGINE_VERSION = "0.3.0-bala"
+TECHNIQUE_IDS = ("TEC-070", "TEC-071", "TEC-072", "TEC-073")
 
 
 def _parse_local(iso_local: str) -> datetime:
@@ -59,7 +60,7 @@ def run_panchanga_engine(
     config: ChartConfig | None = None,
     chart: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Five-limb panchanga plus Rahu Kala/Hora/Chaughadiya muhurta windows."""
+    """Panchanga limbs, muhurta windows, and Tara/Chandra Bala."""
     cfg = config or ChartConfig()
     provider = SwissEphemerisProvider(cfg)
     resolved = resolve_subject_time(subject)
@@ -70,14 +71,35 @@ def run_panchanga_engine(
 
     if built and built.get("day_window"):
         day_window = built["day_window"]
-        sun = next(p for p in built["planets"] if p["planet"] == "Sun")
-        moon = next(p for p in built["planets"] if p["planet"] == "Moon")
-        sun_lon = float(sun["longitude_sidereal_deg"])
-        moon_lon = float(moon["longitude_sidereal_deg"])
+        planets = {p["planet"]: p for p in built["planets"]}
+        sun_lon = float(planets["Sun"]["longitude_sidereal_deg"])
+        moon_lon = float(planets["Moon"]["longitude_sidereal_deg"])
+        lagna_lon = float(
+            built["angles"]["whole_sign"]["ascendant"]["longitude_sidereal_deg"]
+        )
+        planet_lons = {
+            name: float(row["longitude_sidereal_deg"])
+            for name, row in planets.items()
+            if name in {"Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn"}
+        }
     else:
         day_window = provider.day_window(subject).to_dict()
         sun_lon = provider.planet_position(subject, PlanetName.SUN).longitude_sidereal_deg
         moon_lon = provider.planet_position(subject, PlanetName.MOON).longitude_sidereal_deg
+        houses = provider.houses(subject)
+        lagna_lon = houses.ascendant.longitude_sidereal_deg
+        planet_lons = {
+            p.value: provider.planet_position(subject, p).longitude_sidereal_deg
+            for p in (
+                PlanetName.SUN,
+                PlanetName.MOON,
+                PlanetName.MARS,
+                PlanetName.MERCURY,
+                PlanetName.JUPITER,
+                PlanetName.VENUS,
+                PlanetName.SATURN,
+            )
+        }
 
     sunrise_local = _parse_local(day_window["sunrise_local"])
     sunset_local = _parse_local(day_window["sunset_local"])
@@ -85,6 +107,12 @@ def run_panchanga_engine(
         sun_lon_sidereal=sun_lon,
         moon_lon_sidereal=moon_lon,
         sunrise_local=sunrise_local,
+    )
+
+    bala = compute_tara_chandra_pack(
+        moon_longitude_sidereal=moon_lon,
+        lagna_longitude_sidereal=lagna_lon,
+        planet_longitudes=planet_lons,
     )
 
     lat = float(subject.latitude) if subject.latitude is not None else None
@@ -96,7 +124,6 @@ def run_panchanga_engine(
             latitude=lat,
             longitude=lon,
         )
-        # Align next sunrise to subject tz for consistency; pack uses UTC internally.
         tz = subject_tzinfo(subject)
         next_rise_local = next_rise.astimezone(tz)
         muhurta = compute_muhurta_pack(
@@ -115,11 +142,12 @@ def run_panchanga_engine(
         "library": provider.library_stamp(),
         "panchanga": core,
         "muhurta": muhurta,
+        "bala": bala,
         "notes": core["notes"]
         + (muhurta["notes"] if muhurta else [])
+        + bala["notes"]
         + [
             "Evaluated at subject local civil time; Vara keyed to that date's sunrise.",
-            "TEC-072 Tara/Chandra Bala deferred.",
             "TEC-074..076 deferred.",
         ],
     }

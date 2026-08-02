@@ -278,4 +278,10 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["muhurta_rahu_kala_active"] = active.get("rahu_kala")
         summary["muhurta_hora_lord"] = (active.get("hora") or {}).get("lord")
         summary["muhurta_chaughadiya"] = (active.get("chaughadiya") or {}).get("label")
+        bala = pan.get("bala") or {}
+        moon_tara = (bala.get("tara_from_moon") or {}).get("Moon") or {}
+        summary["bala_moon_tara"] = moon_tara.get("tara")
+        summary["bala_moon_from_lagna"] = (
+            (bala.get("chandra_bala") or {}).get("moon_from_lagna") or {}
+        ).get("bala")
     return summary

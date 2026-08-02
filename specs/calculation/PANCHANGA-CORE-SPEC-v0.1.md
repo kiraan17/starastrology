@@ -1,28 +1,22 @@
-# Panchanga + Muhurta (P16a + P16b)
+# Panchanga + Muhurta + Bala (P16a–P16c)
 
-**Modules:** `bhava360.timing.panchanga`, `bhava360.timing.muhurta`, `run_panchanga_engine`  
-**Techniques:** TEC-070, TEC-071, TEC-073  
-**Engine version:** `0.2.0-muhurta`
+**Modules:** `panchanga`, `muhurta`, `bala`, `run_panchanga_engine`  
+**Techniques:** TEC-070, TEC-071, TEC-072, TEC-073  
+**Engine version:** `0.3.0-bala`
 
 ## In scope
 
 ### P16a
 - Tithi / Vara / Nakshatra / Yoga / Karana
-- Vara from local sunrise weekday
 
 ### P16b
-- Rahu Kala, Yamaganda, Gulika (daytime eighth tables by weekday)
-- Abhijit (midday-centered, duration = daytime/15)
-- Planetary Hora (12 day + 12 night)
-- Chaughadiya (8 day + 8 night)
-- Active flags at subject instant
+- Rahu Kala, Yamaganda, Gulika, Abhijit, Hora, Chaughadiya
+
+### P16c
+- Tara Bala from Moon nakshatra to each planet/Lagna (9-tara cycle)
+- Chandra Bala of Moon from Lagna; planet/Lagna signs from Moon (1/3/6/7/10/11)
 
 ## Out of scope
 
-- Night Gulika tables
-- Tara / Chandra Bala (TEC-072)
-- Panchaka / Bhadra / Panchapakshi / activity windows (TEC-074..076)
-
-## Variants
-
-`sidereal_lahiri_candidate_v1` (limbs), `classical_segments_candidate_v1` (muhurta)
+- Separate transit-vs-natal birth chart input UI
+- TEC-074..076 activity windows / Panchapakshi

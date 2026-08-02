@@ -254,6 +254,12 @@
     Chaughadiya: {{ report.summary.muhurta_chaughadiya }}
   </p>
   {% endif %}
+  {% if report.summary.bala_moon_tara is defined %}
+  <p>
+    Moon Tara: {{ report.summary.bala_moon_tara }} |
+    Moon Chandra Bala from Lagna: {{ report.summary.bala_moon_from_lagna }}
+  </p>
+  {% endif %}
   {% endif %}
 
   <h3>Raw report JSON</h3>

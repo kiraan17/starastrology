@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P16b — Muhurta windows done**
+**P16c — Tara/Chandra Bala done**
 
-Rahu Kala, Yamaganda, Gulika, Abhijit, Hora, and Chaughadiya with active-at flags (`0.2.0-muhurta`).
+Tara from Moon nakshatra and Chandra Bala from Moon/Lagna in panchanga engine `0.3.0-bala`.
 
 
 ## Principles (short)

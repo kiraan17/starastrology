@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from bhava360.kernel.models import SubjectInput
 from bhava360.timing.muhurta import (
@@ -94,7 +94,7 @@ def test_engine_includes_muhurta():
         location_label="Chennai",
     )
     out = run_panchanga_engine(subject)
-    assert out["engine_version"] == "0.2.0-muhurta"
+    assert out["engine_version"] == "0.3.0-bala"
     assert "TEC-071" in out["technique_ids"]
     assert "TEC-073" in out["technique_ids"]
     assert out["muhurta"]["day_eighths"]["rahu_kala"]["name"] == "Rahu Kala"

@@ -63,7 +63,7 @@ def test_panchanga_engine_chennai():
     )
     out = run_panchanga_engine(subject)
     assert out["engine"] == "Panchanga"
-    assert out["engine_version"] == "0.2.0-muhurta"
+    assert out["engine_version"] == "0.3.0-bala"
     p = out["panchanga"]
     assert p["tithi"]["label"]
     assert p["vara"]["name"] == "Wednesday"
@@ -72,6 +72,7 @@ def test_panchanga_engine_chennai():
     assert p["karana"]["name"]
     assert "TEC-070" in out["technique_ids"]
     assert out["muhurta"] is not None
+    assert out["bala"]["tara_from_moon"]["Moon"]["tara"] == "Janma"
 
 
 def test_compute_panchanga_core_smoke():
