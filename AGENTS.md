@@ -68,3 +68,42 @@ Do not mark a technique `Approved` or `Frozen` without recorded human/expert rev
 ## Current programme constraint
 
 Phase 0 scaffolding is in progress/complete. **Phase 1 is blocked** until the full 96-item technique inventory is supplied into `registry/TECHNIQUE-REGISTRY.md`.
+
+## Cursor Cloud specific instructions
+
+### Repository phase
+
+This checkout is **Phase 0** (documentation, registry scaffolding, empty `src/` and `console/`). There is **no** committed `package.json`, `pyproject.toml`, Docker compose file, or Netlify config. **Do not** invent a runtime stack or start calculation engines here; that waits on Phase 3 ADRs and Phases 0–5 approval per `AGENTS.md` hard rules.
+
+### Services
+
+| Service | Required? | Notes |
+|---------|-----------|--------|
+| Backend API / DB / console | No | Not implemented yet |
+| Long-running dev servers | No | Nothing to bind to a port |
+
+### Verify the environment (E2E for Phase 0)
+
+From the repository root:
+
+```bash
+bash scripts/check-phase0-structure.sh
+```
+
+Expected output ends with `Phase 0 structure check PASSED (29 paths)`. Exit code `0` means the repo layout matches `docs/requirements/REPOSITORY-STRUCTURE.md` and the Phase 0 gate in the controlling plan.
+
+Optional: `shellcheck scripts/check-phase0-structure.sh` if ShellCheck is installed on the VM (not required by the repo).
+
+### Lint / test / build
+
+- **Lint:** No ESLint, Ruff, or other linter is configured in-repo yet.
+- **Automated tests:** No unit/integration runner; the structure script is the only automated gate.
+- **Build:** N/A until an application runtime is chosen (Phase 3).
+
+### VM update script
+
+The cloud VM **update script** is a no-op (`true`) because Phase 0 has no installable language dependencies. After Phase 3 adds a package manifest, replace the update script with the appropriate install command (for example `npm ci` or `uv sync`) in the environment configuration — not in this file.
+
+### Git
+
+Standard git only; no custom pre-commit hooks (only default `.git/hooks/*.sample` files).
