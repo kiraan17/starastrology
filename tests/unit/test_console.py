@@ -216,3 +216,26 @@ def test_api_verify_tajika_annual():
     assert body["summary"]["tajika_tithi_pravesh_error_deg"] < 0.01
     assert body["summary"]["tajika_saham_count"] == 5
     assert body["summary"]["tajika_aspect_count"] >= 0
+
+
+def test_api_verify_sudarshana():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["sudarshana"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["sudarshana_engine"] == "SudarshanaChakra"
+    assert body["summary"]["sudarshana_lagna"]
+    assert body["summary"]["sudarshana_chandra"]
+    assert body["summary"]["sudarshana_surya"]
+    assert body["summary"]["sudarshana_planet_count"] >= 7

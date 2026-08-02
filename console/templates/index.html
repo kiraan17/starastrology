@@ -83,6 +83,7 @@
       <label><input type="checkbox" name="engines" value="nadi" {% if 'nadi' in form.engines %}checked{% endif %} /> nadi</label>
       <label><input type="checkbox" name="engines" value="panchanga" {% if 'panchanga' in form.engines %}checked{% endif %} /> panchanga</label>
       <label><input type="checkbox" name="engines" value="tajika" {% if 'tajika' in form.engines %}checked{% endif %} /> tajika/annual</label>
+      <label><input type="checkbox" name="engines" value="sudarshana" {% if 'sudarshana' in form.engines %}checked{% endif %} /> sudarshana</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -291,6 +292,17 @@
     | Aspects: {{ report.summary.tajika_aspect_count }}
     | Ithasala candidates: {{ report.summary.tajika_ithasala_count }}
     {% endif %}
+  </p>
+  {% endif %}
+
+  {% if report.summary.sudarshana_engine %}
+  <h3>Sudarshana Chakra</h3>
+  <p>
+    Engine: {{ report.summary.sudarshana_engine }} |
+    Lagna: {{ report.summary.sudarshana_lagna }} |
+    Chandra: {{ report.summary.sudarshana_chandra }} |
+    Surya: {{ report.summary.sudarshana_surya }} |
+    Planets: {{ report.summary.sudarshana_planet_count }}
   </p>
   {% endif %}
 

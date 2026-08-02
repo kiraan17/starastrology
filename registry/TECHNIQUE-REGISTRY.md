@@ -97,7 +97,7 @@
 | TEC-077 | Tajika Varshaphal / Muntha / year lord / Sahams | Tajika | calculation | normal | yes | partial | Auto-Tested | P17a solar return + Muntha; Sahams/Varshesh deferred; location_rule stamped |
 | TEC-078 | Tajika aspects and yogas | Tajika | interpretation | normal | yes | partial | Auto-Tested | P17c Sahams(5)+degree aspects+Ithasala candidate; full yoga suite deferred |
 | TEC-079 | Tithi Pravesh | Annual | timing | normal | yes | yes | Auto-Tested | P17b elongation return nearest solar return (±20d) |
-| TEC-080 | Sudarshana Chakra | Chakra | calculation | normal | yes | no | Not Researched | |
+| TEC-080 | Sudarshana Chakra | Chakra | calculation | normal | yes | yes | Auto-Tested | P18a Lagna/Chandra/Surya whole-sign overlay scaffold |
 | TEC-081 | Bhrigu Bindu and transit triggers | Progression | timing | normal | yes | no | Not Researched | |
 | TEC-082 | Sarvatobhadra Chakra and Vedha | Chakra | calculation | normal | yes | no | Not Researched | |
 | TEC-083 | Tara Chakra and Kota Chakra | Chakra | calculation | normal | yes | no | Not Researched | |

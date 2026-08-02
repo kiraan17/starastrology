@@ -5,6 +5,7 @@ from typing import Any
 
 from bhava360.chart.builder import ChartConstructor
 from bhava360.engines.ashtakavarga import run_ashtakavarga_engine
+from bhava360.engines.chakra import run_sudarshana_engine
 from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
@@ -97,7 +98,16 @@ def run_verification(
     chart = None
     needs_chart = any(
         e in selected
-        for e in ("chart", "parashara", "ashtakavarga", "jaimini", "nadi", "panchanga", "tajika")
+        for e in (
+            "chart",
+            "parashara",
+            "ashtakavarga",
+            "jaimini",
+            "nadi",
+            "panchanga",
+            "tajika",
+            "sudarshana",
+        )
     )
     if needs_chart:
         try:
@@ -170,6 +180,14 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "tajika", "error": str(exc)})
+
+    if "sudarshana" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Sudarshana")
+            report["sections"]["sudarshana"] = run_sudarshana_engine(chart=chart)
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "sudarshana", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -326,4 +344,13 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["tajika_ithasala_count"] = len(
             (tajika.get("tajika_aspects") or {}).get("ithasala_candidates") or []
         )
+
+    sud = report["sections"].get("sudarshana")
+    if sud:
+        summary["sudarshana_engine"] = sud.get("engine")
+        refs = (sud.get("sudarshana") or {}).get("references") or {}
+        summary["sudarshana_lagna"] = (refs.get("lagna") or {}).get("sign")
+        summary["sudarshana_chandra"] = (refs.get("chandra") or {}).get("sign")
+        summary["sudarshana_surya"] = (refs.get("surya") or {}).get("sign")
+        summary["sudarshana_planet_count"] = len((sud.get("sudarshana") or {}).get("planets") or [])
     return summary

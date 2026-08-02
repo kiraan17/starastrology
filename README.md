@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P17c — Tajika Sahams/aspects done**
+**P18a — Sudarshana Chakra scaffold done**
 
-Candidate Sahams + Tajika degree aspects/Ithasala flag in engine `0.3.0-sahams-aspects` (SRC-012 still required for Approved).
+Lagna / Chandra / Surya whole-sign overlay in engine `SudarshanaChakra` `0.1.0-scaffold`.
 
 
 ## Principles (short)
