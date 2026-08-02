@@ -436,6 +436,34 @@ def test_api_verify_panchaka():
     assert "TEC-074" in body["sections"]["panchaka"]["technique_ids"]
 
 
+def test_api_verify_panchapakshi():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["panchapakshi"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["panchapakshi_engine"] == "Panchapakshi"
+    assert body["summary"]["panchapakshi_bird"] in {
+        "Vulture",
+        "Owl",
+        "Crow",
+        "Cock",
+        "Peacock",
+    }
+    assert body["summary"]["panchapakshi_paksha"] in {"Shukla", "Krishna"}
+    assert body["summary"]["panchapakshi_yama"]
+    assert "TEC-075" in body["sections"]["panchapakshi"]["technique_ids"]
+
+
 def test_api_verify_numerology():
     res = client.post(
         "/api/verify",

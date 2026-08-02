@@ -24,6 +24,7 @@ from bhava360.engines.transit import run_transit_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 from bhava360.timing.muhurta_event_engine import run_muhurta_event_engine
 from bhava360.timing.panchaka_engine import run_panchaka_bhadra_engine
+from bhava360.timing.panchapakshi_engine import run_panchapakshi_engine
 from bhava360.timing.panchanga_engine import run_panchanga_engine
 from bhava360.timing.yogini_engine import run_yogini_dasha_engine
 
@@ -133,6 +134,7 @@ def run_verification(
             "panchanga",
             "muhurta_events",
             "panchaka",
+            "panchapakshi",
             "tajika",
             "sudarshana",
             "bhrigu_bindu",
@@ -221,6 +223,18 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "panchaka", "error": str(exc)})
+
+    if "panchapakshi" in selected:
+        try:
+            pan = report["sections"].get("panchanga")
+            report["sections"]["panchapakshi"] = run_panchapakshi_engine(
+                subject,
+                config=config,
+                chart=chart,
+                panchanga=pan,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "panchapakshi", "error": str(exc)})
 
     if "kp" in selected:
         try:
@@ -527,6 +541,20 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["panchaka_label"] = sm.get("panchaka_label")
         summary["panchaka_bhadra_active"] = sm.get("bhadra_active")
         summary["panchaka_caution_count"] = sm.get("caution_flag_count")
+
+    pps = report["sections"].get("panchapakshi")
+    if pps:
+        summary["panchapakshi_engine"] = pps.get("engine")
+        sm = ((pps.get("panchapakshi") or {}).get("summary")) or {}
+        summary["panchapakshi_bird"] = sm.get("bird")
+        summary["panchapakshi_element"] = sm.get("element")
+        summary["panchapakshi_paksha"] = sm.get("paksha")
+        summary["panchapakshi_weekday"] = sm.get("weekday")
+        summary["panchapakshi_yama"] = sm.get("yama_index")
+        summary["panchapakshi_activity"] = sm.get("activity")
+        summary["panchapakshi_activity_class"] = sm.get("activity_class")
+        summary["panchapakshi_schedule_count"] = sm.get("schedule_count")
+        summary["panchapakshi_dark_deferred"] = sm.get("dark_half_activity_deferred")
 
     tajika = report["sections"].get("tajika")
     if tajika:

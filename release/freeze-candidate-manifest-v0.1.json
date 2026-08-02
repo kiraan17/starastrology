@@ -210,6 +210,15 @@
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
       "notes": "Candidate Moon Panchak + Rahita + Vishti/Bhadra"
+    },
+    {
+      "engine": "Panchapakshi",
+      "module": "bhava360.timing.panchapakshi_engine",
+      "engine_version": "0.1.0-yama-bright",
+      "technique_ids": ["TEC-075"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate bird+yama+Shukla; Krishna deferred Source Needed"
     }
   ],
   "kernel": {

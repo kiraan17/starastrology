@@ -19,5 +19,5 @@
 ## Out of scope
 
 - Separate transit-vs-natal birth chart input UI
-- TEC-075 Panchapakshi cycles (see later waves)
+- TEC-075 Panchapakshi → see `PANCHAPAKSHI-SPEC-v0.1.md`
 - TEC-074 Panchaka/Bhadra → see `PANCHAKA-BHADRA-SPEC-v0.1.md`

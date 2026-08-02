@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P26a — Panchaka / Bhadra thin slice done**
+**P26b — Panchapakshi thin slice done**
 
-Moon Panchak + Rahita remainder + Vishti/Bhadra in engine `PanchakaBhadra` `0.1.0-panchaka-bhadra`.
+Birth bird + yama clock + Shukla mirrors in engine `Panchapakshi` `0.1.0-yama-bright` (TEC-075; Krishna deferred).
 
 
 ## Principles (short)

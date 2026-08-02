@@ -38,6 +38,7 @@ Ordered for the backend-first programme.
 | P25a | Yogini dasha thin slice (TEC-031) | **Done** |
 | P25b | Transit engine vs natal (TEC-035) | **Done** |
 | P26a | Panchaka/Bhadra (TEC-074) | **Done** |
+| P26b | Panchapakshi day/night cycles (TEC-075) | **Done** |
 
 ## Next
 
@@ -46,7 +47,7 @@ Ordered for the backend-first programme.
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
 | P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
-| P26b | Panchapakshi day/night cycles (TEC-075) |
+| P27a | Dark-half Panchapakshi mirrors (TEC-075 completion) *or* next Not Researched calc |
 
 ## Explicitly not started
 

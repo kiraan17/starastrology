@@ -92,7 +92,7 @@
 | TEC-072 | Tara Bala and Chandra Bala | Panchanga | timing | normal | yes | yes | Auto-Tested | P16c from Moon/Lagna; Janma/Vipat/Pratyak/Naidhana not freely auspicious |
 | TEC-073 | Hora and Chaughadiya | Panchanga | timing | normal | yes | yes | Auto-Tested | P16b 24 horas + 16 chaughadiya |
 | TEC-074 | Panchaka and Bhadra | Panchanga | timing | normal | yes | partial | Auto-Tested | P26a Moon window + Rahita rem + Vishti/Bhadra; lagna-day sweep deferred |
-| TEC-075 | Panchapakshi day/night cycles | Panchanga | timing | normal | yes | yes | Not Researched | VedAstro has module |
+| TEC-075 | Panchapakshi day/night cycles | Panchanga | timing | normal | yes | yes | Auto-Tested | P26b bird+yama+Shukla mirrors; Krishna activity Source Needed |
 | TEC-076 | Activity good/mixed/avoid windows | Panchanga | timing | normal | yes | yes | Auto-Tested | P20b Candidate pack; no major life claims |
 | TEC-077 | Tajika Varshaphal / Muntha / year lord / Sahams | Tajika | calculation | normal | yes | partial | Auto-Tested | P17a solar return + Muntha; Sahams/Varshesh deferred; location_rule stamped |
 | TEC-078 | Tajika aspects and yogas | Tajika | interpretation | normal | yes | partial | Auto-Tested | P17c Sahams(5)+degree aspects+Ithasala candidate; full yoga suite deferred |

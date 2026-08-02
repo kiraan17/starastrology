@@ -84,6 +84,7 @@
       <label><input type="checkbox" name="engines" value="panchanga" {% if 'panchanga' in form.engines %}checked{% endif %} /> panchanga</label>
       <label><input type="checkbox" name="engines" value="muhurta_events" {% if 'muhurta_events' in form.engines %}checked{% endif %} /> muhurta events</label>
       <label><input type="checkbox" name="engines" value="panchaka" {% if 'panchaka' in form.engines %}checked{% endif %} /> panchaka/bhadra</label>
+      <label><input type="checkbox" name="engines" value="panchapakshi" {% if 'panchapakshi' in form.engines %}checked{% endif %} /> panchapakshi</label>
       <label><input type="checkbox" name="engines" value="tajika" {% if 'tajika' in form.engines %}checked{% endif %} /> tajika/annual</label>
       <label><input type="checkbox" name="engines" value="sudarshana" {% if 'sudarshana' in form.engines %}checked{% endif %} /> sudarshana</label>
       <label><input type="checkbox" name="engines" value="bhrigu_bindu" {% if 'bhrigu_bindu' in form.engines %}checked{% endif %} /> bhrigu bindu</label>
@@ -366,6 +367,21 @@
     Label: {{ report.summary.panchaka_label }} |
     Bhadra: {{ report.summary.panchaka_bhadra_active }} |
     Caution flags: {{ report.summary.panchaka_caution_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.panchapakshi_engine %}
+  <h3>Panchapakshi</h3>
+  <p>
+    Engine: {{ report.summary.panchapakshi_engine }} |
+    Bird: {{ report.summary.panchapakshi_bird }} ({{ report.summary.panchapakshi_element }}) |
+    Paksha: {{ report.summary.panchapakshi_paksha }} |
+    Weekday: {{ report.summary.panchapakshi_weekday }} |
+    Yama: {{ report.summary.panchapakshi_yama }} |
+    Activity: {{ report.summary.panchapakshi_activity }} |
+    Class: {{ report.summary.panchapakshi_activity_class }} |
+    Schedule: {{ report.summary.panchapakshi_schedule_count }} |
+    Dark deferred: {{ report.summary.panchapakshi_dark_deferred }}
   </p>
   {% endif %}
 
