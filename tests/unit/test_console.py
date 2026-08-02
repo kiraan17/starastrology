@@ -212,3 +212,5 @@ def test_api_verify_tajika_annual():
     assert body["summary"]["tajika_muntha_sign"]
     assert body["summary"]["tajika_location_rule"] == "birth_place"
     assert body["summary"]["tajika_sun_error_deg"] < 0.01
+    assert body["summary"]["tajika_tithi_pravesh_label"]
+    assert body["summary"]["tajika_tithi_pravesh_error_deg"] < 0.01

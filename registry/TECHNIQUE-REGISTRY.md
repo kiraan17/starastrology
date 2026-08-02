@@ -95,8 +95,8 @@
 | TEC-075 | Panchapakshi day/night cycles | Panchanga | timing | normal | yes | yes | Not Researched | VedAstro has module |
 | TEC-076 | Activity good/mixed/avoid windows | Panchanga | timing | normal | yes | no | Not Researched | No major life claims |
 | TEC-077 | Tajika Varshaphal / Muntha / year lord / Sahams | Tajika | calculation | normal | yes | partial | Auto-Tested | P17a solar return + Muntha; Sahams/Varshesh deferred; location_rule stamped |
-| TEC-078 | Tajika aspects and yogas | Tajika | interpretation | normal | yes | no | Not Researched | |
-| TEC-079 | Tithi Pravesh | Annual | timing | normal | yes | no | Not Researched | |
+| TEC-078 | Tajika aspects and yogas | Tajika | interpretation | normal | yes | no | Not Researched | P17c next; needs SRC-012 edition |
+| TEC-079 | Tithi Pravesh | Annual | timing | normal | yes | yes | Auto-Tested | P17b elongation return nearest solar return (±20d) |
 | TEC-080 | Sudarshana Chakra | Chakra | calculation | normal | yes | no | Not Researched | |
 | TEC-081 | Bhrigu Bindu and transit triggers | Progression | timing | normal | yes | no | Not Researched | |
 | TEC-082 | Sarvatobhadra Chakra and Vedha | Chakra | calculation | normal | yes | no | Not Researched | |

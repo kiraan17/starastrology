@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P17a — Tajika annual scaffold done**
+**P17b — Tithi Pravesh done**
 
-Sidereal solar return + Muntha + year-lord candidate in Tajika engine `0.1.0-solar-return` (`annual.location_rule` stamped).
+Natal Moon−Sun elongation return nearest solar return in Tajika engine `0.2.0-tithi-pravesh`.
 
 
 ## Principles (short)

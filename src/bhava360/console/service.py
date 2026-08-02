@@ -316,4 +316,7 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["tajika_sun_error_deg"] = (tajika.get("solar_return") or {}).get(
             "sun_longitude_error_deg"
         )
+        tp = tajika.get("tithi_pravesh") or {}
+        summary["tajika_tithi_pravesh_label"] = (tp.get("tithi") or {}).get("label")
+        summary["tajika_tithi_pravesh_error_deg"] = tp.get("elongation_error_deg")
     return summary

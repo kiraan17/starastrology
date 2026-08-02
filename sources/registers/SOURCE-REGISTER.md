@@ -16,7 +16,7 @@
 | SRC-009 | Nakshatra Nadi approved course/corpus | TBD | modern_author | NakshatraNadi | Candidate | TEC-054..055 | P13 scaffold shipped; interpretive chains CORPUS_GATE_BLOCKED until Approved |
 | SRC-010 | Bhrigu Nandi Nadi references | TBD | classical_text | BhriguNandiNadi | Candidate | TEC-056..057 | Separate module |
 | SRC-011 | Prashna Marga | Traditional | classical_text | Prashna | Candidate | TEC-086 | Manual vs calc boundaries TBD |
-| SRC-012 | Tajika / Varshaphal references | TBD | classical_text | Tajika,Annual | Candidate | TEC-077..078 | Annual location rule needed |
+| SRC-012 | Tajika / Varshaphal references | TBD | classical_text | Tajika,Annual | Candidate | TEC-077..079 | P17a/b Candidate; Sahams/aspects still need edition citation |
 | SRC-013 | Lal Kitab references | TBD | classical_text | LalKitab | Candidate | TEC-090 | Keep contradictions visible vs Parashara |
 | SRC-014 | Bhava360 safety and claim policy | Bhava360 product | product_rule | Orchestration,Safety | Candidate | TEC-096, DEF-001..004 | Restrict medical/financial/longevity claims |
 | SRC-015 | Bhava360 school-isolation policy | Bhava360 product | product_rule | Orchestration | Approved | TEC-096 | Engines never silently blended |

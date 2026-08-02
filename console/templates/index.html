@@ -282,6 +282,10 @@
     Year-lord candidate: {{ report.summary.tajika_year_lord_candidate }} |
     Location rule: {{ report.summary.tajika_location_rule }} |
     Sun error °: {{ report.summary.tajika_sun_error_deg }}
+    {% if report.summary.tajika_tithi_pravesh_label %}
+    | Tithi Pravesh: {{ report.summary.tajika_tithi_pravesh_label }}
+    (err °: {{ report.summary.tajika_tithi_pravesh_error_deg }})
+    {% endif %}
   </p>
   {% endif %}
 

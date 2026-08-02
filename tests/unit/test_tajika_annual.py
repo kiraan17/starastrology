@@ -77,6 +77,7 @@ def test_resolve_annual_location_residence_requires_coords():
 def test_tajika_annual_engine_solar_return_and_muntha():
     out = run_tajika_annual_engine(_subject(), target_year=2020)
     assert out["engine"] == "TajikaAnnual"
+    assert out["engine_version"] == "0.2.0-tithi-pravesh"
     assert out["school"] == "tajika"
     assert out["target_year"] == 2020
     assert out["completed_years"] == 30
@@ -88,7 +89,32 @@ def test_tajika_annual_engine_solar_return_and_muntha():
     assert 1 <= out["muntha"]["house_from_varsha_lagna"] <= 12
     assert out["varsha_chart"]["lagna_sign"]
     assert out["school"] == "tajika"
+    assert "TEC-079" in out["technique_ids"]
+    tp = out["tithi_pravesh"]
+    assert tp["elongation_error_deg"] < 0.01
+    assert tp["tithi"]["index"] == out["natal_tithi"]["index"]
+    assert abs(tp["days_from_solar_return"]) <= 20
     assert "Sahams" in " ".join(out["deferred"])
+    assert "Tithi Pravesh (TEC-079)" not in out["deferred"]
+
+
+def test_tithi_pravesh_search_helper():
+    from bhava360.engines.tajika.tithi_pravesh import find_tithi_pravesh_jd, moon_sun_elongation
+    from bhava360.kernel.provider import SwissEphemerisProvider
+
+    provider = SwissEphemerisProvider()
+    flags = provider._flags(sidereal=True)
+    # Use a known JD near 2020-08-15 and a synthetic natal elongation.
+    center = 2459076.0  # ~2020-08-15
+    natal_elong = moon_sun_elongation(center - 3.0, flags)
+    jd = find_tithi_pravesh_jd(
+        natal_elongation_deg=natal_elong,
+        center_jd_ut=center,
+        sidereal_flags=flags,
+    )
+    err = abs(((moon_sun_elongation(jd, flags) - natal_elong + 180.0) % 360.0) - 180.0)
+    assert err < 0.01
+    assert abs(jd - center) <= 20
 
 
 def test_tajika_rejects_year_before_birth():
