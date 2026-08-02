@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P21b — Systems Approach scaffold done**
+**P22a — Lal Kitab Teva scaffold done**
 
-Functional natures + structural SA config in engine `SystemsApproach` `0.1.0-config-scaffold`.
+Fixed-Aries Teva + aspects/varshphal in engine `LalKitab` `0.1.0-teva-scaffold` (restricted; remedies deferred).
 
 
 ## Principles (short)

@@ -107,7 +107,7 @@
 | TEC-087 | Tamil Prashna / Aroodha Lagna Prashna | Prashna | interpretation | normal | yes | no | Not Researched | |
 | TEC-088 | Ashtamangala Prashna | Prashna | manual_input | normal | yes | yes | Auto-Tested | P19b manual passthrough only — never fabricated |
 | TEC-089 | Krishna Mishra / Shatpanchashika | Prashna | interpretation | normal | yes | no | Not Researched | |
-| TEC-090 | Lal Kitab teva/aspect/debt/remedy module | LalKitab | interpretation | restricted | yes | no | Not Researched | Keep contradictions visible |
+| TEC-090 | Lal Kitab teva/aspect/debt/remedy module | LalKitab | interpretation | restricted | yes | partial | Auto-Tested | P22a Teva/Pakka/aspects/varshphal; debts+remedies deferred |
 | TEC-091 | Systems Approach configuration | SystemsApproach | interpretation | normal | yes | partial | Auto-Tested | P21b functional natures + weakness/close-pair scaffold; verdicts deferred |
 | TEC-092 | Numerology (mantra-shastra style) | Numerology | calculation | normal | yes | yes | Auto-Tested | P21a birth/destiny + optional Chaldean name; life-aspects deferred |
 | TEC-093 | Muhurta event rule packs | Muhurta | timing | normal | yes | yes | Auto-Tested | P20b thin activities over P16a–c facts |

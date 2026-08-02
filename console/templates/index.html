@@ -92,6 +92,7 @@
       <label><input type="checkbox" name="engines" value="compatibility" {% if 'compatibility' in form.engines %}checked{% endif %} /> compatibility</label>
       <label><input type="checkbox" name="engines" value="numerology" {% if 'numerology' in form.engines %}checked{% endif %} /> numerology</label>
       <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
+      <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -99,7 +100,7 @@
         <option value="eight" {% if form.jaimini_chara_scheme == 'eight' %}selected{% endif %}>eight</option>
       </select>
     </label>
-    <label>Annual target year (Tajika)
+    <label>Annual target year (Tajika / Lal Kitab varshphal)
       <input name="target_year" value="{{ form.target_year }}" placeholder="2024" />
     </label>
     <label>Annual location rule (VARIANT-002)
@@ -438,6 +439,24 @@
     Weak flags: {{ report.summary.systems_approach_weak_count }} |
     FM close pairs: {{ report.summary.systems_approach_fm_close_pairs }} |
     Malefics: {{ report.summary.systems_approach_functional_malefics | join(', ') }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.lal_kitab_engine %}
+  <h3>Lal Kitab (restricted)</h3>
+  <p>
+    Engine: {{ report.summary.lal_kitab_engine }} |
+    Safety: {{ report.summary.lal_kitab_safety_level }} |
+    Yuti: {{ report.summary.lal_kitab_yuti_count }} |
+    Axis yuti: {{ report.summary.lal_kitab_axis_yuti_count }} |
+    Aspects: {{ report.summary.lal_kitab_aspect_edges }} |
+    In Pakka Ghar: {{ report.summary.lal_kitab_pakka_count }} |
+    House diffs vs Parashara: {{ report.summary.lal_kitab_house_diff_count }} |
+    Varshphal: {{ report.summary.lal_kitab_varshphal }}
+    {% if report.summary.lal_kitab_varshphal %}
+    (age {{ report.summary.lal_kitab_varshphal_age }})
+    {% endif %} |
+    Remedies: {{ report.summary.lal_kitab_remedies_emitted }}
   </p>
   {% endif %}
 

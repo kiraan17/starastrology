@@ -31,12 +31,13 @@ Ordered for the backend-first programme.
 | P20b | Muhurta event rule packs (TEC-093 / TEC-076) | **Done** |
 | P21a | Numerology thin slice (TEC-092) | **Done** |
 | P21b | Systems Approach scaffold (TEC-091) | **Done** |
+| P22a | Lal Kitab Teva scaffold (TEC-090) | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P22a | Lal Kitab thin scaffold (TEC-090) *or* birth-time rectification toolkit (TEC-095) |
+| P22b | Birth-time rectification toolkit scaffold (TEC-095) |
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 

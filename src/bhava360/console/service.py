@@ -10,6 +10,7 @@ from bhava360.engines.classification import run_classification_engine
 from bhava360.engines.compatibility import run_compatibility_engine
 from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
+from bhava360.engines.lal_kitab import run_lal_kitab_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
 from bhava360.engines.numerology import run_numerology_engine
 from bhava360.engines.parashara import run_parashara_engine
@@ -128,6 +129,7 @@ def run_verification(
             "classification",
             "prashna",
             "systems_approach",
+            "lal_kitab",
         )
     )
     if needs_chart:
@@ -288,6 +290,17 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "systems_approach", "error": str(exc)})
+
+    if "lal_kitab" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Lal Kitab")
+            report["sections"]["lal_kitab"] = run_lal_kitab_engine(
+                chart=chart,
+                target_year=target_year,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "lal_kitab", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -554,4 +567,22 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["systems_approach_fm_close_pairs"] = sm.get("fm_close_pair_count")
         natures = profile.get("functional_natures") or {}
         summary["systems_approach_functional_malefics"] = natures.get("functional_malefics")
+
+    lk = report["sections"].get("lal_kitab")
+    if lk:
+        summary["lal_kitab_engine"] = lk.get("engine")
+        summary["lal_kitab_safety_level"] = lk.get("safety_level")
+        teva = lk.get("teva") or {}
+        sm = teva.get("summary") or {}
+        summary["lal_kitab_yuti_count"] = sm.get("yuti_count")
+        summary["lal_kitab_axis_yuti_count"] = sm.get("axis_yuti_count")
+        summary["lal_kitab_aspect_edges"] = sm.get("aspect_edge_count")
+        summary["lal_kitab_pakka_count"] = sm.get("in_pakka_ghar_count")
+        summary["lal_kitab_house_diff_count"] = sm.get("house_diff_vs_parashara_count")
+        summary["lal_kitab_varshphal"] = sm.get("varshphal_included")
+        vp = teva.get("varshphal") or {}
+        summary["lal_kitab_varshphal_age"] = vp.get("age")
+        summary["lal_kitab_remedies_emitted"] = (lk.get("safety") or {}).get(
+            "remedies_emitted"
+        )
     return summary

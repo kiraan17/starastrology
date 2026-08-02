@@ -457,3 +457,28 @@ def test_api_verify_systems_approach():
     assert isinstance(body["summary"]["systems_approach_functional_malefics"], list)
     assert "Rahu" in body["summary"]["systems_approach_functional_malefics"]
     assert "Ketu" in body["summary"]["systems_approach_functional_malefics"]
+
+
+def test_api_verify_lal_kitab():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["lal_kitab"],
+            "target_year": 2024,
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["lal_kitab_engine"] == "LalKitab"
+    assert body["summary"]["lal_kitab_safety_level"] == "restricted"
+    assert body["summary"]["lal_kitab_remedies_emitted"] is False
+    assert body["summary"]["lal_kitab_varshphal"] is True
+    assert body["summary"]["lal_kitab_varshphal_age"] == 34
+    assert body["summary"]["lal_kitab_aspect_edges"] >= 9
+    assert isinstance(body["summary"]["lal_kitab_house_diff_count"], int)
