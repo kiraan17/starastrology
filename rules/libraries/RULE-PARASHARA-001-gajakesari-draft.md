@@ -1,70 +1,52 @@
-# Sample Rule: Gajakesari Yoga natal formation (illustrative)
+# RULE-PARASHARA-001 Gajakesari Yoga (provisional implementation)
 
 ```yaml
 rule_id: RULE-PARASHARA-001
 technique_id: TEC-037
 school: Parashara
-name: Gajakesari Yoga natal formation (draft)
-source_ids: [SRC-004]  # Candidate — not Approved yet
+name: Gajakesari Yoga natal formation
+source_ids: [SRC-004, SRC-014]
 variant_id: null
-version: "0.1.0-draft"
-status: Not Researched  # cannot rise without Approved source + expert examples
+version: "0.2.0-provisional"
+status: Implemented
 safety_level: normal
 
 inputs:
-  - Jupiter sign/house
-  - Moon sign/house
-  - aspect/association definition set (must be cited)
+  - Moon whole-sign house from Asc
+  - Jupiter whole-sign house from Asc
+  - Sun longitude (for combust cancellation)
 
 preconditions:
-  - D1 chart snapshot present
-  - Parashara aspect definition variant selected
+  - Constructed chart with whole_sign angles and planet longitudes
 
 conditions:
-  - id: C1
-    assert: "Jupiter and Moon in kendra mutual relationship per selected definition"
-    # Exact kendra-from-each-other / Moon-kendra-from-Jupiter wording must be fixed by source
+  - id: C1_mutual_kendra
+    assert: Moon and Jupiter are in mutual whole-sign kendras (relative houses 1/4/7/10)
 
 exceptions:
-  - id: X1
-    name: cancellation_placeholder
-    assert: "Source-defined cancellation conditions"
+  - id: X1_jupiter_combust_provisional
+    when: Jupiter is within combustion orb of Sun
     outcome: cancelled
 
-modifiers:
-  - id: M1
-    when: participating planets weak by selected strength method
-    effect: reduce_confidence
-
 activation:
-  type: natal_potential_only
-  note: >
-    Remains natal context until timing engine activates participating
-    planets/houses (see controlling plan Phase 10 note). Do not emit
-    current-life event claims from formation alone.
+  type: natal_potential_until_period_activation
+  required_lords: [Moon, Jupiter]
+  note: Active only when a required lord is current Vimshottari maha or antar lord.
 
 output:
-  type: YogaEvidence
-  fields: [formed, cancelled, participants, houses, evidence_condition_ids]
+  type: RuleEvidence
 
 test_cases:
   - id: T-POS-Gaja-001
     kind: positive
-    status: Source Needed
   - id: T-NEG-Gaja-001
     kind: negative
-    status: Source Needed
   - id: T-CANCEL-Gaja-001
     kind: cancellation
-    status: Source Needed
   - id: T-ACT-Gaja-001
     kind: activation
-    status: Source Needed
 
 change_note: >
-  Illustrative sample demonstrating template fields and activation split.
-  Implementation is blocked until SRC-004 edition is Approved and
-  conditions are cited to chapter/verse/page.
+  Provisional product definition implemented for thin-slice engine validation.
+  Replace with Approved BPHS edition citation before Expert-Checked/Approved.
 ```
-
-**Stop condition engaged:** Source Needed for precise formation/cancellation text.

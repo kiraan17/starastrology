@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P09 — Timing platform (P09a Vimshottari done)**
+**P10 — Parashara thin slice (P10a done)**
 
-Vimshottari balance + nested periods integrated into `ChartConstructor` (`bhava360-kernel-0.4.0`). Next: aspects graph or Parashara thin slice.
+Provisional Gajakesari + Budha-Aditya with evidence and Vimshottari activation flags. Next: aspects graph or KP thin slice.
 
 ## Principles (short)
 

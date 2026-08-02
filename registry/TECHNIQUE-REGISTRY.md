@@ -54,11 +54,11 @@
 | TEC-034 | Annual dasha variants (Mudda/Patyayini/etc) | Annual | timing | normal | yes | partial | Not Researched | |
 | TEC-035 | Transit engine vs natal reference | Timing | timing | normal | yes | partial | Not Researched | |
 | TEC-036 | Parashara functional analysis core | Parashara | interpretation | normal | yes | partial | Not Researched | |
-| TEC-037 | Parashara yoga detection pack | Parashara | interpretation | normal | yes | partial | Not Researched | + cancellation/activation |
+| TEC-037 | Parashara yoga detection pack | Parashara | interpretation | normal | yes | partial | Implemented | P10a thin slice (2 provisional yogas); Source Needed for full catalogue |
 | TEC-038 | Parashara dosha and exception pack | Parashara | interpretation | normal | yes | partial | Not Researched | |
 | TEC-039 | Bhavat Bhavam | Parashara | interpretation | normal | yes | no | Not Researched | |
 | TEC-040 | Varga confirmation rules | Parashara | interpretation | normal | yes | no | Not Researched | |
-| TEC-041 | Dasha/transit activation model | Orchestration | orchestration | normal | yes | no | Not Researched | Natal vs current |
+| TEC-041 | Dasha/transit activation model | Orchestration | orchestration | normal | yes | no | Implemented | P10a maha/antar activation stub |
 | TEC-042 | KP configuration (New Ayanamsa + Placidus) | KP | calculation | normal | yes | partial | Not Researched | Do not reuse Lahiri chart |
 | TEC-043 | KP significator hierarchy | KP | interpretation | normal | yes | partial | Not Researched | |
 | TEC-044 | Cuspal sublord verdict engine | KP | interpretation | normal | yes | partial | Not Researched | |
