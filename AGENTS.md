@@ -67,4 +67,6 @@ Do not mark a technique `Approved` or `Frozen` without recorded human/expert rev
 
 ## Current programme constraint
 
-Phase 0 scaffolding is complete. Technique Registry exists as **provisional v0.2** (`registry/TECHNIQUE-REGISTRY.md`) awaiting product-owner confirmation of the official 96-item inventory. ADR-001 and ADR-002 are proposed. **Do not start calculation/kernel coding** until Phases 0–5 gates pass.
+Phases 0–5 **drafts** now exist (charter, provisional registry, ADRs, source register, data dictionary, rule standard, architecture context).  
+
+**Still blocked for coding:** calculation kernel and school engines until the Phase 0–5 approval package is signed (registry confirm, ADR-001/002, dictionary + rule standard review).
