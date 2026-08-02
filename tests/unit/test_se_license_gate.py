@@ -34,6 +34,8 @@ def test_assert_public_activation_blocked(monkeypatch):
 def test_public_api_surface_blocked():
     readiness = public_api_readiness()
     assert readiness["ready"] is False
+    assert readiness["freeze_candidate"]["public_api_eligible"] is False
+    assert readiness["blocked_reasons"]
     with pytest.raises(KernelError) as exc:
         enable_public_api_surface()
     assert exc.value.code == KernelErrorCode.LICENSE_GATE_BLOCKED

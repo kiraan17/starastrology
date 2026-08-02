@@ -199,6 +199,8 @@ async def health() -> dict[str, object]:
         "mode": "internal_verification_only",
         "public_api_ready": readiness["ready"],
         "license_gate": readiness["license_gate"],
+        "freeze_candidate": readiness.get("freeze_candidate"),
+        "blocked_reasons": readiness.get("blocked_reasons"),
     }
 
 

@@ -11,12 +11,14 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 5. [Technique registry](registry/TECHNIQUE-REGISTRY.md) *(blocked on 96-item inventory)*
 6. [Build plan using VedAstro as reference](docs/architecture/BUILD-PLAN-VEDASTRO-REFERENCE.md)
 7. [Initial backlog](backlog/INITIAL-BACKLOG.md)
+8. [Freeze candidate package](docs/status/FREEZE-CANDIDATE-v0.1.md)
+9. [Public API readiness](docs/api/PUBLIC-API-READINESS-v0.1.md)
 
 ## Current phase
 
-**P23a — Evidence/conflict orchestration done**
+**P24a — Freeze-candidate + public API readiness docs done**
 
-Multi-engine evidence collect/weight/conflict scaffold in engine `Orchestration` `0.1.0-evidence-scaffold` (schools never blended).
+Candidate packaging in `release/freeze-candidate-manifest-v0.1.json` (not Frozen; public API still blocked).
 
 
 ## Principles (short)

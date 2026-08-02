@@ -34,14 +34,15 @@ Ordered for the backend-first programme.
 | P22a | Lal Kitab Teva scaffold (TEC-090) | **Done** |
 | P22b | Birth-time rectification toolkit scaffold (TEC-095) | **Done** |
 | P23a | Evidence/conflict orchestration scaffold (TEC-096) | **Done** |
+| P24a | Freeze-candidate packaging + public-API readiness docs | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
-| ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
-| P24a | Expert validation / freeze packaging *or* public-API readiness docs (post-legal) |
+| SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
+| ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
+| P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
 
 ## Explicitly not started
 
