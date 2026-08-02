@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**Internal verification console (CONSOLE-01 done)**
+**P08b — Aspects & relationship graph done**
 
-Plain FastAPI console to inspect chart, Parashara, KP, and Ashtakavarga outputs. Run: `uvicorn console.app:app --app-dir .` then open `http://127.0.0.1:8000`.
+Graha aspects, Jaimini rashi drishti, conjunctions, dispositor chains in `ChartConstructor` (`bhava360-kernel-0.5.0`). Console shows relationship counts.
 
 ## Principles (short)
 

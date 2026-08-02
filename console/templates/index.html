@@ -128,9 +128,13 @@
   </table>
   {% endif %}
 
-  {% if report.summary.vimshottari_balance_lord %}
-  <h3>Vimshottari balance</h3>
-  <p>{{ report.summary.vimshottari_balance_lord }} — {{ '%.4f'|format(report.summary.vimshottari_balance_years) }} years remaining</p>
+  {% if report.summary.graha_aspect_count is defined %}
+  <h3>Relationships</h3>
+  <p>
+    Graha aspects: {{ report.summary.graha_aspect_count }} |
+    Conjunction groups: {{ report.summary.conjunction_count }} |
+    Graph edges: {{ report.summary.relationship_edge_count }}
+  </p>
   {% endif %}
 
   {% if report.summary.parashara_rules %}

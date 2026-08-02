@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from typing import Any
 from uuid import uuid4
 
+from bhava360.chart.aspects import build_relationship_graph
 from bhava360.chart.bhava import HouseMapping, map_rasi_vs_bhava
 from bhava360.chart.dignity import DignityResult, classify_dignity, sign_lord
 from bhava360.chart.vargas import DEFAULT_VARGAS, VargaId, compute_vargas
@@ -28,6 +29,7 @@ class ConstructedChart:
     house_mappings: list[dict[str, Any]]
     day_window: dict[str, Any] | None
     dashas: dict[str, Any] | None = None
+    relationships: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -43,6 +45,7 @@ class ConstructedChart:
             "house_mappings": self.house_mappings,
             "day_window": self.day_window,
             "dashas": self.dashas,
+            "relationships": self.relationships,
         }
 
 
@@ -51,7 +54,7 @@ class ChartConstructor:
 
     def __init__(self, config: ChartConfig | None = None) -> None:
         self.config = config or ChartConfig()
-        self.config.calc_library_version = "bhava360-kernel-0.4.0"
+        self.config.calc_library_version = "bhava360-kernel-0.5.0"
         self.provider = SwissEphemerisProvider(self.config)
 
     def build(
@@ -65,6 +68,7 @@ class ChartConstructor:
         include_vimshottari: bool = True,
         dasha_depth: DashaLevel = DashaLevel.ANTAR,
         dasha_years_ahead: float = 120.0,
+        include_relationships: bool = True,
     ) -> ConstructedChart:
         resolved = resolve_subject_time(subject)
         positions = self.provider.all_planet_positions(subject)
@@ -114,6 +118,11 @@ class ChartConstructor:
                 years_ahead=dasha_years_ahead,
             )
 
+        relationships = None
+        if include_relationships:
+            planet_signs = {p.planet.value: p.sign for p in positions}
+            relationships = build_relationship_graph(planet_signs)
+
         return ConstructedChart(
             chart_id=str(uuid4()),
             created_at_utc=datetime.now(timezone.utc).isoformat(),
@@ -134,6 +143,7 @@ class ChartConstructor:
                 "include_vimshottari": include_vimshottari,
                 "dasha_depth": dasha_depth.value,
                 "dasha_years_ahead": dasha_years_ahead,
+                "include_relationships": include_relationships,
             },
             resolved_time=resolved.to_dict(),
             library=self.provider.library_stamp(),
@@ -146,4 +156,5 @@ class ChartConstructor:
             house_mappings=[m.to_dict() for m in mappings],
             day_window=day_window,
             dashas=dashas,
+            relationships=relationships,
         )

@@ -122,6 +122,10 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         if chart.get("dashas"):
             summary["vimshottari_balance_lord"] = chart["dashas"]["balance"]["lord"]
             summary["vimshottari_balance_years"] = chart["dashas"]["balance"]["balance_years"]
+        if chart.get("relationships"):
+            summary["relationship_edge_count"] = len(chart["relationships"].get("edges", []))
+            summary["graha_aspect_count"] = len(chart["relationships"].get("graha_aspects", []))
+            summary["conjunction_count"] = len(chart["relationships"].get("conjunctions", []))
         planets = []
         for p in chart.get("planets", []):
             planets.append(

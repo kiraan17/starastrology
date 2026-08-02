@@ -35,9 +35,9 @@
 | TEC-015 | Divisional charts D1–D60 pack | Chart | calculation | normal | yes | yes | Auto-Tested | D30 approx noted; Source Needed for classical trimsamsa |
 | TEC-016 | Nadiamsa D150 with birth-time accuracy gate | Nadi | calculation | restricted | yes | no | Auto-Tested | Gate implemented |
 | TEC-017 | Combustion, retro, planetary war states | Chart | classification | normal | yes | partial | Implemented | Combustion candidate + retro from kernel; war TBD |
-| TEC-018 | Graha aspects | Chart | calculation | normal | yes | yes | Not Researched | |
-| TEC-019 | Rashi aspects | Jaimini | calculation | normal | yes | partial | Not Researched | |
-| TEC-020 | Dignity, ownership, dispositor graph | Chart | classification | normal | yes | yes | Implemented | Sign lord + dignity; full dispositor graph TBD |
+| TEC-018 | Graha aspects | Chart | calculation | normal | yes | yes | Auto-Tested | P08b whole-sign + special aspects |
+| TEC-019 | Rashi aspects | Jaimini | calculation | normal | yes | partial | Auto-Tested | P08b Jaimini rashi drishti (not Gemini) |
+| TEC-020 | Dignity, ownership, dispositor graph | Chart | classification | normal | yes | yes | Auto-Tested | P08b dispositor chains + graph edges |
 | TEC-021 | Natural/temporal/functional benefic-malefic | Classification | classification | normal | yes | partial | Not Researched | Threshold config |
 | TEC-022 | Exaltation, debilitation, own, moolatrikona, cancellation | Classification | classification | normal | yes | yes | Auto-Tested | Cancellation rules TBD |
 | TEC-023 | Shadbala (component pack) | Strength | calculation | normal | yes | yes | Not Researched | Split to 6 children later |
