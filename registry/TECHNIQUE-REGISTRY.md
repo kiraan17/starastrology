@@ -28,18 +28,18 @@
 | TEC-008 | Ascendant, MC and related angles | Kernel | calculation | normal | yes | partial | Auto-Tested | P07b |
 | TEC-009 | Sunrise, sunset, local day boundary | Kernel | calculation | normal | yes | partial | Auto-Tested | P07b disc-center; local civil date |
 | TEC-010 | Ephemeris run stamp (lib/files/mode/version) | Kernel | calculation | normal | no | no | Not Researched | Required every snapshot |
-| TEC-011 | Rasi (D1) chart construction | Chart | calculation | normal | yes | yes | Not Researched | |
-| TEC-012 | Bhava Chalit mapping | Chart | calculation | normal | yes | partial | Not Researched | |
+| TEC-011 | Rasi (D1) chart construction | Chart | calculation | normal | yes | yes | Auto-Tested | P08a |
+| TEC-012 | Bhava Chalit mapping | Chart | calculation | normal | yes | partial | Auto-Tested | Rasi vs Placidus cuspal compare |
 | TEC-013 | Nakshatra, pada, star lord | Chart | calculation | normal | yes | yes | Not Researched | |
 | TEC-014 | KP sublord and sub-sub lord | KP | calculation | normal | yes | partial | Not Researched | Needs KP ayanamsa |
-| TEC-015 | Divisional charts D1–D60 pack | Chart | calculation | normal | yes | yes | Not Researched | Decompose later |
-| TEC-016 | Nadiamsa D150 with birth-time accuracy gate | Nadi | calculation | restricted | yes | no | Not Researched | Gate mandatory |
-| TEC-017 | Combustion, retro, planetary war states | Chart | classification | normal | yes | partial | Not Researched | |
+| TEC-015 | Divisional charts D1–D60 pack | Chart | calculation | normal | yes | yes | Auto-Tested | D30 approx noted; Source Needed for classical trimsamsa |
+| TEC-016 | Nadiamsa D150 with birth-time accuracy gate | Nadi | calculation | restricted | yes | no | Auto-Tested | Gate implemented |
+| TEC-017 | Combustion, retro, planetary war states | Chart | classification | normal | yes | partial | Implemented | Combustion candidate + retro from kernel; war TBD |
 | TEC-018 | Graha aspects | Chart | calculation | normal | yes | yes | Not Researched | |
 | TEC-019 | Rashi aspects | Jaimini | calculation | normal | yes | partial | Not Researched | |
-| TEC-020 | Dignity, ownership, dispositor graph | Chart | classification | normal | yes | yes | Not Researched | |
+| TEC-020 | Dignity, ownership, dispositor graph | Chart | classification | normal | yes | yes | Implemented | Sign lord + dignity; full dispositor graph TBD |
 | TEC-021 | Natural/temporal/functional benefic-malefic | Classification | classification | normal | yes | partial | Not Researched | Threshold config |
-| TEC-022 | Exaltation, debilitation, own, moolatrikona, cancellation | Classification | classification | normal | yes | yes | Not Researched | |
+| TEC-022 | Exaltation, debilitation, own, moolatrikona, cancellation | Classification | classification | normal | yes | yes | Auto-Tested | Cancellation rules TBD |
 | TEC-023 | Shadbala (component pack) | Strength | calculation | normal | yes | yes | Not Researched | Split to 6 children later |
 | TEC-024 | Bhava Bala | Strength | calculation | normal | yes | partial | Not Researched | |
 | TEC-025 | Vimshopaka Bala | Strength | calculation | normal | yes | partial | Not Researched | |
