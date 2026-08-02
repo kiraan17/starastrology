@@ -31,7 +31,7 @@ bhava360-console = "bhava360.console.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-bhava360 = ["licensing/*.json"]
+bhava360 = ["licensing/*.json", "engines/nadi/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

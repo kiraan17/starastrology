@@ -7,6 +7,7 @@ from bhava360.chart.builder import ChartConstructor
 from bhava360.engines.ashtakavarga import run_ashtakavarga_engine
 from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
+from bhava360.engines.nadi import run_nakshatra_nadi_engine
 from bhava360.engines.parashara import run_parashara_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 
@@ -89,7 +90,7 @@ def run_verification(
 
     chart = None
     needs_chart = any(
-        e in selected for e in ("chart", "parashara", "ashtakavarga", "jaimini")
+        e in selected for e in ("chart", "parashara", "ashtakavarga", "jaimini", "nadi")
     )
     if needs_chart:
         try:
@@ -124,6 +125,17 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "jaimini", "error": str(exc)})
+
+    if "nadi" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Nakshatra Nadi")
+            report["sections"]["nadi"] = run_nakshatra_nadi_engine(
+                chart=chart,
+                attempt_chains=True,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "nadi", "error": str(exc)})
 
     if "kp" in selected:
         try:
@@ -227,4 +239,11 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["jaimini_karakamsa"] = (
             jaimini.get("karakamsa_swamsa", {}).get("karakamsa", {}).get("sign")
         )
+
+    nadi = report["sections"].get("nadi")
+    if nadi:
+        summary["nadi_engine"] = nadi.get("engine")
+        summary["nadi_corpus_status"] = (nadi.get("corpus_gate") or {}).get("corpus_status")
+        summary["nadi_planet_in_star_count"] = len(nadi.get("planet_in_star") or [])
+        summary["nadi_chains_blocked"] = nadi.get("chain_error") is not None
     return summary

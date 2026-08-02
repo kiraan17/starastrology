@@ -14,9 +14,10 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**ADR-002-PUBLIC — license gate enforced**
+**P13 — Nakshatra Nadi scaffold (corpus-gated)**
 
-Public API activation is code-blocked (`LICENSE_GATE_BLOCKED`) until Path L1/L2 evidence is filed and `adr002_public_status.json` is flipped under review. Internal verification console remains authorised for private/dev.
+Planet-in-star facts available; interpretive chains raise `CORPUS_GATE_BLOCKED` until SRC-009 is Approved. No Nadi rules were invented.
+
 
 ## Principles (short)
 

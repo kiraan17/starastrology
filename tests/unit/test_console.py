@@ -128,6 +128,28 @@ def test_api_verify_iana_timezone():
     assert body["summary"]["resolved_offset_minutes"] == 330
 
 
+def test_api_verify_nadi_scaffold():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["nadi"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["nadi_engine"] == "NakshatraNadi"
+    assert body["summary"]["nadi_corpus_status"] == "blocked"
+    assert body["summary"]["nadi_chains_blocked"] is True
+    assert body["summary"]["nadi_planet_in_star_count"] >= 9
+
+
 def test_run_verification_service_direct():
     subject = parse_subject(
         date_str="1990-08-15",

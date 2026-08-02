@@ -71,8 +71,8 @@
 | TEC-051 | Trikona and Ekadhipatya Shodhana | Ashtakavarga | calculation | normal | yes | yes | Auto-Tested | P12b raman_candidate_v1; SAV Mandala included |
 | TEC-052 | Sodhya Pinda | Ashtakavarga | calculation | normal | yes | yes | Auto-Tested | P12b Rasi+Graha gunakara; longevity conversion deferred |
 | TEC-053 | Kakshya scoring and transit contribution | Ashtakavarga | timing | normal | yes | no | Implemented | P12a kakshya labels + natal sign scores; full transit scorer TBD |
-| TEC-054 | Nakshatra Nadi chain engine | NakshatraNadi | interpretation | normal | yes | no | Not Researched | Approved corpus required |
-| TEC-055 | Nakshatra Nadi event triggers | NakshatraNadi | interpretation | normal | yes | no | Not Researched | |
+| TEC-054 | Nakshatra Nadi chain engine | NakshatraNadi | interpretation | normal | yes | no | Implemented | P13 scaffold; CORPUS_GATE_BLOCKED until SRC-009 Approved |
+| TEC-055 | Nakshatra Nadi event triggers | NakshatraNadi | interpretation | normal | yes | no | Implemented | P13 scaffold gated with TEC-054 |
 | TEC-056 | Bhrigu Nandi Nadi | BhriguNandiNadi | interpretation | normal | yes | no | Not Researched | Separate module |
 | TEC-057 | Jupiter progression rules (approved set) | BhriguNandiNadi | timing | normal | yes | no | Not Researched | |
 | TEC-058 | Chandra Kala Nadi / Deva Keralam corpus | ChandraKalaNadi | interpretation | normal | yes | no | Not Researched | |

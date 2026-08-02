@@ -14,12 +14,15 @@ Ordered for the backend-first programme.
 | P12b | Ashtakavarga Shodhana / Sodhya Pinda | **Done** |
 | P07c | IANA timezone/DST history | **Done** |
 | ADR-002-PUBLIC | SE license public-activation gate + evidence package | **Done** (still blocked pending real L1/L2 filing) |
+| P13 | Nakshatra Nadi corpus-gated scaffold | **Done** (chains blocked until SRC-009 Approved) |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P13 | Nakshatra Nadi (blocked on approved corpus) |
+| P12c | Prastara Ashtakavarga (TEC-050) |
+| P16a | Panchanga core (TEC-070+) |
+| SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 
 ## Explicitly not started

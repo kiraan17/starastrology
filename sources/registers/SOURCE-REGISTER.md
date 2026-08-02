@@ -13,7 +13,7 @@
 | SRC-006 | KP Reader / KP system references (selected) | K.S. Krishnamurti tradition | classical_text | KP | Candidate | TEC-014,042..047 | Specific book list TBD |
 | SRC-007 | Jaimini Sutras and approved commentaries | Jaimini tradition | classical_text | Jaimini | Candidate | TEC-019,028,033,066..069 | Never label engine Gemini; P15 thin slice uses Candidate rules |
 | SRC-008 | Ashtakavarga classical/modern calculation refs | TBD | classical_text | Ashtakavarga | Candidate | TEC-048..053 | Bindus must be reconstructible |
-| SRC-009 | Nakshatra Nadi approved course/corpus | TBD | modern_author | NakshatraNadi | Candidate | TEC-054..055 | No implementation without corpus ID |
+| SRC-009 | Nakshatra Nadi approved course/corpus | TBD | modern_author | NakshatraNadi | Candidate | TEC-054..055 | P13 scaffold shipped; interpretive chains CORPUS_GATE_BLOCKED until Approved |
 | SRC-010 | Bhrigu Nandi Nadi references | TBD | classical_text | BhriguNandiNadi | Candidate | TEC-056..057 | Separate module |
 | SRC-011 | Prashna Marga | Traditional | classical_text | Prashna | Candidate | TEC-086 | Manual vs calc boundaries TBD |
 | SRC-012 | Tajika / Varshaphal references | TBD | classical_text | Tajika,Annual | Candidate | TEC-077..078 | Annual location rule needed |

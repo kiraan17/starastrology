@@ -10,3 +10,4 @@
 | EPHEMERIS_UNAVAILABLE | 503 | Reserved when SE files missing in file mode |
 | CALCULATION_FAILED | 500 | Unexpected Swiss Ephemeris failure |
 | LICENSE_GATE_BLOCKED | 403 | Public API/customer activation blocked by ADR-002 until L1/L2 evidence |
+| CORPUS_GATE_BLOCKED | 403 | Interpretive engine blocked until Approved corpus/source is filed |
