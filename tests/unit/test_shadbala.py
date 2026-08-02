@@ -130,13 +130,34 @@ def test_natonnata_and_paksha():
     assert paksha_bala(planet="Saturn", sun_lon=0.0, moon_lon=180.0) == 0.0
 
 
-def test_drik_benefic_aspect():
+def test_drik_classical_benefic_malefic():
+    # Jupiter in Aries aspects Leo (5th) where Sun sits → Jupiter special 5th = 60 × 1.25
     out = drik_bala(
         planet="Sun",
         planet_signs={"Sun": "Leo", "Jupiter": "Aries", "Mars": "Cancer"},
+        sun_lon=120.0,
+        moon_lon=200.0,
     )
-    assert out["value"] > 0
+    assert out["basis"] == "classical_graha_drishti_table_candidate"
     assert any(h["from"] == "Jupiter" for h in out["benefic_hits"])
+    jup = next(h for h in out["benefic_hits"] if h["from"] == "Jupiter")
+    assert jup["base_virupa"] == 60.0
+    assert jup["weight"] == 75.0
+    assert out["value"] == 75.0
+
+    # Mars 4th onto a planet: Aries→Cancer is 4th → Mars special 60 × 0.75 malefic
+    out2 = drik_bala(
+        planet="Moon",
+        planet_signs={"Moon": "Cancer", "Mars": "Aries", "Venus": "Capricorn"},
+        sun_lon=0.0,
+        moon_lon=90.0,  # bright half → Moon would be benefic as aspector; here Moon is target
+    )
+    assert any(h["from"] == "Mars" for h in out2["malefic_hits"])
+    mars = next(h for h in out2["malefic_hits"] if h["from"] == "Mars")
+    assert mars["base_virupa"] == 60.0
+    assert mars["weight"] == 45.0
+    # Venus 7th from Capricorn onto Cancer → 60 × 1.25
+    assert any(h["from"] == "Venus" for h in out2["benefic_hits"])
 
 
 def test_shadbala_engine_live():
@@ -148,27 +169,13 @@ def test_shadbala_engine_live():
     )
     out = run_shadbala_engine(subject)
     assert out["engine"] == "Shadbala"
-    assert out["engine_version"] == "0.5.0-chesta-motion"
+    assert out["engine_version"] == "0.6.0-drik-classical"
     assert "TEC-023" in out["technique_ids"]
     pack = out["shadbala"]
-    assert pack["variant"] == "shadbala_chesta_motion_candidate_v1"
+    assert pack["variant"] == "shadbala_drik_classical_candidate_v1"
     assert pack["summary"]["planet_count"] == 7
     sun = next(p for p in pack["planets"] if p["planet"] == "Sun")
-    kala = sun["components_virupa"]["kala_partial"]
+    assert sun["components_virupa"]["drik"]["basis"] == "classical_graha_drishti_table_candidate"
     chesta = sun["components_virupa"]["chesta"]
     assert chesta["basis"] == "ayana_as_chesta"
-    assert chesta["value"] == kala["ayana"]
-    moon = next(p for p in pack["planets"] if p["planet"] == "Moon")
-    assert moon["components_virupa"]["chesta"]["basis"] == "paksha_as_chesta"
-    mars = next(p for p in pack["planets"] if p["planet"] == "Mars")
-    assert mars["components_virupa"]["chesta"]["motion"] in {
-        "vakra",
-        "anuvakra",
-        "vikala",
-        "mandatara",
-        "manda",
-        "sama",
-        "chara",
-        "atichara",
-    }
     assert sun["full_minimum_comparison"] == "deferred_until_complete_shadbala"

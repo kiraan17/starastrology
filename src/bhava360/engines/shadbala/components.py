@@ -19,7 +19,7 @@ from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_chesta_motion_candidate_v1"
+SHADBALA_VARIANT = "shadbala_drik_classical_candidate_v1"
 
 CLASSICAL_PLANETS: tuple[str, ...] = (
     "Sun",
@@ -608,26 +608,75 @@ def chesta_bala(
         "speed_ratio_vs_mean": round(ratio, 6),
     }
 
-def _aspect_weight(matched_house: int) -> float:
-    # 7th full; special aspects slightly weaker (Candidate).
+def _base_aspect_virupa(*, aspector: str, matched_house: int) -> float:
+    """
+    Classical Graha-Drishti strength table (Saravali / BPHS overview).
+
+    7th = 60; 4th/8th = 45 (Mars special 60); 5th/9th = 30 (Jupiter 60);
+    3rd/10th = 15 (Saturn 60).
+    """
     if matched_house == 7:
-        return 15.0
-    return 10.0
+        return 60.0
+    if matched_house in {4, 8}:
+        return 60.0 if aspector == "Mars" else 45.0
+    if matched_house in {5, 9}:
+        return 60.0 if aspector == "Jupiter" else 30.0
+    if matched_house in {3, 10}:
+        return 60.0 if aspector == "Saturn" else 15.0
+    return 0.0
+
+
+def _drik_is_benefic(
+    aspector: str,
+    *,
+    sun_lon: float,
+    moon_lon: float,
+    planet_signs: dict[str, str],
+) -> bool:
+    """Benefic/malefic for Drig Bala (Saravali Candidate)."""
+    if aspector in {"Jupiter", "Venus"}:
+        return True
+    if aspector in {"Sun", "Mars", "Saturn"}:
+        return False
+    if aspector == "Moon":
+        # Bright half → benefic.
+        elong = lunar_elongation_deg(sun_lon, moon_lon)
+        return elong <= 180.0
+    if aspector == "Mercury":
+        # Malefic if in same sign as a natural malefic (nodes deferred).
+        m_sign = planet_signs.get("Mercury")
+        if not m_sign:
+            return True
+        for mal in ("Sun", "Mars", "Saturn"):
+            if planet_signs.get(mal) == m_sign:
+                return False
+        return True
+    return False
 
 
 def drik_bala(
     *,
     planet: str,
     planet_signs: dict[str, str],
+    sun_lon: float = 0.0,
+    moon_lon: float = 0.0,
 ) -> dict[str, Any]:
     """
-    Aspectual net from whole-sign graha aspects onto `planet` (Candidate).
+    Classical Drig Bala (Candidate).
 
-    Benefic aspectors add weight; malefic aspectors subtract. Clamped ±60.
+    Whole-sign Graha aspects with classical strength table, then
+    benefic ×1.25 (add) / malefic ×0.75 (subtract). Not clamped.
+    Sphuta (degree-based) continuous table deferred.
     """
     target_sign = planet_signs.get(planet)
     if not target_sign:
-        return {"value": 0.0, "benefic_hits": [], "malefic_hits": [], "raw": 0.0}
+        return {
+            "value": 0.0,
+            "benefic_hits": [],
+            "malefic_hits": [],
+            "raw": 0.0,
+            "basis": "classical_graha_drishti_table_candidate",
+        }
 
     benefic_hits: list[dict[str, Any]] = []
     malefic_hits: list[dict[str, Any]] = []
@@ -641,23 +690,44 @@ def drik_bala(
         rel = relative_house(from_sign, target_sign)
         if rel not in houses:
             continue
-        w = _aspect_weight(rel)
-        hit = {"from": other, "matched_house": rel, "weight": w}
-        if other in NATURAL_BENEFICS:
-            raw += w
-            benefic_hits.append(hit)
-        elif other in NATURAL_MALEFICS:
-            raw -= w
-            malefic_hits.append(hit)
-    clamped = max(-60.0, min(60.0, raw))
+        base = _base_aspect_virupa(aspector=other, matched_house=rel)
+        if base <= 0:
+            continue
+        benefic = _drik_is_benefic(
+            other, sun_lon=sun_lon, moon_lon=moon_lon, planet_signs=planet_signs
+        )
+        if benefic:
+            weight = base * 1.25
+            raw += weight
+            benefic_hits.append(
+                {
+                    "from": other,
+                    "matched_house": rel,
+                    "base_virupa": base,
+                    "factor": 1.25,
+                    "weight": round(weight, 6),
+                }
+            )
+        else:
+            weight = base * 0.75
+            raw -= weight
+            malefic_hits.append(
+                {
+                    "from": other,
+                    "matched_house": rel,
+                    "base_virupa": base,
+                    "factor": 0.75,
+                    "weight": round(weight, 6),
+                }
+            )
     return {
-        "value": round(clamped, 6),
+        "value": round(raw, 6),
         "raw": round(raw, 6),
         "benefic_hits": benefic_hits,
         "malefic_hits": malefic_hits,
-        "basis": "whole_sign_graha_aspect_net_candidate",
+        "basis": "classical_graha_drishti_table_candidate",
+        "deferred": ["sphuta_drishti_continuous"],
     }
-
 
 def compute_planet_shadbala_partial(
     *,
@@ -728,7 +798,12 @@ def compute_planet_shadbala_partial(
         ayana_value=float(kala["ayana"]) if planet == "Sun" else None,
         paksha_value=float(kala["paksha"]) if planet == "Moon" else None,
     )
-    drik = drik_bala(planet=planet, planet_signs=planet_signs)
+    drik = drik_bala(
+        planet=planet,
+        planet_signs=planet_signs,
+        sun_lon=sun_lon,
+        moon_lon=moon_lon,
+    )
 
     components = {
         "naisargika": round(nais, 6),
@@ -784,13 +859,13 @@ def compute_planet_shadbala_partial(
             "kala.ayana",
             "kala.yuddha",
             "chesta.saravali_motion",
-            "drik.thin",
+            "drik.classical_graha_table",
         ],
         "deferred_components": [
             "saptavargaja.adhi_mitra_satru",
             "kala.abda_masa_hora_at_sankranti",
             "chesta.seeghra_kendra",
-            "drik.classical_drishti_strength_tables",
+            "drik.sphuta_continuous",
         ],
     }
 
@@ -976,7 +1051,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "deferred_component_families": [
                 "kala_abda_masa_hora_at_sankranti",
                 "chesta_seeghra_kendra",
-                "drik_classical_tables",
+                "drik_sphuta_continuous",
                 "saptavargaja_adhi_mitra",
             ],
         },
@@ -986,8 +1061,8 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
             "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa/Vara/Hora + Ayana + Yuddha.",
             "Chesta: Sun=Ayana, Moon=Paksha, others Saravali 8-fold speed bands.",
-            "Seeghra-kendra Chesta alternate deferred.",
-            "Drik thin: whole-sign graha aspect net (±60 clamp).",
+            "Drik: classical Graha-Drishti table + 1.25/0.75 benefic/malefic factors.",
+            "Sphuta continuous Drishti deferred.",
         ],
     }
 

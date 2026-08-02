@@ -223,11 +223,11 @@
     {
       "engine": "Shadbala",
       "module": "bhava360.engines.shadbala",
-      "engine_version": "0.5.0-chesta-motion",
+      "engine_version": "0.6.0-drik-classical",
       "technique_ids": ["TEC-023"],
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
-      "notes": "Candidate Sthana+Kala+Chesta Saravali; Seeghra-kendra + classical Drik deferred"
+      "notes": "Candidate Sthana+Kala+Chesta+classical Drik; Sphuta continuous deferred"
     },
     {
       "engine": "BhavaBala",

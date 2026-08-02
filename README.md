@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P30b — Shadbala Chesta motion done**
+**P31a — Shadbala classical Drik done**
 
-Engine `Shadbala` `0.5.0-chesta-motion` (TEC-023): Sun=Ayana, Moon=Paksha, others Saravali 8-fold speed bands.
+Engine `Shadbala` `0.6.0-drik-classical` (TEC-023): Graha-Drishti strength table + 1.25/0.75 benefic/malefic factors.
 
 
 ## Principles (short)
