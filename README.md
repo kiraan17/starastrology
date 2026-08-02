@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P12 — Ashtakavarga thin slice (P12a done)**
+**Internal verification console (CONSOLE-01 done)**
 
-BAV/SAV with reconstructable bindu contributors (total 337) and kakshya labels. Next: aspects graph, Nadi corpus work, or internal verification console.
+Plain FastAPI console to inspect chart, Parashara, KP, and Ashtakavarga outputs. Run: `uvicorn console.app:app --app-dir .` then open `http://127.0.0.1:8000`.
 
 ## Principles (short)
 
