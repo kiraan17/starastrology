@@ -11,7 +11,7 @@
 | SRC-004 | Brihat Parashara Hora Shastra | Parashara tradition | classical_text | Parashara | Candidate | TEC-036..040 | Exact edition/translator TBD by reviewer |
 | SRC-005 | B.V. Raman published works (selected) | B.V. Raman | modern_author | Parashara,Strength,Timing | Candidate | TEC-023..025,029 | Useful modern exposition; variant decisions required |
 | SRC-006 | KP Reader / KP system references (selected) | K.S. Krishnamurti tradition | classical_text | KP | Candidate | TEC-014,042..047 | Specific book list TBD |
-| SRC-007 | Jaimini Sutras and approved commentaries | Jaimini tradition | classical_text | Jaimini | Candidate | TEC-019,028,033,066..069 | Never label engine Gemini |
+| SRC-007 | Jaimini Sutras and approved commentaries | Jaimini tradition | classical_text | Jaimini | Candidate | TEC-019,028,033,066..069 | Never label engine Gemini; P15 thin slice uses Candidate rules |
 | SRC-008 | Ashtakavarga classical/modern calculation refs | TBD | classical_text | Ashtakavarga | Candidate | TEC-048..053 | Bindus must be reconstructible |
 | SRC-009 | Nakshatra Nadi approved course/corpus | TBD | modern_author | NakshatraNadi | Candidate | TEC-054..055 | No implementation without corpus ID |
 | SRC-010 | Bhrigu Nandi Nadi references | TBD | classical_text | BhriguNandiNadi | Candidate | TEC-056..057 | Separate module |

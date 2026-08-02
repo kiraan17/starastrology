@@ -34,6 +34,7 @@ DEFAULT_FORM = {
     "ayanamsa": "lahiri",
     "house_system": "whole_sign",
     "engines": ["chart", "parashara", "ashtakavarga"],
+    "jaimini_chara_scheme": "seven",
 }
 
 
@@ -59,6 +60,7 @@ async def verify(
     ayanamsa: str = Form("lahiri"),
     house_system: str = Form("whole_sign"),
     engines: list[str] = Form(default=[]),
+    jaimini_chara_scheme: str = Form("seven"),
 ) -> HTMLResponse:
     global _LAST_REPORT
     form = {
@@ -72,6 +74,7 @@ async def verify(
         "ayanamsa": ayanamsa,
         "house_system": house_system,
         "engines": engines or ["chart"],
+        "jaimini_chara_scheme": jaimini_chara_scheme,
     }
     uncertainty_val = float(uncertainty) if uncertainty.strip() else None
     subject = parse_subject(
@@ -88,6 +91,7 @@ async def verify(
         ayanamsa=ayanamsa,
         house_system=house_system,
         engines=form["engines"],
+        jaimini_chara_scheme=jaimini_chara_scheme,
     )
     _LAST_REPORT = report
     return templates.TemplateResponse(
@@ -135,6 +139,7 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
         ayanamsa=payload.get("ayanamsa", "lahiri"),
         house_system=payload.get("house_system", "whole_sign"),
         engines=payload.get("engines"),
+        jaimini_chara_scheme=payload.get("jaimini_chara_scheme", "seven"),
     )
     _LAST_REPORT = report
     return JSONResponse(report)

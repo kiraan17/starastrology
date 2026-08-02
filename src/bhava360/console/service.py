@@ -5,6 +5,7 @@ from typing import Any
 
 from bhava360.chart.builder import ChartConstructor
 from bhava360.engines.ashtakavarga import run_ashtakavarga_engine
+from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.parashara import run_parashara_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
@@ -53,6 +54,7 @@ def run_verification(
     ayanamsa: str = "lahiri",
     house_system: str = "whole_sign",
     engines: list[str] | None = None,
+    jaimini_chara_scheme: str = "seven",
 ) -> dict[str, Any]:
     """Run selected verification engines and return a structured report."""
     selected = engines or ["chart", "parashara", "ashtakavarga"]
@@ -70,13 +72,17 @@ def run_verification(
             "ayanamsa": ayanamsa,
             "house_system": house_system,
             "engines": selected,
+            "jaimini_chara_scheme": jaimini_chara_scheme,
         },
         "sections": {},
         "errors": [],
     }
 
     chart = None
-    if "chart" in selected or "parashara" in selected or "ashtakavarga" in selected:
+    needs_chart = any(
+        e in selected for e in ("chart", "parashara", "ashtakavarga", "jaimini")
+    )
+    if needs_chart:
         try:
             chart = ChartConstructor(config).build(subject).to_dict()
             report["sections"]["chart"] = chart
@@ -98,6 +104,17 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "ashtakavarga", "error": str(exc)})
+
+    if "jaimini" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Jaimini")
+            report["sections"]["jaimini"] = run_jaimini_engine(
+                chart=chart,
+                chara_karaka_scheme=jaimini_chara_scheme,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "jaimini", "error": str(exc)})
 
     if "kp" in selected:
         try:
@@ -173,4 +190,18 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
             "sub": sun.get("sub_lord"),
             "sub_sub": sun.get("sub_sub_lord"),
         }
+
+    jaimini = report["sections"].get("jaimini")
+    if jaimini:
+        ak = jaimini.get("chara_karakas", {}).get("atmakaraka", {})
+        a1 = jaimini.get("arudha", {}).get("arudha_lagna", {})
+        summary["jaimini_engine"] = jaimini.get("engine")
+        summary["jaimini_chara_scheme"] = jaimini.get("config", {}).get(
+            "jaimini.chara_karaka.scheme"
+        )
+        summary["jaimini_atmakaraka"] = ak.get("planet")
+        summary["jaimini_arudha_lagna"] = a1.get("arudha_sign")
+        summary["jaimini_karakamsa"] = (
+            jaimini.get("karakamsa_swamsa", {}).get("karakamsa", {}).get("sign")
+        )
     return summary

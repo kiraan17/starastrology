@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P08b — Aspects & relationship graph done**
+**P15 — Jaimini thin slice done**
 
-Graha aspects, Jaimini rashi drishti, conjunctions, dispositor chains in `ChartConstructor` (`bhava360-kernel-0.5.0`). Console shows relationship counts.
+Chara Karakas (7/8), Arudha A1–A12, Karakamsa/Swamsa, Argala sketch in `bhava360.engines.jaimini`. Console checkbox + scheme select. Engine labeled **Jaimini** only (never Gemini).
 
 ## Principles (short)
 

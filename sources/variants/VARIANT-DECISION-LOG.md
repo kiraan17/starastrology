@@ -28,7 +28,7 @@ Notes:
 - **Option B:** Eight karakas
 - **Decision:** deferred — both must be configurable; default unset until expert approval
 - **Engine config key:** `jaimini.chara_karaka.scheme`
-- **Notes:** Do not hardcode a silent default in production verdicts
+- **Notes:** Do not hardcode a silent default in production verdicts. Verification console may pass an explicit `seven` or `eight` for operator convenience; every result stamps the chosen scheme.
 
 ### VARIANT-002 — Annual chart location
 

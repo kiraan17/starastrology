@@ -69,7 +69,14 @@
       <label><input type="checkbox" name="engines" value="parashara" {% if 'parashara' in form.engines %}checked{% endif %} /> parashara</label>
       <label><input type="checkbox" name="engines" value="ashtakavarga" {% if 'ashtakavarga' in form.engines %}checked{% endif %} /> ashtakavarga</label>
       <label><input type="checkbox" name="engines" value="kp" {% if 'kp' in form.engines %}checked{% endif %} /> kp</label>
+      <label><input type="checkbox" name="engines" value="jaimini" {% if 'jaimini' in form.engines %}checked{% endif %} /> jaimini</label>
     </div>
+    <label>Jaimini Chara Karaka scheme (VARIANT-001)
+      <select name="jaimini_chara_scheme">
+        <option value="seven" {% if form.jaimini_chara_scheme == 'seven' %}selected{% endif %}>seven</option>
+        <option value="eight" {% if form.jaimini_chara_scheme == 'eight' %}selected{% endif %}>eight</option>
+      </select>
+    </label>
     <button type="submit">Run verification</button>
   </form>
 
@@ -170,6 +177,17 @@
     {{ report.summary.kp_sun_lords.star }} /
     {{ report.summary.kp_sun_lords.sub }} /
     {{ report.summary.kp_sun_lords.sub_sub }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.jaimini_atmakaraka %}
+  <h3>Jaimini</h3>
+  <p>
+    Engine: {{ report.summary.jaimini_engine }} |
+    Scheme: {{ report.summary.jaimini_chara_scheme }} |
+    Atmakaraka: {{ report.summary.jaimini_atmakaraka }} |
+    Arudha Lagna: {{ report.summary.jaimini_arudha_lagna }} |
+    Karakamsa: {{ report.summary.jaimini_karakamsa }}
   </p>
   {% endif %}
 

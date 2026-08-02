@@ -45,7 +45,7 @@
 | TEC-025 | Vimshopaka Bala | Strength | calculation | normal | yes | partial | Not Researched | |
 | TEC-026 | Argala and Virodha Argala | Strength | calculation | normal | yes | partial | Not Researched | |
 | TEC-027 | Natural karakas | Classification | classification | normal | yes | partial | Not Researched | |
-| TEC-028 | Chara Karakas (7/8 config) | Jaimini | classification | normal | yes | partial | Not Researched | Variant config |
+| TEC-028 | Chara Karakas (7/8 config) | Jaimini | classification | normal | yes | yes | Auto-Tested | P15 VARIANT-001 seven|eight; never Gemini |
 | TEC-029 | Vimshottari dasha full depth | Timing | timing | normal | yes | yes | Auto-Tested | P09a Maha→Prana capable; mean year 365.2425d |
 | TEC-030 | Conditional dasha eligibility pack | Timing | timing | normal | yes | partial | Not Researched | |
 | TEC-031 | Yogini dasha | Timing | timing | normal | yes | partial | Not Researched | |
@@ -83,9 +83,9 @@
 | TEC-063 | Saptarishi Nadi (if source exists) | NadiOther | interpretation | normal | yes | no | Not Researched | Source gate |
 | TEC-064 | Bhrigu Samhita-style pattern library | NadiOther | lookup | research_only | yes | no | Not Researched | Explicit reconstruction only |
 | TEC-065 | Palm-leaf manuscript Nadi | NadiOther | manual_input | prohibited_user_facing | yes | no | Not Researched | Not algorithmic claim |
-| TEC-066 | Karakamsa and Swamsa | Jaimini | calculation | normal | yes | partial | Not Researched | |
-| TEC-067 | Arudha Lagna A1–A12 | Jaimini | calculation | normal | yes | partial | Not Researched | |
-| TEC-068 | Jaimini argala | Jaimini | calculation | normal | yes | partial | Not Researched | |
+| TEC-066 | Karakamsa and Swamsa | Jaimini | calculation | normal | yes | yes | Auto-Tested | P15 AK D9 + Asc D9 |
+| TEC-067 | Arudha Lagna A1–A12 | Jaimini | calculation | normal | yes | yes | Auto-Tested | P15 whole-sign + exception |
+| TEC-068 | Jaimini argala | Jaimini | calculation | normal | yes | partial | Auto-Tested | P15 sign sketch from AL; intervention TBD |
 | TEC-069 | Jaimini event interpretation pack | Jaimini | interpretation | normal | yes | no | Not Researched | Never label Gemini |
 | TEC-070 | Panchanga core (Tithi/Vara/Nakshatra/Yoga/Karana) | Panchanga | timing | normal | yes | yes | Not Researched | |
 | TEC-071 | Rahu Kala, Yamaganda, Gulika, Abhijit | Panchanga | timing | normal | yes | partial | Not Researched | |

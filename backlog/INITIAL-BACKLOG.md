@@ -10,6 +10,7 @@ Ordered for the backend-first programme.
 | P07–P12 | Kernel, chart, dasha, Parashara/KP/Ashtakavarga | Done |
 | CONSOLE-01 | Internal verification console | Done |
 | P08b | Graha/rashi aspects + relationship/dispositor graph | **Done** |
+| P15 | Jaimini engine thin slice (karakas/arudha/karakamsa/argala) | **Done** |
 
 ## Next
 
@@ -17,7 +18,6 @@ Ordered for the backend-first programme.
 |---|---|
 | P12b | Ashtakavarga Shodhana / Sodhya Pinda |
 | P13 | Nakshatra Nadi (blocked on approved corpus) |
-| P15 | Jaimini engine thin slice (karakas/arudha) |
 | P07c | IANA timezone/DST history |
 | ADR-002-PUBLIC | SE license evidence before public API |
 

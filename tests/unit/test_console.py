@@ -78,6 +78,30 @@ def test_form_verify_includes_kp():
     assert "Config isolation" in res.text
 
 
+def test_api_verify_jaimini():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "offset": "+05:30",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "ayanamsa": "lahiri",
+            "house_system": "whole_sign",
+            "engines": ["jaimini"],
+            "jaimini_chara_scheme": "seven",
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["jaimini_engine"] == "Jaimini"
+    assert body["summary"]["jaimini_atmakaraka"]
+    assert "Gemini" not in body["sections"]["jaimini"]["engine"]
+
+
 def test_run_verification_service_direct():
     subject = parse_subject(
         date_str="1990-08-15",
