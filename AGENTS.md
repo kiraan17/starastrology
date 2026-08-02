@@ -67,6 +67,8 @@ Do not mark a technique `Approved` or `Frozen` without recorded human/expert rev
 
 ## Current programme constraint
 
-Phases 0–5 **drafts** now exist (charter, provisional registry, ADRs, source register, data dictionary, rule standard, architecture context).  
+Phase 0–5 package is **Approved** (2026-08-02). Calculation kernel coding is authorised for private/dev.
 
-**Still blocked for coding:** calculation kernel and school engines until the Phase 0–5 approval package is signed (registry confirm, ADR-001/002, dictionary + rule standard review).
+Public API/customer activation remains blocked until ADR-002 Path L1 or L2 evidence is filed.
+
+School engines remain out of scope until their sources are Approved and rule specs pass review.

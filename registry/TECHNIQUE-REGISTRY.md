@@ -20,7 +20,7 @@
 |---|---|---|---|---|---|---|---|---|
 | TEC-001 | Local datetime, timezone, DST, Julian day | Kernel | calculation | normal | yes | partial | Not Researched | Foundation |
 | TEC-002 | Geolocation and coordinate validation | Kernel | calculation | normal | no | yes | Not Researched | |
-| TEC-003 | Planetary longitudes, speed, retrograde | Kernel | calculation | normal | yes | yes | Not Researched | Swiss Ephemeris |
+| TEC-003 | Planetary longitudes, speed, retrograde | Kernel | calculation | normal | yes | yes | Auto-Tested | P07a Moshier/Lahiri; SPIKE-01 golden |
 | TEC-004 | Lunar position and phases support data | Kernel | calculation | normal | yes | yes | Not Researched | |
 | TEC-005 | Rahu/Ketu node modes | Kernel | calculation | normal | yes | yes | Not Researched | mean/true config |
 | TEC-006 | Sidereal conversion and ayanamsa set | Kernel | calculation | normal | yes | yes | Not Researched | Lahiri/KP/etc |

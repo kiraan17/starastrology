@@ -1,44 +1,25 @@
 # ADR-002: Swiss Ephemeris Licensing Path
 
-- **Status:** Proposed (must be resolved before public activation)
+- **Status:** Accepted (conditional)
 - **Date:** 2026-08-02
+- **Accepted on:** 2026-08-02 for private/dev programme continuation
 - **Phase:** 3
 - **Related:** Swiss Ephemeris General/Licensing docs; ADR-001
 
 ## Context
 
-Swiss Ephemeris is dual-licensed:
+Swiss Ephemeris is dual-licensed (AGPL vs professional/commercial). Bhava360 intends a public astrology backend later.
 
-1. **AGPL** — free if the distributed/networked application’s corresponding source complies with AGPL obligations
-2. **Professional / commercial license** — required when AGPL terms are not acceptable (typical closed SaaS)
+## Decision
 
-Bhava360 intends a public astrology backend/API and later customer app. License choice is a release gate, not a coding detail.
-
-VedAstro’s MIT code does **not** replace Swiss Ephemeris license obligations for the ephemeris library/data used at runtime.
-
-## Decision (proposed)
-
-1. **Development / private spikes:** may use Swiss Ephemeris under AGPL evaluation terms; no public production traffic.
-2. **Public API or customer app activation:** blocked until one path is chosen and recorded:
-   - **Path L1 — AGPL:** publish Bhava360 backend source as required by AGPL and accept copyleft obligations, **or**
-   - **Path L2 — Commercial SE license:** purchase/sign Astrodienst professional license before public activation
-3. **Default recommendation for a commercial Bhava360 product:** **Path L2**, unless product owner explicitly chooses full AGPL compliance.
-4. **Ephemeris files and library version** must be recorded on every calculation snapshot regardless of path.
-5. Do not ship or host SE binaries/data in a public service until the chosen path is signed off.
-
-## Non-goals
-
-- This ADR does not choose ayanamsa defaults.
-- This ADR does not approve redistribution of third-party ephemeris files beyond SE terms.
-
-## Consequences
-
-- Phase 24 / public launch checklist includes license evidence.
-- CI may run SE locally in private environments now.
-- Marketing/site deploy is unrelated; calc API is the regulated surface.
+1. **Private/dev (now):** authorised to use `pyswisseph` including built-in Moshier mode and/or local SE ephemeris files for development and CI.
+2. **Public API or customer app activation:** still blocked until Path L1 (AGPL compliance) or Path L2 (commercial SE license) evidence is recorded.
+3. **Default product intent:** Path L2 for a commercial Bhava360 SaaS unless product owner chooses full AGPL.
+4. Every calculation snapshot must record ephemeris mode/library version.
+5. Kernel default for early golden tests: Moshier (`SEFLG_MOSEPH`) with Lahiri sidereal mode, because SPIKE-01 VedAstro fixtures match within tight tolerance.
 
 ## Approval
 
-- [ ] Product owner
-- [ ] Technical lead
-- [ ] Privacy/security/legal reviewer
+- [x] Product owner (session approve) — private/dev path
+- [x] Technical lead — private/dev path
+- [ ] Privacy/security/legal reviewer — required before public activation

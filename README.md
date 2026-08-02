@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**Phase 0 — Project scope and working rules**
+**P07 — Calculation kernel (in progress)**
 
-Do not start calculation engines until Phases 0–5 are approved.
+Phase 0–5 approved. Planet longitude kernel + VedAstro SPIKE-01 golden tests are green. Houses/Asc and school engines come next.
 
 ## Principles (short)
 
