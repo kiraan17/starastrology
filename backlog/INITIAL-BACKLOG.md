@@ -2,31 +2,32 @@
 
 Ordered for the backend-first programme. Do not start calculation implementation before Phases 0–5 gates.
 
-## Now (Phase 0)
+## Now (Phase 0 / early Phase 1–3 drafts)
 
 | ID | Task | Status |
 |---|---|---|
-| P00 | Project charter, `AGENTS.md`, repo structure, status workflow, backlog | In progress / ready for review |
+| P00 | Project charter, `AGENTS.md`, repo structure, status workflow, backlog | Ready for review |
 | DOC-01 | Controlling requirements saved with gap notes for incomplete paste sections | Done |
+| PLAN-01 | Build plan using VedAstro as reference | Draft done |
+| ADR-001 | Runtime + VedAstro usage mode | Proposed |
+| ADR-002 | Swiss Ephemeris license path | Proposed |
+| SPIKE-01 | VedAstro API 5-chart golden fixtures | Done (comparator only) |
+| REG-PROV | Provisional 96-row Technique Registry reconstructed from phases | Awaiting owner confirm |
 
-## Next (Phase 1) — blocked
+## Next (Phase 1) — partially unblocked
 
 | ID | Task | Blocked by |
 |---|---|---|
-| INV-01 | Supply complete 96-item Master Technique Coverage Register | Missing inventory in source paste |
-| P02 | Create live Technique Registry and enter all 96 techniques | INV-01 |
-| P02b | Decompose broad techniques into child items; build dependency map | P02 |
+| INV-01 | Confirm or replace provisional 96-item register with official inventory | Product owner review |
+| P02 | Freeze Technique Registry v1 + dependency map | INV-01 |
+| P02b | Decompose broad techniques into child items | P02 |
 
 ## Then (Phases 2–5)
 
 | ID | Task |
 |---|---|
-| PLAN-01 | Build plan using VedAstro as reference (`docs/architecture/BUILD-PLAN-VEDASTRO-REFERENCE.md`) | Done (draft) |
-| ADR-001 | Decide VedAstro usage option A/B/C + primary runtime |
-| ADR-002 | Swiss Ephemeris license path before public activation |
-| SPIKE-01 | Time-boxed VedAstro API/Docker golden-fixture spike (5 charts) |
 | P03 | Source Register + variant decision log process |
-| P04 | Architecture diagram + technology ADRs + Swiss Ephemeris license decision |
+| P04 | Architecture diagram + remaining technology ADRs |
 | P05 | Canonical data dictionary, ERD, schema specification, privacy classification |
 | P06 | Rule specification template, versioning policy, sample rules |
 
@@ -44,11 +45,12 @@ Ordered for the backend-first programme. Do not start calculation implementation
 - Subscription/billing UX
 - Polished remedies UI
 
-## Acceptance for moving past Phase 0
+## Acceptance for moving past Phase 0 / into P02 freeze
 
 Human review confirms:
 
 1. Folder structure matches the plan.
 2. `AGENTS.md` is sufficient to constrain AI work.
 3. Status values are understood.
-4. Inventory gap (96 techniques) is acknowledged as the next blocker.
+4. Provisional 96-technique registry is confirmed or replaced.
+5. ADR-001 and ADR-002 are accepted or amended.

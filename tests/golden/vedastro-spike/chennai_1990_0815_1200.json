@@ -1,0 +1,1319 @@
+{
+  "chart": {
+    "id": "chennai_1990_0815_1200",
+    "label": "Chennai sample",
+    "location": "Chennai",
+    "time": "12:00/15/08/1990/+05:30"
+  },
+  "fetched_at_utc": "2026-08-02T06:48:25.500757+00:00",
+  "api_root": "https://api.vedastro.org/api/Calculate",
+  "note": "VedAstro comparator fixture only. Not Bhava360 production truth.",
+  "planets": {
+    "Sun": {
+      "planet": "Sun",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "118° 27' 18",
+            "TotalDegrees": "118.455"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Cancer",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "28° 27' 18",
+              "TotalDegrees": "28.455"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Aslesha - 4"
+        }
+      }
+    },
+    "Moon": {
+      "planet": "Moon",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "49° 49' 17",
+            "TotalDegrees": "49.82138888888889"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Taurus",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "19° 49' 17",
+              "TotalDegrees": "19.82138888888889"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Rohini - 3"
+        }
+      }
+    },
+    "Mars": {
+      "planet": "Mars",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "27° 31' 22",
+            "TotalDegrees": "27.522777777777776"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "27° 31' 22",
+              "TotalDegrees": "27.522777777777776"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Krithika - 1"
+        }
+      }
+    },
+    "Mercury": {
+      "planet": "Mercury",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "145° 29' 39",
+            "TotalDegrees": "145.49416666666667"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Leo",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "25° 29' 39",
+              "TotalDegrees": "25.49416666666667"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Pubba - 4"
+        }
+      }
+    },
+    "Jupiter": {
+      "planet": "Jupiter",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "95° 37' 12",
+            "TotalDegrees": "95.62"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Cancer",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "5° 37' 12",
+              "TotalDegrees": "5.62"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Pushyami - 1"
+        }
+      }
+    },
+    "Venus": {
+      "planet": "Venus",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "97° 55' 8",
+            "TotalDegrees": "97.91888888888889"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Cancer",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "7° 55' 8",
+              "TotalDegrees": "7.918888888888889"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Pushyami - 2"
+        }
+      }
+    },
+    "Saturn": {
+      "planet": "Saturn",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "266° 8' 40",
+            "TotalDegrees": "266.14444444444445"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Sagittarius",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "26° 8' 39",
+              "TotalDegrees": "26.144166666666667"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Poorvashada - 4"
+        }
+      }
+    },
+    "Rahu": {
+      "planet": "Rahu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "282° 45' 0",
+            "TotalDegrees": "282.75"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Capricorn",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "12° 45' 0",
+              "TotalDegrees": "12.75"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Sravana - 1"
+        }
+      }
+    },
+    "Ketu": {
+      "planet": "Ketu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "102° 45' 0",
+            "TotalDegrees": "102.75"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Cancer",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "12° 45' 0",
+              "TotalDegrees": "12.75"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 15/08/1990 +05:30",
+                "Location": {
+                  "Name": "Chennai, Tamil Nadu, India",
+                  "Longitude": 80.202,
+                  "Latitude": 13.072
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Pushyami - 3"
+        }
+      }
+    }
+  },
+  "sun_all_planet_data": {
+    "Status": "Pass",
+    "Input": {
+      "CalculatorName": "AllPlanetData",
+      "Type": "SingleCall",
+      "Parameters": [
+        {
+          "Name": "planetName",
+          "Type": "PlanetName",
+          "Value": {
+            "Name": "Sun"
+          }
+        },
+        {
+          "Name": "time",
+          "Type": "Time",
+          "Value": {
+            "StdTime": "12:00 15/08/1990 +05:30",
+            "Location": {
+              "Name": "Chennai, Tamil Nadu, India",
+              "Longitude": 80.202,
+              "Latitude": 13.072
+            }
+          }
+        }
+      ]
+    },
+    "Payload": {
+      "AllPlanetData": {
+        "AllBeneficPlanetsInGoodConjunctionWith": [],
+        "AllHarmfulPlanetsInBadConjunctionWith": [],
+        "AllMaleficPlanetsAspecting": [
+          "Rahu"
+        ],
+        "AllPhysicallyHarmfulPlanetsAspecting": [
+          "Mars",
+          "Rahu"
+        ],
+        "AllPhysicallyHarmfulPlanetsConjunctWith": [],
+        "AllPlanetsInBadAspectToPlanet": [
+          "Mars",
+          "Rahu"
+        ],
+        "AllPlanetsInEnemyConjunctionWith": [],
+        "AllPlanetsInFriendConjunctionWith": [],
+        "AspectReceivedByDispositor": [],
+        "BeneficPlanetsAspectingPlanet": [
+          "Mars"
+        ],
+        "DasaPeriodAshtakavargaStrength": "78.4",
+        "DispositorConjunctWith": [],
+        "DispositorFromLagna": "8",
+        "DispositorFromMoon": "1",
+        "DispositorFromOwnHouses": "11",
+        "HousePlanetOccupiesBasedOnLongitudes": "House10",
+        "HousePlanetOccupiesBasedOnSign": "House10",
+        "HousesInAspect": "House4",
+        "HousesOwnedByPlanet": "House11",
+        "IsPlanetAfflicted": "True",
+        "IsPlanetAspectedByBeneficPlanets": "True",
+        "IsPlanetAspectedByEnemyPlanets": "False",
+        "IsPlanetAspectedByFriendPlanets": "True",
+        "IsPlanetAspectedByMaleficPlanets": "True",
+        "IsPlanetAspectedByPhysicallyHarmfulPlanets": "True",
+        "IsPlanetAspectingOwnHouse": "False",
+        "IsPlanetBenefic": "False",
+        "IsPlanetBeneficLordForLagna": "False",
+        "IsPlanetBeneficToLagna": "False",
+        "IsPlanetCombust": "False",
+        "IsPlanetConjunctWithBeneficPlanets": "False",
+        "IsPlanetConjunctWithEnemyPlanets": "False",
+        "IsPlanetConjunctWithFriendPlanets": "False",
+        "IsPlanetConjunctWithMaleficPlanets": "False",
+        "IsPlanetConjunctWithPhysicallyHarmfulPlanets": "False",
+        "IsPlanetDebilitated": "False",
+        "IsPlanetDefeatedInPlanetaryWar": "False",
+        "IsPlanetExalted": "False",
+        "IsPlanetExaltedDegree": "False",
+        "IsPlanetExaltedSign": "False",
+        "IsPlanetFortified": "False",
+        "IsPlanetFunctionalMalefic": "True",
+        "IsPlanetHemmedByMalefics": "False",
+        "IsPlanetInBeneficSign": "False",
+        "IsPlanetInEnemyHouse": "False",
+        "IsPlanetInEnemySign": "False",
+        "IsPlanetInFriendHouse": "True",
+        "IsPlanetInFriendlyDrekkana": "False",
+        "IsPlanetInFriendSign": "True",
+        "IsPlanetInGandanta": "True",
+        "IsPlanetInGarvitaAvasta": "False",
+        "IsPlanetInGopuraAmsha": "False",
+        "IsPlanetInKendra": "True",
+        "IsPlanetInKshobhitaAvasta": "False",
+        "IsPlanetInKshuditaAvasta": "False",
+        "IsPlanetInLajjitaAvasta": "False",
+        "IsPlanetInMoolatrikona": "False",
+        "IsPlanetInMuditaAvasta": "True",
+        "IsPlanetInOwnHouse": "False",
+        "IsPlanetInOwnSign": "False",
+        "IsPlanetInTrashitaAvasta": "False",
+        "IsPlanetInTrikona": "False",
+        "IsPlanetInUpachaya": "True",
+        "IsPlanetInWaterySign": "True",
+        "IsPlanetMaleficForLagna": "True",
+        "IsPlanetMaleficLordForLagna": "True",
+        "IsPlanetMaleficToLagna": "True",
+        "IsPlanetMarakaToLagna": "False",
+        "IsPlanetNeutralForLagna": "False",
+        "IsPlanetPhysicallyHarmful": "True",
+        "IsPlanetReceivingBadAspects": "True",
+        "IsPlanetReceivingHarmfulConjunctions": "False",
+        "IsPlanetRetrograde": "False",
+        "IsPlanetStrongInShadbala": "True",
+        "IsPlanetVargottama": "False",
+        "IsPlanetWeak": "False",
+        "IsPlanetYogakarakaToLagna": "False",
+        "MaleficPlanetsAspectingPlanet": [
+          "Rahu"
+        ],
+        "PlanetAbdaBala": "0",
+        "PlanetAkshavedamshaD45Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "20° 28' 29",
+            "TotalDegrees": "20.474722222222223"
+          }
+        },
+        "PlanetAshtakavargaReductions": {
+          "RawTotal": 48,
+          "AfterTrikonaTotal": 18,
+          "FinalTotal": 13,
+          "Raw": {
+            "Aries": 3,
+            "Taurus": 4,
+            "Gemini": 3,
+            "Cancer": 6,
+            "Leo": 3,
+            "Virgo": 2,
+            "Libra": 5,
+            "Scorpio": 2,
+            "Sagittarius": 6,
+            "Capricorn": 6,
+            "Aquarius": 3,
+            "Pisces": 5
+          },
+          "AfterTrikona": {
+            "Aries": 0,
+            "Taurus": 2,
+            "Gemini": 0,
+            "Cancer": 4,
+            "Leo": 0,
+            "Virgo": 0,
+            "Libra": 2,
+            "Scorpio": 0,
+            "Sagittarius": 3,
+            "Capricorn": 4,
+            "Aquarius": 0,
+            "Pisces": 3
+          },
+          "AfterEkadhipatya": {
+            "Aries": 0,
+            "Taurus": 2,
+            "Gemini": 0,
+            "Cancer": 4,
+            "Leo": 0,
+            "Virgo": 0,
+            "Libra": 0,
+            "Scorpio": 0,
+            "Sagittarius": 3,
+            "Capricorn": 4,
+            "Aquarius": 0,
+            "Pisces": 0
+          }
+        },
+        "PlanetAvasta": "MuditaDelighted",
+        "PlanetAyanaBala": "106.87316666666665",
+        "PlanetBhamshaD27Sign": {
+          "Name": "Aquarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "18° 17' 5",
+            "TotalDegrees": "18.28472222222222"
+          }
+        },
+        "PlanetChaturthamshaD4Sign": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "23° 49' 11",
+            "TotalDegrees": "23.81972222222222"
+          }
+        },
+        "PlanetChaturvimshamshaD24Sign": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "22° 55' 11",
+            "TotalDegrees": "22.919722222222223"
+          }
+        },
+        "PlanetConstellation": "Aslesha - 4",
+        "PlanetDasaEffectsBasedOnIshtaKashta": "Good & positive effects related to: means of gains, elder brother and freedom from misery, peace of mind, home life, mother, conveyances, house property, landed and ancestral properties, education and neck and shoulders.",
+        "PlanetDashamamshaD10Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "14° 32' 59",
+            "TotalDegrees": "14.549722222222222"
+          }
+        },
+        "PlanetDeclination": "18.749266666666664",
+        "PlanetDigBala": "58.831944444444446",
+        "PlanetDrekkanaBala": "0",
+        "PlanetDrekkanaD3Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "25° 21' 53",
+            "TotalDegrees": "25.364722222222223"
+          }
+        },
+        "PlanetDrikBala": "9.552708333333337",
+        "PlanetDwadashamshaD12Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "11° 27' 35",
+            "TotalDegrees": "11.459722222222222"
+          }
+        },
+        "PlanetDwadashamshaSignOLD": "Gemini",
+        "PlanetEphemerisLongitude": {
+          "DegreeMinuteSecond": "142° 11' 6",
+          "TotalDegrees": "142.185"
+        },
+        "PlanetHoraBala": "60",
+        "PlanetHoraD2Signs": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "25° 21' 53",
+            "TotalDegrees": "25.364722222222223"
+          }
+        },
+        "PlanetIshtaKashtaScoreDegree": "0.477",
+        "PlanetIshtaScore": "31.875668489722166",
+        "PlanetKalaBala": "322.8661296296296",
+        "PlanetKashtaScore": "25.077046111268107",
+        "PlanetKendraBala": "60",
+        "PlanetKhavedamshaD40Sign": {
+          "Name": "Scorpio",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "28° 11' 59",
+            "TotalDegrees": "28.19972222222222"
+          }
+        },
+        "PlanetLordOfConstellation": {
+          "Name": "Mercury"
+        },
+        "PlanetLordOfZodiacSign": {
+          "Name": "Moon"
+        },
+        "PlanetMasaBala": "0",
+        "PlanetMotionName": "Sama",
+        "PlanetNaisargikaBala": "60",
+        "PlanetNathonnathaBala": "58.87083333333333",
+        "PlanetNatureScore": "2",
+        "PlanetNavamshaD9Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "16° 5' 41",
+            "TotalDegrees": "16.094722222222224"
+          }
+        },
+        "PlanetNirayanaLongitude": {
+          "DegreeMinuteSecond": "118° 27' 18",
+          "TotalDegrees": "118.455"
+        },
+        "PlanetOchchaBala": "23.848333333333333",
+        "PlanetOjayugmarasyamsaBala": "0",
+        "PlanetOwnAshtakvargaBindu": "6",
+        "PlanetPakshaBala": "37.122129629629626",
+        "PlanetPowerPercentage": "100",
+        "PlanetRasiD1Sign": {
+          "Name": "Cancer",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "28° 27' 18",
+            "TotalDegrees": "28.455"
+          }
+        },
+        "PlanetSaptamshaD7Sign": {
+          "Name": "Capricorn",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "19° 11' 6",
+            "TotalDegrees": "19.185"
+          }
+        },
+        "PlanetSaptamshaSignOLD": "Cancer",
+        "PlanetSaptavargajaBala": "84.375",
+        "PlanetsAspectingPlanet": [
+          "Mars",
+          "Rahu"
+        ],
+        "PlanetSayanaLatitude": {
+          "DegreeMinuteSecond": "0° 0' 0",
+          "TotalDegrees": "0"
+        },
+        "PlanetSayanaLongitude": {
+          "DegreeMinuteSecond": "142° 11' 6",
+          "TotalDegrees": "142.185"
+        },
+        "PlanetShadbalaPinda": "619.47",
+        "PlanetShashtyamshaD60Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "27° 17' 59",
+            "TotalDegrees": "27.299722222222222"
+          }
+        },
+        "PlanetShodashamshaD16Sign": {
+          "Name": "Cancer",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "5° 16' 47",
+            "TotalDegrees": "5.279722222222222"
+          }
+        },
+        "PlanetsInAspect": [
+          "Rahu"
+        ],
+        "PlanetsInConjunction": [],
+        "PlanetSpeed": "0.9609584046027265",
+        "PlanetSthanaBala": "168.22333333333333",
+        "PlanetStrength": "619.47",
+        "PlanetTemporaryFriendList": [
+          "Mercury",
+          "Mars",
+          "Moon"
+        ],
+        "PlanetTribhagaBala": "60",
+        "PlanetTrimshamshaD30Sign": {
+          "Name": "Scorpio",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "13° 38' 59",
+            "TotalDegrees": "13.649722222222222"
+          }
+        },
+        "PlanetVaraBala": "0",
+        "PlanetVimshamshaD20Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "29° 5' 59",
+            "TotalDegrees": "29.099722222222223"
+          }
+        },
+        "PlanetZodiacSignBasedOnHouseLongitudes": {
+          "Name": "Cancer",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "24° 57' 2",
+            "TotalDegrees": "24.950555555555557"
+          }
+        },
+        "ResidentialStrength": "0.768102354822699",
+        "SignsPlanetIsAspecting": "Capricorn",
+        "SwissEphemeris": "{ Longitude = 142.18515088512845, Latitude = 0.0001299711536326079, DistanceAU = 1.0127976291911684, SpeedLongitude = 0, SpeedLatitude = 0, SpeedDistance = 0 }"
+      }
+    }
+  },
+  "errors": []
+}

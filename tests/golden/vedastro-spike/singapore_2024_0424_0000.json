@@ -1,0 +1,1318 @@
+{
+  "chart": {
+    "id": "singapore_2024_0424_0000",
+    "label": "Singapore sample",
+    "location": "Singapore",
+    "time": "00:00/24/04/2024/+08:00"
+  },
+  "fetched_at_utc": "2026-08-02T06:48:38.654433+00:00",
+  "api_root": "https://api.vedastro.org/api/Calculate",
+  "note": "VedAstro comparator fixture only. Not Bhava360 production truth.",
+  "planets": {
+    "Sun": {
+      "planet": "Sun",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "9° 47' 14",
+            "TotalDegrees": "9.787222222222223"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "9° 47' 13",
+              "TotalDegrees": "9.786944444444444"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Aswini - 3"
+        }
+      }
+    },
+    "Moon": {
+      "planet": "Moon",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "186° 8' 37",
+            "TotalDegrees": "186.1436111111111"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Libra",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "6° 8' 36",
+              "TotalDegrees": "6.1433333333333335"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Chitta - 4"
+        }
+      }
+    },
+    "Mars": {
+      "planet": "Mars",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "330° 24' 51",
+            "TotalDegrees": "330.4141666666667"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Pisces",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "0° 24' 51",
+              "TotalDegrees": "0.4141666666666667"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Poorvabhadra - 4"
+        }
+      }
+    },
+    "Mercury": {
+      "planet": "Mercury",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "351° 55' 55",
+            "TotalDegrees": "351.93194444444447"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Pisces",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "21° 55' 54",
+              "TotalDegrees": "21.93166666666667"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Revathi - 2"
+        }
+      }
+    },
+    "Jupiter": {
+      "planet": "Jupiter",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "28° 13' 29",
+            "TotalDegrees": "28.224722222222223"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "28° 13' 28",
+              "TotalDegrees": "28.224444444444444"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Krithika - 1"
+        }
+      }
+    },
+    "Venus": {
+      "planet": "Venus",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "358° 38' 23",
+            "TotalDegrees": "358.63972222222225"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Pisces",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "28° 38' 22",
+              "TotalDegrees": "28.639444444444443"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Revathi - 4"
+        }
+      }
+    },
+    "Saturn": {
+      "planet": "Saturn",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "321° 46' 25",
+            "TotalDegrees": "321.7736111111111"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aquarius",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "21° 46' 24",
+              "TotalDegrees": "21.773333333333333"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Poorvabhadra - 1"
+        }
+      }
+    },
+    "Rahu": {
+      "planet": "Rahu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "350° 39' 45",
+            "TotalDegrees": "350.6625"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Pisces",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "20° 39' 45",
+              "TotalDegrees": "20.6625"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Revathi - 2"
+        }
+      }
+    },
+    "Ketu": {
+      "planet": "Ketu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "170° 39' 45",
+            "TotalDegrees": "170.6625"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Virgo",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "20° 39' 45",
+              "TotalDegrees": "20.6625"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "00:00 24/04/2024 +08:00",
+                "Location": {
+                  "Name": "Singapore, Singapore",
+                  "Longitude": 103.85,
+                  "Latitude": 1.289
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Hasta - 4"
+        }
+      }
+    }
+  },
+  "sun_all_planet_data": {
+    "Status": "Pass",
+    "Input": {
+      "CalculatorName": "AllPlanetData",
+      "Type": "SingleCall",
+      "Parameters": [
+        {
+          "Name": "planetName",
+          "Type": "PlanetName",
+          "Value": {
+            "Name": "Sun"
+          }
+        },
+        {
+          "Name": "time",
+          "Type": "Time",
+          "Value": {
+            "StdTime": "00:00 24/04/2024 +08:00",
+            "Location": {
+              "Name": "Singapore, Singapore",
+              "Longitude": 103.85,
+              "Latitude": 1.289
+            }
+          }
+        }
+      ]
+    },
+    "Payload": {
+      "AllPlanetData": {
+        "AllBeneficPlanetsInGoodConjunctionWith": [],
+        "AllHarmfulPlanetsInBadConjunctionWith": [],
+        "AllMaleficPlanetsAspecting": [
+          "Saturn"
+        ],
+        "AllPhysicallyHarmfulPlanetsAspecting": [
+          "Saturn"
+        ],
+        "AllPhysicallyHarmfulPlanetsConjunctWith": [],
+        "AllPlanetsInBadAspectToPlanet": [
+          "Saturn"
+        ],
+        "AllPlanetsInEnemyConjunctionWith": [],
+        "AllPlanetsInFriendConjunctionWith": [],
+        "AspectReceivedByDispositor": [
+          "Ketu"
+        ],
+        "BeneficPlanetsAspectingPlanet": [],
+        "DasaPeriodAshtakavargaStrength": "85.2",
+        "DispositorConjunctWith": [],
+        "DispositorFromLagna": "4",
+        "DispositorFromMoon": "6",
+        "DispositorFromOwnHouses": "12, 5",
+        "HousePlanetOccupiesBasedOnLongitudes": "House5",
+        "HousePlanetOccupiesBasedOnSign": "House5",
+        "HousesInAspect": "House11",
+        "HousesOwnedByPlanet": "House9",
+        "IsPlanetAfflicted": "True",
+        "IsPlanetAspectedByBeneficPlanets": "False",
+        "IsPlanetAspectedByEnemyPlanets": "False",
+        "IsPlanetAspectedByFriendPlanets": "False",
+        "IsPlanetAspectedByMaleficPlanets": "True",
+        "IsPlanetAspectedByPhysicallyHarmfulPlanets": "True",
+        "IsPlanetAspectingOwnHouse": "False",
+        "IsPlanetBenefic": "True",
+        "IsPlanetBeneficLordForLagna": "True",
+        "IsPlanetBeneficToLagna": "True",
+        "IsPlanetCombust": "False",
+        "IsPlanetConjunctWithBeneficPlanets": "False",
+        "IsPlanetConjunctWithEnemyPlanets": "False",
+        "IsPlanetConjunctWithFriendPlanets": "False",
+        "IsPlanetConjunctWithMaleficPlanets": "False",
+        "IsPlanetConjunctWithPhysicallyHarmfulPlanets": "False",
+        "IsPlanetDebilitated": "False",
+        "IsPlanetDefeatedInPlanetaryWar": "False",
+        "IsPlanetExalted": "True",
+        "IsPlanetExaltedDegree": "False",
+        "IsPlanetExaltedSign": "True",
+        "IsPlanetFortified": "False",
+        "IsPlanetFunctionalMalefic": "False",
+        "IsPlanetHemmedByMalefics": "False",
+        "IsPlanetInBeneficSign": "True",
+        "IsPlanetInEnemyHouse": "False",
+        "IsPlanetInEnemySign": "False",
+        "IsPlanetInFriendHouse": "True",
+        "IsPlanetInFriendlyDrekkana": "True",
+        "IsPlanetInFriendSign": "True",
+        "IsPlanetInGandanta": "False",
+        "IsPlanetInGarvitaAvasta": "False",
+        "IsPlanetInGopuraAmsha": "False",
+        "IsPlanetInKendra": "False",
+        "IsPlanetInKshobhitaAvasta": "False",
+        "IsPlanetInKshuditaAvasta": "False",
+        "IsPlanetInLajjitaAvasta": "False",
+        "IsPlanetInMoolatrikona": "False",
+        "IsPlanetInMuditaAvasta": "True",
+        "IsPlanetInOwnHouse": "False",
+        "IsPlanetInOwnSign": "False",
+        "IsPlanetInTrashitaAvasta": "False",
+        "IsPlanetInTrikona": "True",
+        "IsPlanetInUpachaya": "False",
+        "IsPlanetInWaterySign": "False",
+        "IsPlanetMaleficForLagna": "False",
+        "IsPlanetMaleficLordForLagna": "False",
+        "IsPlanetMaleficToLagna": "False",
+        "IsPlanetMarakaToLagna": "False",
+        "IsPlanetNeutralForLagna": "False",
+        "IsPlanetPhysicallyHarmful": "True",
+        "IsPlanetReceivingBadAspects": "True",
+        "IsPlanetReceivingHarmfulConjunctions": "False",
+        "IsPlanetRetrograde": "False",
+        "IsPlanetStrongInShadbala": "True",
+        "IsPlanetVargottama": "False",
+        "IsPlanetWeak": "False",
+        "IsPlanetYogakarakaToLagna": "True",
+        "MaleficPlanetsAspectingPlanet": [
+          "Saturn"
+        ],
+        "PlanetAbdaBala": "0",
+        "PlanetAkshavedamshaD45Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "20° 24' 44",
+            "TotalDegrees": "20.412222222222223"
+          }
+        },
+        "PlanetAshtakavargaReductions": {
+          "RawTotal": 48,
+          "AfterTrikonaTotal": 21,
+          "FinalTotal": 17,
+          "Raw": {
+            "Aries": 2,
+            "Taurus": 4,
+            "Gemini": 1,
+            "Cancer": 3,
+            "Leo": 5,
+            "Virgo": 5,
+            "Libra": 4,
+            "Scorpio": 5,
+            "Sagittarius": 6,
+            "Capricorn": 3,
+            "Aquarius": 6,
+            "Pisces": 4
+          },
+          "AfterTrikona": {
+            "Aries": 0,
+            "Taurus": 1,
+            "Gemini": 0,
+            "Cancer": 0,
+            "Leo": 3,
+            "Virgo": 2,
+            "Libra": 3,
+            "Scorpio": 2,
+            "Sagittarius": 4,
+            "Capricorn": 0,
+            "Aquarius": 5,
+            "Pisces": 1
+          },
+          "AfterEkadhipatya": {
+            "Aries": 0,
+            "Taurus": 0,
+            "Gemini": 0,
+            "Cancer": 0,
+            "Leo": 3,
+            "Virgo": 2,
+            "Libra": 3,
+            "Scorpio": 2,
+            "Sagittarius": 1,
+            "Capricorn": 0,
+            "Aquarius": 5,
+            "Pisces": 1
+          }
+        },
+        "PlanetAvasta": "MuditaDelighted",
+        "PlanetAyanaBala": "104.36038580246914",
+        "PlanetBhamshaD27Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "24° 14' 51",
+            "TotalDegrees": "24.2475"
+          }
+        },
+        "PlanetChaturthamshaD4Sign": {
+          "Name": "Cancer",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "9° 8' 51",
+            "TotalDegrees": "9.1475"
+          }
+        },
+        "PlanetChaturvimshamshaD24Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "24° 53' 11",
+            "TotalDegrees": "24.886388888888888"
+          }
+        },
+        "PlanetConstellation": "Aswini - 3",
+        "PlanetDasaEffectsBasedOnIshtaKashta": "Good & positive effects related to: father, righteousness, preceptor, grandchildren, intuition, religion, sympathy, fame, charities, leadership, journeys and communications with spirits, means of gains, elder brother and freedom from misery.",
+        "PlanetDashamamshaD10Sign": {
+          "Name": "Cancer",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "7° 52' 9",
+            "TotalDegrees": "7.869166666666667"
+          }
+        },
+        "PlanetDeclination": "17.744154320987654",
+        "PlanetDigBala": "5.5290740740740745",
+        "PlanetDrekkanaBala": "15",
+        "PlanetDrekkanaD3Sign": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "29° 21' 39",
+            "TotalDegrees": "29.360833333333332"
+          }
+        },
+        "PlanetDrikBala": "-14.258298611111112",
+        "PlanetDwadashamshaD12Sign": {
+          "Name": "Cancer",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "27° 26' 35",
+            "TotalDegrees": "27.443055555555556"
+          }
+        },
+        "PlanetDwadashamshaSignOLD": "Cancer",
+        "PlanetEphemerisLongitude": {
+          "DegreeMinuteSecond": "33° 58' 56",
+          "TotalDegrees": "33.98222222222222"
+        },
+        "PlanetHoraBala": "0",
+        "PlanetHoraD2Signs": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "29° 21' 39",
+            "TotalDegrees": "29.360833333333332"
+          }
+        },
+        "PlanetIshtaKashtaScoreDegree": "3.819",
+        "PlanetIshtaScore": "49.7665877854606",
+        "PlanetKalaBala": "110.84158950617285",
+        "PlanetKashtaScore": "1.1508131555848824",
+        "PlanetKendraBala": "30",
+        "PlanetKhavedamshaD40Sign": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "1° 28' 39",
+            "TotalDegrees": "1.4775"
+          }
+        },
+        "PlanetLordOfConstellation": {
+          "Name": "Ketu"
+        },
+        "PlanetLordOfZodiacSign": {
+          "Name": "Mars"
+        },
+        "PlanetMasaBala": "0",
+        "PlanetMotionName": "Sama",
+        "PlanetNaisargikaBala": "60",
+        "PlanetNathonnathaBala": "5.266666666666666",
+        "PlanetNatureScore": "-1",
+        "PlanetNavamshaD9Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "28° 4' 56",
+            "TotalDegrees": "28.08222222222222"
+          }
+        },
+        "PlanetNirayanaLongitude": {
+          "DegreeMinuteSecond": "9° 47' 14",
+          "TotalDegrees": "9.787222222222223"
+        },
+        "PlanetOchchaBala": "59.92907407407407",
+        "PlanetOjayugmarasyamsaBala": "30",
+        "PlanetOwnAshtakvargaBindu": "2",
+        "PlanetPakshaBala": "1.21453703703704",
+        "PlanetPowerPercentage": "32.451279496918005",
+        "PlanetRasiD1Sign": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "9° 47' 13",
+            "TotalDegrees": "9.786944444444444"
+          }
+        },
+        "PlanetSaptamshaD7Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "8° 30' 30",
+            "TotalDegrees": "8.508333333333333"
+          }
+        },
+        "PlanetSaptamshaSignOLD": "Gemini",
+        "PlanetSaptavargajaBala": "112.5",
+        "PlanetsAspectingPlanet": [
+          "Moon",
+          "Saturn"
+        ],
+        "PlanetSayanaLatitude": {
+          "DegreeMinuteSecond": "0° 0' 0",
+          "TotalDegrees": "0"
+        },
+        "PlanetSayanaLongitude": {
+          "DegreeMinuteSecond": "33° 58' 56",
+          "TotalDegrees": "33.98222222222222"
+        },
+        "PlanetShadbalaPinda": "409.54",
+        "PlanetShashtyamshaD60Sign": {
+          "Name": "Scorpio",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "17° 13' 0",
+            "TotalDegrees": "17.216666666666665"
+          }
+        },
+        "PlanetShodashamshaD16Sign": {
+          "Name": "Virgo",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "6° 35' 27",
+            "TotalDegrees": "6.590833333333333"
+          }
+        },
+        "PlanetsInAspect": [
+          "Moon"
+        ],
+        "PlanetsInConjunction": [],
+        "PlanetSpeed": "0.9741269456963544",
+        "PlanetSthanaBala": "247.42907407407407",
+        "PlanetStrength": "409.54",
+        "PlanetTemporaryFriendList": [
+          "Saturn",
+          "Mars",
+          "Mercury",
+          "Venus"
+        ],
+        "PlanetTribhagaBala": "0",
+        "PlanetTrimshamshaD30Sign": {
+          "Name": "Capricorn",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "23° 36' 30",
+            "TotalDegrees": "23.608333333333334"
+          }
+        },
+        "PlanetVaraBala": "0",
+        "PlanetVimshamshaD20Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "15° 44' 19",
+            "TotalDegrees": "15.73861111111111"
+          }
+        },
+        "PlanetZodiacSignBasedOnHouseLongitudes": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "22° 9' 33",
+            "TotalDegrees": "22.159166666666668"
+          }
+        },
+        "ResidentialStrength": "0.14556755616091469",
+        "SignsPlanetIsAspecting": "Libra",
+        "SwissEphemeris": "{ Longitude = 33.982417856585535, Latitude = -0.00010659262854772755, DistanceAU = 1.0055968767911059, SpeedLongitude = 0, SpeedLatitude = 0, SpeedDistance = 0 }"
+      }
+    }
+  },
+  "errors": []
+}

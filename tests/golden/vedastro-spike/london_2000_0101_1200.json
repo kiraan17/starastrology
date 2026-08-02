@@ -1,0 +1,1308 @@
+{
+  "chart": {
+    "id": "london_2000_0101_1200",
+    "label": "London sample",
+    "location": "London",
+    "time": "12:00/01/01/2000/+00:00"
+  },
+  "fetched_at_utc": "2026-08-02T06:48:51.157333+00:00",
+  "api_root": "https://api.vedastro.org/api/Calculate",
+  "note": "VedAstro comparator fixture only. Not Bhava360 production truth.",
+  "planets": {
+    "Sun": {
+      "planet": "Sun",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "256° 30' 56",
+            "TotalDegrees": "256.5155555555556"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Sagittarius",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "16° 30' 56",
+              "TotalDegrees": "16.515555555555554"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Poorvashada - 1"
+        }
+      }
+    },
+    "Moon": {
+      "planet": "Moon",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "199° 28' 14",
+            "TotalDegrees": "199.47055555555556"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Libra",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "19° 28' 14",
+              "TotalDegrees": "19.470555555555556"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Swathi - 4"
+        }
+      }
+    },
+    "Mars": {
+      "planet": "Mars",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "304° 6' 36",
+            "TotalDegrees": "304.11"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aquarius",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "4° 6' 36",
+              "TotalDegrees": "4.11"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Dhanishta - 4"
+        }
+      }
+    },
+    "Mercury": {
+      "planet": "Mercury",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "248° 2' 9",
+            "TotalDegrees": "248.03583333333333"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Sagittarius",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "8° 2' 8",
+              "TotalDegrees": "8.035555555555556"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Moola - 3"
+        }
+      }
+    },
+    "Jupiter": {
+      "planet": "Jupiter",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "1° 23' 59",
+            "TotalDegrees": "1.3997222222222223"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "1° 23' 58",
+              "TotalDegrees": "1.3994444444444445"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Aswini - 1"
+        }
+      }
+    },
+    "Venus": {
+      "planet": "Venus",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "217° 42' 45",
+            "TotalDegrees": "217.7125"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Scorpio",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "7° 42' 45",
+              "TotalDegrees": "7.7125"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Anuradha - 2"
+        }
+      }
+    },
+    "Saturn": {
+      "planet": "Saturn",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "16° 32' 32",
+            "TotalDegrees": "16.54222222222222"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "16° 32' 31",
+              "TotalDegrees": "16.541944444444443"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Bharani - 1"
+        }
+      }
+    },
+    "Rahu": {
+      "planet": "Rahu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "101° 11' 14",
+            "TotalDegrees": "101.18722222222222"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Cancer",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "11° 11' 13",
+              "TotalDegrees": "11.186944444444444"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Pushyami - 3"
+        }
+      }
+    },
+    "Ketu": {
+      "planet": "Ketu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "281° 11' 13",
+            "TotalDegrees": "281.18694444444446"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Capricorn",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "11° 11' 12",
+              "TotalDegrees": "11.186666666666667"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "12:00 01/01/2000 +00:00",
+                "Location": {
+                  "Name": "Hackney, London, United Kingdom",
+                  "Longitude": -0.055,
+                  "Latitude": 51.546
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Sravana - 1"
+        }
+      }
+    }
+  },
+  "sun_all_planet_data": {
+    "Status": "Pass",
+    "Input": {
+      "CalculatorName": "AllPlanetData",
+      "Type": "SingleCall",
+      "Parameters": [
+        {
+          "Name": "planetName",
+          "Type": "PlanetName",
+          "Value": {
+            "Name": "Sun"
+          }
+        },
+        {
+          "Name": "time",
+          "Type": "Time",
+          "Value": {
+            "StdTime": "12:00 01/01/2000 +00:00",
+            "Location": {
+              "Name": "Hackney, London, United Kingdom",
+              "Longitude": -0.055,
+              "Latitude": 51.546
+            }
+          }
+        }
+      ]
+    },
+    "Payload": {
+      "AllPlanetData": {
+        "AllBeneficPlanetsInGoodConjunctionWith": [],
+        "AllHarmfulPlanetsInBadConjunctionWith": [],
+        "AllMaleficPlanetsAspecting": [],
+        "AllPhysicallyHarmfulPlanetsAspecting": [],
+        "AllPhysicallyHarmfulPlanetsConjunctWith": [],
+        "AllPlanetsInBadAspectToPlanet": [],
+        "AllPlanetsInEnemyConjunctionWith": [],
+        "AllPlanetsInFriendConjunctionWith": [],
+        "AspectReceivedByDispositor": [
+          "Moon"
+        ],
+        "BeneficPlanetsAspectingPlanet": [
+          "Jupiter"
+        ],
+        "DasaPeriodAshtakavargaStrength": "66",
+        "DispositorConjunctWith": [],
+        "DispositorFromLagna": "1",
+        "DispositorFromMoon": "7",
+        "DispositorFromOwnHouses": "5, 2",
+        "HousePlanetOccupiesBasedOnLongitudes": "House10",
+        "HousePlanetOccupiesBasedOnSign": "House9",
+        "HousesInAspect": "House3",
+        "HousesOwnedByPlanet": "House6",
+        "IsPlanetAfflicted": "False",
+        "IsPlanetAspectedByBeneficPlanets": "True",
+        "IsPlanetAspectedByEnemyPlanets": "False",
+        "IsPlanetAspectedByFriendPlanets": "False",
+        "IsPlanetAspectedByMaleficPlanets": "False",
+        "IsPlanetAspectedByPhysicallyHarmfulPlanets": "False",
+        "IsPlanetAspectingOwnHouse": "False",
+        "IsPlanetBenefic": "True",
+        "IsPlanetBeneficLordForLagna": "True",
+        "IsPlanetBeneficToLagna": "True",
+        "IsPlanetCombust": "False",
+        "IsPlanetConjunctWithBeneficPlanets": "False",
+        "IsPlanetConjunctWithEnemyPlanets": "False",
+        "IsPlanetConjunctWithFriendPlanets": "False",
+        "IsPlanetConjunctWithMaleficPlanets": "False",
+        "IsPlanetConjunctWithPhysicallyHarmfulPlanets": "False",
+        "IsPlanetDebilitated": "False",
+        "IsPlanetDefeatedInPlanetaryWar": "False",
+        "IsPlanetExalted": "False",
+        "IsPlanetExaltedDegree": "False",
+        "IsPlanetExaltedSign": "False",
+        "IsPlanetFortified": "True",
+        "IsPlanetFunctionalMalefic": "False",
+        "IsPlanetHemmedByMalefics": "True",
+        "IsPlanetInBeneficSign": "True",
+        "IsPlanetInEnemyHouse": "False",
+        "IsPlanetInEnemySign": "False",
+        "IsPlanetInFriendHouse": "False",
+        "IsPlanetInFriendlyDrekkana": "True",
+        "IsPlanetInFriendSign": "False",
+        "IsPlanetInGandanta": "False",
+        "IsPlanetInGarvitaAvasta": "False",
+        "IsPlanetInGopuraAmsha": "False",
+        "IsPlanetInKendra": "False",
+        "IsPlanetInKshobhitaAvasta": "False",
+        "IsPlanetInKshuditaAvasta": "False",
+        "IsPlanetInLajjitaAvasta": "False",
+        "IsPlanetInMoolatrikona": "False",
+        "IsPlanetInMuditaAvasta": "False",
+        "IsPlanetInOwnHouse": "False",
+        "IsPlanetInOwnSign": "False",
+        "IsPlanetInTrashitaAvasta": "False",
+        "IsPlanetInTrikona": "True",
+        "IsPlanetInUpachaya": "False",
+        "IsPlanetInWaterySign": "False",
+        "IsPlanetMaleficForLagna": "False",
+        "IsPlanetMaleficLordForLagna": "False",
+        "IsPlanetMaleficToLagna": "False",
+        "IsPlanetMarakaToLagna": "False",
+        "IsPlanetNeutralForLagna": "False",
+        "IsPlanetPhysicallyHarmful": "True",
+        "IsPlanetReceivingBadAspects": "False",
+        "IsPlanetReceivingHarmfulConjunctions": "False",
+        "IsPlanetRetrograde": "False",
+        "IsPlanetStrongInShadbala": "True",
+        "IsPlanetVargottama": "False",
+        "IsPlanetWeak": "False",
+        "IsPlanetYogakarakaToLagna": "True",
+        "MaleficPlanetsAspectingPlanet": [],
+        "PlanetAbdaBala": "0",
+        "PlanetAkshavedamshaD45Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "23° 11' 59",
+            "TotalDegrees": "23.19972222222222"
+          }
+        },
+        "PlanetAshtakavargaReductions": {
+          "RawTotal": 48,
+          "AfterTrikonaTotal": 15,
+          "FinalTotal": 13,
+          "Raw": {
+            "Aries": 3,
+            "Taurus": 4,
+            "Gemini": 2,
+            "Cancer": 4,
+            "Leo": 5,
+            "Virgo": 5,
+            "Libra": 5,
+            "Scorpio": 3,
+            "Sagittarius": 5,
+            "Capricorn": 3,
+            "Aquarius": 5,
+            "Pisces": 4
+          },
+          "AfterTrikona": {
+            "Aries": 0,
+            "Taurus": 1,
+            "Gemini": 0,
+            "Cancer": 1,
+            "Leo": 2,
+            "Virgo": 2,
+            "Libra": 3,
+            "Scorpio": 0,
+            "Sagittarius": 2,
+            "Capricorn": 0,
+            "Aquarius": 3,
+            "Pisces": 1
+          },
+          "AfterEkadhipatya": {
+            "Aries": 0,
+            "Taurus": 0,
+            "Gemini": 0,
+            "Cancer": 1,
+            "Leo": 2,
+            "Virgo": 2,
+            "Libra": 3,
+            "Scorpio": 0,
+            "Sagittarius": 2,
+            "Capricorn": 0,
+            "Aquarius": 3,
+            "Pisces": 0
+          }
+        },
+        "PlanetAvasta": "",
+        "PlanetAyanaBala": "0",
+        "PlanetBhamshaD27Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "25° 55' 11",
+            "TotalDegrees": "25.919722222222223"
+          }
+        },
+        "PlanetChaturthamshaD4Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "6° 3' 43",
+            "TotalDegrees": "6.061944444444444"
+          }
+        },
+        "PlanetChaturvimshamshaD24Sign": {
+          "Name": "Virgo",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "6° 22' 24",
+            "TotalDegrees": "6.373333333333333"
+          }
+        },
+        "PlanetConstellation": "Poorvashada - 1",
+        "PlanetDasaEffectsBasedOnIshtaKashta": "Bad & negative effects related to: debts, diseases, enemies, miseries, sorrows, illness and disappointments, brothers and sisters, intelligence, cousins and other immediate relations.",
+        "PlanetDashamamshaD10Sign": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "15° 9' 19",
+            "TotalDegrees": "15.155277777777778"
+          }
+        },
+        "PlanetDeclination": "-24",
+        "PlanetDigBala": "59.73083333333333",
+        "PlanetDrekkanaBala": "0",
+        "PlanetDrekkanaD3Sign": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "19° 32' 48",
+            "TotalDegrees": "19.546666666666667"
+          }
+        },
+        "PlanetDrikBala": "-0.3856250000000001",
+        "PlanetDwadashamshaD12Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "18° 11' 12",
+            "TotalDegrees": "18.186666666666667"
+          }
+        },
+        "PlanetDwadashamshaSignOLD": "Gemini",
+        "PlanetEphemerisLongitude": {
+          "DegreeMinuteSecond": "280° 22' 8",
+          "TotalDegrees": "280.3688888888889"
+        },
+        "PlanetHoraBala": "60",
+        "PlanetHoraD2Signs": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "19° 32' 48",
+            "TotalDegrees": "19.546666666666667"
+          }
+        },
+        "PlanetIshtaKashtaScoreDegree": "-2.727",
+        "PlanetIshtaScore": "8.753998482841178",
+        "PlanetKalaBala": "250.71",
+        "PlanetKashtaScore": "46.24871458266377",
+        "PlanetKendraBala": "15",
+        "PlanetKhavedamshaD40Sign": {
+          "Name": "Aquarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "0° 37' 19",
+            "TotalDegrees": "0.6219444444444444"
+          }
+        },
+        "PlanetLordOfConstellation": {
+          "Name": "Venus"
+        },
+        "PlanetLordOfZodiacSign": {
+          "Name": "Jupiter"
+        },
+        "PlanetMasaBala": "30",
+        "PlanetMotionName": "Sama",
+        "PlanetNaisargikaBala": "60",
+        "PlanetNathonnathaBala": "59.725",
+        "PlanetNatureScore": "1",
+        "PlanetNavamshaD9Sign": {
+          "Name": "Leo",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "28° 38' 23",
+            "TotalDegrees": "28.639722222222222"
+          }
+        },
+        "PlanetNirayanaLongitude": {
+          "DegreeMinuteSecond": "256° 30' 56",
+          "TotalDegrees": "256.5155555555556"
+        },
+        "PlanetOchchaBala": "22.17185185185185",
+        "PlanetOjayugmarasyamsaBala": "30",
+        "PlanetOwnAshtakvargaBindu": "5",
+        "PlanetPakshaBala": "40.985",
+        "PlanetPowerPercentage": "75.53585911250144",
+        "PlanetRasiD1Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "16° 30' 56",
+            "TotalDegrees": "16.515555555555554"
+          }
+        },
+        "PlanetSaptamshaD7Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "25° 36' 31",
+            "TotalDegrees": "25.60861111111111"
+          }
+        },
+        "PlanetSaptamshaSignOLD": "Pisces",
+        "PlanetSaptavargajaBala": "101.25",
+        "PlanetsAspectingPlanet": [
+          "Jupiter"
+        ],
+        "PlanetSayanaLatitude": {
+          "DegreeMinuteSecond": "0° 0' 0",
+          "TotalDegrees": "0"
+        },
+        "PlanetSayanaLongitude": {
+          "DegreeMinuteSecond": "280° 22' 8",
+          "TotalDegrees": "280.3688888888889"
+        },
+        "PlanetShadbalaPinda": "538.48",
+        "PlanetShashtyamshaD60Sign": {
+          "Name": "Virgo",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "0° 55' 59",
+            "TotalDegrees": "0.9330555555555555"
+          }
+        },
+        "PlanetShodashamshaD16Sign": {
+          "Name": "Leo",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "24° 14' 55",
+            "TotalDegrees": "24.24861111111111"
+          }
+        },
+        "PlanetsInAspect": [],
+        "PlanetsInConjunction": [],
+        "PlanetSpeed": "1.0194320960759964",
+        "PlanetSthanaBala": "168.42185185185184",
+        "PlanetStrength": "538.48",
+        "PlanetTemporaryFriendList": [
+          "Mars",
+          "Moon",
+          "Venus"
+        ],
+        "PlanetTribhagaBala": "60",
+        "PlanetTrimshamshaD30Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "15° 27' 59",
+            "TotalDegrees": "15.466388888888888"
+          }
+        },
+        "PlanetVaraBala": "0",
+        "PlanetVimshamshaD20Sign": {
+          "Name": "Cancer",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "0° 18' 39",
+            "TotalDegrees": "0.31083333333333335"
+          }
+        },
+        "PlanetZodiacSignBasedOnHouseLongitudes": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "15° 42' 29",
+            "TotalDegrees": "15.708055555555555"
+          }
+        },
+        "ResidentialStrength": "0.9537194820913826",
+        "SignsPlanetIsAspecting": "Gemini",
+        "SwissEphemeris": "{ Longitude = 280.3689238651328, Latitude = 0.00023232648606020073, DistanceAU = 0.9833276447899747, SpeedLongitude = 0, SpeedLatitude = 0, SpeedDistance = 0 }"
+      }
+    }
+  },
+  "errors": []
+}

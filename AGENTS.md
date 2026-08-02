@@ -67,4 +67,4 @@ Do not mark a technique `Approved` or `Frozen` without recorded human/expert rev
 
 ## Current programme constraint
 
-Phase 0 scaffolding is in progress/complete. **Phase 1 is blocked** until the full 96-item technique inventory is supplied into `registry/TECHNIQUE-REGISTRY.md`.
+Phase 0 scaffolding is complete. Technique Registry exists as **provisional v0.2** (`registry/TECHNIQUE-REGISTRY.md`) awaiting product-owner confirmation of the official 96-item inventory. ADR-001 and ADR-002 are proposed. **Do not start calculation/kernel coding** until Phases 0–5 gates pass.

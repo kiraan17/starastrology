@@ -1,5 +1,6 @@
-# Architecture (Phase 3)
+# Architecture
 
-No architecture decision is approved yet.
+- Draft build plan: [`BUILD-PLAN-VEDASTRO-REFERENCE.md`](BUILD-PLAN-VEDASTRO-REFERENCE.md)
+- Decisions: [`../decisions/`](../decisions/)
 
-Do not implement services, databases or ephemeris bindings until Phase 3 ADRs and the Swiss Ephemeris license decision are recorded here.
+No production topology is approved until ADR-001 and ADR-002 are signed and Phase 3 closes.
