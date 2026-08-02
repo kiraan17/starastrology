@@ -286,6 +286,11 @@
     | Tithi Pravesh: {{ report.summary.tajika_tithi_pravesh_label }}
     (err °: {{ report.summary.tajika_tithi_pravesh_error_deg }})
     {% endif %}
+    {% if report.summary.tajika_saham_count is defined %}
+    | Sahams: {{ report.summary.tajika_saham_count }}
+    | Aspects: {{ report.summary.tajika_aspect_count }}
+    | Ithasala candidates: {{ report.summary.tajika_ithasala_count }}
+    {% endif %}
   </p>
   {% endif %}
 

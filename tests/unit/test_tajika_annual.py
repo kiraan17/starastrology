@@ -77,7 +77,7 @@ def test_resolve_annual_location_residence_requires_coords():
 def test_tajika_annual_engine_solar_return_and_muntha():
     out = run_tajika_annual_engine(_subject(), target_year=2020)
     assert out["engine"] == "TajikaAnnual"
-    assert out["engine_version"] == "0.2.0-tithi-pravesh"
+    assert out["engine_version"] == "0.3.0-sahams-aspects"
     assert out["school"] == "tajika"
     assert out["target_year"] == 2020
     assert out["completed_years"] == 30
@@ -90,12 +90,14 @@ def test_tajika_annual_engine_solar_return_and_muntha():
     assert out["varsha_chart"]["lagna_sign"]
     assert out["school"] == "tajika"
     assert "TEC-079" in out["technique_ids"]
+    assert "TEC-078" in out["technique_ids"]
     tp = out["tithi_pravesh"]
     assert tp["elongation_error_deg"] < 0.01
     assert tp["tithi"]["index"] == out["natal_tithi"]["index"]
     assert abs(tp["days_from_solar_return"]) <= 20
-    assert "Sahams" in " ".join(out["deferred"])
-    assert "Tithi Pravesh (TEC-079)" not in out["deferred"]
+    assert len(out["sahams"]["sahams"]) == 5
+    assert "Full Saham catalog" in " ".join(out["deferred"])
+    assert "Sahams (TEC-078)" not in out["deferred"]
 
 
 def test_tithi_pravesh_search_helper():

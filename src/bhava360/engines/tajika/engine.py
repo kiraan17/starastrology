@@ -15,6 +15,8 @@ from bhava360.engines.tajika.annual import (
     find_solar_return_jd,
     resolve_annual_location,
 )
+from bhava360.engines.tajika.aspects_tajika import ASPECT_VARIANT, compute_tajika_aspects
+from bhava360.engines.tajika.sahams import SAHAM_VARIANT, compute_sahams, is_day_chart
 from bhava360.engines.tajika.tithi_pravesh import (
     TITHI_PRAVESH_VARIANT,
     find_tithi_pravesh_jd,
@@ -27,8 +29,8 @@ from bhava360.kernel.provider import SwissEphemerisProvider
 from bhava360.kernel.timeutil import julian_day_to_utc, require_coordinates, resolve_subject_time, subject_tzinfo
 
 ENGINE_NAME = "TajikaAnnual"
-ENGINE_VERSION = "0.2.0-tithi-pravesh"
-TECHNIQUE_IDS = ("TEC-077", "TEC-079")
+ENGINE_VERSION = "0.3.0-sahams-aspects"
+TECHNIQUE_IDS = ("TEC-077", "TEC-078", "TEC-079")
 STATUS = "Candidate"
 
 
@@ -77,10 +79,10 @@ def run_tajika_annual_engine(
     event_lon: float | None = None,
 ) -> dict[str, Any]:
     """
-    Varsha Pravesh (sidereal solar return) + Muntha + Tithi Pravesh thin slice.
+    Varsha Pravesh + Muntha + Tithi Pravesh + Candidate Sahams/aspects.
 
     Year-lord candidate = Muntha-sign lord (full Varshesh deferred).
-    Sahams / Tajika aspects deferred (TEC-078).
+    Full Tajika yogas beyond Ithasala-candidate flag deferred.
     """
     cfg = config or ChartConfig()
     provider = SwissEphemerisProvider(cfg)
@@ -184,6 +186,23 @@ def run_tajika_annual_engine(
     )
     tp_lagna = float(tp_chart["angles"]["whole_sign"]["ascendant"]["longitude_sidereal_deg"])
 
+    day_window = varsha.get("day_window") or {}
+    local_iso = annual_subject.local_datetime.isoformat(sep=" ")
+    chart_is_day = False
+    if day_window.get("sunrise_local") and day_window.get("sunset_local"):
+        chart_is_day = is_day_chart(
+            local_iso=local_iso,
+            sunrise_local=str(day_window["sunrise_local"]),
+            sunset_local=str(day_window["sunset_local"]),
+        )
+
+    sahams = compute_sahams(
+        ascendant_longitude=varsha_lagna,
+        planets=varsha["planets"],
+        is_day=chart_is_day,
+    )
+    aspects = compute_tajika_aspects(varsha["planets"])
+
     return {
         "engine": ENGINE_NAME,
         "engine_version": ENGINE_VERSION,
@@ -195,6 +214,8 @@ def run_tajika_annual_engine(
             "target_year": year,
             "variant": ANNUAL_VARIANT,
             "tithi_pravesh.variant": TITHI_PRAVESH_VARIANT,
+            "sahams.variant": SAHAM_VARIANT,
+            "aspects.variant": ASPECT_VARIANT,
         },
         "target_year": year,
         "completed_years": completed,
@@ -213,10 +234,12 @@ def run_tajika_annual_engine(
         "varsha_chart": {
             "lagna_sign": varsha["angles"]["whole_sign"]["ascendant"]["sign"],
             "lagna_longitude_sidereal_deg": varsha_lagna,
+            "is_day": chart_is_day,
             "planets": [
                 {
                     "planet": p["planet"],
                     "longitude_sidereal_deg": p["longitude_sidereal_deg"],
+                    "speed_longitude": p.get("speed_longitude"),
                     "sign": p["sign"],
                     "rasi_house": (p.get("houses") or {}).get("rasi_house"),
                 }
@@ -255,23 +278,26 @@ def run_tajika_annual_engine(
                 "Uses same annual.location_rule as Varsha chart.",
             ],
         },
+        "sahams": sahams,
+        "tajika_aspects": aspects,
         "deferred": [
             "Full Varshesh / multi-factor year-lord rules",
-            "Sahams (TEC-078)",
-            "Tajika aspects / orbs (TEC-078)",
+            "Full Saham catalog beyond Punya/Vidya/Yasya/Mitra/Rajya",
+            "Full Ithasala/Isarpha/Nakta/Kamboola yoga suite",
             "Month/day charts",
             "Alternate Tithi Pravesh centering rules (lunar-month-only variants)",
         ],
         "provenance": {
             "status": STATUS,
             "stamp": ANNUAL_VARIANT,
-            "sources": ["TEC-077", "TEC-079"],
+            "sources": ["TEC-077", "TEC-078", "TEC-079"],
             "notes": [
                 "Sidereal solar return via Swiss Ephemeris scan + bisection.",
                 "Muntha advances natal Lagna by completed years (mod 12).",
                 "Muntha lord is year-lord candidate only.",
                 "annual.location_rule stamped per VARIANT-002 (default birth_place).",
                 "Tithi Pravesh Candidate: elongation return nearest solar return.",
+                "Sahams/aspects Candidate defaults pending SRC-012 edition citation.",
             ],
         },
         "ephemeris": {

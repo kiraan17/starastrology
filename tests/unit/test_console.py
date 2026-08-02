@@ -214,3 +214,5 @@ def test_api_verify_tajika_annual():
     assert body["summary"]["tajika_sun_error_deg"] < 0.01
     assert body["summary"]["tajika_tithi_pravesh_label"]
     assert body["summary"]["tajika_tithi_pravesh_error_deg"] < 0.01
+    assert body["summary"]["tajika_saham_count"] == 5
+    assert body["summary"]["tajika_aspect_count"] >= 0

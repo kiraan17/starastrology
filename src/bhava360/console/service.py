@@ -319,4 +319,11 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         tp = tajika.get("tithi_pravesh") or {}
         summary["tajika_tithi_pravesh_label"] = (tp.get("tithi") or {}).get("label")
         summary["tajika_tithi_pravesh_error_deg"] = tp.get("elongation_error_deg")
+        summary["tajika_saham_count"] = len((tajika.get("sahams") or {}).get("sahams") or [])
+        summary["tajika_aspect_count"] = len(
+            (tajika.get("tajika_aspects") or {}).get("aspects") or []
+        )
+        summary["tajika_ithasala_count"] = len(
+            (tajika.get("tajika_aspects") or {}).get("ithasala_candidates") or []
+        )
     return summary

@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P17b — Tithi Pravesh done**
+**P17c — Tajika Sahams/aspects done**
 
-Natal Moon−Sun elongation return nearest solar return in Tajika engine `0.2.0-tithi-pravesh`.
+Candidate Sahams + Tajika degree aspects/Ithasala flag in engine `0.3.0-sahams-aspects` (SRC-012 still required for Approved).
 
 
 ## Principles (short)
