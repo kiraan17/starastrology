@@ -59,7 +59,6 @@ def run_sudarshana_engine(
             "Bhava-effect / strength verdicts from tri-lagna concurrence",
             "Yearly Sudarshana spoke progression",
             "Transit overlays on Sudarshana wheel",
-            "Sarvatobhadra / Tara / Kota chakras (TEC-082..083)",
         ],
         "provenance": {
             "status": STATUS,

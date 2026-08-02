@@ -99,8 +99,8 @@
 | TEC-079 | Tithi Pravesh | Annual | timing | normal | yes | yes | Auto-Tested | P17b elongation return nearest solar return (±20d) |
 | TEC-080 | Sudarshana Chakra | Chakra | calculation | normal | yes | yes | Auto-Tested | P18a Lagna/Chandra/Surya whole-sign overlay scaffold |
 | TEC-081 | Bhrigu Bindu and transit triggers | Progression | timing | normal | yes | yes | Auto-Tested | P18b shorter-arc Moon–Rahu midpoint; conjunction hits Candidate |
-| TEC-082 | Sarvatobhadra Chakra and Vedha | Chakra | calculation | normal | yes | no | Not Researched | |
-| TEC-083 | Tara Chakra and Kota Chakra | Chakra | calculation | normal | yes | no | Not Researched | |
+| TEC-082 | Sarvatobhadra Chakra and Vedha | Chakra | calculation | normal | yes | partial | Auto-Tested | P18c rim placement only; Vedha deferred |
+| TEC-083 | Tara Chakra and Kota Chakra | Chakra | calculation | normal | yes | yes | Auto-Tested | P18c Tara 9-spoke + Kota 8-dir Candidate layout |
 | TEC-084 | Chandra Kriya, Avastha, Vela | Classification | classification | normal | yes | no | Not Researched | |
 | TEC-085 | Gandanta and related conditions | Classification | classification | normal | yes | partial | Not Researched | |
 | TEC-086 | Prashna Marga calculations and sphutas | Prashna | interpretation | normal | yes | partial | Not Researched | |

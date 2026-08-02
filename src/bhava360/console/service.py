@@ -5,7 +5,7 @@ from typing import Any
 
 from bhava360.chart.builder import ChartConstructor
 from bhava360.engines.ashtakavarga import run_ashtakavarga_engine
-from bhava360.engines.chakra import run_sudarshana_engine
+from bhava360.engines.chakra import run_nakshatra_chakra_engine, run_sudarshana_engine
 from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
@@ -109,6 +109,7 @@ def run_verification(
             "tajika",
             "sudarshana",
             "bhrigu_bindu",
+            "nakshatra_chakra",
         )
     )
     if needs_chart:
@@ -198,6 +199,14 @@ def run_verification(
             report["sections"]["bhrigu_bindu"] = run_bhrigu_bindu_engine(chart=chart)
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "bhrigu_bindu", "error": str(exc)})
+
+    if "nakshatra_chakra" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for nakshatra chakras")
+            report["sections"]["nakshatra_chakra"] = run_nakshatra_chakra_engine(chart=chart)
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "nakshatra_chakra", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -373,4 +382,20 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["bhrigu_bindu_nakshatra"] = bindu.get("nakshatra_label")
         summary["bhrigu_bindu_house"] = bindu.get("house_from_lagna")
         summary["bhrigu_bindu_natal_hit_count"] = len(bindu.get("natal_conjunctions") or [])
+
+    nc = report["sections"].get("nakshatra_chakra")
+    if nc:
+        summary["nakshatra_chakra_engine"] = nc.get("engine")
+        tara = nc.get("tara_chakra") or {}
+        kota = nc.get("kota_chakra") or {}
+        sbc = nc.get("sarvatobhadra") or {}
+        summary["tara_chakra_spoke_count"] = len(tara.get("spokes") or [])
+        summary["kota_chakra_slot_count"] = len(kota.get("slots") or [])
+        summary["sarvatobhadra_rim_count"] = len(sbc.get("rim") or [])
+        summary["sarvatobhadra_vedha_status"] = (sbc.get("vedha") or {}).get("status")
+        moon_tara = next(
+            (p for p in (tara.get("planets") or []) if p.get("planet") == "Moon"),
+            None,
+        )
+        summary["tara_chakra_moon_tara"] = (moon_tara or {}).get("tara")
     return summary

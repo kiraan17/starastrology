@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P18b — Bhrigu Bindu done**
+**P18c — Nakshatra chakras scaffold done**
 
-Moon–Rahu shorter-arc midpoint + natal/transit conjunction hits in engine `BhriguBindu` `0.1.0-thin-slice`.
+Tara / Kota / Sarvatobhadra rim placement in engine `NakshatraChakras` `0.1.0-scaffold` (Vedha deferred).
 
 
 ## Principles (short)

@@ -261,3 +261,27 @@ def test_api_verify_bhrigu_bindu():
     assert body["summary"]["bhrigu_bindu_sign"]
     assert body["summary"]["bhrigu_bindu_nakshatra"]
     assert 1 <= body["summary"]["bhrigu_bindu_house"] <= 12
+
+
+def test_api_verify_nakshatra_chakra():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["nakshatra_chakra"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["nakshatra_chakra_engine"] == "NakshatraChakras"
+    assert body["summary"]["tara_chakra_spoke_count"] == 9
+    assert body["summary"]["kota_chakra_slot_count"] == 27
+    assert body["summary"]["sarvatobhadra_rim_count"] == 27
+    assert body["summary"]["sarvatobhadra_vedha_status"] == "deferred"
+    assert body["summary"]["tara_chakra_moon_tara"] == "Janma"

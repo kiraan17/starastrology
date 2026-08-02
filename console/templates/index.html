@@ -85,6 +85,7 @@
       <label><input type="checkbox" name="engines" value="tajika" {% if 'tajika' in form.engines %}checked{% endif %} /> tajika/annual</label>
       <label><input type="checkbox" name="engines" value="sudarshana" {% if 'sudarshana' in form.engines %}checked{% endif %} /> sudarshana</label>
       <label><input type="checkbox" name="engines" value="bhrigu_bindu" {% if 'bhrigu_bindu' in form.engines %}checked{% endif %} /> bhrigu bindu</label>
+      <label><input type="checkbox" name="engines" value="nakshatra_chakra" {% if 'nakshatra_chakra' in form.engines %}checked{% endif %} /> nakshatra chakras</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -316,6 +317,18 @@
     Nakshatra: {{ report.summary.bhrigu_bindu_nakshatra }} |
     House: {{ report.summary.bhrigu_bindu_house }} |
     Natal hits: {{ report.summary.bhrigu_bindu_natal_hit_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.nakshatra_chakra_engine %}
+  <h3>Nakshatra Chakras</h3>
+  <p>
+    Engine: {{ report.summary.nakshatra_chakra_engine }} |
+    Tara spokes: {{ report.summary.tara_chakra_spoke_count }} |
+    Moon Tara: {{ report.summary.tara_chakra_moon_tara }} |
+    Kota slots: {{ report.summary.kota_chakra_slot_count }} |
+    SBC rim: {{ report.summary.sarvatobhadra_rim_count }} |
+    Vedha: {{ report.summary.sarvatobhadra_vedha_status }}
   </p>
   {% endif %}
 
