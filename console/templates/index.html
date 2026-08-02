@@ -247,6 +247,13 @@
     Yoga: {{ report.summary.panchanga_yoga }} |
     Karana: {{ report.summary.panchanga_karana }}
   </p>
+  {% if report.summary.muhurta_hora_lord is defined %}
+  <p>
+    Rahu Kala active: {{ report.summary.muhurta_rahu_kala_active }} |
+    Hora lord: {{ report.summary.muhurta_hora_lord }} |
+    Chaughadiya: {{ report.summary.muhurta_chaughadiya }}
+  </p>
+  {% endif %}
   {% endif %}
 
   <h3>Raw report JSON</h3>

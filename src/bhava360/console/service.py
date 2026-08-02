@@ -273,4 +273,9 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["panchanga_nakshatra"] = (p.get("nakshatra") or {}).get("label")
         summary["panchanga_yoga"] = (p.get("yoga") or {}).get("name")
         summary["panchanga_karana"] = (p.get("karana") or {}).get("name")
+        muh = pan.get("muhurta") or {}
+        active = muh.get("active") or {}
+        summary["muhurta_rahu_kala_active"] = active.get("rahu_kala")
+        summary["muhurta_hora_lord"] = (active.get("hora") or {}).get("lord")
+        summary["muhurta_chaughadiya"] = (active.get("chaughadiya") or {}).get("label")
     return summary

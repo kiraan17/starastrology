@@ -185,3 +185,4 @@ def test_api_verify_panchanga():
     assert body["summary"]["panchanga_engine"] == "Panchanga"
     assert body["summary"]["panchanga_vara"] == "Wednesday"
     assert body["summary"]["panchanga_tithi"]
+    assert body["summary"]["muhurta_hora_lord"]

@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P16a — Panchanga core done**
+**P16b — Muhurta windows done**
 
-Tithi/Vara/Nakshatra/Yoga/Karana via `run_panchanga_engine`; Vara from sunrise; console checkbox.
+Rahu Kala, Yamaganda, Gulika, Abhijit, Hora, and Chaughadiya with active-at flags (`0.2.0-muhurta`).
 
 
 ## Principles (short)

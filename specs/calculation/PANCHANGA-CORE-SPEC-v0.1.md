@@ -1,27 +1,28 @@
-# Panchanga Core (P16a v0.1)
+# Panchanga + Muhurta (P16a + P16b)
 
-**Module:** `bhava360.timing.panchanga` / `run_panchanga_engine`  
-**Technique:** TEC-070  
-**Variant:** `sidereal_lahiri_candidate_v1`
+**Modules:** `bhava360.timing.panchanga`, `bhava360.timing.muhurta`, `run_panchanga_engine`  
+**Techniques:** TEC-070, TEC-071, TEC-073  
+**Engine version:** `0.2.0-muhurta`
 
 ## In scope
 
-- Tithi (30) from Moon−Sun elongation
-- Karana (60) from half-tithi elongation
-- Yoga (27) from Sun+Moon sum (sidereal Candidate)
-- Nakshatra + pada of Moon
-- Vara from weekday of local **sunrise** instant
-- Console `panchanga` engine checkbox
+### P16a
+- Tithi / Vara / Nakshatra / Yoga / Karana
+- Vara from local sunrise weekday
+
+### P16b
+- Rahu Kala, Yamaganda, Gulika (daytime eighth tables by weekday)
+- Abhijit (midday-centered, duration = daytime/15)
+- Planetary Hora (12 day + 12 night)
+- Chaughadiya (8 day + 8 night)
+- Active flags at subject instant
 
 ## Out of scope
 
-- Rahu Kala / Yamaganda / Gulika / Abhijit (TEC-071)
-- Tara/Chandra Bala (TEC-072)
-- Hora / Chaughadiya (TEC-073)
-- Panchaka / Bhadra / Panchapakshi (TEC-074..075)
-- Activity good/mixed/avoid windows (TEC-076)
-- End-time of each limb (next transition search)
+- Night Gulika tables
+- Tara / Chandra Bala (TEC-072)
+- Panchaka / Bhadra / Panchapakshi / activity windows (TEC-074..076)
 
-## Notes
+## Variants
 
-Elongation-based limbs are ayanamsa-invariant. Yoga uses sidereal sum and is stamped Candidate.
+`sidereal_lahiri_candidate_v1` (limbs), `classical_segments_candidate_v1` (muhurta)

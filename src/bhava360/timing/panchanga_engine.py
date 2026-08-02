@@ -1,24 +1,56 @@
-"""Panchanga engine (P16a thin slice)."""
+"""Panchanga engine (P16a + P16b)."""
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
+import swisseph as swe
+
 from bhava360.chart.builder import ChartConstructor
+from bhava360.kernel.errors import KernelError, KernelErrorCode
 from bhava360.kernel.models import ChartConfig, PlanetName, SubjectInput
 from bhava360.kernel.provider import SwissEphemerisProvider
-from bhava360.kernel.timeutil import resolve_subject_time
+from bhava360.kernel.timeutil import julian_day_to_utc, resolve_subject_time, subject_tzinfo
+from bhava360.timing.muhurta import compute_muhurta_pack
 from bhava360.timing.panchanga import compute_panchanga_core
 
 ENGINE_NAME = "Panchanga"
-ENGINE_VERSION = "0.1.0-thin-slice"
-TECHNIQUE_IDS = ("TEC-070",)
+ENGINE_VERSION = "0.2.0-muhurta"
+TECHNIQUE_IDS = ("TEC-070", "TEC-071", "TEC-073")
 
 
-def _parse_sunrise_local(iso_local: str) -> datetime:
-    # DayWindow stores e.g. "1990-08-15 05:52:01.123456+05:30"
+def _parse_local(iso_local: str) -> datetime:
     return datetime.fromisoformat(iso_local)
+
+
+def _next_sunrise_utc(
+    *,
+    after_jd: float,
+    latitude: float,
+    longitude: float,
+) -> datetime:
+    geopos = (longitude, latitude, 0.0)
+    try:
+        rc, vals = swe.rise_trans(
+            after_jd,
+            swe.SUN,
+            swe.CALC_RISE | swe.BIT_DISC_CENTER,
+            geopos,
+        )
+    except Exception as exc:  # noqa: BLE001
+        raise KernelError(
+            KernelErrorCode.CALCULATION_FAILED,
+            "failed to compute next sunrise for muhurta night windows",
+            {"error": str(exc)},
+        ) from exc
+    if rc < 0:
+        raise KernelError(
+            KernelErrorCode.CALCULATION_FAILED,
+            "next sunrise not available",
+            {"rise_rc": rc},
+        )
+    return julian_day_to_utc(float(vals[0]))
 
 
 def run_panchanga_engine(
@@ -27,7 +59,7 @@ def run_panchanga_engine(
     config: ChartConfig | None = None,
     chart: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Compute five-limb panchanga at subject instant with sunrise-based Vara."""
+    """Five-limb panchanga plus Rahu Kala/Hora/Chaughadiya muhurta windows."""
     cfg = config or ChartConfig()
     provider = SwissEphemerisProvider(cfg)
     resolved = resolve_subject_time(subject)
@@ -47,12 +79,32 @@ def run_panchanga_engine(
         sun_lon = provider.planet_position(subject, PlanetName.SUN).longitude_sidereal_deg
         moon_lon = provider.planet_position(subject, PlanetName.MOON).longitude_sidereal_deg
 
-    sunrise_local = _parse_sunrise_local(day_window["sunrise_local"])
+    sunrise_local = _parse_local(day_window["sunrise_local"])
+    sunset_local = _parse_local(day_window["sunset_local"])
     core = compute_panchanga_core(
         sun_lon_sidereal=sun_lon,
         moon_lon_sidereal=moon_lon,
         sunrise_local=sunrise_local,
     )
+
+    lat = float(subject.latitude) if subject.latitude is not None else None
+    lon = float(subject.longitude) if subject.longitude is not None else None
+    muhurta = None
+    if lat is not None and lon is not None:
+        next_rise = _next_sunrise_utc(
+            after_jd=float(day_window["sunset_jd_ut"]),
+            latitude=lat,
+            longitude=lon,
+        )
+        # Align next sunrise to subject tz for consistency; pack uses UTC internally.
+        tz = subject_tzinfo(subject)
+        next_rise_local = next_rise.astimezone(tz)
+        muhurta = compute_muhurta_pack(
+            sunrise=sunrise_local,
+            sunset=sunset_local,
+            next_sunrise=next_rise_local,
+            when_utc=resolved.utc_datetime,
+        )
 
     return {
         "engine": ENGINE_NAME,
@@ -62,9 +114,12 @@ def run_panchanga_engine(
         "day_window": day_window,
         "library": provider.library_stamp(),
         "panchanga": core,
+        "muhurta": muhurta,
         "notes": core["notes"]
+        + (muhurta["notes"] if muhurta else [])
         + [
             "Evaluated at subject local civil time; Vara keyed to that date's sunrise.",
-            "TEC-071..076 (Rahu Kala, Hora, etc.) deferred.",
+            "TEC-072 Tara/Chandra Bala deferred.",
+            "TEC-074..076 deferred.",
         ],
     }

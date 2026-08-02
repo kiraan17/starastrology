@@ -17,12 +17,13 @@ Ordered for the backend-first programme.
 | P13 | Nakshatra Nadi corpus-gated scaffold | **Done** (chains blocked until SRC-009 Approved) |
 | P12c | Prastara Ashtakavarga (TEC-050) | **Done** |
 | P16a | Panchanga core (TEC-070) | **Done** |
+| P16b | Rahu Kala / Hora / Chaughadiya (TEC-071,073) | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P16b | Rahu Kala / Hora / Chaughadiya (TEC-071..073) |
+| P16c | Tara/Chandra Bala (TEC-072) |
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 
