@@ -1,4 +1,4 @@
-"""Shadbala engine scaffold (P27b / TEC-023)."""
+"""Shadbala engine (P27b/P28a / TEC-023)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from bhava360.engines.shadbala.components import SHADBALA_VARIANT, compute_shadb
 from bhava360.kernel.models import ChartConfig, SubjectInput
 
 ENGINE_NAME = "Shadbala"
-ENGINE_VERSION = "0.1.0-partial-scaffold"
+ENGINE_VERSION = "0.2.0-kala-chesta-drik"
 TECHNIQUE_IDS = ("TEC-023",)
 STATUS = "Candidate"
 
@@ -21,9 +21,9 @@ def run_shadbala_engine(
     chart: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    Partial Shadbala scaffold: Naisargika + Dig + Uchcha + Kendradi + Ojayugma(rasi).
+    Partial Shadbala: Sthana thin + Dig + Naisargika + Kala thin + Chesta thin + Drik thin.
 
-    Kala, Chesta, Drik, and remaining Sthana subs are deferred.
+    Remaining Sthana/Kala/Chesta classical tables still deferred.
     """
     cfg = config or ChartConfig()
     built = chart
@@ -31,7 +31,7 @@ def run_shadbala_engine(
         if subject is None:
             raise ValueError("subject or chart is required")
         built = ChartConstructor(cfg).build(
-            subject, include_vimshottari=False, include_relationships=False
+            subject, include_vimshottari=False, include_relationships=True
         ).to_dict()
 
     pack = compute_shadbala_pack(built)
@@ -49,9 +49,9 @@ def run_shadbala_engine(
         "shadbala": pack,
         "deferred": [
             "Saptavargaja / Drekkana / full Ojayugma (navamsa)",
-            "Kala Bala pack (Natonnata, Paksha, Tribhaga, Abda/Masa/Vara/Hora, Ayana, Yuddha)",
-            "Chesta Bala (mean/true / seeghra kendra)",
-            "Drik Bala (aspectual net)",
+            "Kala remainder (Tribhaga, Abda, Masa, Ayana, Yuddha)",
+            "Chesta seeghra kendra + Ayana Chesta for Sun/Moon",
+            "Classical Drik drishti-strength tables",
             "Full-pack minimum threshold verdicts",
         ],
         "provenance": {
@@ -59,7 +59,7 @@ def run_shadbala_engine(
             "stamp": SHADBALA_VARIANT,
             "sources": ["TEC-023", "BPHS Shadbala overview (Candidate thin)"],
             "notes": [
-                "Partial component scaffold only.",
+                "Partial component pack only.",
                 "Do not treat partial_total as complete Shadbala.",
             ],
         },

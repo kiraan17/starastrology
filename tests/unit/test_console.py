@@ -537,6 +537,10 @@ def test_api_verify_shadbala():
     assert body["summary"]["shadbala_strongest"]
     assert body["summary"]["shadbala_strongest_virupa"] > 0
     assert "TEC-023" in body["sections"]["shadbala"]["technique_ids"]
+    assert body["sections"]["shadbala"]["engine_version"] == "0.2.0-kala-chesta-drik"
+    sun = next(p for p in body["sections"]["shadbala"]["shadbala"]["planets"] if p["planet"] == "Sun")
+    assert "kala_partial" in sun["components_virupa"]
+    assert "drik" in sun["components_virupa"]
 
 
 def test_api_verify_lal_kitab():

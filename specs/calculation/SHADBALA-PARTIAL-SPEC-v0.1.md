@@ -1,26 +1,29 @@
-# Shadbala partial scaffold (P27b)
+# Shadbala partial pack (P27b / P28a)
 
 **Module:** `bhava360.engines.shadbala`  
-**Engine:** `Shadbala` `0.1.0-partial-scaffold`  
+**Engine:** `Shadbala` `0.2.0-kala-chesta-drik`  
 **Status:** Candidate  
 **Technique:** TEC-023  
-**Stamp:** `shadbala_partial_scaffold_candidate_v1`
+**Stamp:** `shadbala_kala_chesta_drik_candidate_v1`
 
 ## In scope (Virupa)
 
-| Component | Rule |
-|-----------|------|
-| Naisargika | Fixed 60×(7..1)/7 order |
-| Dig | 60 at dig-strong house → 0 at opposite (whole-sign steps) |
-| Uchcha | 60×(dist from debilitation°)/180 |
-| Kendradi | 60 / 30 / 15 for Kendra / Panaphara / Apoklima |
-| Ojayugma (rasi) | 15 for male/odd, female/even; Mercury/Saturn always 15 |
+| Family | Included |
+|--------|----------|
+| Naisargika | Fixed 60×(7..1)/7 |
+| Dig | Whole-sign dig-house distance |
+| Sthana thin | Uchcha + Kendradi + Ojayugma(rasi) |
+| Kala thin | Natonnata + Paksha + Vara(45) + Hora(60) |
+| Chesta thin | Retrograde→60 else 15 for Mars–Saturn; Sun/Moon Ayana deferred (0) |
+| Drik thin | Whole-sign graha aspect net, ±60 clamp |
 
 ## Out of scope
 
-- Saptavargaja, Drekkana, Ojayugma navamsa
-- Kala / Chesta / Drik packs
-- Full-pack minimum threshold verdicts (partial totals must not be compared)
+- Saptavargaja / Drekkana / Ojayugma navamsa
+- Kala: Tribhaga, Abda, Masa, Ayana, Yuddha
+- Chesta seeghra kendra + luminous Ayana Chesta
+- Classical Drik strength tables
+- Full-pack minimum threshold verdicts
 
 ## Safety
 

@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P27b — Shadbala partial scaffold done**
+**P28a — Shadbala Kala/Chesta/Drik thin continuation done**
 
-Engine `Shadbala` `0.1.0-partial-scaffold` (TEC-023): Naisargika + Dig + Uchcha + Kendradi + Ojayugma(rasi).
+Engine `Shadbala` `0.2.0-kala-chesta-drik` (TEC-023): adds Natonnata/Paksha/Vara/Hora, retrograde Chesta, aspect-net Drik.
 
 
 ## Principles (short)

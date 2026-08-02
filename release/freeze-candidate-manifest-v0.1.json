@@ -223,11 +223,11 @@
     {
       "engine": "Shadbala",
       "module": "bhava360.engines.shadbala",
-      "engine_version": "0.1.0-partial-scaffold",
+      "engine_version": "0.2.0-kala-chesta-drik",
       "technique_ids": ["TEC-023"],
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
-      "notes": "Candidate partial; no full-pack threshold verdicts"
+      "notes": "Candidate partial incl. Kala/Chesta/Drik thin; no full minima verdicts"
     }
   ],
   "kernel": {

@@ -41,6 +41,7 @@ Ordered for the backend-first programme.
 | P26b | Panchapakshi day/night cycles (TEC-075) | **Done** |
 | P27a | Dark-half Panchapakshi majors + PyJHora align (TEC-075) | **Done** |
 | P27b | Shadbala partial scaffold (TEC-023) | **Done** |
+| P28a | Shadbala Kala/Chesta/Drik thin continuation (TEC-023) | **Done** |
 
 ## Next
 
@@ -49,7 +50,7 @@ Ordered for the backend-first programme.
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
 | P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
-| P28a | Shadbala Kala/Chesta/Drik continuation *or* Kalachakra dasha (TEC-032) |
+| P28b | Kalachakra dasha (TEC-032) *or* Bhava Bala (TEC-024) |
 
 ## Explicitly not started
 
