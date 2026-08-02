@@ -84,6 +84,7 @@
       <label><input type="checkbox" name="engines" value="panchanga" {% if 'panchanga' in form.engines %}checked{% endif %} /> panchanga</label>
       <label><input type="checkbox" name="engines" value="tajika" {% if 'tajika' in form.engines %}checked{% endif %} /> tajika/annual</label>
       <label><input type="checkbox" name="engines" value="sudarshana" {% if 'sudarshana' in form.engines %}checked{% endif %} /> sudarshana</label>
+      <label><input type="checkbox" name="engines" value="bhrigu_bindu" {% if 'bhrigu_bindu' in form.engines %}checked{% endif %} /> bhrigu bindu</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -303,6 +304,18 @@
     Chandra: {{ report.summary.sudarshana_chandra }} |
     Surya: {{ report.summary.sudarshana_surya }} |
     Planets: {{ report.summary.sudarshana_planet_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.bhrigu_bindu_engine %}
+  <h3>Bhrigu Bindu</h3>
+  <p>
+    Engine: {{ report.summary.bhrigu_bindu_engine }} |
+    Sign: {{ report.summary.bhrigu_bindu_sign }} |
+    Lon: {{ '%.4f'|format(report.summary.bhrigu_bindu_longitude) }}° |
+    Nakshatra: {{ report.summary.bhrigu_bindu_nakshatra }} |
+    House: {{ report.summary.bhrigu_bindu_house }} |
+    Natal hits: {{ report.summary.bhrigu_bindu_natal_hit_count }}
   </p>
   {% endif %}
 

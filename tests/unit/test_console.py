@@ -239,3 +239,25 @@ def test_api_verify_sudarshana():
     assert body["summary"]["sudarshana_chandra"]
     assert body["summary"]["sudarshana_surya"]
     assert body["summary"]["sudarshana_planet_count"] >= 7
+
+
+def test_api_verify_bhrigu_bindu():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "location_label": "Chennai",
+            "engines": ["bhrigu_bindu"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["bhrigu_bindu_engine"] == "BhriguBindu"
+    assert body["summary"]["bhrigu_bindu_sign"]
+    assert body["summary"]["bhrigu_bindu_nakshatra"]
+    assert 1 <= body["summary"]["bhrigu_bindu_house"] <= 12

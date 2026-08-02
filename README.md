@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P18a — Sudarshana Chakra scaffold done**
+**P18b — Bhrigu Bindu done**
 
-Lagna / Chandra / Surya whole-sign overlay in engine `SudarshanaChakra` `0.1.0-scaffold`.
+Moon–Rahu shorter-arc midpoint + natal/transit conjunction hits in engine `BhriguBindu` `0.1.0-thin-slice`.
 
 
 ## Principles (short)

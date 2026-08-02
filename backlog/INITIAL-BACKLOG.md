@@ -23,12 +23,13 @@ Ordered for the backend-first programme.
 | P17b | Tithi Pravesh thin slice (TEC-079) | **Done** |
 | P17c | Tajika Sahams / aspects thin slice (TEC-078) | **Done** |
 | P18a | Sudarshana Chakra scaffold (TEC-080) | **Done** |
+| P18b | Bhrigu Bindu thin slice (TEC-081) | **Done** |
 
 ## Next
 
 | ID | Task |
 |---|---|
-| P18b | Sarvatobhadra / Tara / Kota chakra thin slice (TEC-082..083) *or* Bhrigu Bindu (TEC-081) |
+| P18c | Sarvatobhadra / Tara / Kota chakra thin slice (TEC-082..083) |
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (legal) to unlock public API |
 

@@ -10,6 +10,7 @@ from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
 from bhava360.engines.parashara import run_parashara_engine
+from bhava360.engines.progression import run_bhrigu_bindu_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 from bhava360.timing.panchanga_engine import run_panchanga_engine
@@ -107,6 +108,7 @@ def run_verification(
             "panchanga",
             "tajika",
             "sudarshana",
+            "bhrigu_bindu",
         )
     )
     if needs_chart:
@@ -188,6 +190,14 @@ def run_verification(
             report["sections"]["sudarshana"] = run_sudarshana_engine(chart=chart)
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "sudarshana", "error": str(exc)})
+
+    if "bhrigu_bindu" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Bhrigu Bindu")
+            report["sections"]["bhrigu_bindu"] = run_bhrigu_bindu_engine(chart=chart)
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "bhrigu_bindu", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -353,4 +363,14 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["sudarshana_chandra"] = (refs.get("chandra") or {}).get("sign")
         summary["sudarshana_surya"] = (refs.get("surya") or {}).get("sign")
         summary["sudarshana_planet_count"] = len((sud.get("sudarshana") or {}).get("planets") or [])
+
+    bb = report["sections"].get("bhrigu_bindu")
+    if bb:
+        summary["bhrigu_bindu_engine"] = bb.get("engine")
+        bindu = bb.get("bhrigu_bindu") or {}
+        summary["bhrigu_bindu_sign"] = bindu.get("sign")
+        summary["bhrigu_bindu_longitude"] = bindu.get("longitude_sidereal_deg")
+        summary["bhrigu_bindu_nakshatra"] = bindu.get("nakshatra_label")
+        summary["bhrigu_bindu_house"] = bindu.get("house_from_lagna")
+        summary["bhrigu_bindu_natal_hit_count"] = len(bindu.get("natal_conjunctions") or [])
     return summary
