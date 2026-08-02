@@ -95,6 +95,7 @@
       <label><input type="checkbox" name="engines" value="numerology" {% if 'numerology' in form.engines %}checked{% endif %} /> numerology</label>
       <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
       <label><input type="checkbox" name="engines" value="shadbala" {% if 'shadbala' in form.engines %}checked{% endif %} /> shadbala</label>
+      <label><input type="checkbox" name="engines" value="bhava_bala" {% if 'bhava_bala' in form.engines %}checked{% endif %} /> bhava bala</label>
       <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
       <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
       <label><input type="checkbox" name="engines" value="yogini" {% if 'yogini' in form.engines %}checked{% endif %} /> yogini dasha</label>
@@ -512,6 +513,18 @@
     Strongest partial: {{ report.summary.shadbala_strongest }}
     ({{ report.summary.shadbala_strongest_virupa }} virupa) |
     Weakest partial: {{ report.summary.shadbala_weakest }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.bhava_bala_engine %}
+  <h3>Bhava Bala (partial)</h3>
+  <p>
+    Engine: {{ report.summary.bhava_bala_engine }} |
+    Lagna class: {{ report.summary.bhava_bala_lagna_class }} |
+    Houses: {{ report.summary.bhava_bala_house_count }} |
+    Strongest house: {{ report.summary.bhava_bala_strongest_house }}
+    ({{ report.summary.bhava_bala_strongest_virupa }} virupa) |
+    Weakest house: {{ report.summary.bhava_bala_weakest_house }}
   </p>
   {% endif %}
 

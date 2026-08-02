@@ -18,6 +18,7 @@ from bhava360.engines.parashara import run_parashara_engine
 from bhava360.engines.prashna import run_prashna_engine
 from bhava360.engines.progression import run_bhrigu_bindu_engine
 from bhava360.engines.rectification import run_rectification_engine
+from bhava360.engines.bhava_bala import run_bhava_bala_engine
 from bhava360.engines.shadbala import run_shadbala_engine
 from bhava360.engines.systems_approach import run_systems_approach_engine
 from bhava360.engines.tajika import run_tajika_annual_engine
@@ -145,6 +146,7 @@ def run_verification(
             "systems_approach",
             "lal_kitab",
             "shadbala",
+            "bhava_bala",
             "yogini",
             "transit",
         )
@@ -339,6 +341,14 @@ def run_verification(
             report["sections"]["shadbala"] = run_shadbala_engine(chart=chart)
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "shadbala", "error": str(exc)})
+
+    if "bhava_bala" in selected:
+        try:
+            if chart is None:
+                raise RuntimeError("chart required for Bhava Bala")
+            report["sections"]["bhava_bala"] = run_bhava_bala_engine(chart=chart)
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "bhava_bala", "error": str(exc)})
 
     if "lal_kitab" in selected:
         try:
@@ -701,6 +711,17 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["shadbala_strongest"] = sm.get("strongest_partial")
         summary["shadbala_strongest_virupa"] = sm.get("strongest_partial_virupa")
         summary["shadbala_weakest"] = sm.get("weakest_partial")
+
+    bb = report["sections"].get("bhava_bala")
+    if bb:
+        summary["bhava_bala_engine"] = bb.get("engine")
+        pack = bb.get("bhava_bala") or {}
+        sm = pack.get("summary") or {}
+        summary["bhava_bala_lagna_class"] = pack.get("lagna_class")
+        summary["bhava_bala_house_count"] = sm.get("house_count")
+        summary["bhava_bala_strongest_house"] = sm.get("strongest_house")
+        summary["bhava_bala_strongest_virupa"] = sm.get("strongest_partial_virupa")
+        summary["bhava_bala_weakest_house"] = sm.get("weakest_house")
 
     lk = report["sections"].get("lal_kitab")
     if lk:

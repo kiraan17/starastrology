@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P28a — Shadbala Kala/Chesta/Drik thin continuation done**
+**P28b — Bhava Bala partial scaffold done**
 
-Engine `Shadbala` `0.2.0-kala-chesta-drik` (TEC-023): adds Natonnata/Paksha/Vara/Hora, retrograde Chesta, aspect-net Drik.
+Engine `BhavaBala` `0.1.0-partial-scaffold` (TEC-024): Bhavadhipati from partial Shadbala + Dig (Lagna class) + Drishti (aspect sum).
 
 
 ## Principles (short)

@@ -228,6 +228,15 @@
       "workflow_status": "Auto-Tested",
       "safety_level": "normal",
       "notes": "Candidate partial incl. Kala/Chesta/Drik thin; no full minima verdicts"
+    },
+    {
+      "engine": "BhavaBala",
+      "module": "bhava360.engines.bhava_bala",
+      "engine_version": "0.1.0-partial-scaffold",
+      "technique_ids": ["TEC-024"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate Bhavadhipati+Dig+Drishti thin; depends on partial Shadbala"
     }
   ],
   "kernel": {

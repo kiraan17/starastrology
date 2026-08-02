@@ -41,7 +41,7 @@
 | TEC-021 | Natural/temporal/functional benefic-malefic | Classification | classification | normal | yes | partial | Not Researched | Threshold config |
 | TEC-022 | Exaltation, debilitation, own, moolatrikona, cancellation | Classification | classification | normal | yes | yes | Auto-Tested | Cancellation rules TBD |
 | TEC-023 | Shadbala (component pack) | Strength | calculation | normal | yes | yes | Auto-Tested | P28a +Kala thin +Chesta thin +Drik thin; seeghra/ayana/full tables deferred |
-| TEC-024 | Bhava Bala | Strength | calculation | normal | yes | partial | Not Researched | |
+| TEC-024 | Bhava Bala | Strength | calculation | normal | yes | partial | Auto-Tested | P28b Candidate: Bhavadhipati+Dig+Drishti thin; Sag/Cap Dig + polarity deferred |
 | TEC-025 | Vimshopaka Bala | Strength | calculation | normal | yes | partial | Not Researched | |
 | TEC-026 | Argala and Virodha Argala | Strength | calculation | normal | yes | partial | Not Researched | |
 | TEC-027 | Natural karakas | Classification | classification | normal | yes | partial | Not Researched | |

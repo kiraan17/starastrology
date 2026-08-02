@@ -543,6 +543,30 @@ def test_api_verify_shadbala():
     assert "drik" in sun["components_virupa"]
 
 
+def test_api_verify_bhava_bala():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["bhava_bala"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["bhava_bala_engine"] == "BhavaBala"
+    assert body["summary"]["bhava_bala_house_count"] == 12
+    assert body["summary"]["bhava_bala_lagna_class"] == "nara"
+    assert body["summary"]["bhava_bala_strongest_house"] is not None
+    assert body["summary"]["bhava_bala_strongest_virupa"] > 0
+    assert "TEC-024" in body["sections"]["bhava_bala"]["technique_ids"]
+    assert body["sections"]["bhava_bala"]["engine_version"] == "0.1.0-partial-scaffold"
+
+
 def test_api_verify_lal_kitab():
     res = client.post(
         "/api/verify",
