@@ -148,6 +148,6 @@ def run_panchanga_engine(
         + bala["notes"]
         + [
             "Evaluated at subject local civil time; Vara keyed to that date's sunrise.",
-            "TEC-074..076 deferred.",
+            "TEC-075..076 activity cycles partially covered elsewhere; TEC-074 in PanchakaBhadra.",
         ],
     }

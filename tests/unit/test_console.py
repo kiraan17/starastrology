@@ -413,6 +413,29 @@ def test_api_verify_muhurta_events():
     assert isinstance(body["summary"]["muhurta_events_avoid"], list)
 
 
+def test_api_verify_panchaka():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["panchaka"],
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["panchaka_engine"] == "PanchakaBhadra"
+    assert body["summary"]["panchaka_label"]
+    assert isinstance(body["summary"]["panchaka_moon_active"], bool)
+    assert isinstance(body["summary"]["panchaka_bhadra_active"], bool)
+    assert body["summary"]["panchaka_caution_count"] >= 0
+    assert "TEC-074" in body["sections"]["panchaka"]["technique_ids"]
+
+
 def test_api_verify_numerology():
     res = client.post(
         "/api/verify",

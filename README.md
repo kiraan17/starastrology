@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P25b — Transit natal overlay thin slice done**
+**P26a — Panchaka / Bhadra thin slice done**
 
-Transit-vs-natal overlay in engine `Transit` `0.1.0-natal-overlay` (TEC-035).
+Moon Panchak + Rahita remainder + Vishti/Bhadra in engine `PanchakaBhadra` `0.1.0-panchaka-bhadra`.
 
 
 ## Principles (short)

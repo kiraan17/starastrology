@@ -23,6 +23,7 @@ from bhava360.engines.tajika import run_tajika_annual_engine
 from bhava360.engines.transit import run_transit_engine
 from bhava360.kernel.models import AyanamsaMode, ChartConfig, HouseSystem, SubjectInput
 from bhava360.timing.muhurta_event_engine import run_muhurta_event_engine
+from bhava360.timing.panchaka_engine import run_panchaka_bhadra_engine
 from bhava360.timing.panchanga_engine import run_panchanga_engine
 from bhava360.timing.yogini_engine import run_yogini_dasha_engine
 
@@ -131,6 +132,7 @@ def run_verification(
             "nadi",
             "panchanga",
             "muhurta_events",
+            "panchaka",
             "tajika",
             "sudarshana",
             "bhrigu_bindu",
@@ -207,6 +209,18 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "muhurta_events", "error": str(exc)})
+
+    if "panchaka" in selected:
+        try:
+            pan = report["sections"].get("panchanga")
+            report["sections"]["panchaka"] = run_panchaka_bhadra_engine(
+                subject,
+                config=config,
+                chart=chart,
+                panchanga=pan,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "panchaka", "error": str(exc)})
 
     if "kp" in selected:
         try:
@@ -501,6 +515,18 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["muhurta_events_mixed"] = (pack.get("summary") or {}).get("mixed")
         summary["muhurta_events_avoid"] = (pack.get("summary") or {}).get("avoid")
         summary["muhurta_events_count"] = len(pack.get("results") or [])
+
+    pka = report["sections"].get("panchaka")
+    if pka:
+        summary["panchaka_engine"] = pka.get("engine")
+        sm = ((pka.get("panchaka_bhadra") or {}).get("summary")) or {}
+        summary["panchaka_moon_active"] = sm.get("moon_panchak_active")
+        summary["panchaka_moon_segment"] = sm.get("moon_panchak_segment")
+        summary["panchaka_rahita"] = sm.get("panchaka_rahita")
+        summary["panchaka_type"] = sm.get("panchaka_type")
+        summary["panchaka_label"] = sm.get("panchaka_label")
+        summary["panchaka_bhadra_active"] = sm.get("bhadra_active")
+        summary["panchaka_caution_count"] = sm.get("caution_flag_count")
 
     tajika = report["sections"].get("tajika")
     if tajika:
