@@ -7,6 +7,7 @@ from bhava360.chart.builder import ChartConstructor
 from bhava360.engines.ashtakavarga import run_ashtakavarga_engine
 from bhava360.engines.chakra import run_nakshatra_chakra_engine, run_sudarshana_engine
 from bhava360.engines.classification import run_classification_engine
+from bhava360.engines.compatibility import run_compatibility_engine
 from bhava360.engines.jaimini import run_jaimini_engine
 from bhava360.engines.kp import run_kp_engine
 from bhava360.engines.nadi import run_nakshatra_nadi_engine
@@ -73,6 +74,7 @@ def run_verification(
     annual_location_rule: str = "birth_place",
     ashtamangala_counts: str | list | dict | None = None,
     question_text: str | None = None,
+    partner_subject: SubjectInput | None = None,
 ) -> dict[str, Any]:
     """Run selected verification engines and return a structured report."""
     selected = engines or ["chart", "parashara", "ashtakavarga"]
@@ -97,6 +99,7 @@ def run_verification(
             "annual_location_rule": annual_location_rule,
             "ashtamangala_counts_provided": bool(ashtamangala_counts),
             "question_text": question_text,
+            "partner_provided": partner_subject is not None,
         },
         "sections": {},
         "errors": [],
@@ -235,6 +238,18 @@ def run_verification(
             )
         except Exception as exc:  # noqa: BLE001
             report["errors"].append({"section": "prashna", "error": str(exc)})
+
+    if "compatibility" in selected:
+        try:
+            if partner_subject is None:
+                raise RuntimeError("partner subject required for compatibility/Ashtakoota")
+            report["sections"]["compatibility"] = run_compatibility_engine(
+                boy_subject=subject,
+                girl_subject=partner_subject,
+                config=config,
+            )
+        except Exception as exc:  # noqa: BLE001
+            report["errors"].append({"section": "compatibility", "error": str(exc)})
 
     report["summary"] = _summarize(report)
     return report
@@ -453,4 +468,14 @@ def _summarize(report: dict[str, Any]) -> dict[str, Any]:
         summary["ashtamangala_provided"] = ash.get("provided")
         arudha = prashna.get("arudha_lagna") or {}
         summary["prashna_arudha_sign"] = arudha.get("arudha_sign")
+
+    compat = report["sections"].get("compatibility")
+    if compat:
+        summary["compatibility_engine"] = compat.get("engine")
+        ak = compat.get("ashtakoota") or {}
+        summary["ashtakoota_total"] = ak.get("total")
+        summary["ashtakoota_max"] = ak.get("max_total")
+        summary["ashtakoota_percentage"] = ak.get("percentage")
+        summary["ashtakoota_boy_nakshatra"] = (ak.get("boy") or {}).get("nakshatra_label")
+        summary["ashtakoota_girl_nakshatra"] = (ak.get("girl") or {}).get("nakshatra_label")
     return summary

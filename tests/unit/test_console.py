@@ -360,3 +360,30 @@ def test_api_verify_prashna_without_manual_awaits_input():
     assert body["summary"]["error_count"] == 0
     assert body["summary"]["ashtamangala_provided"] is False
     assert body["summary"]["ashtamangala_status"] == "awaiting_manual_input"
+
+
+def test_api_verify_compatibility():
+    res = client.post(
+        "/api/verify",
+        json={
+            "date": "1990-08-15",
+            "time": "12:00",
+            "timezone_id": "Asia/Kolkata",
+            "latitude": 13.0827,
+            "longitude": 80.2707,
+            "engines": ["compatibility"],
+            "partner_date": "1992-03-10",
+            "partner_time": "09:30",
+            "partner_timezone_id": "Asia/Kolkata",
+            "partner_latitude": 12.9716,
+            "partner_longitude": 77.5946,
+        },
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body["summary"]["error_count"] == 0
+    assert body["summary"]["compatibility_engine"] == "Compatibility"
+    assert 0 <= body["summary"]["ashtakoota_total"] <= 36
+    assert body["summary"]["ashtakoota_max"] == 36
+    assert body["summary"]["ashtakoota_boy_nakshatra"]
+    assert body["summary"]["ashtakoota_girl_nakshatra"]

@@ -14,9 +14,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P19b — Prashna scaffold done**
+**P20a — Ashtakoota compatibility done**
 
-Trisphuta/Gulika/Chatusphuta + Arudha; Ashtamangala counts manual-only in engine `Prashna` `0.1.0-sphuta-scaffold`.
+North-Indian 36-point Ashtakoota from two Moons in engine `Compatibility` `0.1.0-ashtakoota`.
 
 
 ## Principles (short)

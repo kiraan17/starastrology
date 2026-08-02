@@ -41,6 +41,13 @@ DEFAULT_FORM = {
     "annual_location_rule": "birth_place",
     "question_text": "",
     "ashtamangala_counts": "",
+    "partner_date": "1992-03-10",
+    "partner_time": "09:30",
+    "partner_offset": "+05:30",
+    "partner_timezone_id": "Asia/Kolkata",
+    "partner_latitude": "12.9716",
+    "partner_longitude": "77.5946",
+    "partner_location_label": "Bengaluru",
 }
 
 
@@ -73,6 +80,13 @@ async def verify(
     annual_location_rule: str = Form("birth_place"),
     question_text: str = Form(""),
     ashtamangala_counts: str = Form(""),
+    partner_date: str = Form(""),
+    partner_time: str = Form(""),
+    partner_offset: str = Form("+05:30"),
+    partner_timezone_id: str = Form(""),
+    partner_latitude: str = Form(""),
+    partner_longitude: str = Form(""),
+    partner_location_label: str = Form(""),
 ) -> HTMLResponse:
     global _LAST_REPORT
     form = {
@@ -93,6 +107,13 @@ async def verify(
         "annual_location_rule": annual_location_rule,
         "question_text": question_text,
         "ashtamangala_counts": ashtamangala_counts,
+        "partner_date": partner_date,
+        "partner_time": partner_time,
+        "partner_offset": partner_offset,
+        "partner_timezone_id": partner_timezone_id,
+        "partner_latitude": partner_latitude,
+        "partner_longitude": partner_longitude,
+        "partner_location_label": partner_location_label,
     }
     uncertainty_val = float(uncertainty) if uncertainty.strip() else None
     target_year_val = int(target_year) if str(target_year).strip() else None
@@ -107,6 +128,19 @@ async def verify(
         timezone_id=timezone_id,
         dst_ambiguity_policy=dst_ambiguity_policy,
     )
+    partner_subject = None
+    if "compatibility" in form["engines"] and partner_date.strip() and partner_time.strip():
+        partner_subject = parse_subject(
+            date_str=partner_date,
+            time_str=partner_time,
+            offset_str=partner_offset or offset,
+            latitude=float(partner_latitude or latitude),
+            longitude=float(partner_longitude or longitude),
+            location_label=partner_location_label,
+            uncertainty_minutes=None,
+            timezone_id=partner_timezone_id or timezone_id,
+            dst_ambiguity_policy=dst_ambiguity_policy,
+        )
     report = run_verification(
         subject,
         ayanamsa=ayanamsa,
@@ -117,6 +151,7 @@ async def verify(
         annual_location_rule=annual_location_rule,
         ashtamangala_counts=ashtamangala_counts or None,
         question_text=question_text or None,
+        partner_subject=partner_subject,
     )
     _LAST_REPORT = report
     return templates.TemplateResponse(
@@ -172,6 +207,19 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
     )
     ty = payload.get("target_year")
     target_year_val = int(ty) if ty not in (None, "") else None
+    partner_subject = None
+    if "compatibility" in (payload.get("engines") or []) and payload.get("partner_date"):
+        partner_subject = parse_subject(
+            date_str=payload["partner_date"],
+            time_str=payload.get("partner_time", "12:00"),
+            offset_str=payload.get("partner_offset", payload.get("offset", "+00:00")),
+            latitude=float(payload.get("partner_latitude", payload["latitude"])),
+            longitude=float(payload.get("partner_longitude", payload["longitude"])),
+            location_label=payload.get("partner_location_label", ""),
+            uncertainty_minutes=None,
+            timezone_id=payload.get("partner_timezone_id", payload.get("timezone_id")),
+            dst_ambiguity_policy=payload.get("dst_ambiguity_policy", "earlier"),
+        )
     report = run_verification(
         subject,
         ayanamsa=payload.get("ayanamsa", "lahiri"),
@@ -182,6 +230,7 @@ async def api_verify(payload: dict[str, Any]) -> JSONResponse:
         annual_location_rule=payload.get("annual_location_rule", "birth_place"),
         ashtamangala_counts=payload.get("ashtamangala_counts"),
         question_text=payload.get("question_text"),
+        partner_subject=partner_subject,
     )
     _LAST_REPORT = report
     return JSONResponse(report)

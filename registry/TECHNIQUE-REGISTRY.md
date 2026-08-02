@@ -111,7 +111,7 @@
 | TEC-091 | Systems Approach configuration | SystemsApproach | interpretation | normal | yes | no | Not Researched | |
 | TEC-092 | Numerology (mantra-shastra style) | Numerology | calculation | normal | yes | yes | Not Researched | VedAstro overlap |
 | TEC-093 | Muhurta event rule packs | Muhurta | timing | normal | yes | yes | Not Researched | |
-| TEC-094 | Compatibility / Kuta systems | Compatibility | interpretation | normal | yes | yes | Not Researched | |
+| TEC-094 | Compatibility / Kuta systems | Compatibility | interpretation | normal | yes | yes | Auto-Tested | P20a Ashtakoota 36-point Candidate; exceptions deferred |
 | TEC-095 | Birth-time rectification toolkit | Rectification | orchestration | restricted | yes | partial | Not Researched | |
 | TEC-096 | Evidence, scoring and conflict orchestration | Orchestration | orchestration | normal | yes | no | Not Researched | Product weights |
 

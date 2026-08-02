@@ -88,6 +88,7 @@
       <label><input type="checkbox" name="engines" value="nakshatra_chakra" {% if 'nakshatra_chakra' in form.engines %}checked{% endif %} /> nakshatra chakras</label>
       <label><input type="checkbox" name="engines" value="classification" {% if 'classification' in form.engines %}checked{% endif %} /> classification</label>
       <label><input type="checkbox" name="engines" value="prashna" {% if 'prashna' in form.engines %}checked{% endif %} /> prashna</label>
+      <label><input type="checkbox" name="engines" value="compatibility" {% if 'compatibility' in form.engines %}checked{% endif %} /> compatibility</label>
     </div>
     <label>Jaimini Chara Karaka scheme (VARIANT-001)
       <select name="jaimini_chara_scheme">
@@ -110,6 +111,27 @@
     </label>
     <label>Ashtamangala counts (manual only; comma-separated)
       <input name="ashtamangala_counts" value="{{ form.ashtamangala_counts }}" placeholder="e.g. 3,5,2,7" />
+    </label>
+    <label>Partner date (compatibility)
+      <input name="partner_date" value="{{ form.partner_date }}" />
+    </label>
+    <label>Partner time
+      <input name="partner_time" value="{{ form.partner_time }}" />
+    </label>
+    <label>Partner UTC offset
+      <input name="partner_offset" value="{{ form.partner_offset }}" />
+    </label>
+    <label>Partner IANA timezone
+      <input name="partner_timezone_id" value="{{ form.partner_timezone_id }}" />
+    </label>
+    <label>Partner latitude
+      <input name="partner_latitude" value="{{ form.partner_latitude }}" />
+    </label>
+    <label>Partner longitude
+      <input name="partner_longitude" value="{{ form.partner_longitude }}" />
+    </label>
+    <label>Partner location label
+      <input name="partner_location_label" value="{{ form.partner_location_label }}" />
     </label>
     <button type="submit">Run verification</button>
   </form>
@@ -362,6 +384,17 @@
     Arudha: {{ report.summary.prashna_arudha_sign }} |
     Ashtamangala: {{ report.summary.ashtamangala_status }}
     (provided={{ report.summary.ashtamangala_provided }})
+  </p>
+  {% endif %}
+
+  {% if report.summary.compatibility_engine %}
+  <h3>Compatibility (Ashtakoota)</h3>
+  <p>
+    Engine: {{ report.summary.compatibility_engine }} |
+    Score: {{ report.summary.ashtakoota_total }} / {{ report.summary.ashtakoota_max }}
+    ({{ report.summary.ashtakoota_percentage }}%) |
+    Boy Moon: {{ report.summary.ashtakoota_boy_nakshatra }} |
+    Girl Moon: {{ report.summary.ashtakoota_girl_nakshatra }}
   </p>
   {% endif %}
 
