@@ -45,6 +45,7 @@ Ordered for the backend-first programme.
 | P28b | Bhava Bala partial scaffold (TEC-024) | **Done** |
 | P29a | Vimshopaka Shodashavarga scaffold (TEC-025) | **Done** |
 | P29b | Shadbala Saptavargaja/Drekkana/Ojayugma-navamsa (TEC-023) | **Done** |
+| P30a | Shadbala Kala remainder Tribhaga/Abda/Masa/Ayana/Yuddha (TEC-023) | **Done** |
 
 ## Next
 
@@ -53,7 +54,7 @@ Ordered for the backend-first programme.
 | SRC-009-APPROVE | Approve Nakshatra Nadi corpus + load rule pack (**human/legal**) |
 | ADR-002-L1/L2 | File real SE license/AGPL evidence (**legal**) to unlock public API |
 | P24b | Expert validation sign-off → issue Frozen manifest (release authority) |
-| P30a | Kala remainder (Tribhaga/Abda/Masa/Ayana) *or* Chesta seeghra/ayana *or* Kalachakra when sourced |
+| P30b | Chesta seeghra/ayana *or* Abda/Masa Hora-at-sankranti refinement *or* Kalachakra when sourced |
 
 ## Explicitly not started
 

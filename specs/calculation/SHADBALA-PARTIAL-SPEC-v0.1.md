@@ -1,10 +1,10 @@
-# Shadbala partial pack (P27b / P28a / P29b)
+# Shadbala partial pack (P27b / P28a / P29b / P30a)
 
 **Module:** `bhava360.engines.shadbala`  
-**Engine:** `Shadbala` `0.3.0-saptavargaja`  
+**Engine:** `Shadbala` `0.4.0-kala-remainder`  
 **Status:** Candidate  
 **Technique:** TEC-023  
-**Stamp:** `shadbala_saptavargaja_candidate_v1`
+**Stamp:** `shadbala_kala_remainder_candidate_v1`
 
 ## In scope (Virupa)
 
@@ -13,24 +13,21 @@
 | Naisargika | Fixed 60×(7..1)/7 |
 | Dig | Whole-sign dig-house distance |
 | Sthana | Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana |
-| Kala thin | Natonnata + Paksha + Vara(45) + Hora(60) |
+| Kala | Natonnata + Paksha + Tribhaga + Abda(15) + Masa(30) + Vara(45) + Hora(60) + Ayana + Yuddha |
 | Chesta thin | Retrograde→60 else 15 for Mars–Saturn; Sun/Moon Ayana deferred (0) |
 | Drik thin | Whole-sign graha aspect net, ±60 clamp |
 
-### Saptavargaja (Candidate)
+### Kala notes (Candidate)
 
-Vargas: D1, D2, D3, D7, D9, D12, D30.  
-Points (permanent friendship): Moolatrikona(D1 deg)=45, Own=30, Friend=15, Neutral=10, Enemy=4.  
-Adhi-mitra/Adhi-satru deferred.
-
-### Drekkana (Saravali)
-
-Male 1st 10°, female 2nd 10°, neutral 3rd 10° → 15 else 0.
+- **Tribhaga:** day Mercury/Sun/Saturn; night Moon/Venus/Mars; Jupiter always 60
+- **Abda/Masa:** sankranti-weekday approximation (classical Hora-at-sankranti deferred)
+- **Ayana:** length-based `30×(1±|sin(tropical_lon)|)` (Saravali)
+- **Yuddha:** Mars–Saturn within 1°; redistribute pre-Ayana Kala difference
 
 ## Out of scope
 
+- Abda/Masa Hora lord at exact sankranti instant
 - Saptavargaja temporal / Adhi-mitra / Adhi-satru
-- Kala: Tribhaga, Abda, Masa, Ayana, Yuddha
 - Chesta seeghra kendra + luminous Ayana Chesta
 - Classical Drik strength tables
 - Full-pack minimum threshold verdicts

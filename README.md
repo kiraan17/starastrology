@@ -16,9 +16,9 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 
 ## Current phase
 
-**P29b — Shadbala Saptavargaja/Drekkana continuation done**
+**P30a — Shadbala Kala remainder done**
 
-Engine `Shadbala` `0.3.0-saptavargaja` (TEC-023): Sthana now includes Saptavargaja, Drekkana, and Ojayugma navamsa.
+Engine `Shadbala` `0.4.0-kala-remainder` (TEC-023): Tribhaga + Abda/Masa + Ayana + Yuddha added to Kala.
 
 
 ## Principles (short)

@@ -6,6 +6,7 @@ from datetime import datetime
 
 from bhava360.engines.shadbala import run_shadbala_engine
 from bhava360.engines.shadbala.components import (
+    ayana_bala,
     chesta_bala,
     dig_bala,
     drekkana_bala,
@@ -17,6 +18,7 @@ from bhava360.engines.shadbala.components import (
     ojayugma_rasi_bala,
     paksha_bala,
     saptavargaja_points,
+    tribhaga_bala,
     uchcha_bala,
 )
 from bhava360.kernel.models import SubjectInput
@@ -48,14 +50,12 @@ def test_ojayugma_male_odd():
     assert ojayugma_rasi_bala(planet="Sun", sign="Aries") == 15.0
     assert ojayugma_rasi_bala(planet="Sun", sign="Taurus") == 0.0
     assert ojayugma_rasi_bala(planet="Moon", sign="Taurus") == 15.0
-    # Neutrals follow odd-sign rule (Saravali), not always-15.
     assert ojayugma_rasi_bala(planet="Mercury", sign="Aries") == 15.0
     assert ojayugma_rasi_bala(planet="Mercury", sign="Taurus") == 0.0
     assert ojayugma_navamsa_bala(planet="Moon", navamsa_sign="Cancer") == 15.0
 
 
 def test_drekkana_saravali():
-    # Male first, female middle, neutral last
     assert drekkana_bala(planet="Sun", longitude_sidereal_deg=5.0) == 15.0
     assert drekkana_bala(planet="Sun", longitude_sidereal_deg=15.0) == 0.0
     assert drekkana_bala(planet="Moon", longitude_sidereal_deg=15.0) == 15.0
@@ -63,20 +63,30 @@ def test_drekkana_saravali():
 
 
 def test_saptavargaja_own_and_friend():
-    # Sun moolatrikona Leo 0–20 in D1 → 45
     mt = saptavargaja_points(planet="Sun", varga="D1", sign="Leo", sign_degree=5.0)
     assert mt["basis"] == "moolatrikona"
     assert mt["points"] == 45.0
-    # Beyond moolatrikona window but still own → 30
     own = saptavargaja_points(planet="Sun", varga="D1", sign="Leo", sign_degree=25.0)
     assert own["points"] == 30.0
-    # In D9, Leo is own=30 not moolatrikona 45
     d9 = saptavargaja_points(planet="Sun", varga="D9", sign="Leo", sign_degree=5.0)
     assert d9["points"] == 30.0
     friend = saptavargaja_points(planet="Sun", varga="D2", sign="Cancer")
     assert friend["points"] == 15.0
     enemy = saptavargaja_points(planet="Sun", varga="D2", sign="Libra")
     assert enemy["points"] == 4.0
+
+
+def test_tribhaga_and_ayana():
+    assert tribhaga_bala(planet="Jupiter", is_day=True, portion_index=0) == 60.0
+    assert tribhaga_bala(planet="Mercury", is_day=True, portion_index=0) == 60.0
+    assert tribhaga_bala(planet="Sun", is_day=True, portion_index=0) == 0.0
+    assert tribhaga_bala(planet="Moon", is_day=False, portion_index=0) == 60.0
+    # Sun ~10° Taurus tropical → ~49.4 (Saravali example band)
+    sun_ayana = ayana_bala(planet="Sun", tropical_longitude_deg=40.367)
+    assert 48.0 < sun_ayana < 51.0
+    # Mercury always uses +|sin|
+    mer = ayana_bala(planet="Mercury", tropical_longitude_deg=0.0)
+    assert mer == 30.0
 
 
 def test_natonnata_and_paksha():
@@ -111,15 +121,20 @@ def test_shadbala_engine_live():
     )
     out = run_shadbala_engine(subject)
     assert out["engine"] == "Shadbala"
-    assert out["engine_version"] == "0.3.0-saptavargaja"
+    assert out["engine_version"] == "0.4.0-kala-remainder"
     assert "TEC-023" in out["technique_ids"]
     pack = out["shadbala"]
-    assert pack["variant"] == "shadbala_saptavargaja_candidate_v1"
+    assert pack["variant"] == "shadbala_kala_remainder_candidate_v1"
     assert pack["summary"]["planet_count"] == 7
+    assert pack["context"]["abda_lord"]
+    assert pack["context"]["masa_lord"]
+    assert pack["context"]["tribhaga_portion"] is not None
     sun = next(p for p in pack["planets"] if p["planet"] == "Sun")
-    sth = sun["components_virupa"]["sthana_partial"]
-    assert "saptavargaja" in sth
-    assert sth["saptavargaja"]["value"] > 0
-    assert "ojayugma_navamsa" in sth
-    assert "drekkana" in sth
+    kala = sun["components_virupa"]["kala_partial"]
+    assert "tribhaga" in kala
+    assert "ayana" in kala
+    assert "abda" in kala
+    assert "masa" in kala
+    assert "yuddha" in kala
+    assert kala["ayana"] > 0
     assert sun["full_minimum_comparison"] == "deferred_until_complete_shadbala"

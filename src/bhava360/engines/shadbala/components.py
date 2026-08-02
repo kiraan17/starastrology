@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+import math
+from datetime import datetime, timedelta
 from typing import Any
 
 from bhava360.chart.aspects import GRAHA_ASPECT_HOUSES, relative_house
@@ -18,7 +19,7 @@ from bhava360.kernel.derived import normalize_longitude
 from bhava360.kernel.models import PlanetName, SIGNS
 from bhava360.timing.panchanga import VARA_LORDS, lunar_elongation_deg
 
-SHADBALA_VARIANT = "shadbala_saptavargaja_candidate_v1"
+SHADBALA_VARIANT = "shadbala_kala_remainder_candidate_v1"
 
 CLASSICAL_PLANETS: tuple[str, ...] = (
     "Sun",
@@ -311,6 +312,75 @@ def hora_bala(*, planet: str, hora_lord: str | None) -> float:
     return 0.0
 
 
+def abda_bala(*, planet: str, abda_lord: str | None) -> float:
+    """Year-lord strength: 15 virupa (Candidate sankranti-weekday approx)."""
+    if abda_lord and planet == abda_lord:
+        return 15.0
+    return 0.0
+
+
+def masa_bala(*, planet: str, masa_lord: str | None) -> float:
+    """Month-lord strength: 30 virupa (Candidate sankranti-weekday approx)."""
+    if masa_lord and planet == masa_lord:
+        return 30.0
+    return 0.0
+
+
+def tribhaga_bala(*, planet: str, is_day: bool, portion_index: int | None) -> float:
+    """
+    Tribhaga Bala (Saravali Candidate).
+
+    Day portions: Mercury / Sun / Saturn. Night: Moon / Venus / Mars.
+    Jupiter always 60. ``portion_index`` is 0..2 within day or night.
+    """
+    if planet == "Jupiter":
+        return 60.0
+    if portion_index is None or not 0 <= portion_index <= 2:
+        return 0.0
+    lords = ("Mercury", "Sun", "Saturn") if is_day else ("Moon", "Venus", "Mars")
+    return 60.0 if planet == lords[portion_index] else 0.0
+
+
+def ayana_bala(*, planet: str, tropical_longitude_deg: float) -> float:
+    """
+    Ayana Bala via length-based formula (Saravali Candidate).
+
+    ``ayanabala = 30 * (1 ± |sin(tropical_lon)|)`` with hemisphere rules.
+    """
+    lon = normalize_longitude(tropical_longitude_deg)
+    amp = abs(math.sin(math.radians(lon)))
+    northern = lon < 180.0  # Aries–Virgo ≈ northern declination hemisphere
+    if planet == "Mercury":
+        return round(30.0 * (1.0 + amp), 6)
+    if planet in {"Moon", "Saturn"}:
+        # Strong in southern hemisphere.
+        signed = amp if not northern else -amp
+        return round(30.0 * (1.0 + signed), 6)
+    if planet in {"Sun", "Mars", "Jupiter", "Venus"}:
+        signed = amp if northern else -amp
+        return round(30.0 * (1.0 + signed), 6)
+    return 30.0
+
+
+def _sankranti_weekday_lord(
+    *,
+    birth_local: datetime,
+    sun_sidereal_lon: float,
+    target_lon: float,
+) -> str:
+    """
+    Approximate weekday lord of a sidereal Sun sankranti.
+
+    Classical rule uses Hora lord at sankranti instant; Candidate uses the
+    weekday lord of the civil day ~``(sun - target) % 360`` days earlier.
+    """
+    from bhava360.timing.muhurta import sunday_index
+
+    days = (normalize_longitude(sun_sidereal_lon) - normalize_longitude(target_lon)) % 360.0
+    sank = birth_local.replace(tzinfo=None) - timedelta(days=float(days))
+    return VARA_LORDS[sunday_index(sank)]
+
+
 def compute_kala_bala(
     *,
     planet: str,
@@ -319,20 +389,98 @@ def compute_kala_bala(
     moon_lon: float,
     vara_lord: str | None,
     hora_lord: str | None,
+    abda_lord: str | None = None,
+    masa_lord: str | None = None,
+    tribhaga_portion: int | None = None,
+    tropical_longitude_deg: float | None = None,
 ) -> dict[str, Any]:
     nat = natonnata_bala(planet=planet, is_day=is_day)
     pak = paksha_bala(planet=planet, sun_lon=sun_lon, moon_lon=moon_lon)
+    trib = tribhaga_bala(planet=planet, is_day=is_day, portion_index=tribhaga_portion)
+    abda = abda_bala(planet=planet, abda_lord=abda_lord)
+    masa = masa_bala(planet=planet, masa_lord=masa_lord)
     vara = vara_bala(planet=planet, vara_lord=vara_lord)
     hora = hora_bala(planet=planet, hora_lord=hora_lord)
-    subtotal = nat + pak + vara + hora
+    ayana = (
+        ayana_bala(planet=planet, tropical_longitude_deg=float(tropical_longitude_deg))
+        if tropical_longitude_deg is not None
+        else 0.0
+    )
+    # Yuddha applied later at pack level (needs all planets).
+    pre_yuddha = nat + pak + trib + abda + masa + vara + hora
+    subtotal = pre_yuddha + ayana
     return {
         "natonnata": round(nat, 6),
         "paksha": round(pak, 6),
+        "tribhaga": round(trib, 6),
+        "abda": round(abda, 6),
+        "masa": round(masa, 6),
         "vara": round(vara, 6),
         "hora": round(hora, 6),
+        "ayana": round(ayana, 6),
+        "yuddha": 0.0,
+        "pre_yuddha_subtotal": round(pre_yuddha, 6),
         "subtotal": round(subtotal, 6),
-        "deferred_subs": ["tribhaga", "abda", "masa", "ayana", "yuddha"],
+        "deferred_subs": ["abda_masa_hora_at_sankranti"],
     }
+
+
+def apply_yuddha_bala(
+    rows: list[dict[str, Any]],
+    *,
+    longitudes: dict[str, float],
+) -> list[dict[str, Any]]:
+    """
+    Planetary war (Saravali Candidate): Mars–Saturn within 1°.
+
+    Higher longitude wins; difference of pre-Ayana Kala is added to winner
+    and subtracted from loser. Ayana excluded from the redistribution base.
+    """
+    war_planets = ("Mars", "Mercury", "Jupiter", "Venus", "Saturn")
+    by_name = {r["planet"]: r for r in rows}
+    adjustments: dict[str, float] = {p: 0.0 for p in by_name}
+
+    for i, a in enumerate(war_planets):
+        if a not in longitudes or a not in by_name:
+            continue
+        for b in war_planets[i + 1 :]:
+            if b not in longitudes or b not in by_name:
+                continue
+            la, lb = longitudes[a], longitudes[b]
+            if abs((la - lb + 180.0) % 360.0 - 180.0) >= 1.0:
+                continue
+            ka = float(by_name[a]["components_virupa"]["kala_partial"]["pre_yuddha_subtotal"])
+            kb = float(by_name[b]["components_virupa"]["kala_partial"]["pre_yuddha_subtotal"])
+            diff = abs(ka - kb)
+            if la >= lb:
+                winner, loser = a, b
+            else:
+                winner, loser = b, a
+            adjustments[winner] += diff
+            adjustments[loser] -= diff
+
+    for row in rows:
+        name = row["planet"]
+        adj = adjustments.get(name, 0.0)
+        if adj == 0.0:
+            continue
+        kala = row["components_virupa"]["kala_partial"]
+        kala["yuddha"] = round(adj, 6)
+        kala["subtotal"] = round(float(kala["subtotal"]) + adj, 6)
+        # Recompute planet partial total.
+        comps = row["components_virupa"]
+        sth = float(comps["sthana_partial"]["subtotal"])
+        row["partial_total_virupa"] = round(
+            float(comps["naisargika"])
+            + float(comps["dig"])
+            + sth
+            + float(kala["subtotal"])
+            + float(comps["chesta"]["value"])
+            + float(comps["drik"]["value"]),
+            6,
+        )
+        row["partial_total_rupa"] = round(row["partial_total_virupa"] / 60.0, 6)
+    return rows
 
 
 def chesta_bala(*, planet: str, is_retrograde: bool) -> dict[str, Any]:
@@ -423,6 +571,10 @@ def compute_planet_shadbala_partial(
     is_retrograde: bool,
     planet_signs: dict[str, str],
     varga_signs: dict[str, dict[str, Any]] | None = None,
+    abda_lord: str | None = None,
+    masa_lord: str | None = None,
+    tribhaga_portion: int | None = None,
+    tropical_longitude_deg: float | None = None,
 ) -> dict[str, Any]:
     nais = naisargika_bala(planet)
     dig = dig_bala(planet=planet, rasi_house=rasi_house)
@@ -448,6 +600,10 @@ def compute_planet_shadbala_partial(
         uchcha + kend + oja + oja_n + float(sapta["value"]) + drek
     )
 
+    trop = tropical_longitude_deg
+    if trop is None:
+        trop = longitude_sidereal_deg  # fallback; Ayana expects tropical
+
     kala = compute_kala_bala(
         planet=planet,
         is_day=is_day,
@@ -455,6 +611,10 @@ def compute_planet_shadbala_partial(
         moon_lon=moon_lon,
         vara_lord=vara_lord,
         hora_lord=hora_lord,
+        abda_lord=abda_lord,
+        masa_lord=masa_lord,
+        tribhaga_portion=tribhaga_portion,
+        tropical_longitude_deg=trop,
     )
     chesta = chesta_bala(planet=planet, is_retrograde=is_retrograde)
     drik = drik_bala(planet=planet, planet_signs=planet_signs)
@@ -505,18 +665,19 @@ def compute_planet_shadbala_partial(
             "sthana.drekkana",
             "kala.natonnata",
             "kala.paksha",
+            "kala.tribhaga",
+            "kala.abda",
+            "kala.masa",
             "kala.vara",
             "kala.hora",
+            "kala.ayana",
+            "kala.yuddha",
             "chesta.thin",
             "drik.thin",
         ],
         "deferred_components": [
             "saptavargaja.adhi_mitra_satru",
-            "kala.tribhaga",
-            "kala.abda",
-            "kala.masa",
-            "kala.ayana",
-            "kala.yuddha",
+            "kala.abda_masa_hora_at_sankranti",
             "chesta.seeghra_kendra",
             "chesta.ayana_for_luminaries",
             "drik.classical_drishti_strength_tables",
@@ -540,6 +701,9 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
     is_day = True
     vara_lord = None
     hora_lord = None
+    abda_lord = None
+    masa_lord = None
+    tribhaga_portion: int | None = None
     sunrise_local = day_window.get("sunrise_local")
     sunset_local = day_window.get("sunset_local")
     local_iso = (chart.get("input") or {}).get("local_datetime") or resolved.get(
@@ -556,7 +720,7 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
         local_n = local.replace(tzinfo=None)
         is_day = rise_n <= local_n < sett_n
         try:
-            from datetime import timedelta, timezone
+            from datetime import timezone
 
             from bhava360.timing.muhurta import active_window, compute_horas, sunday_index
 
@@ -577,6 +741,27 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
                 active = active_window(when, horas["horas"])
                 if active:
                     hora_lord = active.get("lord")
+            # Tribhaga portion within day or night.
+            if is_day:
+                span = (sett_n - rise_n).total_seconds()
+                elapsed = (local_n - rise_n).total_seconds()
+            elif local_n >= sett_n:
+                span = (next_rise_approx - sett_n).total_seconds()
+                elapsed = (local_n - sett_n).total_seconds()
+            else:
+                prev_sett = sett_n - timedelta(days=1)
+                span = (rise_n - prev_sett).total_seconds()
+                elapsed = (local_n - prev_sett).total_seconds()
+            if span > 0:
+                tribhaga_portion = min(int((elapsed / span) * 3.0), 2)
+
+            abda_lord = _sankranti_weekday_lord(
+                birth_local=local_n, sun_sidereal_lon=sun_lon, target_lon=0.0
+            )
+            masa_target = math.floor(normalize_longitude(sun_lon) / 30.0) * 30.0
+            masa_lord = _sankranti_weekday_lord(
+                birth_local=local_n, sun_sidereal_lon=sun_lon, target_lon=masa_target
+            )
         except Exception:  # noqa: BLE001
             hora_lord = None
             if sunrise_local:
@@ -600,6 +785,9 @@ def _chart_context(chart: dict[str, Any]) -> dict[str, Any]:
         "is_day": is_day,
         "vara_lord": vara_lord,
         "hora_lord": hora_lord,
+        "abda_lord": abda_lord,
+        "masa_lord": masa_lord,
+        "tribhaga_portion": tribhaga_portion,
         "planet_signs": planet_signs,
     }
 
@@ -609,6 +797,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
     ctx = _chart_context(chart)
     planets = ctx["planets"]
     rows: list[dict[str, Any]] = []
+    longitudes: dict[str, float] = {}
     for name in CLASSICAL_PLANETS:
         p = planets.get(name)
         if not p:
@@ -616,10 +805,13 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
         house = int((p.get("houses") or {}).get("rasi_house") or 0)
         if house < 1:
             continue
+        lon = float(p["longitude_sidereal_deg"])
+        longitudes[name] = lon
+        trop = p.get("longitude_tropical_deg")
         rows.append(
             compute_planet_shadbala_partial(
                 planet=name,
-                longitude_sidereal_deg=float(p["longitude_sidereal_deg"]),
+                longitude_sidereal_deg=lon,
                 sign=str(p["sign"]),
                 rasi_house=house,
                 is_day=bool(ctx["is_day"]),
@@ -630,9 +822,14 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 is_retrograde=bool(p.get("is_retrograde")),
                 planet_signs=ctx["planet_signs"],
                 varga_signs=p.get("vargas") or {},
+                abda_lord=ctx.get("abda_lord"),
+                masa_lord=ctx.get("masa_lord"),
+                tribhaga_portion=ctx.get("tribhaga_portion"),
+                tropical_longitude_deg=float(trop) if trop is not None else None,
             )
         )
 
+    rows = apply_yuddha_bala(rows, longitudes=longitudes)
     ranked = sorted(rows, key=lambda r: r["partial_total_virupa"], reverse=True)
     return {
         "variant": SHADBALA_VARIANT,
@@ -642,6 +839,9 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "is_day": ctx["is_day"],
             "vara_lord": ctx["vara_lord"],
             "hora_lord": ctx["hora_lord"],
+            "abda_lord": ctx.get("abda_lord"),
+            "masa_lord": ctx.get("masa_lord"),
+            "tribhaga_portion": ctx.get("tribhaga_portion"),
         },
         "planets": rows,
         "summary": {
@@ -658,7 +858,7 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
                 "drik",
             ],
             "deferred_component_families": [
-                "kala_remainder",
+                "kala_abda_masa_hora_at_sankranti",
                 "chesta_seeghra_ayana",
                 "drik_classical_tables",
                 "saptavargaja_adhi_mitra",
@@ -668,8 +868,8 @@ def compute_shadbala_pack(chart: dict[str, Any]) -> dict[str, Any]:
             "Candidate partial scaffold — not a complete BPHS Shadbala pack.",
             "Partial totals must not be compared to full-pack minima for verdicts.",
             "Sthana: Uchcha + Kendradi + Ojayugma(rasi+navamsa) + Saptavargaja + Drekkana.",
-            "Saptavargaja uses permanent friendship only (Adhi-mitra/satru deferred).",
-            "Kala thin: Natonnata + Paksha + Vara + Hora.",
+            "Kala: Natonnata + Paksha + Tribhaga + Abda/Masa/Vara/Hora + Ayana + Yuddha.",
+            "Abda/Masa use sankranti-weekday approximation (Hora-at-sankranti deferred).",
             "Chesta thin: retrograde flag for Mars–Saturn; luminaries deferred.",
             "Drik thin: whole-sign graha aspect net (±60 clamp).",
         ],
@@ -680,6 +880,9 @@ __all__ = [
     "CLASSICAL_PLANETS",
     "SAPTAVARGA_IDS",
     "SHADBALA_VARIANT",
+    "abda_bala",
+    "apply_yuddha_bala",
+    "ayana_bala",
     "chesta_bala",
     "compute_kala_bala",
     "compute_planet_shadbala_partial",
@@ -690,12 +893,14 @@ __all__ = [
     "drik_bala",
     "hora_bala",
     "kendradi_bala",
+    "masa_bala",
     "naisargika_bala",
     "natonnata_bala",
     "ojayugma_navamsa_bala",
     "ojayugma_rasi_bala",
     "paksha_bala",
     "saptavargaja_points",
+    "tribhaga_bala",
     "uchcha_bala",
     "vara_bala",
 ]
