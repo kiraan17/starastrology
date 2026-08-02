@@ -9,7 +9,8 @@ Deterministic astrology **backend** programme. Customer frontend is out of scope
 3. [AI instructions](AGENTS.md)
 4. [Status workflow](docs/status/STATUS-WORKFLOW.md)
 5. [Technique registry](registry/TECHNIQUE-REGISTRY.md) *(blocked on 96-item inventory)*
-6. [Initial backlog](backlog/INITIAL-BACKLOG.md)
+6. [Build plan using VedAstro as reference](docs/architecture/BUILD-PLAN-VEDASTRO-REFERENCE.md)
+7. [Initial backlog](backlog/INITIAL-BACKLOG.md)
 
 ## Current phase
 

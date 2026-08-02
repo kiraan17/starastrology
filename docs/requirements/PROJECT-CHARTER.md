@@ -80,6 +80,10 @@ Calculation kernel, database implementation and school engines must not start un
 - [ ] Human review of folders and instructions
 - [ ] Approval to start P02 (Technique Registry) after 96-item inventory is available
 
+## Reference strategy
+
+VedAstro (`https://github.com/VedAstro/VedAstro`) is an approved **reference / comparator / optional bootstrap**, not the Bhava360 product architecture. Controlling build plan: `docs/architecture/BUILD-PLAN-VEDASTRO-REFERENCE.md`.
+
 ## Next approved task after Phase 0 review
 
 **P02 — Technique Registry v1**, only after the complete 96-technique inventory is provided.

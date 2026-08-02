@@ -21,6 +21,10 @@ Ordered for the backend-first programme. Do not start calculation implementation
 
 | ID | Task |
 |---|---|
+| PLAN-01 | Build plan using VedAstro as reference (`docs/architecture/BUILD-PLAN-VEDASTRO-REFERENCE.md`) | Done (draft) |
+| ADR-001 | Decide VedAstro usage option A/B/C + primary runtime |
+| ADR-002 | Swiss Ephemeris license path before public activation |
+| SPIKE-01 | Time-boxed VedAstro API/Docker golden-fixture spike (5 charts) |
 | P03 | Source Register + variant decision log process |
 | P04 | Architecture diagram + technology ADRs + Swiss Ephemeris license decision |
 | P05 | Canonical data dictionary, ERD, schema specification, privacy classification |
