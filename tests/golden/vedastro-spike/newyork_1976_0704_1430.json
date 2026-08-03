@@ -1,0 +1,1307 @@
+{
+  "chart": {
+    "id": "newyork_1976_0704_1430",
+    "label": "New York sample",
+    "location": "New York",
+    "time": "14:30/04/07/1976/-04:00"
+  },
+  "fetched_at_utc": "2026-08-02T06:49:14.462747+00:00",
+  "api_root": "https://api.vedastro.org/api/Calculate",
+  "note": "VedAstro comparator fixture only. Not Bhava360 production truth.",
+  "planets": {
+    "Sun": {
+      "planet": "Sun",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "79° 20' 56",
+            "TotalDegrees": "79.3488888888889"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Gemini",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "19° 20' 56",
+              "TotalDegrees": "19.34888888888889"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Aridra - 4"
+        }
+      }
+    },
+    "Moon": {
+      "planet": "Moon",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "169° 54' 41",
+            "TotalDegrees": "169.9113888888889"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Virgo",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "19° 54' 41",
+              "TotalDegrees": "19.91138888888889"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Hasta - 3"
+        }
+      }
+    },
+    "Mars": {
+      "planet": "Mars",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "125° 8' 16",
+            "TotalDegrees": "125.13777777777777"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Leo",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "5° 8' 16",
+              "TotalDegrees": "5.137777777777778"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Makha - 2"
+        }
+      }
+    },
+    "Mercury": {
+      "planet": "Mercury",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "66° 48' 52",
+            "TotalDegrees": "66.81444444444445"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Gemini",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "6° 48' 51",
+              "TotalDegrees": "6.814166666666667"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Aridra - 1"
+        }
+      }
+    },
+    "Jupiter": {
+      "planet": "Jupiter",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "29° 17' 31",
+            "TotalDegrees": "29.291944444444443"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "29° 17' 30",
+              "TotalDegrees": "29.291666666666668"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Krithika - 1"
+        }
+      }
+    },
+    "Venus": {
+      "planet": "Venus",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "83° 54' 36",
+            "TotalDegrees": "83.91"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Gemini",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "23° 54' 36",
+              "TotalDegrees": "23.91"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Punarvasu - 2"
+        }
+      }
+    },
+    "Saturn": {
+      "planet": "Saturn",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "99° 51' 45",
+            "TotalDegrees": "99.8625"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Cancer",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "9° 51' 45",
+              "TotalDegrees": "9.8625"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Pushyami - 2"
+        }
+      }
+    },
+    "Rahu": {
+      "planet": "Rahu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "195° 53' 51",
+            "TotalDegrees": "195.8975"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Libra",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "15° 53' 51",
+              "TotalDegrees": "15.8975"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Swathi - 3"
+        }
+      }
+    },
+    "Ketu": {
+      "planet": "Ketu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "15° 53' 50",
+            "TotalDegrees": "15.897222222222222"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "15° 53' 49",
+              "TotalDegrees": "15.896944444444445"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "14:30 04/07/1976 -04:00",
+                "Location": {
+                  "Name": "New York, NY, United States",
+                  "Longitude": -74.007,
+                  "Latitude": 40.713
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Bharani - 1"
+        }
+      }
+    }
+  },
+  "sun_all_planet_data": {
+    "Status": "Pass",
+    "Input": {
+      "CalculatorName": "AllPlanetData",
+      "Type": "SingleCall",
+      "Parameters": [
+        {
+          "Name": "planetName",
+          "Type": "PlanetName",
+          "Value": {
+            "Name": "Sun"
+          }
+        },
+        {
+          "Name": "time",
+          "Type": "Time",
+          "Value": {
+            "StdTime": "14:30 04/07/1976 -04:00",
+            "Location": {
+              "Name": "New York, NY, United States",
+              "Longitude": -74.007,
+              "Latitude": 40.713
+            }
+          }
+        }
+      ]
+    },
+    "Payload": {
+      "AllPlanetData": {
+        "AllBeneficPlanetsInGoodConjunctionWith": [],
+        "AllHarmfulPlanetsInBadConjunctionWith": [],
+        "AllMaleficPlanetsAspecting": [],
+        "AllPhysicallyHarmfulPlanetsAspecting": [],
+        "AllPhysicallyHarmfulPlanetsConjunctWith": [],
+        "AllPlanetsInBadAspectToPlanet": [],
+        "AllPlanetsInEnemyConjunctionWith": [
+          "Venus"
+        ],
+        "AllPlanetsInFriendConjunctionWith": [],
+        "AspectReceivedByDispositor": [],
+        "BeneficPlanetsAspectingPlanet": [],
+        "DasaPeriodAshtakavargaStrength": "47.6",
+        "DispositorConjunctWith": [],
+        "DispositorFromLagna": "9",
+        "DispositorFromMoon": "10",
+        "DispositorFromOwnHouses": "1, 10",
+        "HousePlanetOccupiesBasedOnLongitudes": "House9",
+        "HousePlanetOccupiesBasedOnSign": "House9",
+        "HousesInAspect": "House3",
+        "HousesOwnedByPlanet": "House11",
+        "IsPlanetAfflicted": "True",
+        "IsPlanetAspectedByBeneficPlanets": "False",
+        "IsPlanetAspectedByEnemyPlanets": "False",
+        "IsPlanetAspectedByFriendPlanets": "False",
+        "IsPlanetAspectedByMaleficPlanets": "False",
+        "IsPlanetAspectedByPhysicallyHarmfulPlanets": "False",
+        "IsPlanetAspectingOwnHouse": "False",
+        "IsPlanetBenefic": "False",
+        "IsPlanetBeneficLordForLagna": "False",
+        "IsPlanetBeneficToLagna": "False",
+        "IsPlanetCombust": "False",
+        "IsPlanetConjunctWithBeneficPlanets": "False",
+        "IsPlanetConjunctWithEnemyPlanets": "True",
+        "IsPlanetConjunctWithFriendPlanets": "False",
+        "IsPlanetConjunctWithMaleficPlanets": "False",
+        "IsPlanetConjunctWithPhysicallyHarmfulPlanets": "False",
+        "IsPlanetDebilitated": "False",
+        "IsPlanetDefeatedInPlanetaryWar": "False",
+        "IsPlanetExalted": "False",
+        "IsPlanetExaltedDegree": "False",
+        "IsPlanetExaltedSign": "False",
+        "IsPlanetFortified": "False",
+        "IsPlanetFunctionalMalefic": "True",
+        "IsPlanetHemmedByMalefics": "False",
+        "IsPlanetInBeneficSign": "True",
+        "IsPlanetInEnemyHouse": "True",
+        "IsPlanetInEnemySign": "True",
+        "IsPlanetInFriendHouse": "False",
+        "IsPlanetInFriendlyDrekkana": "False",
+        "IsPlanetInFriendSign": "False",
+        "IsPlanetInGandanta": "False",
+        "IsPlanetInGarvitaAvasta": "False",
+        "IsPlanetInGopuraAmsha": "False",
+        "IsPlanetInKendra": "False",
+        "IsPlanetInKshobhitaAvasta": "False",
+        "IsPlanetInKshuditaAvasta": "True",
+        "IsPlanetInLajjitaAvasta": "False",
+        "IsPlanetInMoolatrikona": "False",
+        "IsPlanetInMuditaAvasta": "False",
+        "IsPlanetInOwnHouse": "False",
+        "IsPlanetInOwnSign": "False",
+        "IsPlanetInTrashitaAvasta": "False",
+        "IsPlanetInTrikona": "True",
+        "IsPlanetInUpachaya": "False",
+        "IsPlanetInWaterySign": "False",
+        "IsPlanetMaleficForLagna": "True",
+        "IsPlanetMaleficLordForLagna": "True",
+        "IsPlanetMaleficToLagna": "True",
+        "IsPlanetMarakaToLagna": "False",
+        "IsPlanetNeutralForLagna": "False",
+        "IsPlanetPhysicallyHarmful": "True",
+        "IsPlanetReceivingBadAspects": "False",
+        "IsPlanetReceivingHarmfulConjunctions": "False",
+        "IsPlanetRetrograde": "False",
+        "IsPlanetStrongInShadbala": "True",
+        "IsPlanetVargottama": "False",
+        "IsPlanetWeak": "False",
+        "IsPlanetYogakarakaToLagna": "False",
+        "MaleficPlanetsAspectingPlanet": [],
+        "PlanetAbdaBala": "0",
+        "PlanetAkshavedamshaD45Sign": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "0° 42' 0",
+            "TotalDegrees": "0.7"
+          }
+        },
+        "PlanetAshtakavargaReductions": {
+          "RawTotal": 48,
+          "AfterTrikonaTotal": 9,
+          "FinalTotal": 9,
+          "Raw": {
+            "Aries": 4,
+            "Taurus": 4,
+            "Gemini": 3,
+            "Cancer": 4,
+            "Leo": 5,
+            "Virgo": 4,
+            "Libra": 2,
+            "Scorpio": 4,
+            "Sagittarius": 4,
+            "Capricorn": 3,
+            "Aquarius": 6,
+            "Pisces": 5
+          },
+          "AfterTrikona": {
+            "Aries": 0,
+            "Taurus": 1,
+            "Gemini": 1,
+            "Cancer": 0,
+            "Leo": 1,
+            "Virgo": 1,
+            "Libra": 0,
+            "Scorpio": 0,
+            "Sagittarius": 0,
+            "Capricorn": 0,
+            "Aquarius": 4,
+            "Pisces": 1
+          },
+          "AfterEkadhipatya": {
+            "Aries": 0,
+            "Taurus": 1,
+            "Gemini": 1,
+            "Cancer": 0,
+            "Leo": 1,
+            "Virgo": 1,
+            "Libra": 0,
+            "Scorpio": 0,
+            "Sagittarius": 0,
+            "Capricorn": 0,
+            "Aquarius": 4,
+            "Pisces": 1
+          }
+        },
+        "PlanetAvasta": "KshuditaStarved",
+        "PlanetAyanaBala": "120",
+        "PlanetBhamshaD27Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "12° 25' 12",
+            "TotalDegrees": "12.42"
+          }
+        },
+        "PlanetChaturthamshaD4Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "17° 23' 44",
+            "TotalDegrees": "17.395555555555557"
+          }
+        },
+        "PlanetChaturvimshamshaD24Sign": {
+          "Name": "Scorpio",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "14° 22' 24",
+            "TotalDegrees": "14.373333333333333"
+          }
+        },
+        "PlanetConstellation": "Aridra - 4",
+        "PlanetDasaEffectsBasedOnIshtaKashta": "Good & positive effects related to: means of gains, elder brother and freedom from misery, brothers and sisters, intelligence, cousins and other immediate relations.",
+        "PlanetDashamamshaD10Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "13° 29' 20",
+            "TotalDegrees": "13.488888888888889"
+          }
+        },
+        "PlanetDeclination": "24",
+        "PlanetDigBala": "52.940370370370374",
+        "PlanetDrekkanaBala": "0",
+        "PlanetDrekkanaD3Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "28° 2' 48",
+            "TotalDegrees": "28.046666666666667"
+          }
+        },
+        "PlanetDrikBala": "-11.713229166666668",
+        "PlanetDwadashamshaD12Sign": {
+          "Name": "Capricorn",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "22° 11' 12",
+            "TotalDegrees": "22.186666666666667"
+          }
+        },
+        "PlanetDwadashamshaSignOLD": "Capricorn",
+        "PlanetEphemerisLongitude": {
+          "DegreeMinuteSecond": "102° 52' 51",
+          "TotalDegrees": "102.88083333333333"
+        },
+        "PlanetHoraBala": "0",
+        "PlanetHoraD2Signs": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "28° 2' 48",
+            "TotalDegrees": "28.046666666666667"
+          }
+        },
+        "PlanetIshtaKashtaScoreDegree": "2.559",
+        "PlanetIshtaScore": "45.32833487103922",
+        "PlanetKalaBala": "307.3486111111111",
+        "PlanetKashtaScore": "9.962549203166548",
+        "PlanetKendraBala": "15",
+        "PlanetKhavedamshaD40Sign": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "23° 57' 20",
+            "TotalDegrees": "23.955555555555556"
+          }
+        },
+        "PlanetLordOfConstellation": {
+          "Name": "Rahu"
+        },
+        "PlanetLordOfZodiacSign": {
+          "Name": "Mercury"
+        },
+        "PlanetMasaBala": "0",
+        "PlanetMotionName": "Sama",
+        "PlanetNaisargikaBala": "60",
+        "PlanetNathonnathaBala": "52.53611111111111",
+        "PlanetNatureScore": "1",
+        "PlanetNavamshaD9Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "24° 8' 24",
+            "TotalDegrees": "24.14"
+          }
+        },
+        "PlanetNirayanaLongitude": {
+          "DegreeMinuteSecond": "79° 20' 56",
+          "TotalDegrees": "79.3488888888889"
+        },
+        "PlanetOchchaBala": "36.8837037037037",
+        "PlanetOjayugmarasyamsaBala": "15",
+        "PlanetOwnAshtakvargaBindu": "3",
+        "PlanetPakshaBala": "29.8125",
+        "PlanetPowerPercentage": "85.19130845536137",
+        "PlanetRasiD1Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "19° 20' 56",
+            "TotalDegrees": "19.34888888888889"
+          }
+        },
+        "PlanetSaptamshaD7Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "15° 26' 32",
+            "TotalDegrees": "15.442222222222222"
+          }
+        },
+        "PlanetSaptamshaSignOLD": "Libra",
+        "PlanetSaptavargajaBala": "43.125",
+        "PlanetsAspectingPlanet": [],
+        "PlanetSayanaLatitude": {
+          "DegreeMinuteSecond": "0° 0' 0",
+          "TotalDegrees": "0"
+        },
+        "PlanetSayanaLongitude": {
+          "DegreeMinuteSecond": "102° 52' 51",
+          "TotalDegrees": "102.88083333333333"
+        },
+        "PlanetShadbalaPinda": "518.58",
+        "PlanetShashtyamshaD60Sign": {
+          "Name": "Leo",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "20° 56' 0",
+            "TotalDegrees": "20.933333333333334"
+          }
+        },
+        "PlanetShodashamshaD16Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "9° 34' 56",
+            "TotalDegrees": "9.582222222222223"
+          }
+        },
+        "PlanetsInAspect": [],
+        "PlanetsInConjunction": [
+          "Venus"
+        ],
+        "PlanetSpeed": "0.953325905089816",
+        "PlanetSthanaBala": "110.0087037037037",
+        "PlanetStrength": "518.58",
+        "PlanetTemporaryFriendList": [
+          "Saturn",
+          "Mars",
+          "Moon",
+          "Jupiter"
+        ],
+        "PlanetTribhagaBala": "60",
+        "PlanetTrimshamshaD30Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "10° 28' 0",
+            "TotalDegrees": "10.466666666666667"
+          }
+        },
+        "PlanetVaraBala": "45",
+        "PlanetVimshamshaD20Sign": {
+          "Name": "Leo",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "26° 58' 40",
+            "TotalDegrees": "26.977777777777778"
+          }
+        },
+        "PlanetZodiacSignBasedOnHouseLongitudes": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "8° 45' 36",
+            "TotalDegrees": "8.76"
+          }
+        },
+        "ResidentialStrength": "0.33335665069427445",
+        "SignsPlanetIsAspecting": "Sagittarius",
+        "SwissEphemeris": "{ Longitude = 102.88110082734045, Latitude = -0.00010520649868396457, DistanceAU = 1.0167231064299913, SpeedLongitude = 0, SpeedLatitude = 0, SpeedDistance = 0 }"
+      }
+    }
+  },
+  "errors": []
+}

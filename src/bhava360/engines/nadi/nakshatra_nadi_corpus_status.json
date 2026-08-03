@@ -1,0 +1,11 @@
+{
+  "source_id": "SRC-009",
+  "technique_ids": ["TEC-054", "TEC-055"],
+  "corpus_status": "blocked",
+  "corpus_id": null,
+  "approval_status": "Candidate",
+  "approved_by": [],
+  "approved_at": null,
+  "notes": "Nakshatra Nadi interpretive chains require an Approved corpus id. Planet-in-star facts may be emitted from the kernel/chart without corpus approval.",
+  "schema_version": 1
+}

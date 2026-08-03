@@ -1,0 +1,363 @@
+{
+  "spike": "SPIKE-01",
+  "generated_at_utc": "2026-08-02T06:49:38.453351+00:00",
+  "purpose": "VedAstro golden comparator fixtures for future Bhava360 kernel tests",
+  "not_production_truth": true,
+  "charts": [
+    {
+      "chart_id": "chennai_1990_0815_1200",
+      "location": "Chennai",
+      "time": "12:00/15/08/1990/+05:30",
+      "error_count": 0,
+      "planets": [
+        {
+          "planet": "Sun",
+          "nirayana_total_degrees": "118.455",
+          "nirayana_dms": "118° 27' 18",
+          "rasi": "Cancer",
+          "nakshatra": "Aslesha - 4"
+        },
+        {
+          "planet": "Moon",
+          "nirayana_total_degrees": "49.82138888888889",
+          "nirayana_dms": "49° 49' 17",
+          "rasi": "Taurus",
+          "nakshatra": "Rohini - 3"
+        },
+        {
+          "planet": "Mars",
+          "nirayana_total_degrees": "27.522777777777776",
+          "nirayana_dms": "27° 31' 22",
+          "rasi": "Aries",
+          "nakshatra": "Krithika - 1"
+        },
+        {
+          "planet": "Mercury",
+          "nirayana_total_degrees": "145.49416666666667",
+          "nirayana_dms": "145° 29' 39",
+          "rasi": "Leo",
+          "nakshatra": "Pubba - 4"
+        },
+        {
+          "planet": "Jupiter",
+          "nirayana_total_degrees": "95.62",
+          "nirayana_dms": "95° 37' 12",
+          "rasi": "Cancer",
+          "nakshatra": "Pushyami - 1"
+        },
+        {
+          "planet": "Venus",
+          "nirayana_total_degrees": "97.91888888888889",
+          "nirayana_dms": "97° 55' 8",
+          "rasi": "Cancer",
+          "nakshatra": "Pushyami - 2"
+        },
+        {
+          "planet": "Saturn",
+          "nirayana_total_degrees": "266.14444444444445",
+          "nirayana_dms": "266° 8' 40",
+          "rasi": "Sagittarius",
+          "nakshatra": "Poorvashada - 4"
+        },
+        {
+          "planet": "Rahu",
+          "nirayana_total_degrees": "282.75",
+          "nirayana_dms": "282° 45' 0",
+          "rasi": "Capricorn",
+          "nakshatra": "Sravana - 1"
+        },
+        {
+          "planet": "Ketu",
+          "nirayana_total_degrees": "102.75",
+          "nirayana_dms": "102° 45' 0",
+          "rasi": "Cancer",
+          "nakshatra": "Pushyami - 3"
+        }
+      ]
+    },
+    {
+      "chart_id": "singapore_2024_0424_0000",
+      "location": "Singapore",
+      "time": "00:00/24/04/2024/+08:00",
+      "error_count": 0,
+      "planets": [
+        {
+          "planet": "Sun",
+          "nirayana_total_degrees": "9.787222222222223",
+          "nirayana_dms": "9° 47' 14",
+          "rasi": "Aries",
+          "nakshatra": "Aswini - 3"
+        },
+        {
+          "planet": "Moon",
+          "nirayana_total_degrees": "186.1436111111111",
+          "nirayana_dms": "186° 8' 37",
+          "rasi": "Libra",
+          "nakshatra": "Chitta - 4"
+        },
+        {
+          "planet": "Mars",
+          "nirayana_total_degrees": "330.4141666666667",
+          "nirayana_dms": "330° 24' 51",
+          "rasi": "Pisces",
+          "nakshatra": "Poorvabhadra - 4"
+        },
+        {
+          "planet": "Mercury",
+          "nirayana_total_degrees": "351.93194444444447",
+          "nirayana_dms": "351° 55' 55",
+          "rasi": "Pisces",
+          "nakshatra": "Revathi - 2"
+        },
+        {
+          "planet": "Jupiter",
+          "nirayana_total_degrees": "28.224722222222223",
+          "nirayana_dms": "28° 13' 29",
+          "rasi": "Aries",
+          "nakshatra": "Krithika - 1"
+        },
+        {
+          "planet": "Venus",
+          "nirayana_total_degrees": "358.63972222222225",
+          "nirayana_dms": "358° 38' 23",
+          "rasi": "Pisces",
+          "nakshatra": "Revathi - 4"
+        },
+        {
+          "planet": "Saturn",
+          "nirayana_total_degrees": "321.7736111111111",
+          "nirayana_dms": "321° 46' 25",
+          "rasi": "Aquarius",
+          "nakshatra": "Poorvabhadra - 1"
+        },
+        {
+          "planet": "Rahu",
+          "nirayana_total_degrees": "350.6625",
+          "nirayana_dms": "350° 39' 45",
+          "rasi": "Pisces",
+          "nakshatra": "Revathi - 2"
+        },
+        {
+          "planet": "Ketu",
+          "nirayana_total_degrees": "170.6625",
+          "nirayana_dms": "170° 39' 45",
+          "rasi": "Virgo",
+          "nakshatra": "Hasta - 4"
+        }
+      ]
+    },
+    {
+      "chart_id": "london_2000_0101_1200",
+      "location": "London",
+      "time": "12:00/01/01/2000/+00:00",
+      "error_count": 0,
+      "planets": [
+        {
+          "planet": "Sun",
+          "nirayana_total_degrees": "256.5155555555556",
+          "nirayana_dms": "256° 30' 56",
+          "rasi": "Sagittarius",
+          "nakshatra": "Poorvashada - 1"
+        },
+        {
+          "planet": "Moon",
+          "nirayana_total_degrees": "199.47055555555556",
+          "nirayana_dms": "199° 28' 14",
+          "rasi": "Libra",
+          "nakshatra": "Swathi - 4"
+        },
+        {
+          "planet": "Mars",
+          "nirayana_total_degrees": "304.11",
+          "nirayana_dms": "304° 6' 36",
+          "rasi": "Aquarius",
+          "nakshatra": "Dhanishta - 4"
+        },
+        {
+          "planet": "Mercury",
+          "nirayana_total_degrees": "248.03583333333333",
+          "nirayana_dms": "248° 2' 9",
+          "rasi": "Sagittarius",
+          "nakshatra": "Moola - 3"
+        },
+        {
+          "planet": "Jupiter",
+          "nirayana_total_degrees": "1.3997222222222223",
+          "nirayana_dms": "1° 23' 59",
+          "rasi": "Aries",
+          "nakshatra": "Aswini - 1"
+        },
+        {
+          "planet": "Venus",
+          "nirayana_total_degrees": "217.7125",
+          "nirayana_dms": "217° 42' 45",
+          "rasi": "Scorpio",
+          "nakshatra": "Anuradha - 2"
+        },
+        {
+          "planet": "Saturn",
+          "nirayana_total_degrees": "16.54222222222222",
+          "nirayana_dms": "16° 32' 32",
+          "rasi": "Aries",
+          "nakshatra": "Bharani - 1"
+        },
+        {
+          "planet": "Rahu",
+          "nirayana_total_degrees": "101.18722222222222",
+          "nirayana_dms": "101° 11' 14",
+          "rasi": "Cancer",
+          "nakshatra": "Pushyami - 3"
+        },
+        {
+          "planet": "Ketu",
+          "nirayana_total_degrees": "281.18694444444446",
+          "nirayana_dms": "281° 11' 13",
+          "rasi": "Capricorn",
+          "nakshatra": "Sravana - 1"
+        }
+      ]
+    },
+    {
+      "chart_id": "newyork_1976_0704_1430",
+      "location": "New York",
+      "time": "14:30/04/07/1976/-04:00",
+      "error_count": 0,
+      "planets": [
+        {
+          "planet": "Sun",
+          "nirayana_total_degrees": "79.3488888888889",
+          "nirayana_dms": "79° 20' 56",
+          "rasi": "Gemini",
+          "nakshatra": "Aridra - 4"
+        },
+        {
+          "planet": "Moon",
+          "nirayana_total_degrees": "169.9113888888889",
+          "nirayana_dms": "169° 54' 41",
+          "rasi": "Virgo",
+          "nakshatra": "Hasta - 3"
+        },
+        {
+          "planet": "Mars",
+          "nirayana_total_degrees": "125.13777777777777",
+          "nirayana_dms": "125° 8' 16",
+          "rasi": "Leo",
+          "nakshatra": "Makha - 2"
+        },
+        {
+          "planet": "Mercury",
+          "nirayana_total_degrees": "66.81444444444445",
+          "nirayana_dms": "66° 48' 52",
+          "rasi": "Gemini",
+          "nakshatra": "Aridra - 1"
+        },
+        {
+          "planet": "Jupiter",
+          "nirayana_total_degrees": "29.291944444444443",
+          "nirayana_dms": "29° 17' 31",
+          "rasi": "Aries",
+          "nakshatra": "Krithika - 1"
+        },
+        {
+          "planet": "Venus",
+          "nirayana_total_degrees": "83.91",
+          "nirayana_dms": "83° 54' 36",
+          "rasi": "Gemini",
+          "nakshatra": "Punarvasu - 2"
+        },
+        {
+          "planet": "Saturn",
+          "nirayana_total_degrees": "99.8625",
+          "nirayana_dms": "99° 51' 45",
+          "rasi": "Cancer",
+          "nakshatra": "Pushyami - 2"
+        },
+        {
+          "planet": "Rahu",
+          "nirayana_total_degrees": "195.8975",
+          "nirayana_dms": "195° 53' 51",
+          "rasi": "Libra",
+          "nakshatra": "Swathi - 3"
+        },
+        {
+          "planet": "Ketu",
+          "nirayana_total_degrees": "15.897222222222222",
+          "nirayana_dms": "15° 53' 50",
+          "rasi": "Aries",
+          "nakshatra": "Bharani - 1"
+        }
+      ]
+    },
+    {
+      "chart_id": "mumbai_1950_0126_1010",
+      "location": "Mumbai",
+      "time": "10:10/26/01/1950/+05:30",
+      "error_count": 0,
+      "planets": [
+        {
+          "planet": "Sun",
+          "nirayana_total_degrees": "282.5072222222222",
+          "nirayana_dms": "282° 30' 26",
+          "rasi": "Capricorn",
+          "nakshatra": "Sravana - 1"
+        },
+        {
+          "planet": "Moon",
+          "nirayana_total_degrees": "12.511111111111111",
+          "nirayana_dms": "12° 30' 40",
+          "rasi": "Aries",
+          "nakshatra": "Aswini - 4"
+        },
+        {
+          "planet": "Mars",
+          "nirayana_total_degrees": "166.22722222222222",
+          "nirayana_dms": "166° 13' 38",
+          "rasi": "Virgo",
+          "nakshatra": "Hasta - 2"
+        },
+        {
+          "planet": "Mercury",
+          "nirayana_total_degrees": "265.52555555555557",
+          "nirayana_dms": "265° 31' 32",
+          "rasi": "Sagittarius",
+          "nakshatra": "Poorvashada - 4"
+        },
+        {
+          "planet": "Jupiter",
+          "nirayana_total_degrees": "289.2086111111111",
+          "nirayana_dms": "289° 12' 31",
+          "rasi": "Capricorn",
+          "nakshatra": "Sravana - 3"
+        },
+        {
+          "planet": "Venus",
+          "nirayana_total_degrees": "290.74111111111114",
+          "nirayana_dms": "290° 44' 28",
+          "rasi": "Capricorn",
+          "nakshatra": "Sravana - 4"
+        },
+        {
+          "planet": "Saturn",
+          "nirayana_total_degrees": "145.62972222222223",
+          "nirayana_dms": "145° 37' 47",
+          "rasi": "Leo",
+          "nakshatra": "Pubba - 4"
+        },
+        {
+          "planet": "Rahu",
+          "nirayana_total_degrees": "347.6191666666667",
+          "nirayana_dms": "347° 37' 9",
+          "rasi": "Pisces",
+          "nakshatra": "Revathi - 1"
+        },
+        {
+          "planet": "Ketu",
+          "nirayana_total_degrees": "167.61888888888888",
+          "nirayana_dms": "167° 37' 8",
+          "rasi": "Virgo",
+          "nakshatra": "Hasta - 3"
+        }
+      ]
+    }
+  ]
+}

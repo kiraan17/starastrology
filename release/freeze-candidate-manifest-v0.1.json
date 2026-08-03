@@ -1,0 +1,261 @@
+{
+  "manifest_id": "FREEZE-CANDIDATE-v0.1",
+  "manifest_version": "0.1.0",
+  "created_utc": "2026-08-02",
+  "freeze_status": "candidate",
+  "frozen": false,
+  "expert_approved": false,
+  "public_api_eligible": false,
+  "blocked_reasons": [
+    "Expert validation not complete (Phase 23)",
+    "ADR-002 Path L1/L2 evidence not filed",
+    "SRC-009 Nakshatra Nadi corpus not Approved",
+    "Many techniques remain Candidate / thin-slice — not Expert-Checked"
+  ],
+  "programme_gates": {
+    "SRC-009-APPROVE": "blocked",
+    "ADR-002-L1/L2": "blocked",
+    "expert_validation": "pending",
+    "backend_freeze": "not_frozen"
+  },
+    "unit_tests_snapshot": {
+      "note": "Update when packaging; CI is source of truth",
+      "last_local_count": 214
+    },
+  "engines": [
+    {
+      "engine": "Parashara",
+      "module": "bhava360.engines.parashara",
+      "engine_version": "0.1.0-thin-slice",
+      "technique_ids": ["TEC-041"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Thin yoga pack only"
+    },
+    {
+      "engine": "KP",
+      "module": "bhava360.engines.kp",
+      "engine_version": "0.1.0-thin-slice",
+      "technique_ids": ["TEC-014", "TEC-042"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Lord chains + config isolation; no domain verdicts"
+    },
+    {
+      "engine": "Ashtakavarga",
+      "module": "bhava360.engines.ashtakavarga",
+      "engine_version": "0.3.0-prastara",
+      "technique_ids": ["TEC-048", "TEC-049", "TEC-050", "TEC-051", "TEC-052"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "Jaimini",
+      "module": "bhava360.engines.jaimini",
+      "engine_version": "0.1.0-thin-slice",
+      "technique_ids": ["TEC-028", "TEC-066", "TEC-067", "TEC-068"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Never Gemini"
+    },
+    {
+      "engine": "NakshatraNadi",
+      "module": "bhava360.engines.nadi",
+      "engine_version": "0.1.0-corpus-gated",
+      "technique_ids": ["TEC-054", "TEC-055"],
+      "workflow_status": "Implemented",
+      "safety_level": "normal",
+      "blocked_reason": "CORPUS_GATE_BLOCKED until SRC-009 Approved"
+    },
+    {
+      "engine": "Panchanga",
+      "module": "bhava360.timing.panchanga_engine",
+      "engine_version": "0.3.0-bala",
+      "technique_ids": ["TEC-070", "TEC-071", "TEC-072", "TEC-073"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "MuhurtaEvents",
+      "module": "bhava360.timing.muhurta_event_engine",
+      "engine_version": "0.1.0-event-pack",
+      "technique_ids": ["TEC-093", "TEC-076"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "TajikaAnnual",
+      "module": "bhava360.engines.tajika",
+      "engine_version": "0.3.0-sahams-aspects",
+      "technique_ids": ["TEC-077", "TEC-078", "TEC-079"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "SudarshanaChakra",
+      "module": "bhava360.engines.chakra",
+      "engine_version": "0.1.0-scaffold",
+      "technique_ids": ["TEC-080"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "NakshatraChakras",
+      "module": "bhava360.engines.chakra",
+      "engine_version": "0.1.0-scaffold",
+      "technique_ids": ["TEC-082", "TEC-083"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Vedha deferred"
+    },
+    {
+      "engine": "BhriguBindu",
+      "module": "bhava360.engines.progression",
+      "engine_version": "0.1.0-thin-slice",
+      "technique_ids": ["TEC-081"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "Classification",
+      "module": "bhava360.engines.classification",
+      "engine_version": "0.1.0-gandanta-kriya",
+      "technique_ids": ["TEC-084", "TEC-085"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "Prashna",
+      "module": "bhava360.engines.prashna",
+      "engine_version": "0.1.0-sphuta-scaffold",
+      "technique_ids": ["TEC-086", "TEC-088"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Ashtamangala never fabricated"
+    },
+    {
+      "engine": "Compatibility",
+      "module": "bhava360.engines.compatibility",
+      "engine_version": "0.1.0-ashtakoota",
+      "technique_ids": ["TEC-094"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "Numerology",
+      "module": "bhava360.engines.numerology",
+      "engine_version": "0.1.0-mantra-shastra",
+      "technique_ids": ["TEC-092"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "SystemsApproach",
+      "module": "bhava360.engines.systems_approach",
+      "engine_version": "0.1.0-config-scaffold",
+      "technique_ids": ["TEC-091"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal"
+    },
+    {
+      "engine": "LalKitab",
+      "module": "bhava360.engines.lal_kitab",
+      "engine_version": "0.1.0-teva-scaffold",
+      "technique_ids": ["TEC-090"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "restricted",
+      "notes": "Remedies/debts deferred"
+    },
+    {
+      "engine": "Rectification",
+      "module": "bhava360.engines.rectification",
+      "engine_version": "0.1.0-scan-scaffold",
+      "technique_ids": ["TEC-095"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "restricted",
+      "notes": "No winner selection"
+    },
+    {
+      "engine": "Orchestration",
+      "module": "bhava360.engines.orchestration",
+      "engine_version": "0.1.0-evidence-scaffold",
+      "technique_ids": ["TEC-096"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "blended_verdicts=false"
+    },
+    {
+      "engine": "YoginiDasha",
+      "module": "bhava360.timing.yogini_engine",
+      "engine_version": "0.1.0-maha-antar",
+      "technique_ids": ["TEC-031"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate (nak+3) mod 8 start"
+    },
+    {
+      "engine": "Transit",
+      "module": "bhava360.engines.transit",
+      "engine_version": "0.1.0-natal-overlay",
+      "technique_ids": ["TEC-035"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate overlay; no gochara verdicts"
+    },
+    {
+      "engine": "PanchakaBhadra",
+      "module": "bhava360.timing.panchaka_engine",
+      "engine_version": "0.1.0-panchaka-bhadra",
+      "technique_ids": ["TEC-074"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate Moon Panchak + Rahita + Vishti/Bhadra"
+    },
+    {
+      "engine": "Panchapakshi",
+      "module": "bhava360.timing.panchapakshi_engine",
+      "engine_version": "0.2.0-both-paksha",
+      "technique_ids": ["TEC-075"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate PyJHora majors both pakshas; sub-yama deferred"
+    },
+    {
+      "engine": "Shadbala",
+      "module": "bhava360.engines.shadbala",
+      "engine_version": "0.10.0-adhi-mitra",
+      "technique_ids": ["TEC-023"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate full thin Shadbala pack + Panchadha; sankranti sunrise / Merc-Venus tables deferred"
+    },
+    {
+      "engine": "BhavaBala",
+      "module": "bhava360.engines.bhava_bala",
+      "engine_version": "0.1.0-partial-scaffold",
+      "technique_ids": ["TEC-024"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate Bhavadhipati+Dig+Drishti thin; depends on partial Shadbala"
+    },
+    {
+      "engine": "Vimshopaka",
+      "module": "bhava360.engines.vimshopaka",
+      "engine_version": "0.1.0-shodashavarga",
+      "technique_ids": ["TEC-025"],
+      "workflow_status": "Auto-Tested",
+      "safety_level": "normal",
+      "notes": "Candidate Shodashavarga; permanent friendship only"
+    }
+  ],
+  "kernel": {
+    "calc_library_version_prefix": "bhava360-kernel",
+    "ephemeris_default": "moshier",
+    "ayanamsa_default": "lahiri",
+    "public_activation_gate": "ADR-002"
+  },
+  "console": {
+    "service": "bhava360-verification-console",
+    "mode": "internal_verification_only"
+  }
+}

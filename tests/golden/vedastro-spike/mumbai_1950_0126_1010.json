@@ -1,0 +1,1303 @@
+{
+  "chart": {
+    "id": "mumbai_1950_0126_1010",
+    "label": "Mumbai sample",
+    "location": "Mumbai",
+    "time": "10:10/26/01/1950/+05:30"
+  },
+  "fetched_at_utc": "2026-08-02T06:49:38.452252+00:00",
+  "api_root": "https://api.vedastro.org/api/Calculate",
+  "note": "VedAstro comparator fixture only. Not Bhava360 production truth.",
+  "planets": {
+    "Sun": {
+      "planet": "Sun",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "282° 30' 26",
+            "TotalDegrees": "282.5072222222222"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Capricorn",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "12° 30' 25",
+              "TotalDegrees": "12.506944444444445"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Sun"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Sravana - 1"
+        }
+      }
+    },
+    "Moon": {
+      "planet": "Moon",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "12° 30' 40",
+            "TotalDegrees": "12.511111111111111"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Aries",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "12° 30' 39",
+              "TotalDegrees": "12.510833333333334"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Moon"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Aswini - 4"
+        }
+      }
+    },
+    "Mars": {
+      "planet": "Mars",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "166° 13' 38",
+            "TotalDegrees": "166.22722222222222"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Virgo",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "16° 13' 37",
+              "TotalDegrees": "16.226944444444445"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mars"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Hasta - 2"
+        }
+      }
+    },
+    "Mercury": {
+      "planet": "Mercury",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "265° 31' 32",
+            "TotalDegrees": "265.52555555555557"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Sagittarius",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "25° 31' 32",
+              "TotalDegrees": "25.525555555555556"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Mercury"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Poorvashada - 4"
+        }
+      }
+    },
+    "Jupiter": {
+      "planet": "Jupiter",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "289° 12' 31",
+            "TotalDegrees": "289.2086111111111"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Capricorn",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "19° 12' 30",
+              "TotalDegrees": "19.208333333333332"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Jupiter"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Sravana - 3"
+        }
+      }
+    },
+    "Venus": {
+      "planet": "Venus",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "290° 44' 28",
+            "TotalDegrees": "290.74111111111114"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Capricorn",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "20° 44' 27",
+              "TotalDegrees": "20.740833333333335"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Venus"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Sravana - 4"
+        }
+      }
+    },
+    "Saturn": {
+      "planet": "Saturn",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "145° 37' 47",
+            "TotalDegrees": "145.62972222222223"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Leo",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "25° 37' 46",
+              "TotalDegrees": "25.629444444444445"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Saturn"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Pubba - 4"
+        }
+      }
+    },
+    "Rahu": {
+      "planet": "Rahu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "347° 37' 9",
+            "TotalDegrees": "347.6191666666667"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Pisces",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "17° 37' 9",
+              "TotalDegrees": "17.61916666666667"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Rahu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Revathi - 1"
+        }
+      }
+    },
+    "Ketu": {
+      "planet": "Ketu",
+      "PlanetNirayanaLongitude": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetNirayanaLongitude",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetNirayanaLongitude": {
+            "DegreeMinuteSecond": "167° 37' 8",
+            "TotalDegrees": "167.61888888888888"
+          }
+        }
+      },
+      "PlanetRasiD1Sign": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetRasiD1Sign",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planetName",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetRasiD1Sign": {
+            "Name": "Virgo",
+            "DegreesIn": {
+              "DegreeMinuteSecond": "17° 37' 8",
+              "TotalDegrees": "17.61888888888889"
+            }
+          }
+        }
+      },
+      "PlanetConstellation": {
+        "Status": "Pass",
+        "Input": {
+          "CalculatorName": "PlanetConstellation",
+          "Type": "SingleCall",
+          "Parameters": [
+            {
+              "Name": "planet",
+              "Type": "PlanetName",
+              "Value": {
+                "Name": "Ketu"
+              }
+            },
+            {
+              "Name": "time",
+              "Type": "Time",
+              "Value": {
+                "StdTime": "10:10 26/01/1950 +05:30",
+                "Location": {
+                  "Name": "Mumbai, Maharashtra, India",
+                  "Longitude": 72.821,
+                  "Latitude": 18.969
+                }
+              }
+            }
+          ]
+        },
+        "Payload": {
+          "PlanetConstellation": "Hasta - 3"
+        }
+      }
+    }
+  },
+  "sun_all_planet_data": {
+    "Status": "Pass",
+    "Input": {
+      "CalculatorName": "AllPlanetData",
+      "Type": "SingleCall",
+      "Parameters": [
+        {
+          "Name": "planetName",
+          "Type": "PlanetName",
+          "Value": {
+            "Name": "Sun"
+          }
+        },
+        {
+          "Name": "time",
+          "Type": "Time",
+          "Value": {
+            "StdTime": "10:10 26/01/1950 +05:30",
+            "Location": {
+              "Name": "Mumbai, Maharashtra, India",
+              "Longitude": 72.821,
+              "Latitude": 18.969
+            }
+          }
+        }
+      ]
+    },
+    "Payload": {
+      "AllPlanetData": {
+        "AllBeneficPlanetsInGoodConjunctionWith": [],
+        "AllHarmfulPlanetsInBadConjunctionWith": [],
+        "AllMaleficPlanetsAspecting": [],
+        "AllPhysicallyHarmfulPlanetsAspecting": [],
+        "AllPhysicallyHarmfulPlanetsConjunctWith": [],
+        "AllPlanetsInBadAspectToPlanet": [],
+        "AllPlanetsInEnemyConjunctionWith": [],
+        "AllPlanetsInFriendConjunctionWith": [],
+        "AspectReceivedByDispositor": [],
+        "BeneficPlanetsAspectingPlanet": [],
+        "DasaPeriodAshtakavargaStrength": "48",
+        "DispositorConjunctWith": [],
+        "DispositorFromLagna": "6",
+        "DispositorFromMoon": "5",
+        "DispositorFromOwnHouses": "8, 7",
+        "HousePlanetOccupiesBasedOnLongitudes": "House11",
+        "HousePlanetOccupiesBasedOnSign": "House11",
+        "HousesInAspect": "House5",
+        "HousesOwnedByPlanet": "House6",
+        "IsPlanetAfflicted": "True",
+        "IsPlanetAspectedByBeneficPlanets": "False",
+        "IsPlanetAspectedByEnemyPlanets": "False",
+        "IsPlanetAspectedByFriendPlanets": "False",
+        "IsPlanetAspectedByMaleficPlanets": "False",
+        "IsPlanetAspectedByPhysicallyHarmfulPlanets": "False",
+        "IsPlanetAspectingOwnHouse": "False",
+        "IsPlanetBenefic": "False",
+        "IsPlanetBeneficLordForLagna": "False",
+        "IsPlanetBeneficToLagna": "False",
+        "IsPlanetCombust": "False",
+        "IsPlanetConjunctWithBeneficPlanets": "False",
+        "IsPlanetConjunctWithEnemyPlanets": "False",
+        "IsPlanetConjunctWithFriendPlanets": "False",
+        "IsPlanetConjunctWithMaleficPlanets": "False",
+        "IsPlanetConjunctWithPhysicallyHarmfulPlanets": "False",
+        "IsPlanetDebilitated": "False",
+        "IsPlanetDefeatedInPlanetaryWar": "False",
+        "IsPlanetExalted": "False",
+        "IsPlanetExaltedDegree": "False",
+        "IsPlanetExaltedSign": "False",
+        "IsPlanetFortified": "False",
+        "IsPlanetFunctionalMalefic": "True",
+        "IsPlanetHemmedByMalefics": "False",
+        "IsPlanetInBeneficSign": "False",
+        "IsPlanetInEnemyHouse": "True",
+        "IsPlanetInEnemySign": "True",
+        "IsPlanetInFriendHouse": "False",
+        "IsPlanetInFriendlyDrekkana": "False",
+        "IsPlanetInFriendSign": "False",
+        "IsPlanetInGandanta": "False",
+        "IsPlanetInGarvitaAvasta": "False",
+        "IsPlanetInGopuraAmsha": "False",
+        "IsPlanetInKendra": "False",
+        "IsPlanetInKshobhitaAvasta": "False",
+        "IsPlanetInKshuditaAvasta": "True",
+        "IsPlanetInLajjitaAvasta": "False",
+        "IsPlanetInMoolatrikona": "False",
+        "IsPlanetInMuditaAvasta": "True",
+        "IsPlanetInOwnHouse": "False",
+        "IsPlanetInOwnSign": "False",
+        "IsPlanetInTrashitaAvasta": "False",
+        "IsPlanetInTrikona": "False",
+        "IsPlanetInUpachaya": "True",
+        "IsPlanetInWaterySign": "False",
+        "IsPlanetMaleficForLagna": "True",
+        "IsPlanetMaleficLordForLagna": "True",
+        "IsPlanetMaleficToLagna": "True",
+        "IsPlanetMarakaToLagna": "False",
+        "IsPlanetNeutralForLagna": "False",
+        "IsPlanetPhysicallyHarmful": "True",
+        "IsPlanetReceivingBadAspects": "False",
+        "IsPlanetReceivingHarmfulConjunctions": "False",
+        "IsPlanetRetrograde": "False",
+        "IsPlanetStrongInShadbala": "True",
+        "IsPlanetVargottama": "False",
+        "IsPlanetWeak": "False",
+        "IsPlanetYogakarakaToLagna": "False",
+        "MaleficPlanetsAspectingPlanet": [],
+        "PlanetAbdaBala": "0",
+        "PlanetAkshavedamshaD45Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "22° 48' 45",
+            "TotalDegrees": "22.8125"
+          }
+        },
+        "PlanetAshtakavargaReductions": {
+          "RawTotal": 48,
+          "AfterTrikonaTotal": 15,
+          "FinalTotal": 11,
+          "Raw": {
+            "Aries": 4,
+            "Taurus": 5,
+            "Gemini": 6,
+            "Cancer": 3,
+            "Leo": 4,
+            "Virgo": 6,
+            "Libra": 3,
+            "Scorpio": 4,
+            "Sagittarius": 3,
+            "Capricorn": 3,
+            "Aquarius": 5,
+            "Pisces": 2
+          },
+          "AfterTrikona": {
+            "Aries": 1,
+            "Taurus": 2,
+            "Gemini": 3,
+            "Cancer": 1,
+            "Leo": 1,
+            "Virgo": 3,
+            "Libra": 0,
+            "Scorpio": 2,
+            "Sagittarius": 0,
+            "Capricorn": 0,
+            "Aquarius": 2,
+            "Pisces": 0
+          },
+          "AfterEkadhipatya": {
+            "Aries": 1,
+            "Taurus": 2,
+            "Gemini": 0,
+            "Cancer": 1,
+            "Leo": 1,
+            "Virgo": 3,
+            "Libra": 0,
+            "Scorpio": 1,
+            "Sagittarius": 0,
+            "Capricorn": 0,
+            "Aquarius": 2,
+            "Pisces": 0
+          }
+        },
+        "PlanetAvasta": "KshuditaStarved, MuditaDelighted",
+        "PlanetAyanaBala": "4.52754629629629",
+        "PlanetBhamshaD27Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "7° 41' 15",
+            "TotalDegrees": "7.6875"
+          }
+        },
+        "PlanetChaturthamshaD4Sign": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "20° 1' 40",
+            "TotalDegrees": "20.02777777777778"
+          }
+        },
+        "PlanetChaturvimshamshaD24Sign": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "0° 10' 0",
+            "TotalDegrees": "0.16666666666666666"
+          }
+        },
+        "PlanetConstellation": "Sravana - 1",
+        "PlanetDasaEffectsBasedOnIshtaKashta": "Bad & negative effects related to: debts, diseases, enemies, miseries, sorrows, illness and disappointments, children, grandfather, intelligence, emotions and fame.",
+        "PlanetDashamamshaD10Sign": {
+          "Name": "Capricorn",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "5° 4' 9",
+            "TotalDegrees": "5.069166666666667"
+          }
+        },
+        "PlanetDeclination": "-22.188981481481484",
+        "PlanetDigBala": "47.41657407407408",
+        "PlanetDrekkanaBala": "0",
+        "PlanetDrekkanaD3Sign": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "7° 31' 15",
+            "TotalDegrees": "7.520833333333333"
+          }
+        },
+        "PlanetDrikBala": "19.68385416666667",
+        "PlanetDwadashamshaD12Sign": {
+          "Name": "Gemini",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "0° 5' 0",
+            "TotalDegrees": "0.08333333333333333"
+          }
+        },
+        "PlanetDwadashamshaSignOLD": "Gemini",
+        "PlanetEphemerisLongitude": {
+          "DegreeMinuteSecond": "305° 39' 58",
+          "TotalDegrees": "305.6661111111111"
+        },
+        "PlanetHoraBala": "60",
+        "PlanetHoraD2Signs": {
+          "Name": "Taurus",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "7° 31' 15",
+            "TotalDegrees": "7.520833333333333"
+          }
+        },
+        "PlanetIshtaKashtaScoreDegree": "-1.294",
+        "PlanetIshtaScore": "19.146693822824684",
+        "PlanetKalaBala": "141.06652777777776",
+        "PlanetKashtaScore": "37.45844061401759",
+        "PlanetKendraBala": "30",
+        "PlanetKhavedamshaD40Sign": {
+          "Name": "Aquarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "20° 16' 39",
+            "TotalDegrees": "20.2775"
+          }
+        },
+        "PlanetLordOfConstellation": {
+          "Name": "Moon"
+        },
+        "PlanetLordOfZodiacSign": {
+          "Name": "Saturn"
+        },
+        "PlanetMasaBala": "0",
+        "PlanetMotionName": "Sama",
+        "PlanetNaisargikaBala": "60",
+        "PlanetNathonnathaBala": "46.540277777777774",
+        "PlanetNatureScore": "-1",
+        "PlanetNavamshaD9Sign": {
+          "Name": "Aries",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "22° 33' 45",
+            "TotalDegrees": "22.5625"
+          }
+        },
+        "PlanetNirayanaLongitude": {
+          "DegreeMinuteSecond": "282° 30' 26",
+          "TotalDegrees": "282.5072222222222"
+        },
+        "PlanetOchchaBala": "30.83564814814815",
+        "PlanetOjayugmarasyamsaBala": "15",
+        "PlanetOwnAshtakvargaBindu": "3",
+        "PlanetPakshaBala": "29.998703703703693",
+        "PlanetPowerPercentage": "28.46560070412204",
+        "PlanetRasiD1Sign": {
+          "Name": "Capricorn",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "12° 30' 25",
+            "TotalDegrees": "12.506944444444445"
+          }
+        },
+        "PlanetSaptamshaD7Sign": {
+          "Name": "Pisces",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "27° 32' 55",
+            "TotalDegrees": "27.54861111111111"
+          }
+        },
+        "PlanetSaptamshaSignOLD": "Virgo",
+        "PlanetSaptavargajaBala": "43.125",
+        "PlanetsAspectingPlanet": [],
+        "PlanetSayanaLatitude": {
+          "DegreeMinuteSecond": "0° 0' 0",
+          "TotalDegrees": "0"
+        },
+        "PlanetSayanaLongitude": {
+          "DegreeMinuteSecond": "305° 39' 58",
+          "TotalDegrees": "305.6661111111111"
+        },
+        "PlanetShadbalaPinda": "387.13",
+        "PlanetShashtyamshaD60Sign": {
+          "Name": "Aquarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "0° 24' 59",
+            "TotalDegrees": "0.41638888888888886"
+          }
+        },
+        "PlanetShodashamshaD16Sign": {
+          "Name": "Libra",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "20° 6' 40",
+            "TotalDegrees": "20.11111111111111"
+          }
+        },
+        "PlanetsInAspect": [],
+        "PlanetsInConjunction": [
+          "Jupiter"
+        ],
+        "PlanetSpeed": "1.0165490593483713",
+        "PlanetSthanaBala": "118.96064814814815",
+        "PlanetStrength": "387.13",
+        "PlanetTemporaryFriendList": [
+          "Moon",
+          "Mercury"
+        ],
+        "PlanetTribhagaBala": "0",
+        "PlanetTrimshamshaD30Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "15° 12' 29",
+            "TotalDegrees": "15.208055555555555"
+          }
+        },
+        "PlanetVaraBala": "0",
+        "PlanetVimshamshaD20Sign": {
+          "Name": "Sagittarius",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "10° 8' 19",
+            "TotalDegrees": "10.13861111111111"
+          }
+        },
+        "PlanetZodiacSignBasedOnHouseLongitudes": {
+          "Name": "Capricorn",
+          "DegreesIn": {
+            "DegreeMinuteSecond": "4° 28' 54",
+            "TotalDegrees": "4.4816666666666665"
+          }
+        },
+        "ResidentialStrength": "0.46000299043062204",
+        "SignsPlanetIsAspecting": "Cancer",
+        "SwissEphemeris": "{ Longitude = 305.6663261826688, Latitude = -4.3186641162811275E-05, DistanceAU = 0.9846105547015578, SpeedLongitude = 0, SpeedLatitude = 0, SpeedDistance = 0 }"
+      }
+    }
+  },
+  "errors": []
+}

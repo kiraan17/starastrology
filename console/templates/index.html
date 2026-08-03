@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Bhava360 Internal Verification Console</title>
+  <style>
+    body { font-family: Georgia, "Times New Roman", serif; margin: 1.5rem; background: #f7f3ea; color: #1c1a16; }
+    h1, h2, h3 { font-weight: normal; }
+    .banner { border: 1px solid #6b5b3e; padding: 0.75rem 1rem; margin-bottom: 1rem; background: #efe6d3; }
+    form { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; max-width: 960px; }
+    label { display: flex; flex-direction: column; font-size: 0.9rem; gap: 0.25rem; }
+    .engines { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .engines label { flex-direction: row; align-items: center; gap: 0.35rem; }
+    button { grid-column: 1 / -1; width: fit-content; padding: 0.5rem 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; background: #fffdf8; }
+    th, td { border: 1px solid #b6a789; padding: 0.35rem 0.5rem; text-align: left; font-size: 0.9rem; }
+    pre { background: #1e1b16; color: #f4efe4; padding: 1rem; overflow: auto; max-height: 28rem; }
+    .err { color: #7a1f1f; }
+    .meta { font-size: 0.9rem; }
+    a { color: #3d4f2f; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <strong>Internal verification console only.</strong>
+    Not a customer product UI. No marketing, subscriptions, or polished prediction cards.
+    Deterministic engine output for review.
+  </div>
+
+  <h1>Bhava360 Verification Console</h1>
+
+  <form method="post" action="/verify">
+    <label>Date (YYYY-MM-DD)
+      <input name="date" value="{{ form.date }}" required />
+    </label>
+    <label>Time (HH:MM local)
+      <input name="time" value="{{ form.time }}" required />
+    </label>
+    <label>UTC offset (+HH:MM / -HH:MM)
+      <input name="offset" value="{{ form.offset }}" />
+    </label>
+    <label>IANA timezone (preferred; ignores offset when set)
+      <input name="timezone_id" value="{{ form.timezone_id }}" placeholder="Asia/Kolkata" />
+    </label>
+    <label>DST ambiguity policy
+      <select name="dst_ambiguity_policy">
+        <option value="earlier" {% if form.dst_ambiguity_policy == 'earlier' %}selected{% endif %}>earlier</option>
+        <option value="later" {% if form.dst_ambiguity_policy == 'later' %}selected{% endif %}>later</option>
+        <option value="raise" {% if form.dst_ambiguity_policy == 'raise' %}selected{% endif %}>raise</option>
+      </select>
+    </label>
+    <label>Latitude
+      <input name="latitude" value="{{ form.latitude }}" required />
+    </label>
+    <label>Longitude
+      <input name="longitude" value="{{ form.longitude }}" required />
+    </label>
+    <label>Location label
+      <input name="location_label" value="{{ form.location_label }}" />
+    </label>
+    <label>Birth-time uncertainty (minutes)
+      <input name="uncertainty" value="{{ form.uncertainty }}" />
+    </label>
+    <label>Ayanamsa (chart/Parashara/AV)
+      <select name="ayanamsa">
+        <option value="lahiri" {% if form.ayanamsa == 'lahiri' %}selected{% endif %}>lahiri</option>
+        <option value="kp" {% if form.ayanamsa == 'kp' %}selected{% endif %}>kp</option>
+      </select>
+    </label>
+    <label>House system (chart/Parashara/AV)
+      <select name="house_system">
+        <option value="whole_sign" {% if form.house_system == 'whole_sign' %}selected{% endif %}>whole_sign</option>
+        <option value="placidus" {% if form.house_system == 'placidus' %}selected{% endif %}>placidus</option>
+      </select>
+    </label>
+    <div class="engines">
+      <span>Engines:</span>
+      <label><input type="checkbox" name="engines" value="chart" {% if 'chart' in form.engines %}checked{% endif %} /> chart</label>
+      <label><input type="checkbox" name="engines" value="parashara" {% if 'parashara' in form.engines %}checked{% endif %} /> parashara</label>
+      <label><input type="checkbox" name="engines" value="ashtakavarga" {% if 'ashtakavarga' in form.engines %}checked{% endif %} /> ashtakavarga</label>
+      <label><input type="checkbox" name="engines" value="kp" {% if 'kp' in form.engines %}checked{% endif %} /> kp</label>
+      <label><input type="checkbox" name="engines" value="jaimini" {% if 'jaimini' in form.engines %}checked{% endif %} /> jaimini</label>
+      <label><input type="checkbox" name="engines" value="nadi" {% if 'nadi' in form.engines %}checked{% endif %} /> nadi</label>
+      <label><input type="checkbox" name="engines" value="panchanga" {% if 'panchanga' in form.engines %}checked{% endif %} /> panchanga</label>
+      <label><input type="checkbox" name="engines" value="muhurta_events" {% if 'muhurta_events' in form.engines %}checked{% endif %} /> muhurta events</label>
+      <label><input type="checkbox" name="engines" value="panchaka" {% if 'panchaka' in form.engines %}checked{% endif %} /> panchaka/bhadra</label>
+      <label><input type="checkbox" name="engines" value="panchapakshi" {% if 'panchapakshi' in form.engines %}checked{% endif %} /> panchapakshi</label>
+      <label><input type="checkbox" name="engines" value="tajika" {% if 'tajika' in form.engines %}checked{% endif %} /> tajika/annual</label>
+      <label><input type="checkbox" name="engines" value="sudarshana" {% if 'sudarshana' in form.engines %}checked{% endif %} /> sudarshana</label>
+      <label><input type="checkbox" name="engines" value="bhrigu_bindu" {% if 'bhrigu_bindu' in form.engines %}checked{% endif %} /> bhrigu bindu</label>
+      <label><input type="checkbox" name="engines" value="nakshatra_chakra" {% if 'nakshatra_chakra' in form.engines %}checked{% endif %} /> nakshatra chakras</label>
+      <label><input type="checkbox" name="engines" value="classification" {% if 'classification' in form.engines %}checked{% endif %} /> classification</label>
+      <label><input type="checkbox" name="engines" value="prashna" {% if 'prashna' in form.engines %}checked{% endif %} /> prashna</label>
+      <label><input type="checkbox" name="engines" value="compatibility" {% if 'compatibility' in form.engines %}checked{% endif %} /> compatibility</label>
+      <label><input type="checkbox" name="engines" value="numerology" {% if 'numerology' in form.engines %}checked{% endif %} /> numerology</label>
+      <label><input type="checkbox" name="engines" value="systems_approach" {% if 'systems_approach' in form.engines %}checked{% endif %} /> systems approach</label>
+      <label><input type="checkbox" name="engines" value="shadbala" {% if 'shadbala' in form.engines %}checked{% endif %} /> shadbala</label>
+      <label><input type="checkbox" name="engines" value="bhava_bala" {% if 'bhava_bala' in form.engines %}checked{% endif %} /> bhava bala</label>
+      <label><input type="checkbox" name="engines" value="vimshopaka" {% if 'vimshopaka' in form.engines %}checked{% endif %} /> vimshopaka</label>
+      <label><input type="checkbox" name="engines" value="lal_kitab" {% if 'lal_kitab' in form.engines %}checked{% endif %} /> lal kitab</label>
+      <label><input type="checkbox" name="engines" value="rectification" {% if 'rectification' in form.engines %}checked{% endif %} /> rectification</label>
+      <label><input type="checkbox" name="engines" value="yogini" {% if 'yogini' in form.engines %}checked{% endif %} /> yogini dasha</label>
+      <label><input type="checkbox" name="engines" value="transit" {% if 'transit' in form.engines %}checked{% endif %} /> transit vs natal</label>
+      <label><input type="checkbox" name="engines" value="orchestration" {% if 'orchestration' in form.engines %}checked{% endif %} /> orchestration</label>
+    </div>
+    <label>Jaimini Chara Karaka scheme (VARIANT-001)
+      <select name="jaimini_chara_scheme">
+        <option value="seven" {% if form.jaimini_chara_scheme == 'seven' %}selected{% endif %}>seven</option>
+        <option value="eight" {% if form.jaimini_chara_scheme == 'eight' %}selected{% endif %}>eight</option>
+      </select>
+    </label>
+    <label>Annual target year (Tajika / Lal Kitab varshphal)
+      <input name="target_year" value="{{ form.target_year }}" placeholder="2024" />
+    </label>
+    <label>Annual location rule (VARIANT-002)
+      <select name="annual_location_rule">
+        <option value="birth_place" {% if form.annual_location_rule == 'birth_place' %}selected{% endif %}>birth_place</option>
+        <option value="residence" {% if form.annual_location_rule == 'residence' %}selected{% endif %}>residence</option>
+        <option value="event_location" {% if form.annual_location_rule == 'event_location' %}selected{% endif %}>event_location</option>
+      </select>
+    </label>
+    <label>Prashna question (optional)
+      <input name="question_text" value="{{ form.question_text }}" />
+    </label>
+    <label>Ashtamangala counts (manual only; comma-separated)
+      <input name="ashtamangala_counts" value="{{ form.ashtamangala_counts }}" placeholder="e.g. 3,5,2,7" />
+    </label>
+    <label>Partner date (compatibility)
+      <input name="partner_date" value="{{ form.partner_date }}" />
+    </label>
+    <label>Partner time
+      <input name="partner_time" value="{{ form.partner_time }}" />
+    </label>
+    <label>Partner UTC offset
+      <input name="partner_offset" value="{{ form.partner_offset }}" />
+    </label>
+    <label>Partner IANA timezone
+      <input name="partner_timezone_id" value="{{ form.partner_timezone_id }}" />
+    </label>
+    <label>Partner latitude
+      <input name="partner_latitude" value="{{ form.partner_latitude }}" />
+    </label>
+    <label>Partner longitude
+      <input name="partner_longitude" value="{{ form.partner_longitude }}" />
+    </label>
+    <label>Partner location label
+      <input name="partner_location_label" value="{{ form.partner_location_label }}" />
+    </label>
+    <label>Numerology name (optional; never fabricated)
+      <input name="numerology_name" value="{{ form.numerology_name }}" placeholder="Latin letters only" />
+    </label>
+    <label>Rectification events (manual; unscored) label|YYYY-MM-DD,…
+      <input name="rectification_events" value="{{ form.rectification_events }}" placeholder="Marriage|2015-06-01" />
+    </label>
+    <label>Rectification step minutes
+      <input name="rectification_step_minutes" value="{{ form.rectification_step_minutes }}" />
+    </label>
+    <label>Transit date (vs natal)
+      <input name="transit_date" value="{{ form.transit_date }}" />
+    </label>
+    <label>Transit time
+      <input name="transit_time" value="{{ form.transit_time }}" />
+    </label>
+    <label>Transit UTC offset
+      <input name="transit_offset" value="{{ form.transit_offset }}" />
+    </label>
+    <label>Transit IANA timezone
+      <input name="transit_timezone_id" value="{{ form.transit_timezone_id }}" />
+    </label>
+    <label>Transit latitude (blank = natal)
+      <input name="transit_latitude" value="{{ form.transit_latitude }}" />
+    </label>
+    <label>Transit longitude (blank = natal)
+      <input name="transit_longitude" value="{{ form.transit_longitude }}" />
+    </label>
+    <label>Transit location label
+      <input name="transit_location_label" value="{{ form.transit_location_label }}" />
+    </label>
+    <button type="submit">Run verification</button>
+  </form>
+
+  {% if report %}
+  <hr />
+  <h2>Summary</h2>
+  <p class="meta">
+    Generated: {{ report.generated_at_utc }} |
+    Sections: {{ report.summary.sections_present | join(', ') }} |
+    Errors: {{ report.summary.error_count }}
+    {% if report.summary.calc_library_version %} | Calc: {{ report.summary.calc_library_version }}{% endif %}
+  </p>
+  <p>
+    <a href="/export.json" target="_blank">Export JSON report</a>
+    (re-run uses last result stored in session memory for this process)
+  </p>
+
+  {% if report.errors %}
+  <h3 class="err">Errors</h3>
+  <ul>
+    {% for e in report.errors %}
+    <li class="err">{{ e.section }}: {{ e.error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if report.summary.ascendant %}
+  <h3>Ascendant</h3>
+  <p>
+    {{ report.summary.ascendant.sign }}
+    {{ '%.4f'|format(report.summary.ascendant.longitude) }}°
+    / {{ report.summary.ascendant.nakshatra }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.timezone_source %}
+  <h3>Timezone</h3>
+  <p>
+    Source: {{ report.summary.timezone_source }}
+    {% if report.summary.timezone_id %}| IANA: {{ report.summary.timezone_id }}{% endif %}
+    | Offset min: {{ report.summary.resolved_offset_minutes }}
+    | DST: {{ report.summary.is_dst }}
+    | Ambiguous: {{ report.summary.ambiguous_local_time }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.planets %}
+  <h3>Planets</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Planet</th><th>Lon</th><th>Sign</th><th>Nakshatra</th><th>Rasi house</th><th>Dignity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in report.summary.planets %}
+      <tr>
+        <td>{{ p.planet }}</td>
+        <td>{{ '%.4f'|format(p.longitude) }}</td>
+        <td>{{ p.sign }}</td>
+        <td>{{ p.nakshatra }}</td>
+        <td>{{ p.rasi_house }}</td>
+        <td>{{ p.dignity }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% if report.summary.graha_aspect_count is defined %}
+  <h3>Relationships</h3>
+  <p>
+    Graha aspects: {{ report.summary.graha_aspect_count }} |
+    Conjunction groups: {{ report.summary.conjunction_count }} |
+    Graph edges: {{ report.summary.relationship_edge_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.parashara_rules %}
+  <h3>Parashara rules</h3>
+  <table>
+    <thead>
+      <tr><th>Rule</th><th>Outcome</th><th>Version</th><th>Active</th><th>Sources</th></tr>
+    </thead>
+    <tbody>
+      {% for r in report.summary.parashara_rules %}
+      <tr>
+        <td>{{ r.rule_id }} — {{ r.name }}</td>
+        <td>{{ r.outcome }}</td>
+        <td>{{ r.version }}</td>
+        <td>{{ r.activation_active }}</td>
+        <td>{{ r.source_ids | join(', ') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% if report.summary.sav_total_bindus is defined and report.summary.sav_total_bindus is not none %}
+  <h3>Ashtakavarga</h3>
+  <p>
+    SAV total bindus: {{ report.summary.sav_total_bindus }}
+    {% if report.summary.sav_reduced_total is defined %}
+    | SAV reduced total: {{ report.summary.sav_reduced_total }}
+    {% endif %}
+    {% if report.summary.sav_sodhya_pinda is defined %}
+    | SAV Sodhya Pinda: {{ report.summary.sav_sodhya_pinda }}
+    {% endif %}
+    {% if report.summary.prastara_sun_ok is defined %}
+    | Prastara Sun OK: {{ report.summary.prastara_sun_ok }}
+    {% endif %}
+    {% if report.summary.sun_kakshya_lord_bindu is defined %}
+    | Sun kakshya bindu: {{ report.summary.sun_kakshya_lord_bindu }}
+    {% endif %}
+  </p>
+  {% endif %}
+
+  {% if report.summary.kp_sun_lords %}
+  <h3>KP</h3>
+  <p>
+    Config isolation: {{ report.summary.kp_config_isolation }} |
+    Sun star/sub/sub-sub:
+    {{ report.summary.kp_sun_lords.star }} /
+    {{ report.summary.kp_sun_lords.sub }} /
+    {{ report.summary.kp_sun_lords.sub_sub }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.jaimini_atmakaraka %}
+  <h3>Jaimini</h3>
+  <p>
+    Engine: {{ report.summary.jaimini_engine }} |
+    Scheme: {{ report.summary.jaimini_chara_scheme }} |
+    Atmakaraka: {{ report.summary.jaimini_atmakaraka }} |
+    Arudha Lagna: {{ report.summary.jaimini_arudha_lagna }} |
+    Karakamsa: {{ report.summary.jaimini_karakamsa }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.nadi_engine %}
+  <h3>Nakshatra Nadi</h3>
+  <p>
+    Engine: {{ report.summary.nadi_engine }} |
+    Corpus: {{ report.summary.nadi_corpus_status }} |
+    Planet-in-star rows: {{ report.summary.nadi_planet_in_star_count }} |
+    Chains blocked: {{ report.summary.nadi_chains_blocked }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.panchanga_tithi %}
+  <h3>Panchanga</h3>
+  <p>
+    Tithi: {{ report.summary.panchanga_tithi }} |
+    Vara: {{ report.summary.panchanga_vara }} |
+    Nakshatra: {{ report.summary.panchanga_nakshatra }} |
+    Yoga: {{ report.summary.panchanga_yoga }} |
+    Karana: {{ report.summary.panchanga_karana }}
+  </p>
+  {% if report.summary.muhurta_hora_lord is defined %}
+  <p>
+    Rahu Kala active: {{ report.summary.muhurta_rahu_kala_active }} |
+    Hora lord: {{ report.summary.muhurta_hora_lord }} |
+    Chaughadiya: {{ report.summary.muhurta_chaughadiya }}
+  </p>
+  {% endif %}
+  {% if report.summary.bala_moon_tara is defined %}
+  <p>
+    Moon Tara: {{ report.summary.bala_moon_tara }} |
+    Moon Chandra Bala from Lagna: {{ report.summary.bala_moon_from_lagna }}
+  </p>
+  {% endif %}
+  {% endif %}
+
+  {% if report.summary.muhurta_events_engine %}
+  <h3>Muhurta Events</h3>
+  <p>
+    Engine: {{ report.summary.muhurta_events_engine }} |
+    Good: {{ report.summary.muhurta_events_good | join(', ') }} |
+    Mixed: {{ report.summary.muhurta_events_mixed | join(', ') }} |
+    Avoid: {{ report.summary.muhurta_events_avoid | join(', ') }} |
+    Count: {{ report.summary.muhurta_events_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.panchaka_engine %}
+  <h3>Panchaka / Bhadra</h3>
+  <p>
+    Engine: {{ report.summary.panchaka_engine }} |
+    Moon Panchak: {{ report.summary.panchaka_moon_active }}
+    {% if report.summary.panchaka_moon_segment %}({{ report.summary.panchaka_moon_segment }}){% endif %} |
+    Rahita: {{ report.summary.panchaka_rahita }} |
+    Label: {{ report.summary.panchaka_label }} |
+    Bhadra: {{ report.summary.panchaka_bhadra_active }} |
+    Caution flags: {{ report.summary.panchaka_caution_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.panchapakshi_engine %}
+  <h3>Panchapakshi</h3>
+  <p>
+    Engine: {{ report.summary.panchapakshi_engine }} |
+    Bird: {{ report.summary.panchapakshi_bird }} ({{ report.summary.panchapakshi_element }}) |
+    Paksha: {{ report.summary.panchapakshi_paksha }} |
+    Weekday: {{ report.summary.panchapakshi_weekday }} |
+    Yama: {{ report.summary.panchapakshi_yama }} |
+    Activity: {{ report.summary.panchapakshi_activity }} |
+    Class: {{ report.summary.panchapakshi_activity_class }} |
+    Schedule: {{ report.summary.panchapakshi_schedule_count }} |
+    Dark deferred: {{ report.summary.panchapakshi_dark_deferred }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.tajika_engine %}
+  <h3>Tajika / Annual</h3>
+  <p>
+    Engine: {{ report.summary.tajika_engine }} |
+    Target year: {{ report.summary.tajika_target_year }} |
+    Muntha: {{ report.summary.tajika_muntha_sign }} |
+    Year-lord candidate: {{ report.summary.tajika_year_lord_candidate }} |
+    Location rule: {{ report.summary.tajika_location_rule }} |
+    Sun error °: {{ report.summary.tajika_sun_error_deg }}
+    {% if report.summary.tajika_tithi_pravesh_label %}
+    | Tithi Pravesh: {{ report.summary.tajika_tithi_pravesh_label }}
+    (err °: {{ report.summary.tajika_tithi_pravesh_error_deg }})
+    {% endif %}
+    {% if report.summary.tajika_saham_count is defined %}
+    | Sahams: {{ report.summary.tajika_saham_count }}
+    | Aspects: {{ report.summary.tajika_aspect_count }}
+    | Ithasala candidates: {{ report.summary.tajika_ithasala_count }}
+    {% endif %}
+  </p>
+  {% endif %}
+
+  {% if report.summary.sudarshana_engine %}
+  <h3>Sudarshana Chakra</h3>
+  <p>
+    Engine: {{ report.summary.sudarshana_engine }} |
+    Lagna: {{ report.summary.sudarshana_lagna }} |
+    Chandra: {{ report.summary.sudarshana_chandra }} |
+    Surya: {{ report.summary.sudarshana_surya }} |
+    Planets: {{ report.summary.sudarshana_planet_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.bhrigu_bindu_engine %}
+  <h3>Bhrigu Bindu</h3>
+  <p>
+    Engine: {{ report.summary.bhrigu_bindu_engine }} |
+    Sign: {{ report.summary.bhrigu_bindu_sign }} |
+    Lon: {{ '%.4f'|format(report.summary.bhrigu_bindu_longitude) }}° |
+    Nakshatra: {{ report.summary.bhrigu_bindu_nakshatra }} |
+    House: {{ report.summary.bhrigu_bindu_house }} |
+    Natal hits: {{ report.summary.bhrigu_bindu_natal_hit_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.nakshatra_chakra_engine %}
+  <h3>Nakshatra Chakras</h3>
+  <p>
+    Engine: {{ report.summary.nakshatra_chakra_engine }} |
+    Tara spokes: {{ report.summary.tara_chakra_spoke_count }} |
+    Moon Tara: {{ report.summary.tara_chakra_moon_tara }} |
+    Kota slots: {{ report.summary.kota_chakra_slot_count }} |
+    SBC rim: {{ report.summary.sarvatobhadra_rim_count }} |
+    Vedha: {{ report.summary.sarvatobhadra_vedha_status }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.classification_engine %}
+  <h3>Classification</h3>
+  <p>
+    Engine: {{ report.summary.classification_engine }} |
+    Gandanta hits: {{ report.summary.gandanta_hit_count }} |
+    Chandra Kriya: {{ report.summary.chandra_kriya }} (#{{ report.summary.chandra_kriya_index }}) |
+    Chandra Vela #: {{ report.summary.chandra_vela_index }} |
+    Moon Baladi: {{ report.summary.moon_baladi_avastha }} |
+    Lagna Gandanta: {{ report.summary.lagna_gandanta }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.prashna_engine %}
+  <h3>Prashna</h3>
+  <p>
+    Engine: {{ report.summary.prashna_engine }} |
+    Lagna: {{ report.summary.prashna_lagna_sign }} |
+    Trisphuta: {{ report.summary.prashna_trisphuta_sign }} |
+    Chatusphuta: {{ report.summary.prashna_chatusphuta_sign }} |
+    Arudha: {{ report.summary.prashna_arudha_sign }} |
+    Ashtamangala: {{ report.summary.ashtamangala_status }}
+    (provided={{ report.summary.ashtamangala_provided }})
+  </p>
+  {% endif %}
+
+  {% if report.summary.compatibility_engine %}
+  <h3>Compatibility (Ashtakoota)</h3>
+  <p>
+    Engine: {{ report.summary.compatibility_engine }} |
+    Score: {{ report.summary.ashtakoota_total }} / {{ report.summary.ashtakoota_max }}
+    ({{ report.summary.ashtakoota_percentage }}%) |
+    Boy Moon: {{ report.summary.ashtakoota_boy_nakshatra }} |
+    Girl Moon: {{ report.summary.ashtakoota_girl_nakshatra }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.numerology_engine %}
+  <h3>Numerology</h3>
+  <p>
+    Engine: {{ report.summary.numerology_engine }} |
+    Birth: {{ report.summary.numerology_birth }} ({{ report.summary.numerology_birth_planet }}) |
+    Destiny: {{ report.summary.numerology_destiny }} ({{ report.summary.numerology_destiny_planet }}) |
+    Aligned: {{ report.summary.numerology_birth_destiny_aligned }}
+    {% if report.summary.numerology_name_provided %}
+    | Name: {{ report.summary.numerology_name }} ({{ report.summary.numerology_name_planet }})
+    {% endif %}
+  </p>
+  {% endif %}
+
+  {% if report.summary.systems_approach_engine %}
+  <h3>Systems Approach</h3>
+  <p>
+    Engine: {{ report.summary.systems_approach_engine }} |
+    Lagna: {{ report.summary.systems_approach_lagna }} |
+    FM: {{ report.summary.systems_approach_fm_count }} |
+    FB: {{ report.summary.systems_approach_fb_count }} |
+    Weak flags: {{ report.summary.systems_approach_weak_count }} |
+    FM close pairs: {{ report.summary.systems_approach_fm_close_pairs }} |
+    Malefics: {{ report.summary.systems_approach_functional_malefics | join(', ') }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.shadbala_engine %}
+  <h3>Shadbala (partial)</h3>
+  <p>
+    Engine: {{ report.summary.shadbala_engine }} |
+    Planets: {{ report.summary.shadbala_planet_count }} |
+    Strongest partial: {{ report.summary.shadbala_strongest }}
+    ({{ report.summary.shadbala_strongest_virupa }} virupa) |
+    Weakest partial: {{ report.summary.shadbala_weakest }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.bhava_bala_engine %}
+  <h3>Bhava Bala (partial)</h3>
+  <p>
+    Engine: {{ report.summary.bhava_bala_engine }} |
+    Lagna class: {{ report.summary.bhava_bala_lagna_class }} |
+    Houses: {{ report.summary.bhava_bala_house_count }} |
+    Strongest house: {{ report.summary.bhava_bala_strongest_house }}
+    ({{ report.summary.bhava_bala_strongest_virupa }} virupa) |
+    Weakest house: {{ report.summary.bhava_bala_weakest_house }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.vimshopaka_engine %}
+  <h3>Vimshopaka (Shodashavarga)</h3>
+  <p>
+    Engine: {{ report.summary.vimshopaka_engine }} |
+    Planets: {{ report.summary.vimshopaka_planet_count }} |
+    Strongest: {{ report.summary.vimshopaka_strongest }}
+    ({{ report.summary.vimshopaka_strongest_score }}) |
+    Weakest: {{ report.summary.vimshopaka_weakest }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.lal_kitab_engine %}
+  <h3>Lal Kitab (restricted)</h3>
+  <p>
+    Engine: {{ report.summary.lal_kitab_engine }} |
+    Safety: {{ report.summary.lal_kitab_safety_level }} |
+    Yuti: {{ report.summary.lal_kitab_yuti_count }} |
+    Axis yuti: {{ report.summary.lal_kitab_axis_yuti_count }} |
+    Aspects: {{ report.summary.lal_kitab_aspect_edges }} |
+    In Pakka Ghar: {{ report.summary.lal_kitab_pakka_count }} |
+    House diffs vs Parashara: {{ report.summary.lal_kitab_house_diff_count }} |
+    Varshphal: {{ report.summary.lal_kitab_varshphal }}
+    {% if report.summary.lal_kitab_varshphal %}
+    (age {{ report.summary.lal_kitab_varshphal_age }})
+    {% endif %} |
+    Remedies: {{ report.summary.lal_kitab_remedies_emitted }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.rectification_engine %}
+  <h3>Rectification (restricted)</h3>
+  <p>
+    Engine: {{ report.summary.rectification_engine }} |
+    Safety: {{ report.summary.rectification_safety_level }} |
+    Window: ±{{ report.summary.rectification_window_minutes }}m /
+    step {{ report.summary.rectification_step_minutes }}m |
+    Samples: {{ report.summary.rectification_sample_count }} |
+    Transitions: {{ report.summary.rectification_transition_count }} |
+    Baseline lagna: {{ report.summary.rectification_baseline_lagna }} |
+    Kunda: {{ report.summary.rectification_baseline_kunda }} |
+    Lagna flips: {{ report.summary.rectification_lagna_flips }} |
+    D9 flips: {{ report.summary.rectification_d9_flips }} |
+    D60 flips: {{ report.summary.rectification_d60_flips }} |
+    Winner: {{ report.summary.rectification_winner_selected }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.yogini_engine %}
+  <h3>Yogini Dasha</h3>
+  <p>
+    Engine: {{ report.summary.yogini_engine }} |
+    Yogini: {{ report.summary.yogini_name }} |
+    Lord: {{ report.summary.yogini_lord }} |
+    Balance years: {{ report.summary.yogini_balance_years }} |
+    Nakshatra: {{ report.summary.yogini_nakshatra }} |
+    Maha: {{ report.summary.yogini_maha_count }} |
+    Antar: {{ report.summary.yogini_antar_count }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.transit_engine %}
+  <h3>Transit vs Natal</h3>
+  <p>
+    Engine: {{ report.summary.transit_engine }} |
+    Placements: {{ report.summary.transit_placement_count }} |
+    Conjunctions: {{ report.summary.transit_conjunction_count }} |
+    Aspects: {{ report.summary.transit_aspect_count }} |
+    Same sign as natal: {{ report.summary.transit_same_sign_count }} |
+    Natal Lagna: {{ report.summary.transit_natal_lagna }} |
+    Transit DT: {{ report.summary.transit_local_datetime }}
+  </p>
+  {% endif %}
+
+  {% if report.summary.orchestration_engine %}
+  <h3>Orchestration</h3>
+  <p>
+    Engine: {{ report.summary.orchestration_engine }} |
+    Evidence: {{ report.summary.orchestration_evidence_count }} |
+    Schools: {{ report.summary.orchestration_school_count }} |
+    Conflicts: {{ report.summary.orchestration_conflict_count }} |
+    Candidates: {{ report.summary.orchestration_candidate_count }} |
+    Blended: {{ report.summary.orchestration_blended }} |
+    Restricted: {{ report.summary.orchestration_restricted_count }} |
+    Blocked: {{ report.summary.orchestration_blocked_count }}
+  </p>
+  {% endif %}
+
+  <h3>Raw report JSON</h3>
+  <pre>{{ report_json }}</pre>
+  {% endif %}
+</body>
+</html>
